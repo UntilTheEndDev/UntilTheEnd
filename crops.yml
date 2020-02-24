@@ -1,0 +1,43 @@
+CROPS:
+  seasons:
+  - SUMMER
+  - SPRING
+  percents:
+  - 0.3
+  - 0.2
+MELON_ITEM:
+  seasons:
+  - SUMMER
+  percents:
+  - 0.2
+PUMPKIN_ITEM:
+  seasons:
+  - AUTUMN
+  percents:
+  - 0.2
+SUGAR_CANE:
+  seasons:
+  - WINTER
+  percents:
+  - 0.2
+POTATO:
+  seasons:
+  - SUMMER
+  - AUTUMN
+  percents:
+  - 0.3
+  - 0.2
+CARROT:
+  seasons:
+  - AUTUMN
+  - WINTER
+  percents:
+  - 0.3
+  - 0.2
+COCOA:
+  seasons:
+  - SPRING
+  - AUTUMN
+  percents:
+  - 0.4
+  - 0.2
