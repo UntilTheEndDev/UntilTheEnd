@@ -44,8 +44,8 @@ public class HealingSalve implements Listener{
 		inv.setItem(14,SpiderGland.item);
 		inv.setItem(15,Brick.item);
 		inv.setItem(16,item7);
-		UntilTheEndApi.GuideApi.addItemCraftInv("§6治疗药膏",inv);
-		CraftGuide.addItem("§6生存",item);
+		UntilTheEndApi.GuideApi.addCraftToItem(item,inv);
+		UntilTheEndApi.GuideApi.addItemToCategory("§6生存",item);
 	}
 	
 	@EventHandler public void onCraft(CraftItemEvent event) {

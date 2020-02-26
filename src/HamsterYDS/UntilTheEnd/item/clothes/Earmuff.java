@@ -40,8 +40,8 @@ public class Earmuff implements Listener{
 		inv.setItem(14,Rope.item);
 		inv.setItem(15,item4);
 		inv.setItem(16,Rope.item);
-		UntilTheEndApi.GuideApi.addItemCraftInv("§6兔毛耳罩",inv);
-		CraftGuide.addItem("§6衣物",item);
+		UntilTheEndApi.GuideApi.addCraftToItem(item,inv);
+		UntilTheEndApi.GuideApi.addItemToCategory("§6衣物",item);
 	}
 	@EventHandler public void onCraft(CraftItemEvent event) {
 		ItemStack item=event.getRecipe().getResult();

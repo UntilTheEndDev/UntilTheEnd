@@ -5,6 +5,7 @@ import java.util.List;
 
 import org.bukkit.Bukkit;
 import org.bukkit.Material;
+import org.bukkit.World;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.PlayerInventory;
@@ -100,9 +101,8 @@ public class RottenFood1 extends BukkitRunnable{
 	}
 	@Override
 	public void run() {
-		for(Player player:Bukkit.getOnlinePlayers()) {
-			if(Config.disableWorlds.contains(player.getWorld().getName())) continue;
+		for(World world:Config.enableWorlds)
+			for(Player player:Bukkit.getOnlinePlayers()) 
 				goBad(player);
-		}
 	}
 }

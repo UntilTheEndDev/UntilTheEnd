@@ -43,8 +43,8 @@ public class Refridgerator implements Listener{
 		ItemStack item2=Gear.item.clone();
 		item2.setAmount(2);
 		inv.setItem(16,item2);
-		UntilTheEndApi.GuideApi.addItemCraftInv("§6冰箱",inv);
-		CraftGuide.addItem("§6科学",item);
+		UntilTheEndApi.GuideApi.addCraftToItem(item,inv);
+		UntilTheEndApi.GuideApi.addItemToCategory("§6科学",item);
 		
 		ItemLoader.canPlace.put("§6冰箱","Refridgerator");
 	}

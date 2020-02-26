@@ -2,7 +2,6 @@ package HamsterYDS.UntilTheEnd.world;
 
 import java.util.HashMap;
 
-import org.bukkit.Bukkit;
 import org.bukkit.World;
 import org.bukkit.entity.Player;
 import org.bukkit.event.Listener;
@@ -37,8 +36,7 @@ public class Influence extends BukkitRunnable implements Listener{
 	}
 	@Override
 	public void run() {
-		for(World world:Bukkit.getWorlds()) {
-			if(Config.disableWorlds.contains(world.getName())) continue;
+		for(World world:Config.enableWorlds) {
 			for(Player player:world.getPlayers()) {
 				if((player.getLocation().getBlock().getLightFromBlocks()==0&&
 						player.getWorld().getTime()<=WorldTime.down&&

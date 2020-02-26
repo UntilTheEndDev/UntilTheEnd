@@ -32,8 +32,8 @@ public class PurpleGum implements Listener{
 		inv.setItem(11,item);
 		inv.setItem(15,BlueGum.item.clone());
 		inv.setItem(16,RedGum.item.clone());
-		UntilTheEndApi.GuideApi.addItemCraftInv("§6紫宝石",inv);
-		CraftGuide.addItem("§6基础",item); 
+		UntilTheEndApi.GuideApi.addCraftToItem(item,inv);
+		UntilTheEndApi.GuideApi.addItemToCategory("§6基础",item);
 	}
 	@EventHandler public void onCraft(CraftItemEvent event) {
 		ItemStack item=event.getRecipe().getResult();

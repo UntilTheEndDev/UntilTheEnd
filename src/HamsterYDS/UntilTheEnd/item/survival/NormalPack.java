@@ -40,8 +40,8 @@ public class NormalPack implements Listener{
 		inv.setItem(14,item4);
 		inv.setItem(15,new ItemStack(Material.CHEST));
 		inv.setItem(16,new ItemStack(Material.LOG,4));
-		UntilTheEndApi.GuideApi.addItemCraftInv("§6背包",inv);
-		CraftGuide.addItem("§6生存",item);
+		UntilTheEndApi.GuideApi.addCraftToItem(item,inv);
+		UntilTheEndApi.GuideApi.addItemToCategory("§6生存",item);
 	}
 	
 	@EventHandler public void onCraft(CraftItemEvent event) {

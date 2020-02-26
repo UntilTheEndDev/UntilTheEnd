@@ -36,8 +36,8 @@ public class Hail implements Listener{
 		Inventory inv=CraftGuide.getCraftInventory();
 		inv.setItem(11,item);
 		inv.setItem(15,new ItemStack(Material.PACKED_ICE,1));
-		UntilTheEndApi.GuideApi.addItemCraftInv("§6冰雹",inv);
-		CraftGuide.addItem("§6基础",item);
+		UntilTheEndApi.GuideApi.addCraftToItem(item,inv);
+		UntilTheEndApi.GuideApi.addItemToCategory("§6基础",item);
 	}
 	@EventHandler public void onRight(PlayerInteractEvent event) {
 		Player player=event.getPlayer();

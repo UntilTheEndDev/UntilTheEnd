@@ -44,8 +44,8 @@ public class ACDDrug implements Listener{
 		inv.setItem(14,item4_1);
 		inv.setItem(15,new ItemStack(Material.BOWL));
 		inv.setItem(16,item4_2);
-		UntilTheEndApi.GuideApi.addItemCraftInv("§6ACD试验药",inv);
-		CraftGuide.addItem("§6生存",item);
+		UntilTheEndApi.GuideApi.addCraftToItem(item,inv);
+		UntilTheEndApi.GuideApi.addItemToCategory("§6生存",item);
 	}
 	
 	@EventHandler public void onCraft(CraftItemEvent event) {

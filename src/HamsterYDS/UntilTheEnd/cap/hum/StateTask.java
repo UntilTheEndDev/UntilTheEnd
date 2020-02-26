@@ -1,6 +1,5 @@
 package HamsterYDS.UntilTheEnd.cap.hum;
 
-import org.bukkit.Bukkit;
 import org.bukkit.Location;
 import org.bukkit.Material;
 import org.bukkit.World;
@@ -23,9 +22,8 @@ public class StateTask extends BukkitRunnable{
 	}
 	@Override
 	public void run() {
-		for(Player player:Bukkit.getOnlinePlayers()) {
-			if(Config.disableWorlds.contains(player.getWorld().getName())) continue;
-			World world=player.getWorld();
+		for(World world:Config.enableWorlds)
+		for(Player player:world.getPlayers()) {
 			Location loc=player.getLocation();
 			if(world.getBlockAt(loc).getType().equals(Material.WATER)||world.getBlockAt(loc).getType().equals(Material.STATIONARY_WATER)) 
 				PlayerManager.change(player.getName(),"hum",1);

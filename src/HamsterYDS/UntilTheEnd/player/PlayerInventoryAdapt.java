@@ -14,7 +14,6 @@ import org.bukkit.inventory.PlayerInventory;
 import org.bukkit.inventory.meta.ItemMeta;
 import org.bukkit.scheduler.BukkitRunnable;
 
-import HamsterYDS.UntilTheEnd.Config;
 import HamsterYDS.UntilTheEnd.UntilTheEnd;
 
 /**
@@ -69,7 +68,7 @@ public class PlayerInventoryAdapt extends BukkitRunnable implements Listener{
 	@Override
 	public void run() {
 		for(Player player:Bukkit.getOnlinePlayers()) {
-			if(Config.disableWorlds.contains(player.getWorld().getName())) continue;
+//			if(Config.disableWorlds.contains(player.getWorld().getName())) continue;
 			PlayerInventory inv=player.getInventory();
 //			if(player.hasPermission("ute.inventory.admin")) continue;
 			int bag=getBag(inv.getChestplate());

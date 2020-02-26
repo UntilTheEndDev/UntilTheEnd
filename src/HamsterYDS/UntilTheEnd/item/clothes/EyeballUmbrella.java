@@ -48,8 +48,8 @@ public class EyeballUmbrella implements Listener{
 		inv.setItem(14,item4_1);
 		inv.setItem(15,Garland.item);
 		inv.setItem(16,item4_2);
-		UntilTheEndApi.GuideApi.addItemCraftInv("§6眼球伞",inv);
-		CraftGuide.addItem("§6衣物",item);
+		UntilTheEndApi.GuideApi.addCraftToItem(item,inv);
+		UntilTheEndApi.GuideApi.addItemToCategory("§6衣物",item);
 	}
 	
 	@EventHandler public void onCraft(CraftItemEvent event) {

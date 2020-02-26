@@ -1,5 +1,9 @@
 package HamsterYDS.UntilTheEnd.cap.tem;
 
+import java.io.File;
+
+import org.bukkit.configuration.file.YamlConfiguration;
+
 import HamsterYDS.UntilTheEnd.UntilTheEnd;
 
 /**
@@ -7,15 +11,16 @@ import HamsterYDS.UntilTheEnd.UntilTheEnd;
  * @version V5.1.1
  */
 public class Temperature {
-	public static UntilTheEnd plugin;
+	public static UntilTheEnd plugin; 
+	public static YamlConfiguration yaml;
 	public Temperature(UntilTheEnd plugin) {
 		this.plugin=plugin;
-		new NaturalTemperature();
-		if(plugin.getConfig().getBoolean("tem.influence.natural"))
-			new NaturalTask(plugin);
-		if(plugin.getConfig().getBoolean("tem.influence.hum"))
-			new HumidityTask(plugin);
-		new BlockTemperature(plugin);
-		new Influence(plugin);
+		File file=new File(plugin.getDataFolder(),"temperature.yml");
+		if(!file.exists()) plugin.saveResource("temperature.yml",true);
+		yaml=YamlConfiguration.loadConfiguration(file);
+		System.out.println("[UntilTheEnd]正在加载温度计算模块......");
+		new TemperatureProvider(plugin);
+		new ChangeTasks(plugin);
+		new InfluenceTasks(plugin);
 	}
 }

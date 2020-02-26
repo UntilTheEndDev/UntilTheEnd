@@ -44,8 +44,8 @@ public class Reviver implements Listener{
 		
 		inv.setItem(14,item3);
 		inv.setItem(15,item3_2);
-		UntilTheEndApi.GuideApi.addItemCraftInv("§6救赎之心",inv);
-		CraftGuide.addItem("§6生存",item);
+		UntilTheEndApi.GuideApi.addCraftToItem(item,inv);
+		UntilTheEndApi.GuideApi.addItemToCategory("§6生存",item);
 	}
 	
 	@EventHandler public void onCraft(CraftItemEvent event) {

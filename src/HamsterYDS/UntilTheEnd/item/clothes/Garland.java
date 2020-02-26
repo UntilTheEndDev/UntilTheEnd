@@ -34,7 +34,7 @@ public class Garland implements Listener{
 		inv.setItem(14,new ItemStack(Material.YELLOW_FLOWER,4));
 		inv.setItem(15,new ItemStack(Material.CHORUS_FLOWER));
 		inv.setItem(16,new ItemStack(Material.YELLOW_FLOWER,4));
-		UntilTheEndApi.GuideApi.addItemCraftInv("§6花环",inv);
-		CraftGuide.addItem("§6衣物",item);
+		UntilTheEndApi.GuideApi.addCraftToItem(item,inv);
+		UntilTheEndApi.GuideApi.addItemToCategory("§6衣物",item);
 	}
 }

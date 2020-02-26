@@ -46,8 +46,8 @@ public class IceFlingomatic implements Listener{
 		item3.setAmount(3);
 		inv.setItem(15,item3);
 		inv.setItem(16,new ItemStack(Material.ICE,2));
-		UntilTheEndApi.GuideApi.addItemCraftInv("§6雪球发射机",inv);
-		CraftGuide.addItem("§6科学",item);
+		UntilTheEndApi.GuideApi.addCraftToItem(item,inv);
+		UntilTheEndApi.GuideApi.addItemToCategory("§6科学",item);
 		
 		ItemLoader.canPlace.put("§6雪球发射机","IceFlingomatic");
 	}

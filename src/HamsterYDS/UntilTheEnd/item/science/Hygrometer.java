@@ -24,7 +24,7 @@ import com.gmail.filoghost.holographicdisplays.api.HologramsAPI;
 import HamsterYDS.UntilTheEnd.api.UntilTheEndApi;
 import HamsterYDS.UntilTheEnd.api.UntilTheEndApi.BlockApi;
 import HamsterYDS.UntilTheEnd.cap.hum.Humidity;
-import HamsterYDS.UntilTheEnd.cap.tem.BlockTemperature;
+import HamsterYDS.UntilTheEnd.cap.tem.TemperatureProvider;
 import HamsterYDS.UntilTheEnd.guide.CraftGuide;
 import HamsterYDS.UntilTheEnd.item.ItemLoader;
 import HamsterYDS.UntilTheEnd.item.ItemProvider;
@@ -55,8 +55,8 @@ public class Hygrometer implements Listener{
 		item3.setAmount(3);
 		inv.setItem(15,item3);
 		inv.setItem(16,new ItemStack(Material.EMERALD,2));
-		CraftGuide.helps.put("§6湿度计",inv);
-		CraftGuide.addItem("§6科学",item);
+		UntilTheEndApi.GuideApi.addCraftToItem(item,inv);
+		UntilTheEndApi.GuideApi.addItemToCategory("§6科学",item);
 		
 		ItemLoader.canPlace.put("§6湿度计","Hygrometer");
 		
@@ -84,7 +84,7 @@ public class Hygrometer implements Listener{
 		if(UntilTheEndApi.BlockApi.getSpecialBlocks("Hygrometer").contains(toString)) {
 			if(clicked.contains(toString)) return;
 			clicked.add(toString);
-			int tem=BlockTemperature.getTemperature(loc);
+			int tem=TemperatureProvider.getBlockTemperature(loc);
 			String text="§e§l天气-§d§l"+(loc.getWorld().hasStorm()?"雨雪":"晴天");
 			String text2="§e§l目前该天气还有§d§l"+(loc.getWorld().getWeatherDuration()/20)+"§e§l秒";
 			final Hologram hologram=HologramsAPI.createHologram(ItemLoader.plugin,loc.add(0.5,2.2,0.5).clone());

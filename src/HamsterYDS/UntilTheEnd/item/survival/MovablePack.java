@@ -42,8 +42,8 @@ public class MovablePack implements Listener{
 		inv.setItem(14,item5);
 		inv.setItem(15,NormalPack.item);
 		inv.setItem(16,item3);
-		UntilTheEndApi.GuideApi.addItemCraftInv("§6便携包",inv);
-		CraftGuide.addItem("§6生存",item);
+		UntilTheEndApi.GuideApi.addCraftToItem(item,inv);
+		UntilTheEndApi.GuideApi.addItemToCategory("§6生存",item);
 	}
 	
 	@EventHandler public void onCraft1(CraftItemEvent event) {

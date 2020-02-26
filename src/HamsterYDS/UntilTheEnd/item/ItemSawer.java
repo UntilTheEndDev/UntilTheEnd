@@ -1,6 +1,5 @@
 package HamsterYDS.UntilTheEnd.item;
 
-import org.bukkit.Bukkit;
 import org.bukkit.Location;
 import org.bukkit.World;
 import org.bukkit.entity.Entity;
@@ -19,8 +18,7 @@ import HamsterYDS.UntilTheEnd.Config;
 public class ItemSawer extends BukkitRunnable{
 	@Override
 	public void run() {
-		for(World world:Bukkit.getWorlds()) {
-			if(Config.disableWorlds.contains(world.getName())) continue;
+		for(World world:Config.enableWorlds) {
 			for(Entity entity:world.getEntities()) {
 				if(!(entity instanceof Item)) continue;
 				if(!entity.isOnGround()) continue;

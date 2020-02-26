@@ -1,12 +1,27 @@
-BURNING_FURNACE: 65
-LAVA: 75
-STATIONARY_LAVA: 75
-FIRE: 75
-FROSTED_ICE: 0
-ICE: 0
-PACKED_ICE: 0
-NETHERRACK: 55
-SOUL_SAND: 65
-MAGMA: 75
-BEACON: 37
-ENDER_STONE: 0
+smoulderPercent: 0.05 #闷烧的几率(大于0小于1)
+smoulderSpeed: 20 #闷烧计算的数量(数值越小，闷烧出现越频繁)
+smoulderTimeout: 200 #闷烧开始后到方块开始着火的可熄灭时间
+smoulderCancellerFireTicks: 40 #踩灭闷烧的玩家将得到多久的燃烧效果
+coldTem: 10 #寒冷标准温度(低于这个温度判定为寒冷状态，开始扣血+缓慢)
+hotTem: 55 #炎热标准温度(地狱这个温度判定为炎热状态，开始扣血+闷烧)
+
+temperatureChangeSpeedStone: 1 #有暖石的玩家温度随暖石变化的速度(越小变化越快，反之变化越慢)
+temperatureChangeSpeedNatural: 5 #没有暖石的玩家温度随环境变化的速度(越小变化越快，反之变化越慢)
+stoneChangePercent: 0.1 #暖石温度随自然变化的速率(大于0小于1)
+humidityChangeSpeed: 150 #玩家温度随湿度的变化速度(数值越小，变化越快，反之变化越慢)
+
+blockTemperature: #方块的温度(没有设置的方块为环境温度)
+# 方块Material名字: 温度
+  BURNING_FURNACE: 65 
+  LAVA: 75
+  STATIONARY_LAVA: 75
+  FIRE: 75
+  FROSTED_ICE: 0
+  ICE: 0
+  PACKED_ICE: 0
+  NETHERRACK: 55
+  SOUL_SAND: 65
+  MAGMA: 75
+  BEACON: 37
+  ENDER_STONE: 0
+  #可以继续添加

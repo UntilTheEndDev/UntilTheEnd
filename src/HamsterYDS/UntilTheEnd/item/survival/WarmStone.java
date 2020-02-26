@@ -17,7 +17,7 @@ import org.bukkit.scheduler.BukkitRunnable;
 
 import HamsterYDS.UntilTheEnd.api.UntilTheEndApi;
 import HamsterYDS.UntilTheEnd.cap.hum.Humidity;
-import HamsterYDS.UntilTheEnd.cap.tem.BlockTemperature;
+import HamsterYDS.UntilTheEnd.cap.tem.TemperatureProvider;
 import HamsterYDS.UntilTheEnd.guide.CraftGuide;
 import HamsterYDS.UntilTheEnd.item.ItemLoader;
 import HamsterYDS.UntilTheEnd.item.ItemProvider;
@@ -49,8 +49,8 @@ public class WarmStone implements Listener{
 		inv.setItem(14,item4);
 		inv.setItem(15,item4_2);
 		inv.setItem(16,new ItemStack(Material.FURNACE));
-		UntilTheEndApi.GuideApi.addItemCraftInv("§6暖石",inv);
-		CraftGuide.addItem("§6生存",item);
+		UntilTheEndApi.GuideApi.addCraftToItem(item,inv);
+		UntilTheEndApi.GuideApi.addItemToCategory("§6生存",item);
 	}
 	
 	@EventHandler public void onCraft(CraftItemEvent event) {
@@ -85,7 +85,7 @@ public class WarmStone implements Listener{
 			new BukkitRunnable() {
 				@Override
 				public void run() {
-					lores.add("§8- §8§l温度 "+BlockTemperature.getTemperature(event.getItemDrop().getLocation()));
+					lores.add("§8- §8§l温度 "+TemperatureProvider.getBlockTemperature(event.getItemDrop().getLocation()));
 					meta.setLore(lores);
 					ritem.setItemMeta(meta);
 					event.getItemDrop().setItemStack(ritem);

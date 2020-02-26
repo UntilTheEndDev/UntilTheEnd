@@ -37,8 +37,8 @@ public class StrawHat implements Listener{
 		inv.setItem(14,Rope.item);
 		inv.setItem(15,new ItemStack(Material.LEAVES,6));
 		inv.setItem(16,Rope.item);
-		UntilTheEndApi.GuideApi.addItemCraftInv("§6草帽",inv);
-		CraftGuide.addItem("§6衣物",item);
+		UntilTheEndApi.GuideApi.addCraftToItem(item,inv);
+		UntilTheEndApi.GuideApi.addItemToCategory("§6衣物",item);
 	}
 	
 	@EventHandler public void onCraft(CraftItemEvent event) {

@@ -3,7 +3,6 @@ package HamsterYDS.UntilTheEnd.cap.hum;
 import java.util.ArrayList;
 import java.util.List;
 
-import org.bukkit.Bukkit;
 import org.bukkit.Material;
 import org.bukkit.World;
 import org.bukkit.entity.Entity;
@@ -12,13 +11,13 @@ import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.entity.EntityDamageByEntityEvent;
-import org.bukkit.event.entity.FoodLevelChangeEvent;
 import org.bukkit.event.entity.EntityDamageEvent.DamageCause;
+import org.bukkit.event.entity.FoodLevelChangeEvent;
 import org.bukkit.event.inventory.InventoryClickEvent;
 import org.bukkit.event.inventory.InventoryDragEvent;
 import org.bukkit.event.inventory.InventoryMoveItemEvent;
 import org.bukkit.event.inventory.InventoryType;
-import org.bukkit.event.player.PlayerItemConsumeEvent; 
+import org.bukkit.event.player.PlayerItemConsumeEvent;
 import org.bukkit.inventory.Inventory;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.PlayerInventory;
@@ -46,8 +45,7 @@ public class Influencer extends BukkitRunnable implements Listener{
 	}
 	@Override
 	public void run() {
-		for(World world:Bukkit.getWorlds()) {
-			if(Config.disableWorlds.contains(world.getName())) continue;
+		for(World world:Config.enableWorlds) {
 			for(Entity entity:world.getEntities()) {
 				if(entity instanceof Item) {
 					Item item=(Item) entity;

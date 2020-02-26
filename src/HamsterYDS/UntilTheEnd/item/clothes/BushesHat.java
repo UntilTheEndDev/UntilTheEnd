@@ -42,8 +42,8 @@ public class BushesHat implements Listener{
 		inv.setItem(14,Rope.item);
 		inv.setItem(15,new ItemStack(Material.DEAD_BUSH,6));
 		inv.setItem(16,Rope.item);
-		UntilTheEndApi.GuideApi.addItemCraftInv("§6灌木丛帽子",inv);
-		CraftGuide.addItem("§6衣物",item);
+		UntilTheEndApi.GuideApi.addCraftToItem(item,inv);
+		UntilTheEndApi.GuideApi.addItemToCategory("§6衣物",item);
 	}
 	@EventHandler public void onMove(EntityTargetEvent event) {
 		if(event.getTarget() instanceof Player) {

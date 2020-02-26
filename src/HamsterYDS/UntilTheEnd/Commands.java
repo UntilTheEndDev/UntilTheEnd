@@ -15,7 +15,8 @@ import org.bukkit.event.Listener;
 import org.bukkit.event.server.TabCompleteEvent;
 import org.bukkit.inventory.ItemStack;
 
-import HamsterYDS.UntilTheEnd.cap.tem.NaturalTemperature;
+import HamsterYDS.UntilTheEnd.cap.tem.TemperatureProvider;
+import HamsterYDS.UntilTheEnd.guide.CraftGuide;
 import HamsterYDS.UntilTheEnd.guide.Guide;
 import HamsterYDS.UntilTheEnd.item.ItemProvider;
 import HamsterYDS.UntilTheEnd.player.PlayerManager;
@@ -41,8 +42,10 @@ public class Commands implements CommandExecutor, Listener{
 		plugin.getServer().getPluginManager().registerEvents(this,plugin);
 		for(String s:ItemProvider.items.keySet()) 
 			itemTab.add(s);
+		cmdTab.add("cheat");
 		cmdTab.add("give");
 		cmdTab.add("guide");
+		cmdTab.add("help");
 		cmdTab.add("material");
 		cmdTab.add("entitytype");
 		cmdTab.add("set");
@@ -52,7 +55,6 @@ public class Commands implements CommandExecutor, Listener{
 		Collections.sort(itemTab);
 		Collections.sort(cmdTab);
 		for(World world:Bukkit.getWorlds()) {
-			if(Config.disableWorlds.contains(world.getName())) continue;
 			worldTab.add(world.getName());
 		}
 		capTab.add("san");
@@ -74,6 +76,21 @@ public class Commands implements CommandExecutor, Listener{
 					if(!cs.hasPermission("ute.guide"))
 						notPermitted(cs);
 					else player.getInventory().addItem(Guide.item);
+				}
+			}
+			if(ct[0].equalsIgnoreCase("cheat")) { //ute cheat
+				if(!(cs instanceof Player)) //is Console
+					notPlayer(cs);
+				else {
+					Player player=(Player) cs;
+					if(!cs.hasPermission("ute.cheat"))
+						notPermitted(cs);
+					else {
+						if(CraftGuide.cheating.contains(player.getName())) 
+							CraftGuide.cheating.remove(player.getName());
+						else CraftGuide.cheating.add(player.getName());
+						changeCheatingMode(player);
+					}
 				}
 			}
 			if(ct[0].equalsIgnoreCase("material")) { //ute material
@@ -199,6 +216,7 @@ public class Commands implements CommandExecutor, Listener{
 	}
 	public static void sendAll(CommandSender CommandSender){
 		CommandSender.sendMessage(Config.getLang("cmd.label_1"));
+		send作弊(CommandSender);
 		send合成(CommandSender);
 		send季节(CommandSender);
 		send给予(CommandSender);
@@ -206,6 +224,12 @@ public class Commands implements CommandExecutor, Listener{
 		CommandSender.sendMessage(Config.getLang("cmd.label_2"));
 		sendMaterial(CommandSender);
 		sendEntityType(CommandSender);
+	}
+	public static  void changeCheatingMode(Player player) {
+		player.sendMessage(Config.getLang("cmd.cheat"));
+	}
+	public static void send作弊(CommandSender CommandSender) {
+		CommandSender.sendMessage(Config.getLang("cmd.ute_cheat"));
 	}
 	public static void send合成(CommandSender CommandSender) {
 		CommandSender.sendMessage(Config.getLang("cmd.ute_guide"));
@@ -235,7 +259,7 @@ public class Commands implements CommandExecutor, Listener{
 		IWorld world=new WorldState().new IWorld(season, day);
 		WorldState.worldStates.remove(setWorld.getName());
 		WorldState.worldStates.put(setWorld.getName(),world);
-		NaturalTemperature.addTem(setWorld);
+		TemperatureProvider.loadWorldTemperatures();;
 	}
 	@EventHandler public void onTab(TabCompleteEvent event) {
 		String label=event.getBuffer();

@@ -31,7 +31,7 @@ public class NightMare implements Listener{
 		Inventory inv=CraftGuide.getCraftInventory();
 		inv.setItem(11,item);
 		inv.setItem(15,new ItemStack(Material.GHAST_TEAR,4));
-		UntilTheEndApi.GuideApi.addItemCraftInv("§6噩梦燃料",inv);
-		CraftGuide.addItem("§6基础",item);
+		UntilTheEndApi.GuideApi.addCraftToItem(item,inv);
+		UntilTheEndApi.GuideApi.addItemToCategory("§6基础",item);
 	}
 }

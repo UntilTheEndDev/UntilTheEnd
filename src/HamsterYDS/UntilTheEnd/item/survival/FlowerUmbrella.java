@@ -40,8 +40,8 @@ public class FlowerUmbrella implements Listener{
 		inv.setItem(14,CatTail.item);
 		inv.setItem(15,new ItemStack(Material.CHORUS_FLOWER,2));
 		inv.setItem(16,new ItemStack(Material.YELLOW_FLOWER,2));
-		UntilTheEndApi.GuideApi.addItemCraftInv("§6花伞",inv);
-		CraftGuide.addItem("§6生存",item);
+		UntilTheEndApi.GuideApi.addCraftToItem(item,inv);
+		UntilTheEndApi.GuideApi.addItemToCategory("§6生存",item);
 	}
 	
 	@EventHandler public void onCraft(CraftItemEvent event) {

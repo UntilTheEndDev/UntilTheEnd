@@ -10,7 +10,9 @@ cmd:
   label_1: '插件指令(全部支持Tab補全)'
   label_2: '調試指令'
   giveItem: '§6[§cUntilTheEnd§6]§r 已經將%item%§r給予玩家§6§r%player%'
+  cheat: '§6[§cUntilTheEnd§6]§r 您成功改變作弊模式！'
   
+  ute_cheat: '/ute cheat 進入作弊模式'
   ute_guide: '/ute guide 獲取合成指南'
   ute_season: '/ute season <季節名> <天數> [世界名稱] 調整指定世界季節'
   ute_give: '/ute give <玩家名> <物品名> <數量> 給玩家指定物品指定個數'

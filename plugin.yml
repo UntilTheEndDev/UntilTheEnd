@@ -1,8 +1,8 @@
 name: UntilTheEnd
 main: HamsterYDS.UntilTheEnd.UntilTheEnd
-version: 5.3.1
+version: 5.4
 depend: [LibsDisguises,HolographicDisplays]
-softdepend: [PlaceholderAPI,BossBarAPI]
+softdepend: [PlaceholderAPI,BossBarAPI,Multiverse-Core]
 commands:
   ute:
     usage: /ute

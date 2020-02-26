@@ -15,7 +15,7 @@ public class UTEPapi extends EZPlaceholderHook {
     @Override
     public String onPlaceholderRequest(Player player,String var) {
     	if (player==null) return "";
-        if (Config.disableWorlds.contains(player.getWorld().getName())) return "本世界不启用该功能";
+        if (!Config.enableWorlds.contains(player.getWorld())) return "本世界不启用该功能";
     	if (var.equals("san")) return String.valueOf(UntilTheEndApi.PlayerApi.getValue(player,"san"));
         if (var.equals("hum")) return String.valueOf(UntilTheEndApi.PlayerApi.getValue(player,"hum"));
         if (var.equals("tem")) return String.valueOf(UntilTheEndApi.PlayerApi.getValue(player,"tem"));

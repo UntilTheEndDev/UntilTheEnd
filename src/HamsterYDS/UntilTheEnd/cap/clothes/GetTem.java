@@ -5,7 +5,7 @@ import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.PlayerInventory;
 
-import HamsterYDS.UntilTheEnd.cap.tem.NaturalTemperature;
+import HamsterYDS.UntilTheEnd.cap.tem.TemperatureProvider;
 
 /**
  * @author 南外丶仓鼠
@@ -23,7 +23,7 @@ public class GetTem {
 			if(item.getItemMeta().getDisplayName()==null) continue;
 //			int slot=36+slot;
 			String name=item.getItemMeta().getDisplayName();
-			int worldTem=NaturalTemperature.naturalTemperatures.get(world.getName());
+			int worldTem=TemperatureProvider.worldTemperatures.get(world);
 			switch(name) {
 				case "§6草帽":{
 					if(worldTem>=40) {

@@ -40,8 +40,8 @@ public class PigPack implements Listener{
 		inv.setItem(14,item6);
 		inv.setItem(15,NormalPack.item);
 		inv.setItem(16,new ItemStack(Material.SHULKER_SHELL,2));
-		UntilTheEndApi.GuideApi.addItemCraftInv("§6皮质背包",inv);
-		CraftGuide.addItem("§6生存",item);
+		UntilTheEndApi.GuideApi.addCraftToItem(item,inv);
+		UntilTheEndApi.GuideApi.addItemToCategory("§6生存",item);
 	}
 	
 	@EventHandler public void onCraft1(CraftItemEvent event) {

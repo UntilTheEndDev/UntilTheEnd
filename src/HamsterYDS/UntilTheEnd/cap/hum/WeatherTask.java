@@ -2,7 +2,6 @@ package HamsterYDS.UntilTheEnd.cap.hum;
 
 import java.util.ArrayList;
 
-import org.bukkit.Bukkit;
 import org.bukkit.Location;
 import org.bukkit.Material;
 import org.bukkit.World;
@@ -26,8 +25,7 @@ public class WeatherTask extends BukkitRunnable{
 	}
 	@Override
 	public void run() {
-		for(World world:Bukkit.getWorlds()) {
-			if(Config.disableWorlds.contains(world.getName())) continue;
+		for(World world:Config.enableWorlds) {
 			if(world.hasStorm())
 				for(Player player:world.getPlayers()) 
 					if(!hasShelter(player)) {

@@ -10,7 +10,9 @@ cmd:
   label_1: "PluginCMD(Allow Tab Completion)"
   label_2: "DebugCMD"
   giveItem: "§6[§cUntilTheEnd§6]§r Give the item%item%§rto player§6§r%player%"
-  
+  cheat: '§6[§cUntilTheEnd§6]§r Successfully changed your cheating mode!'
+
+  ute_cheat: '/ute cheat -Turn on/off the cheat mode'
   ute_guide: "/ute guide -Get guide book"
   ute_season: "/ute season <SEASON> <DAY> [WORLD] -Change the world's season"
   ute_give: "/ute give <PLAYER> <ITEM> <AMOUNT> -Give the player item"

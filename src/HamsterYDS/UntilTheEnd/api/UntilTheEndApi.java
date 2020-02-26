@@ -6,6 +6,7 @@ import java.util.List;
 
 import org.bukkit.Bukkit;
 import org.bukkit.Location;
+import org.bukkit.Material;
 import org.bukkit.World;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.Inventory;
@@ -53,6 +54,7 @@ public class UntilTheEndApi {
 			return map;
 		}
 		public static Location strToLoc(String toString) {
+			try {
 			String world="",x="",y="",z="";
 			int tot=0;
 			for(int i=0;i<toString.toCharArray().length;i++) {
@@ -68,7 +70,10 @@ public class UntilTheEndApi {
 				if(tot==2) y+=ch;
 				if(tot==3) z+=ch;
 			}
-			return new Location(Bukkit.getWorld(world),Integer.valueOf(x),Integer.valueOf(y),Integer.valueOf(z));
+				return new Location(Bukkit.getWorld(world),Integer.valueOf(x),Integer.valueOf(y),Integer.valueOf(z));
+			}catch(Exception e) {
+				return null;
+			}
 		}
 		public static String locToStr(Location loc) {
 			World world=loc.getWorld();
@@ -110,8 +115,17 @@ public class UntilTheEndApi {
 		public static void addItemToCategory(String category,ItemStack item) {
 			CraftGuide.addItem(category, item);
 		}
-		public static void addItemCraftInv(String itemName,Inventory guideInventory) {
-			CraftGuide.helps.put(itemName,guideInventory);
+		public static void addCategory(String categoryName,Material material,short data) {
+			ItemStack item=CraftGuide.getItem(categoryName,material,data);
+			CraftGuide.inv.setItem(CraftGuide.tot++,item);
+			CraftGuide.helps.put(categoryName,CraftGuide.getTypeInventory());
+			CraftGuide.crafts.put(item,CraftGuide.helps.get(categoryName).get(0));
+		}
+		public static void addCraftToItem(ItemStack item,Inventory inventory) {
+			ItemStack back=CraftGuide.getItem("§a返回上一层",Material.STAINED_GLASS_PANE,6);
+			ItemStack menu=CraftGuide.getItem("§a返回主菜单",Material.STAINED_GLASS_PANE,8);
+			inventory.setItem(0,back);inventory.setItem(8,menu);
+			CraftGuide.crafts.put(item,inventory);
 		}
 	}
 }

@@ -48,8 +48,8 @@ public class Detector implements Listener{
 		inv.setItem(14,item3);
 		inv.setItem(15,item4);
 		inv.setItem(16,item2);
-		UntilTheEndApi.GuideApi.addItemCraftInv("§6探测器",inv);
-		CraftGuide.addItem("§6科学",item);
+		UntilTheEndApi.GuideApi.addCraftToItem(item,inv);
+		UntilTheEndApi.GuideApi.addItemToCategory("§6科学",item);
 	}
 	
 	@EventHandler public void onMove(PlayerMoveEvent event) {

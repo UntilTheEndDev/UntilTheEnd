@@ -1,5 +1,9 @@
 package HamsterYDS.UntilTheEnd.cap.san;
 
+import java.io.File;
+
+import org.bukkit.configuration.file.YamlConfiguration;
+
 import HamsterYDS.UntilTheEnd.UntilTheEnd;
 
 /**
@@ -8,19 +12,16 @@ import HamsterYDS.UntilTheEnd.UntilTheEnd;
  */
 public class Sanity {
 	public static UntilTheEnd plugin;
-	public Sanity() {}
+	public static YamlConfiguration yaml;
 	public Sanity(UntilTheEnd plugin) {
 		this.plugin=plugin;
-		if(plugin.getConfig().getBoolean("san.influence.time"))
-			new TimeTask(plugin);
-		if(plugin.getConfig().getBoolean("san.influence.hum"))
-			new HumidityTask(plugin);
-		if(plugin.getConfig().getBoolean("san.influence.clothes"))
-			new ClothesTask(plugin);
-		if(plugin.getConfig().getBoolean("san.influence.entity"))
-			new EntityTask(plugin);
-		if(plugin.getConfig().getBoolean("san.influence.nightmare"))
-			new NightMareTask(plugin);
-		new Influencer(plugin);
+		File file=new File(plugin.getDataFolder(),"sanity.yml");
+		if(!file.exists()) plugin.saveResource("sanity.yml",true);
+		yaml=YamlConfiguration.loadConfiguration(file);
+		System.out.println("[UntilTheEnd]正在加载理智计算模块......");
+		SanityProvider.loadAura();
+		new ChangeTasks(plugin);
+		new InfluenceTasks(plugin);
+		new InfluenceEvents(plugin);
 	}
 }

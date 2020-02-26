@@ -1,6 +1,5 @@
 package HamsterYDS.UntilTheEnd.world;
 
-import org.bukkit.Bukkit;
 import org.bukkit.World;
 import org.bukkit.entity.Player;
 import org.bukkit.event.Listener;
@@ -28,8 +27,7 @@ public class WorldTime extends BukkitRunnable implements Listener{
 	}
 	@Override
 	public void run() {
-		for(World world:Bukkit.getWorlds()) {
-			if(Config.disableWorlds.contains(world.getName())) continue;
+		for(World world:Config.enableWorlds) {
 			long time=world.getTime();
 			if(time>=up&&time<=down) 
 				for(Player player:world.getPlayers()) {

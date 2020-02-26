@@ -48,8 +48,8 @@ public class Umbrella implements Listener{
 		inv.setItem(14,item2_1);
 		inv.setItem(15,item2_2);
 		inv.setItem(16,new ItemStack(Material.STRING));
-		UntilTheEndApi.GuideApi.addItemCraftInv("§6伞",inv);
-		CraftGuide.addItem("§6生存",item);
+		UntilTheEndApi.GuideApi.addCraftToItem(item,inv);
+		UntilTheEndApi.GuideApi.addItemToCategory("§6生存",item);
 	}
 	
 	@EventHandler public void onCraft(CraftItemEvent event) {

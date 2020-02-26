@@ -5,7 +5,6 @@ import org.bukkit.entity.Player;
 import org.bukkit.scheduler.BukkitRunnable;
 import org.inventivetalent.bossbar.BossBarAPI;
 
-import HamsterYDS.UntilTheEnd.Config;
 import HamsterYDS.UntilTheEnd.UntilTheEnd;
 import HamsterYDS.UntilTheEnd.player.PlayerManager;
 import net.md_5.bungee.api.chat.TextComponent;
@@ -25,7 +24,6 @@ public class HudBar extends BukkitRunnable{
 	@Override
 	public void run() {
 		for(Player player:Bukkit.getOnlinePlayers()) {
-			if(Config.disableWorlds.contains(player.getWorld().getName())) continue;
 			int san=PlayerManager.check(player.getName(),"san");
 			int tem=PlayerManager.check(player.getName(),"tem");
 			int hum=PlayerManager.check(player.getName(),"hum");

@@ -50,8 +50,8 @@ public class FireWand implements Listener{
 		inv.setItem(14,item2_1);
 		inv.setItem(15,item2_2);
 		inv.setItem(16,item3);
-		UntilTheEndApi.GuideApi.addItemCraftInv("§6火魔杖",inv);
-		CraftGuide.addItem("§6魔法",item);
+		UntilTheEndApi.GuideApi.addCraftToItem(item,inv);
+		UntilTheEndApi.GuideApi.addItemToCategory("§6魔法",item);
 	}
 	@EventHandler public void onCraft(CraftItemEvent event) {
 		ItemStack item=event.getRecipe().getResult();

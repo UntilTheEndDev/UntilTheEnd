@@ -32,7 +32,7 @@ public class Brick implements Listener{
 		Inventory inv=CraftGuide.getCraftInventory();
 		inv.setItem(11,item);
 		inv.setItem(15,new ItemStack(Material.STONE,9));
-		UntilTheEndApi.GuideApi.addItemCraftInv("§6石砖",inv);
-		CraftGuide.addItem("§6基础",item);
+		UntilTheEndApi.GuideApi.addCraftToItem(item,inv);
+		UntilTheEndApi.GuideApi.addItemToCategory("§6基础",item);
 	}
 }

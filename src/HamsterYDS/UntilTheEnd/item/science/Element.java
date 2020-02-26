@@ -41,8 +41,8 @@ public class Element implements Listener{
 		inv.setItem(14,item6);
 		inv.setItem(15,Hail.item);
 		inv.setItem(16,new ItemStack(Material.GOLD_INGOT,2));
-		UntilTheEndApi.GuideApi.addItemCraftInv("§6电器元件",inv);
-		CraftGuide.addItem("§6科学",item);
+		UntilTheEndApi.GuideApi.addCraftToItem(item,inv);
+		UntilTheEndApi.GuideApi.addItemToCategory("§6科学",item);
 	}
 	
 	@EventHandler public void onCraft1(CraftItemEvent event) {

@@ -63,8 +63,8 @@ public class BlowArrow3 implements Listener{
 		inv.setItem(14,item2_2);
 		inv.setItem(15,item3);
 		inv.setItem(16,CatTail.item.clone());
-		UntilTheEndApi.GuideApi.addItemCraftInv("§6麻醉吹箭",inv);
-		CraftGuide.addItem("§6战斗",item);
+		UntilTheEndApi.GuideApi.addCraftToItem(item,inv);
+		UntilTheEndApi.GuideApi.addItemToCategory("§6战斗",item);
 	}
 	@EventHandler public void onCraft(CraftItemEvent event) {
 		ItemStack item=event.getRecipe().getResult();

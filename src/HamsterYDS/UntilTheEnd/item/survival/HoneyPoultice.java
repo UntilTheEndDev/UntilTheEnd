@@ -44,8 +44,8 @@ public class HoneyPoultice implements Listener{
 		inv.setItem(14,Spit.item);
 		inv.setItem(15,Reed.item);
 		inv.setItem(16,item7);
-		UntilTheEndApi.GuideApi.addItemCraftInv("§6止血剂",inv);
-		CraftGuide.addItem("§6生存",item);
+		UntilTheEndApi.GuideApi.addCraftToItem(item,inv);
+		UntilTheEndApi.GuideApi.addItemToCategory("§6生存",item);
 	}
 	
 	@EventHandler public void onCraft(CraftItemEvent event) {

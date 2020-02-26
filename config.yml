@@ -38,10 +38,6 @@ san:
     hum: true   #湿度是否影响玩家理智值
     nightmare: true   #携带噩梦燃料是否影响玩家理智值
     time: true   #时间是否影响玩家理智值
-tem:
-  influence:
-    natural: true   #自然、方块是否影响玩家温度
-    hum: true   #湿度是否影响玩家温度
 crops:
   season: true   #是否打开季节性农作物机制
   takewaterup: 
@@ -87,5 +83,5 @@ world:
     winter: 20   #冬天大约多少天（会有10天的随机浮动）
 block:
   fresh: 60   #方块保存与读取的CD
-disableWorlds:   #禁用插件的世界（这些直接内插件所有功能失效）
-- world1
+enableWorlds:   #启用插件的世界（其他世界插件将失效）
+- world

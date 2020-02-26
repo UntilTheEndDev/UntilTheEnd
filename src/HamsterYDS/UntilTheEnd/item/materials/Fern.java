@@ -35,8 +35,8 @@ public class Fern implements Listener{
 		Inventory inv=CraftGuide.getCraftInventory();
 		inv.setItem(11,item);
 		inv.setItem(15,new ItemStack(Material.SEEDS,6));
-		UntilTheEndApi.GuideApi.addItemCraftInv("§6蕨叶",inv);
-		CraftGuide.addItem("§6基础",item);
+		UntilTheEndApi.GuideApi.addCraftToItem(item,inv);
+		UntilTheEndApi.GuideApi.addItemToCategory("§6基础",item);
 	}
 	@EventHandler public void onRight(PlayerInteractEvent event) {
 		Player player=event.getPlayer();

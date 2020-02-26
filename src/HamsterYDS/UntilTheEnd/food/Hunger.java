@@ -1,6 +1,7 @@
 package HamsterYDS.UntilTheEnd.food;
 
 import org.bukkit.Bukkit;
+import org.bukkit.World;
 import org.bukkit.entity.Player;
 import org.bukkit.scheduler.BukkitRunnable;
 
@@ -23,16 +24,14 @@ public class Hunger extends BukkitRunnable{
 	@Override
 	public void run() {
 		counter++;
-		for(Player player:Bukkit.getOnlinePlayers()) {
-			if(Config.disableWorlds.contains(player.getWorld().getName())) continue;
-			if(player.getFoodLevel()<=1.0) 
-				player.damage(0.5);
-		}		
+		for(World world:Config.enableWorlds)
+			for(Player player:world.getPlayers()) 
+				if(player.getFoodLevel()<=1.0) 
+					player.damage(0.5);	
 		if(counter%cd==0) 
-			for(Player player:Bukkit.getOnlinePlayers()){
-				if(Config.disableWorlds.contains(player.getWorld().getName())) continue;
-				player.setFoodLevel(player.getFoodLevel()-1);
-			}
+			for(World world:Config.enableWorlds)
+				for(Player player:Bukkit.getOnlinePlayers())
+					player.setFoodLevel(player.getFoodLevel()-1);
 	}
 
 }

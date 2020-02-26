@@ -63,8 +63,13 @@ public class Guide implements Listener{
 		ItemStack item=event.getInventory().getItem(event.getSlot());
 		event.setCancelled(true);
 		if(item==null) return;
-		if(item.equals(craftItem)) 
-			player.openInventory(CraftGuide.inv);
+		if(item.equals(craftItem)) {
+			if(CraftGuide.playerInvs.get(player.getName()).size()==0) player.openInventory(CraftGuide.inv);
+			else {
+				player.openInventory(CraftGuide.playerInvs.get(player.getName()).get(CraftGuide.playerInvs.get(player.getName()).size()-1));
+				CraftGuide.playerInvs.get(player.getName()).remove(CraftGuide.playerInvs.get(player.getName()).size()-1);
+			}
+		}
 		if(item.equals(mechanismItem)) 
 			player.openInventory(MechanismGuide.inv);
 	}

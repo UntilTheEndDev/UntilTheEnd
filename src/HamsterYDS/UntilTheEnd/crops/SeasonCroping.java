@@ -45,7 +45,8 @@ public class SeasonCroping implements Listener{
 			crops.put(path,crop);
 		}
 	}
-	@EventHandler(priority=EventPriority.NORMAL) public void onGrow(BlockGrowEvent event) {
+	@EventHandler(priority=EventPriority.LOW) public void onGrow(BlockGrowEvent event) {
+		if(event.getBlock()==null) return;
 		Block block=event.getBlock();
 		
 		World world=block.getWorld();

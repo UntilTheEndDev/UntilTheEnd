@@ -4,7 +4,6 @@ import java.io.File;
 import java.io.IOException;
 import java.util.HashMap;
 
-import org.bukkit.Bukkit;
 import org.bukkit.World;
 import org.bukkit.configuration.file.YamlConfiguration;
 import org.bukkit.entity.Player;
@@ -12,7 +11,7 @@ import org.bukkit.scheduler.BukkitRunnable;
 
 import HamsterYDS.UntilTheEnd.Config;
 import HamsterYDS.UntilTheEnd.UntilTheEnd;
-import HamsterYDS.UntilTheEnd.cap.tem.NaturalTemperature;
+import HamsterYDS.UntilTheEnd.cap.tem.TemperatureProvider;
 
 /**
  * @author 南外丶仓鼠
@@ -34,8 +33,7 @@ public class WorldState{
 		winter=plugin.getConfig().getInt("world.season.winter");
 		File file=new File(plugin.getDataFolder(),"worlds.yml");
 		YamlConfiguration yaml=YamlConfiguration.loadConfiguration(file);
-		for(World world:Bukkit.getWorlds()) {
-			if(Config.disableWorlds.contains(world.getName())) continue;
+		for(World world:Config.enableWorlds) {
 			String worldName=world.getName();
 			if(!yaml.getKeys(false).contains(worldName)) {
 				worldStates.put(worldName,new IWorld(Season.AUTUMN,1));
@@ -73,8 +71,7 @@ public class WorldState{
 		}
 		@Override
 		public void run() {
-			for(World world:Bukkit.getWorlds()) {
-				if(Config.disableWorlds.contains(world.getName())) continue;
+			for(World world:Config.enableWorlds) {
 				long time=world.getTime();
 				if(time>=23950) {
 					worldFlags.remove(world.getName());
@@ -91,6 +88,7 @@ public class WorldState{
 			}
 		}
 		private void newDay(World world) {
+			if(!worldStates.containsKey(world.getName())) return;
 			IWorld state=worldStates.get(world.getName());
 			worldStates.remove(world.getName());
 			int days=state.day;
@@ -128,7 +126,7 @@ public class WorldState{
 			worldStates.put(world.getName(),state);
 			save(world);
 			tellPlayers(world);
-			NaturalTemperature.addTem(world);
+			TemperatureProvider.loadWorldTemperatures();;
 		}
 		public static void tellPlayers(World world) {
 			IWorld state=worldStates.get(world.getName());
