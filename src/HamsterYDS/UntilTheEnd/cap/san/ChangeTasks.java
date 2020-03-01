@@ -32,11 +32,11 @@ public class ChangeTasks {
 	public static HashMap<String,Integer> itemsChangeSanity=new HashMap<String,Integer>();
 	public ChangeTasks(UntilTheEnd plugin) {
 		this.plugin=plugin;
-		new ClothesTasks().runTaskTimerAsynchronously(plugin,0L,200L);
-		new ItemsTasks().runTaskTimerAsynchronously(plugin,0L,200L);
-		new SanityAura().runTaskTimerAsynchronously(plugin,0L,auraPeriod);
-		new HumidityTask().runTaskTimerAsynchronously(plugin,0L,humidityPeriod);
-		new TimeTask().runTaskTimerAsynchronously(plugin,0L,timePeriod);
+		new ClothesTasks().runTaskTimer(plugin,0L,200L);
+		new ItemsTasks().runTaskTimer(plugin,0L,200L);
+		new SanityAura().runTaskTimer(plugin,0L,auraPeriod);
+		new HumidityTask().runTaskTimer(plugin,0L,humidityPeriod);
+		new TimeTask().runTaskTimer(plugin,0L,timePeriod);
 	}
 	public class ClothesTasks extends BukkitRunnable{
 		@Override
@@ -75,9 +75,9 @@ public class ChangeTasks {
 					PlayerInventory inv=player.getInventory();
 					for(int slot=0;slot<inv.getSize();slot++) {
 						ItemStack item=inv.getItem(slot);
-						String itemName=getName(inv.getHelmet());
-						if(clothesChangeSanity.containsKey(itemName))
-							PlayerManager.change(player.getName(),"san",clothesChangeSanity.get(itemName));
+						String itemName=getName(item);
+						if(itemsChangeSanity.containsKey(itemName))
+							PlayerManager.change(player.getName(),"san",item.getAmount()*itemsChangeSanity.get(itemName));
 					}
 				}
 			}
@@ -99,8 +99,8 @@ public class ChangeTasks {
 						EntityType type=entity.getType();
 						if(SanityProvider.creatureAura.containsKey(type)) 
 							PlayerManager.change(player.getName(),"san",SanityProvider.creatureAura.get(type));
-						if(entity instanceof Player) PlayerManager.change(player.getName(),"san",playerChangeSanity);  //TODO
-						if(entity instanceof Monster) PlayerManager.change(player.getName(),"san",monsterChangeSanity);  //TODO
+						if(entity instanceof Player) PlayerManager.change(player.getName(),"san",playerChangeSanity); 
+						if(entity instanceof Monster) PlayerManager.change(player.getName(),"san",monsterChangeSanity); 
 					}
 		}
 	}

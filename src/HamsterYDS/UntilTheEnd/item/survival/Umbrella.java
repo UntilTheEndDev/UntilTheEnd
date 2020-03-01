@@ -1,73 +1,26 @@
 package HamsterYDS.UntilTheEnd.item.survival;
 
-import org.bukkit.Bukkit;
-import org.bukkit.Material;
-import org.bukkit.NamespacedKey;
-import org.bukkit.event.EventHandler;
-import org.bukkit.event.Listener;
-import org.bukkit.event.inventory.CraftItemEvent;
-import org.bukkit.inventory.Inventory;
-import org.bukkit.inventory.ItemStack;
-import org.bukkit.inventory.ShapelessRecipe;
+import java.util.HashMap;
 
-import HamsterYDS.UntilTheEnd.api.UntilTheEndApi;
-import HamsterYDS.UntilTheEnd.cap.hum.Humidity;
-import HamsterYDS.UntilTheEnd.guide.CraftGuide;
-import HamsterYDS.UntilTheEnd.item.ItemLoader;
-import HamsterYDS.UntilTheEnd.item.ItemProvider;
-import HamsterYDS.UntilTheEnd.item.basics.PigSkin;
-import HamsterYDS.UntilTheEnd.item.materials.Reed;
-import HamsterYDS.UntilTheEnd.item.materials.Rope;
+import org.bukkit.Material;
+import org.bukkit.inventory.ItemStack;
+
+import HamsterYDS.UntilTheEnd.cap.hum.ChangeTasks;
+import HamsterYDS.UntilTheEnd.item.ItemManager;
 
 /**
  * @author 南外丶仓鼠
  * @version V5.1.1
  */
-public class Umbrella implements Listener{
-	public static ItemStack item;
-	public static NamespacedKey nsk=new NamespacedKey(Humidity.plugin,"ute.umbrella");
+public class Umbrella{
 	public Umbrella() {		
-		ShapelessRecipe recipe=new ShapelessRecipe(nsk,item);
-		recipe.addIngredient(4,Rope.item.getType());
-		recipe.addIngredient(2,Reed.item.getType());
-		recipe.addIngredient(2,PigSkin.item.getType());
-		recipe.addIngredient(1,Material.STRING);
-		Bukkit.addRecipe(recipe); 
-		ItemLoader.plugin.getServer().getPluginManager().registerEvents(this,ItemLoader.plugin);
-		ItemProvider.addItem(this.getClass(),item);
-
-		Inventory inv=CraftGuide.getCraftInventory();
-		inv.setItem(11,item);
-		ItemStack item4=Rope.item.clone();
-		item4.setAmount(4);
-		ItemStack item2_1=Reed.item.clone();
-		item2_1.setAmount(2);
-		ItemStack item2_2=PigSkin.item.clone();
-		item2_2.setAmount(2);
-		inv.setItem(13,item4);
-		inv.setItem(14,item2_1);
-		inv.setItem(15,item2_2);
-		inv.setItem(16,new ItemStack(Material.STRING));
-		UntilTheEndApi.GuideApi.addCraftToItem(item,inv);
-		UntilTheEndApi.GuideApi.addItemToCategory("§6生存",item);
-	}
-	
-	@EventHandler public void onCraft(CraftItemEvent event) {
-		ItemStack item=event.getRecipe().getResult();
-        item.setAmount(1);
-        if (item.equals(this.item)) {
-            if (!event.getInventory().containsAtLeast(Rope.item,4)) {
-                event.setCancelled(true);
-                return;
-            }
-            if (!event.getInventory().containsAtLeast(Reed.item,2)) {
-                event.setCancelled(true);
-                return;
-            }
-            if (!event.getInventory().containsAtLeast(PigSkin.item,1)) {
-                event.setCancelled(true);
-                return;
-            }
-        }
+		HashMap<ItemStack,Integer> materials=new HashMap<ItemStack,Integer>();
+		materials.put(ItemManager.namesAndItems.get("§6绳子"),4);
+		materials.put(ItemManager.namesAndItems.get("§6芦苇"),2);
+		materials.put(ItemManager.namesAndItems.get("§6猪皮"),2);
+		materials.put(new ItemStack(Material.STRING),1);
+		ItemManager.registerRecipe(materials,ItemManager.namesAndItems.get("§6伞"),"§6生存");
+		
+		ChangeTasks.umbrellas.add("§6伞");
 	}
 }

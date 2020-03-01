@@ -27,8 +27,8 @@ public class InfluenceTasks {
 	public static int confusionSanity=Sanity.yaml.getInt("confusionSanity"); 
 	public InfluenceTasks(UntilTheEnd plugin) {
 		this.plugin=plugin;
-		new CreatureDisguise().runTaskTimerAsynchronously(plugin,0L,1000L);
-		new Confusion().runTaskTimerAsynchronously(plugin,0L,80L);
+		new CreatureDisguise().runTaskTimer(plugin,0L,1000L);
+		new Confusion().runTaskTimer(plugin,0L,80L);
 	}
 	public class CreatureDisguise extends BukkitRunnable{
 		public ArrayList<UUID> mobs=new ArrayList<UUID>();

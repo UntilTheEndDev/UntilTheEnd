@@ -31,8 +31,8 @@ public class InfluenceTasks {
 	public static int hotTem=Temperature.yaml.getInt("hotTem"); 
 	public InfluenceTasks(UntilTheEnd plugin) {
 		this.plugin=plugin;
-		new Smoulder().runTaskTimerAsynchronously(plugin,0L,smoulderSpeed);
-		new Damager().runTaskTimerAsynchronously(plugin,0L,20L);
+		new Smoulder().runTaskTimer(plugin,0L,smoulderSpeed);
+		new Damager().runTaskTimer(plugin,0L,20L);
 	}
 	public class Damager extends BukkitRunnable{
 		@Override

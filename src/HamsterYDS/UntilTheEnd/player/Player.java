@@ -1,5 +1,7 @@
 package HamsterYDS.UntilTheEnd.player;
 
+import org.bukkit.Bukkit;
+
 import HamsterYDS.UntilTheEnd.UntilTheEnd;
 
 /**
@@ -10,10 +12,10 @@ public class Player {
 	public static UntilTheEnd plugin;
 	public Player(UntilTheEnd plugin) {
 		this.plugin=plugin;
-		if(plugin.getConfig().getBoolean("player.inventory"))
-			new PlayerInventoryAdapt(plugin);
 		new PlayerManager(plugin);
-		if(plugin.getConfig().getBoolean("player.death.enable"))
-			new PlayerDeath(plugin);
+		for(org.bukkit.entity.Player player:Bukkit.getOnlinePlayers()) 
+			PlayerManager.load(player.getName());
+		new PlayerInventoryAdapt(plugin);
+		new PlayerDeath(plugin);
 	}
 }

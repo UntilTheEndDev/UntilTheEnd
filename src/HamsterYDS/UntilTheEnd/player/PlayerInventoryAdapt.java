@@ -1,19 +1,23 @@
 package HamsterYDS.UntilTheEnd.player;
 
+import java.util.ArrayList;
+import java.util.HashMap;
+
 import org.bukkit.Bukkit;
+import org.bukkit.GameMode;
 import org.bukkit.Material;
+import org.bukkit.World;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.inventory.InventoryClickEvent;
-import org.bukkit.event.inventory.InventoryDragEvent;
-import org.bukkit.event.inventory.InventoryMoveItemEvent;
 import org.bukkit.inventory.Inventory;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.PlayerInventory;
 import org.bukkit.inventory.meta.ItemMeta;
 import org.bukkit.scheduler.BukkitRunnable;
 
+import HamsterYDS.UntilTheEnd.Config;
 import HamsterYDS.UntilTheEnd.UntilTheEnd;
 
 /**
@@ -21,14 +25,81 @@ import HamsterYDS.UntilTheEnd.UntilTheEnd;
  * @version V5.1.1
  */
 
+//20l
 public class PlayerInventoryAdapt extends BukkitRunnable implements Listener{
 	public static UntilTheEnd plugin;
-	ItemStack item1=getItem(Material.STAINED_GLASS_PANE,15,"§8锁定");
+	public static int lockingSlot=18;
+	public static HashMap<String,Integer> containerSizes=new HashMap<String,Integer>();
 	public PlayerInventoryAdapt(UntilTheEnd plugin) {
 		this.plugin=plugin;
+		lockingSlot=plugin.getConfig().getInt("player.inventory.lockSlots");
 		plugin.getServer().getPluginManager().registerEvents(this,plugin);
-		runTaskTimer(plugin,0L,20L);
+		this.runTaskTimer(plugin,0L,20L);
 	}
+	@EventHandler public void onClick(InventoryClickEvent event) {
+		if(!Config.enableWorlds.contains(event.getWhoClicked().getWorld())) return;
+		Inventory inv=event.getClickedInventory();
+		if(inv==null) return;
+		ItemStack itemS=inv.getItem(event.getSlot());
+		ItemStack itemC=event.getCursor();
+		if(itemS!=null)
+			if(getName(itemS).equalsIgnoreCase("§8锁定")) 
+				event.setCancelled(true);
+		if(itemC!=null)
+			if(getName(itemC).equalsIgnoreCase("§8锁定")) 
+				event.setCancelled(true);
+	}
+	private static ArrayList<String> lockingPlayers=new ArrayList<String>();
+	private static int[] slots=new int[] {0,1,2,3,4,5,6,7,8,27,28,29,30,31,32,33,34,35,18,19,20,21,22,23,24,25,26,9,10,11,12,13,14,15,16,17};
+	@Override
+	public void run() {
+		if(plugin.getConfig().getBoolean("player.inventory.enable"))
+			for(World world:Config.enableWorlds)
+				for(Player player:world.getPlayers()) {
+					if(player.getGameMode()==GameMode.CREATIVE) continue;
+					lockingPlayers.add(player.getName()); 
+					int extraSize=0;
+					PlayerInventory inv=player.getInventory();
+					for(ItemStack item:inv.getArmorContents()) 
+						extraSize+=getSize(item);
+					for(int i=35;i>35-lockingSlot+extraSize;i--) {
+						if(i<0) break;
+						if(getName(inv.getItem(slots[i])).equalsIgnoreCase("§8锁定")) 
+							inv.getItem(slots[i]).setAmount(1); 
+						if(inv.getItem(slots[i])==null) 
+							inv.setItem(slots[i],item1);
+					}
+					for(int i=35-lockingSlot+extraSize;i>-1;i--) {
+						if(i<0) break;
+						ItemStack item=inv.getItem(slots[i]);
+						if(getName(item).equalsIgnoreCase("§8锁定")) 
+							inv.setItem(slots[i],new ItemStack(Material.AIR));
+					} 
+				}
+		for(Player player:Bukkit.getOnlinePlayers()) {
+			if(lockingPlayers.contains(player.getName())) continue;
+			PlayerInventory inv=player.getInventory();
+			for(int slot=0;slot<inv.getSize();slot++) {
+				ItemStack item=inv.getItem(slot);
+				if(getName(item).equalsIgnoreCase("§8锁定"))
+					inv.remove(item);
+			}
+		}
+		lockingPlayers=new ArrayList<String>();
+	}
+	public int getSize(ItemStack item) {
+		if(containerSizes.containsKey(getName(item))) 
+			return containerSizes.get(getName(item));
+		return 0;
+	}
+	public String getName(ItemStack item) {
+		if(item==null) return "";
+		if(item.hasItemMeta())
+			if(item.getItemMeta().hasDisplayName())
+				return item.getItemMeta().getDisplayName();
+		return "";
+	}
+	private ItemStack item1=getItem(Material.STAINED_GLASS_PANE,15,"§8锁定");
 	public static ItemStack getItem(Material material,int data,String name) {
 		ItemStack item=new ItemStack(material,1);
 		item.setDurability((short) data);
@@ -36,62 +107,5 @@ public class PlayerInventoryAdapt extends BukkitRunnable implements Listener{
 		meta.setDisplayName(name);
 		item.setItemMeta(meta);
 		return item;
-	}
-	public static String getName(ItemStack item) {
-		if(item==null) return "";
-		if(item.getItemMeta()==null) return "";
-		if(item.getItemMeta().getDisplayName()==null) return "";
-		return item.getItemMeta().getDisplayName();
-	}
-	@EventHandler public void onClick(InventoryClickEvent event) {
-		Inventory inv=event.getClickedInventory();
-		if(inv==null) return;
-		ItemStack item1=inv.getItem(event.getSlot());
-		ItemStack item2=event.getCursor();
-		if(isLocked(item1)||isLocked(item2)) {
-			event.setCancelled(true);
-			return;
-		}
-	}
-	@EventHandler public void onMove(InventoryMoveItemEvent event) {
-		ItemStack item=event.getItem();
-		if(isLocked(item)) event.setCancelled(true);
-	}
-	@EventHandler public void onGet(InventoryDragEvent event) {
-		ItemStack item=event.getOldCursor();
-		if(isLocked(item)) event.setCancelled(true);
-	}
-	public boolean isLocked(ItemStack item) {
-		if(getName(item).equalsIgnoreCase("§8锁定")) return true;
-		return false;
-	}
-	@Override
-	public void run() {
-		for(Player player:Bukkit.getOnlinePlayers()) {
-//			if(Config.disableWorlds.contains(player.getWorld().getName())) continue;
-			PlayerInventory inv=player.getInventory();
-//			if(player.hasPermission("ute.inventory.admin")) continue;
-			int bag=getBag(inv.getChestplate());
-			for(int i=26;i>26-bag;i--) {
-				if(inv.getItem(i)==null) continue;
-				if(isLocked(inv.getItem(i)))
-					inv.setItem(i,null);
-			}
-			for(int i=26-bag;i>=9;i--){
-				if(inv.getItem(i)!=null) 
-					if(!inv.getItem(i).isSimilar(item1))
-						continue;
-				inv.setItem(i,item1); 
-			}		
-		}
-	}
-	public static int getBag(ItemStack item) {
-		if(item==null) return 0;
-		if(item.getItemMeta()==null) return 0;
-		if(item.getItemMeta().getDisplayName()==null) return 0;
-		if(item.getItemMeta().getDisplayName().equalsIgnoreCase("§6便携包")) return 4;
-		if(item.getItemMeta().getDisplayName().equalsIgnoreCase("§6背包")) return 8;
-		if(item.getItemMeta().getDisplayName().equalsIgnoreCase("§6皮质背包")) return 12;
-		return 0;
 	}
 }

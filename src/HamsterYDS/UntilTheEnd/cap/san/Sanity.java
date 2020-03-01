@@ -4,6 +4,7 @@ import java.io.File;
 
 import org.bukkit.configuration.file.YamlConfiguration;
 
+import HamsterYDS.UntilTheEnd.Config;
 import HamsterYDS.UntilTheEnd.UntilTheEnd;
 
 /**
@@ -15,6 +16,7 @@ public class Sanity {
 	public static YamlConfiguration yaml;
 	public Sanity(UntilTheEnd plugin) {
 		this.plugin=plugin;
+		Config.autoUpdateConfigs("sanity.yml");
 		File file=new File(plugin.getDataFolder(),"sanity.yml");
 		if(!file.exists()) plugin.saveResource("sanity.yml",true);
 		yaml=YamlConfiguration.loadConfiguration(file);

@@ -11,7 +11,6 @@ import org.bukkit.block.Block;
 import HamsterYDS.UntilTheEnd.Config;
 import HamsterYDS.UntilTheEnd.UntilTheEnd;
 import HamsterYDS.UntilTheEnd.api.UntilTheEndApi;
-import HamsterYDS.UntilTheEnd.world.WorldState.Season;
 
 public class TemperatureProvider {
 	public static UntilTheEnd plugin;
@@ -29,6 +28,11 @@ public class TemperatureProvider {
 			else worldTemperatures.put(world,37);
 		}
 	}
+	public static void loadWorldTemperature(World world) {
+		worldTemperatures.remove(world);
+		if(Config.enableWorlds.contains(world)) worldTemperatures.put(world,getWorldTemperature(world));
+		else worldTemperatures.put(world,37);
+	}
 	public static void loadBlockTemperatures() {
 		for(String path:Temperature.yaml.getKeys(true)) {
 			if(path.equalsIgnoreCase("blockTemperature")) continue;
@@ -42,7 +46,7 @@ public class TemperatureProvider {
 		}
 	}
 	public static int getWorldTemperature(World world) {
-		Season season=UntilTheEndApi.WorldApi.getSeason(world);
+		HamsterYDS.UntilTheEnd.world.WorldProvider.Season season=UntilTheEndApi.WorldApi.getSeason(world);
 		int day=UntilTheEndApi.WorldApi.getDay(world);
 		int temperature=37;
 		switch(season) {

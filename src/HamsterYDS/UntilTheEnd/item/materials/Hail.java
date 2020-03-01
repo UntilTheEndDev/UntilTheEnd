@@ -1,22 +1,15 @@
 package HamsterYDS.UntilTheEnd.item.materials;
 
-import org.bukkit.Bukkit;
+import java.util.HashMap;
+
 import org.bukkit.Material;
-import org.bukkit.NamespacedKey;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.block.Action;
 import org.bukkit.event.player.PlayerInteractEvent;
-import org.bukkit.inventory.Inventory;
 import org.bukkit.inventory.ItemStack;
-import org.bukkit.inventory.ShapelessRecipe;
-
-import HamsterYDS.UntilTheEnd.api.UntilTheEndApi;
-import HamsterYDS.UntilTheEnd.cap.hum.Humidity;
-import HamsterYDS.UntilTheEnd.guide.CraftGuide;
-import HamsterYDS.UntilTheEnd.item.ItemLoader;
-import HamsterYDS.UntilTheEnd.item.ItemProvider;
+import HamsterYDS.UntilTheEnd.item.ItemManager;
 import HamsterYDS.UntilTheEnd.player.PlayerManager;
 
 /**
@@ -24,20 +17,11 @@ import HamsterYDS.UntilTheEnd.player.PlayerManager;
  * @version V5.1.1
  */
 public class Hail implements Listener{
-	public static ItemStack item;
-	public static NamespacedKey nsk=new NamespacedKey(Humidity.plugin,"ute.hail");
 	public Hail() {		
-		ShapelessRecipe recipe=new ShapelessRecipe(nsk,item);
-		recipe.addIngredient(1,Material.PACKED_ICE);
-		Bukkit.addRecipe(recipe); 
-		ItemLoader.plugin.getServer().getPluginManager().registerEvents(this,ItemLoader.plugin);
-		ItemProvider.addItem(this.getClass(),item);
-
-		Inventory inv=CraftGuide.getCraftInventory();
-		inv.setItem(11,item);
-		inv.setItem(15,new ItemStack(Material.PACKED_ICE,1));
-		UntilTheEndApi.GuideApi.addCraftToItem(item,inv);
-		UntilTheEndApi.GuideApi.addItemToCategory("§6基础",item);
+		HashMap<ItemStack,Integer> materials=new HashMap<ItemStack,Integer>();
+		materials.put(new ItemStack(Material.PACKED_ICE),1);
+		ItemManager.registerRecipe(materials,ItemManager.namesAndItems.get("§6冰雹"),"§6基础");
+		ItemManager.plugin.getServer().getPluginManager().registerEvents(this,ItemManager.plugin);
 	}
 	@EventHandler public void onRight(PlayerInteractEvent event) {
 		Player player=event.getPlayer();
@@ -46,7 +30,7 @@ public class Hail implements Listener{
 		ItemStack item=player.getItemInHand().clone();
 		if(item==null) return;
 		item.setAmount(1);
-		if(item.equals(this.item)) {
+		if(item.equals(ItemManager.namesAndItems.get("§6冰雹"))) {
 			ItemStack itemr=player.getItemInHand();
 			itemr.setAmount(itemr.getAmount()-1);
 			PlayerManager.change(player.getName(),"tem",-1);

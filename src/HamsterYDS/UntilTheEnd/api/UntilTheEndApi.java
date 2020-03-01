@@ -3,6 +3,7 @@ package HamsterYDS.UntilTheEnd.api;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Set;
 
 import org.bukkit.Bukkit;
 import org.bukkit.Location;
@@ -16,10 +17,10 @@ import org.inventivetalent.bossbar.BossBarAPI;
 
 import HamsterYDS.UntilTheEnd.block.BlockManager;
 import HamsterYDS.UntilTheEnd.guide.CraftGuide;
+import HamsterYDS.UntilTheEnd.item.ItemManager;
 import HamsterYDS.UntilTheEnd.item.ItemProvider;
 import HamsterYDS.UntilTheEnd.player.PlayerManager;
-import HamsterYDS.UntilTheEnd.world.WorldState;
-import HamsterYDS.UntilTheEnd.world.WorldState.Season;
+import HamsterYDS.UntilTheEnd.world.WorldProvider;
 
 public class UntilTheEndApi {
 	public static class BlockApi{
@@ -88,8 +89,8 @@ public class UntilTheEndApi {
 		}
 	}
 	public static class ItemApi{
-		public static HashMap<String,ItemStack> getItems(){
-			return ItemProvider.items;
+		public static Set<ItemStack> getItems(){
+			return ItemManager.itemsAndIds.keySet();
 		}
 		public static ItemStack getItem(String key) {
 			return ItemProvider.getItem(key);
@@ -104,11 +105,11 @@ public class UntilTheEndApi {
 		}
 	}
 	public static class WorldApi{
-		public static Season getSeason(World world) {
-			return WorldState.worldStates.get(world.getName()).season;
+		public static HamsterYDS.UntilTheEnd.world.WorldProvider.Season getSeason(World world) {
+			return WorldProvider.worldStates.get(world.getName()).season;
 		}
 		public static int getDay(World world) {
-			return WorldState.worldStates.get(world.getName()).day;
+			return WorldProvider.worldStates.get(world.getName()).day;
 		}
 	}
 	public static class GuideApi{

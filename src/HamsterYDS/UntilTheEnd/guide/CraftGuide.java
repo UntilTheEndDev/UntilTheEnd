@@ -93,8 +93,8 @@ public class CraftGuide implements Listener{
 		//TODO
 		event.setCancelled(true);
 		
+		if(event.getCurrentItem()==null) return;
 		ItemStack item=event.getCurrentItem().clone();
-		if(item==null) return;
 		if(item.getItemMeta()==null) return;
 		item.setAmount(1);
 		if(event.getSlot()==8) 

@@ -17,8 +17,7 @@ import org.bukkit.scheduler.BukkitRunnable;
 
 import HamsterYDS.UntilTheEnd.UntilTheEnd;
 import HamsterYDS.UntilTheEnd.api.UntilTheEndApi.BlockApi;
-import HamsterYDS.UntilTheEnd.item.ItemLoader;
-import HamsterYDS.UntilTheEnd.item.ItemProvider;
+import HamsterYDS.UntilTheEnd.item.ItemManager;
 
 /**
  * @author 南外丶仓鼠
@@ -88,20 +87,20 @@ public class BlockManager extends BukkitRunnable implements Listener{
 		String toString=BlockApi.locToStr(loc);
 		if(blocks.get(toString)==null) return; 
 		event.setDropItems(false);
-		loc.getWorld().dropItemNaturally(loc,ItemProvider.items.get(blocks.get(toString)));
+		loc.getWorld().dropItemNaturally(loc,ItemManager.namesAndItems.get(ItemManager.idsAndNames.get(blocks.get(toString))));
 		removeBlockData(blocks.get(toString),toString);
 		blocks.remove(toString);
 	}
 	@EventHandler public void onPlace(BlockPlaceEvent event) {
 		if(event.isCancelled()) return;
 		if(event.getItemInHand()==null) return;
-		ItemStack item=event.getItemInHand();
+		ItemStack item=event.getItemInHand().clone();item.setAmount(1);
 		if(item.getItemMeta()==null) return;
 		if(item.getItemMeta().getDisplayName()==null) return;
 		Location loc=event.getBlock().getLocation();
 		String toString=BlockApi.locToStr(loc);
-		blocks.put(toString,ItemLoader.canPlace.get(item.getItemMeta().getDisplayName()));
-		addBlockData(ItemLoader.canPlace.get(item.getItemMeta().getDisplayName()),toString);
+		blocks.put(toString,ItemManager.itemsAndIds.get(item));
+		addBlockData(ItemManager.itemsAndIds.get(item),toString);
 	}
 	@EventHandler public void onExtend(BlockPistonExtendEvent event) {
 		if(event.isCancelled()) return;

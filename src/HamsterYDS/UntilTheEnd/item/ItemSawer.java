@@ -28,7 +28,7 @@ public class ItemSawer extends BukkitRunnable{
 					if(item.getItemStack().getItemMeta().getDisplayName()==null) continue;
 					Location where=entity.getLocation();
 					String text=item.getItemStack().getItemMeta().getDisplayName();
-					final Hologram hologram=HologramsAPI.createHologram(ItemLoader.plugin, where.add(0.0, 0.6, 0.0));
+					final Hologram hologram=HologramsAPI.createHologram(ItemManager.plugin, where.add(0.0, 0.6, 0.0));
 					hologram.appendTextLine(text);
 					new BukkitRunnable() {
 						@Override
@@ -36,7 +36,7 @@ public class ItemSawer extends BukkitRunnable{
 							hologram.delete();
 							cancel();
 						}
-					}.runTaskTimer(ItemLoader.plugin,19L,1L);
+					}.runTaskTimer(ItemManager.plugin,19L,1L);
 				}catch(NoClassDefFoundError e) {}
 			}
 		}

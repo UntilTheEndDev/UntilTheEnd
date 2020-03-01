@@ -10,11 +10,8 @@ public class Food {
 	public static UntilTheEnd plugin;
 	public Food(UntilTheEnd plugin) {
 		this.plugin=plugin;
-		if(plugin.getConfig().getBoolean("food.rotten.enable")) {
-			new RottenFood1(plugin);
-			new RottenFood2(plugin);
-		}
-		if(plugin.getConfig().getBoolean("food.hunger.enable"))
-			new Hunger(plugin);
+		new RottenFoodTask(plugin);
+		new RottenFoodInfluence(plugin);
+		new Hunger(plugin);
 	}
 }

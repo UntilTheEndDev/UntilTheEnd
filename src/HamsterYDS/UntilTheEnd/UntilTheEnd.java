@@ -1,5 +1,6 @@
 package HamsterYDS.UntilTheEnd;
 
+import java.io.File;
 import java.io.InputStream;
 import java.net.HttpURLConnection;
 import java.net.URL;
@@ -19,11 +20,10 @@ import HamsterYDS.UntilTheEnd.cap.HudBar;
 import HamsterYDS.UntilTheEnd.cap.hum.Humidity;
 import HamsterYDS.UntilTheEnd.cap.san.Sanity;
 import HamsterYDS.UntilTheEnd.cap.tem.Temperature;
-import HamsterYDS.UntilTheEnd.cap.tiredness.Tiredness;
 import HamsterYDS.UntilTheEnd.crops.Crops;
 import HamsterYDS.UntilTheEnd.food.Food;
 import HamsterYDS.UntilTheEnd.guide.Guide;
-import HamsterYDS.UntilTheEnd.item.ItemLoader;
+import HamsterYDS.UntilTheEnd.item.ItemManager;
 import HamsterYDS.UntilTheEnd.papi.UTEPapi;
 import HamsterYDS.UntilTheEnd.player.PlayerManager;
 import HamsterYDS.UntilTheEnd.world.World;
@@ -37,28 +37,26 @@ public class UntilTheEnd extends JavaPlugin implements Listener{
 	String latestVersion;
 	boolean isLatest=true;
 	@Override public void onEnable() {
+		Metrics metrics = new Metrics(this);
+		metrics.addCustomChart(new Metrics.SimplePie("chart_id", () -> "My value"));
 		Bukkit.getPluginManager().registerEvents(this,this);
 		checkUpdate();
 		loadConfig();
 		new Config(this);
 		new World(this);
-		//固有属性
+	  //固有属性重构完毕
 		new Temperature(this);
-		new Humidity(this);
 		new Sanity(this);
-		
-		new Tiredness(this);
-		
-		new HamsterYDS.UntilTheEnd.player.Player(this);
-		new Crops(this);
-		new Food(this);
+		new Humidity(this);
+	  //new Tiredness(this);
 		new Guide(this);
+		new Crops(this);
+		new HamsterYDS.UntilTheEnd.player.Player(this);
+	  //未重构
+		new Food(this);
 		new Block(this);
-		for(Player player:Bukkit.getOnlinePlayers()) {
-			PlayerManager.load(player.getName());
-		}
 		new HudBar(this);
-		new ItemLoader(this);
+		new ItemManager(this);
 		new Commands(this);
 		if(Bukkit.getPluginManager().isPluginEnabled("PlaceholderAPI")) {
 			new UTEPapi(this).hook();
@@ -72,12 +70,16 @@ public class UntilTheEnd extends JavaPlugin implements Listener{
 		BlockManager.saveBlocks();
 	}
 	public void loadConfig() {
-		saveResource("config.yml", false);
+		File file=new File(this.getDataFolder(),"config.yml");
+		if(!file.exists())
+			saveResource("config.yml",true);
 		String language=getConfig().getString("language");
-		saveResource(language, false);
+		File langFile=new File(this.getDataFolder(),language);
+		if(!langFile.exists())	
+			saveResource(language, false);
 	}
 	@EventHandler public void onJoin(PlayerJoinEvent event) {
-		if(isLatest)
+		if(!isLatest)
 			event.getPlayer().sendMessage("§6§l[UntilTheEnd]§4§l您的插件不是最新版，很有可能有BUG！");
 	}
 	public void checkUpdate() {

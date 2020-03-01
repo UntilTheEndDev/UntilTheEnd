@@ -16,6 +16,7 @@ import org.bukkit.event.player.PlayerQuitEvent;
 import org.bukkit.scheduler.BukkitRunnable;
 
 import HamsterYDS.UntilTheEnd.UntilTheEnd;
+import HamsterYDS.UntilTheEnd.cap.HudBar;
 
 /**
  * @author 南外丶仓鼠
@@ -86,13 +87,20 @@ public class PlayerManager implements Listener{
 	}
 	public static void change(String name,String type,int changement) {
 		Player rplayer=Bukkit.getPlayer(name);
-		if(rplayer==null) return;
-		if(rplayer.getGameMode()==GameMode.CREATIVE||rplayer.getGameMode()==GameMode.SPECTATOR) return;
+		if(rplayer==null) 
+			return;
+		if(rplayer.getGameMode()==GameMode.CREATIVE||rplayer.getGameMode()==GameMode.SPECTATOR) 
+			return;
 		IPlayer player=players.get(name);
-		players.remove(name);
+		String mark="";
+		if(changement>0) mark="↑";
+		if(changement<0) mark="↓";
+		if(changement==0) mark=" ";
 		switch(type){
 			case "tem": {
 				player.temperature+=changement;
+				HudBar.temperature.remove(name);
+				HudBar.temperature.put(name,mark);
 				if(player.temperature==5) rplayer.sendTitle("§9太冷了！","");
 				if(player.temperature==60) rplayer.sendTitle("§9太热了！","");
 				if(player.temperature<-5) player.temperature=-5;
@@ -101,46 +109,22 @@ public class PlayerManager implements Listener{
 			}
 			case "hum": {
 				player.humidity+=changement;
+				HudBar.humidity.remove(name);
+				HudBar.humidity.put(name,mark);
 				if(player.humidity<0) player.humidity=0;
 				if(player.humidity>100) player.humidity=100;
 				break;
 			}
 			case "san": {
 				player.sanity+=changement;
+				HudBar.sanity.remove(name);
+				HudBar.sanity.put(name,mark);
 				if(player.sanity<0) player.sanity=0;
 				if(player.sanity>200) player.sanity=200;
 				break;
 			}
 		}
-		players.put(name,player);
-	}
-	public static void set(String name,String type,int changement) {
-		Player rplayer=Bukkit.getPlayer(name);
-		if(rplayer==null) return;
-		IPlayer player=players.get(name);
 		players.remove(name);
-		switch(type){
-			case "tem": {
-				player.temperature=changement;
-				if(player.temperature==5) rplayer.sendTitle("§9太冷了！","");
-				if(player.temperature==60) rplayer.sendTitle("§9太热了！","");
-				if(player.temperature<-5) player.temperature=-5;
-				if(player.temperature>75) player.temperature=75;
-				break;
-			}
-			case "hum": {
-				player.humidity=changement;
-				if(player.humidity<0) player.humidity=0;
-				if(player.humidity>100) player.humidity=100;
-				break;
-			}
-			case "san": {
-				player.sanity=changement;
-				if(player.sanity<0) player.sanity=0;
-				if(player.sanity>200) player.sanity=200;
-				break;
-			}
-		}
 		players.put(name,player);
 	}
 	private class SavingTask extends BukkitRunnable{

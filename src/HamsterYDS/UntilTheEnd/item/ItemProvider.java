@@ -21,7 +21,6 @@ import HamsterYDS.UntilTheEnd.UntilTheEnd;
 public class ItemProvider implements Listener{
 	public static HashMap<EntityType,String> drops=new HashMap<EntityType,String>();
 	public static HashMap<EntityType,Double> percents=new HashMap<EntityType,Double>();
-	public static HashMap<String,ItemStack> items=new HashMap<String,ItemStack>();
 	public static UntilTheEnd plugin;
 	public ItemProvider(UntilTheEnd plugin) {
 		this.plugin=plugin;
@@ -50,10 +49,7 @@ public class ItemProvider implements Listener{
 		dropItem(event.getEntity().getWorld(),event.getEntity().getLocation(),item,percent);
 	}
 	public static ItemStack getItem(String itemName) {
-		return items.get(itemName);
-	}
-	public static void addItem(Class<?> itemClass,ItemStack item) {
-		items.put(itemClass.getSimpleName(),item);
+		return ItemManager.namesAndItems.get(ItemManager.idsAndNames.get(itemName));
 	}
 	public static void dropItem(World world,Location loc,ItemStack item,double percent) {
 		while(percent>=1.0) {

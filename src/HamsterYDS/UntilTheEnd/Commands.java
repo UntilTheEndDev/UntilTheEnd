@@ -18,11 +18,12 @@ import org.bukkit.inventory.ItemStack;
 import HamsterYDS.UntilTheEnd.cap.tem.TemperatureProvider;
 import HamsterYDS.UntilTheEnd.guide.CraftGuide;
 import HamsterYDS.UntilTheEnd.guide.Guide;
-import HamsterYDS.UntilTheEnd.item.ItemProvider;
+import HamsterYDS.UntilTheEnd.item.ItemManager;
 import HamsterYDS.UntilTheEnd.player.PlayerManager;
-import HamsterYDS.UntilTheEnd.world.WorldState;
-import HamsterYDS.UntilTheEnd.world.WorldState.IWorld;
-import HamsterYDS.UntilTheEnd.world.WorldState.Season;
+import HamsterYDS.UntilTheEnd.world.WorldCounter;
+import HamsterYDS.UntilTheEnd.world.WorldProvider;
+import HamsterYDS.UntilTheEnd.world.WorldProvider.IWorld;
+import HamsterYDS.UntilTheEnd.world.WorldProvider.Season;
 
 /**
  * @author 南外丶仓鼠
@@ -40,7 +41,7 @@ public class Commands implements CommandExecutor, Listener{
 		this.plugin=plugin;
 		plugin.getCommand("ute").setExecutor(this);
 		plugin.getServer().getPluginManager().registerEvents(this,plugin);
-		for(String s:ItemProvider.items.keySet()) 
+		for(String s:ItemManager.idsAndNames.keySet()) 
 			itemTab.add(s);
 		cmdTab.add("cheat");
 		cmdTab.add("give");
@@ -142,7 +143,7 @@ public class Commands implements CommandExecutor, Listener{
 							return true;
 						}
 						changeSeason(setWorld,season,day);
-						WorldState.DayCounter.tellPlayers(setWorld);
+						WorldCounter.tellPlayers(setWorld);
 					}
 					cs.sendMessage(Config.getLang("cmd.setSeason")); 
 				}
@@ -165,7 +166,7 @@ public class Commands implements CommandExecutor, Listener{
 						return true;
 					}
 					Player givee=Bukkit.getPlayer(playerName);
-					ItemStack item=ItemProvider.items.get(itemName);
+					ItemStack item=ItemManager.namesAndItems.get(ItemManager.idsAndNames.get(itemName));
 					if(item==null) {
 						cs.sendMessage(Config.getLang("cmd.notAnItem"));
 						return true;
@@ -206,7 +207,7 @@ public class Commands implements CommandExecutor, Listener{
 						return true;
 					}
 					int value=Integer.valueOf(ct[3]);
-					PlayerManager.set(playerName,typeName,value);
+					PlayerManager.change(playerName,typeName,(value-PlayerManager.check(playerName,typeName)));
 					PlayerManager.save(playerName);
 					cs.sendMessage(Config.getLang("cmd.setHud"));
 				}
@@ -256,9 +257,9 @@ public class Commands implements CommandExecutor, Listener{
 		CommandSender.sendMessage(Config.getLang("cmd.noPermission"));
 	}
 	public static void changeSeason(World setWorld,Season season,int day) {
-		IWorld world=new WorldState().new IWorld(season, day);
-		WorldState.worldStates.remove(setWorld.getName());
-		WorldState.worldStates.put(setWorld.getName(),world);
+		IWorld world=new IWorld(season, day);
+		WorldProvider.worldStates.remove(setWorld.getName());
+		WorldProvider.worldStates.put(setWorld.getName(),world);
 		TemperatureProvider.loadWorldTemperatures();;
 	}
 	@EventHandler public void onTab(TabCompleteEvent event) {

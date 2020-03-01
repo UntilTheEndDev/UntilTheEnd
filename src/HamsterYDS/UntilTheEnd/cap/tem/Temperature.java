@@ -4,6 +4,7 @@ import java.io.File;
 
 import org.bukkit.configuration.file.YamlConfiguration;
 
+import HamsterYDS.UntilTheEnd.Config;
 import HamsterYDS.UntilTheEnd.UntilTheEnd;
 
 /**
@@ -15,6 +16,7 @@ public class Temperature {
 	public static YamlConfiguration yaml;
 	public Temperature(UntilTheEnd plugin) {
 		this.plugin=plugin;
+		Config.autoUpdateConfigs("temperature.yml");
 		File file=new File(plugin.getDataFolder(),"temperature.yml");
 		if(!file.exists()) plugin.saveResource("temperature.yml",true);
 		yaml=YamlConfiguration.loadConfiguration(file);

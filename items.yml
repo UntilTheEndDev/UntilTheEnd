@@ -1,56 +1,156 @@
-石砖: true
-绳子: true
-板条: true
-噩梦燃料: true
-金币: true
-蕨类植物: true
-冰雹: true
-芦苇: true
+石砖: 
+  enable: true
+  id: Brick
+绳子: 
+  enable: true
+  id: Rope
+板条: 
+  enable: true
+  id: Plank
+噩梦燃料: 
+  enable: true
+  id: NightMare
+金币: 
+  enable: true
+  id: Coin
+蕨类植物: 
+  enable: true
+  id: Fern
+冰雹: 
+  enable: true
+  id: Hail
+芦苇: 
+  enable: true
+  id: Reed
+  
+猫尾: 
+  enable: true
+  id: CatTail
+牛毛: 
+  enable: true
+  id: CowHair
+狗牙: 
+  enable: true
+  id: DogTooth
+牛角: 
+  enable: true
+  id: Horn
+猪皮: 
+  enable: true
+  id: PigSkin
+兔毛: 
+  enable: true
+  id: RabbitFur
+鳞片: 
+  enable: true
+  id: Scale
+骨片: 
+  enable: true
+  id: Sclerite
+蜘蛛腺体: 
+  enable: true
+  id: SpiderGland
+痰: 
+  enable: true
+  id: Spit
+齿轮: 
+  enable: true
+  id: Gear
+灰烬: 
+  enable: true
+  id: Ashes
+红宝石: 
+  enable: true
+  id: RedGum
+蓝宝石: 
+  enable: true
+  id: BlueGum
+紫宝石: 
+  enable: true
+  id: PurpleGum
+有生命的木头: 
+  enable: true
+  id: AnimateWood
 
-猫尾: true
-牛毛: true
-狗牙: true
-牛角: true
-猪皮: true
-兔毛: true
-鳞片: true
-骨片: true
-蜘蛛腺体: true
-痰: true
-齿轮: true
-灰烬: true
-红宝石: true
-蓝宝石: true
-紫宝石: true
-有生命的木头: true
+灌木丛帽子: 
+  enable: true
+  id: BushesHat
+兔毛耳罩: 
+  enable: true
+  id: Earmuff
+花环: 
+  enable: true
+  id: Garland
+草帽: 
+  enable: true
+  id: StrawHat
+眼球伞: 
+  enable: true
+  id: EyeballUmbrella
 
-灌木丛帽子: true
-兔毛耳罩: true
-花环: true
-草帽: true
-眼球伞: true
+便携包: 
+  enable: true
+  id: MovablePack
+背包: 
+  enable: true
+  id: NormalPack
+皮质背包: 
+  enable: true
+  id: PigPack
+救赎之心: 
+  enable: true
+  id: Reviver
+暖石: 
+  enable: true
+  id: WarmStone
+探测器: 
+  enable: true
+  id: Detector
+伞: 
+  enable: true
+  id: Umbrella
+花伞: 
+  enable: true
+  id: FlowerUmbrella
+治疗药膏: 
+  enable: true
+  id: HealingSalve
+止血剂: 
+  enable: true
+  id: HoneyPoultice
+ACD试验药: 
+  enable: true
+  id: ACDDrug
 
-便携包: true
-背包: true
-皮质背包: true
-救赎之心: true
-暖石: true
-探测器: true
-伞: true
-花伞: true
-治疗药膏: true
-止血剂: true
-ACD试验药: true
+吹箭: 
+  enable: true
+  id: BlowArraw1
+火吹箭: 
+  enable: true
+  id: BlowArraw2
+麻醉吹箭: 
+  enable: true
+  id: BlowArraw3
 
-吹箭: true
-火吹箭: true
-麻醉吹箭: true
+电器元件: 
+  enable: true
+  id: Element
+温度计: 
+  enable: true
+  id: Thermometer
+湿度计: 
+  enable: true
+  id: Hygrometer
+避雷针: 
+  enable: true
+  id: LightningArrester
+雪球发射机: 
+  enable: true
+  id: IceFlingomatic
+冰箱: 
+  enable: true
+  id: Refridgerator
 
-电器元件: true
-温度计: true
-湿度计: true
-避雷针: true
-雪球发射机: true
-冰箱: true
-
-火魔杖: true
+火魔杖: 
+  enable: true
+  id: FireWand

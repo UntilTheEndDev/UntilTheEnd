@@ -22,31 +22,14 @@
 #                          ...                                              ....                             
 #语言-可用的官方语言：zh_cn,zh_tw,en_us
 language: 'zh_cn.yml'
-
+#Bar设置##########################################################
 bar:
   enable: true   #是否开启Boss血量条显示固有属性
   fresh: 10   #Bar多少刻刷新一次
-hum:
-  moistness: true   #湿度过高身上某些特殊物品是否会变
-  influence: 
-    state: true   #在流体中是否影响湿度
-    weather: true   #暴露在雨天是否影响湿度
-san:
-  influence: 
-    entity: true   #实体（玩家、怪物）是否影响玩家理智值
-    clothes: true   #特殊衣物物品是否影响玩家理智值
-    hum: true   #湿度是否影响玩家理智值
-    nightmare: true   #携带噩梦燃料是否影响玩家理智值
-    time: true   #时间是否影响玩家理智值
-crops:
-  season: true   #是否打开季节性农作物机制
-  takewaterup: 
-    enable: true   #是否打开农作物吸水机制
-    percent: 0.1   #农作物生长时吸水的几率
+#食物设置##########################################################
 food:
   hunger: 
-    enable: true   #是否打开饥饿加速减少机制
-    speed: 15   #每多少秒固定减少1点饥饿值
+    speed: 30   #每多少秒固定减少1点饥饿值
   rotten: 
     enable: true   #是否打开食物腐烂机制
     speed: 30   #每多少秒计算一次腐烂-1
@@ -55,33 +38,37 @@ item:
     enable: true   #是否开启内置物品掉落有标识的功能
   blowarrow:
     autoclear: 20   #吹箭卡在方块中多少秒自动清除
+#玩家设置##########################################################
 player:
   death: 
-    enable: true   #是否开启灵魂功能
-    clearinv: true   #是否清空背包
-    clearexp: true   #是否清空经验
+    enable: true  #是否开启死后灵魂模式的功能
+    clearinv: false   #是否清空背包
+    clearexp: false   #是否清空经验
     autorespawn: 180   #自动重生时间（即可以被拯救的时间）
-  inventory: true   #是否开启背包限制功能
+  inventory: 
+    enable: true   #是否开启背包限制功能
+    lockSlots: 18  #初始锁定几格
   stats:
-    autosave: 60   #自动保存玩家固有属性
+    autosave: 60   #自动保存玩家固有属性的周期
+#世界设置##########################################################
 world:
   blind: 
-    enable: true   #是否开启夜晚失明功能
     up: 15000   #失明开始的时间（MC游戏刻）
     down: 23000   #失明结束的时间（MC游戏刻）
   darkness: 
-    enable: true   #是否开启黑暗伤害功能
-    warn: 3   #在亮度为0的黑暗中停留几秒会警告
-    attack: 7   #在亮度为0的黑暗中停留几秒会攻击
-    damage: 10   #在亮度为0的黑暗中停留attack秒后攻击的伤害
-    san_warn: -5   #在亮度为0的黑暗中停留warn秒后每秒影响的理智值
-    san_attack: -10   #在亮度为0的黑暗中停留attack秒后每秒影响的理智值
+    warnTime: 3   #在亮度为0的黑暗中停留几秒会警告
+    attackTime: 7   #在亮度为0的黑暗中停留几秒会攻击
+    darkDamage: 10   #在亮度为0的黑暗中停留attack秒后攻击的伤害
+    sanWarn: -5   #在亮度为0的黑暗中停留warn秒后每秒影响的理智值
+    sanAttack: -10   #在亮度为0的黑暗中停留attack秒后每秒影响的理智值
+    carrotEffect: 10  #吃萝卜可以暂时免疫黑暗的秒数（金萝卜*5）
   season:
     spring: 30   #春天大约多少天（会有10天的随机浮动）
     autumn: 30   #秋天大约多少天（会有10天的随机浮动）
     summer: 20   #夏天大约多少天（会有10天的随机浮动）
     winter: 20   #冬天大约多少天（会有10天的随机浮动）
+    
 block:
   fresh: 60   #方块保存与读取的CD
-enableWorlds:   #启用插件的世界（其他世界插件将失效）
-- world
+disableWorlds:   #不启用插件的世界
+- world_nether

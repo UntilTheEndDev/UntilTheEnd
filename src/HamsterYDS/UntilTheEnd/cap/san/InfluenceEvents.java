@@ -7,6 +7,8 @@ import org.bukkit.event.EventPriority;
 import org.bukkit.event.Listener;
 import org.bukkit.event.player.AsyncPlayerChatEvent;
 import org.bukkit.event.player.PlayerMoveEvent;
+
+import HamsterYDS.UntilTheEnd.Config;
 import HamsterYDS.UntilTheEnd.UntilTheEnd;
 import HamsterYDS.UntilTheEnd.player.PlayerManager;
 
@@ -25,6 +27,7 @@ public class InfluenceEvents implements Listener{
 	}
 	@EventHandler public void onMove(PlayerMoveEvent event) {
 		Player player=event.getPlayer();
+		if(!Config.enableWorlds.contains(player.getWorld())) return;
 		int san=PlayerManager.check(player.getName(),"san");
 		if(san<=moveWronglySanity&&Math.random()<=moveWronglyPercent) {
 			Location loc=event.getTo();
@@ -38,6 +41,7 @@ public class InfluenceEvents implements Listener{
 	@EventHandler(priority=EventPriority.HIGHEST) public void onChat(AsyncPlayerChatEvent event) {
 		String newString="";
 		Player sender=event.getPlayer();
+		if(!Config.enableWorlds.contains(sender.getWorld())) return;
 		int san=PlayerManager.check(sender.getName(),"san");
 		if(san<=chatablessSanity) {
 			for(int i=0;i<Math.random()*50;i++)

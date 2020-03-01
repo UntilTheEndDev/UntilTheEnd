@@ -1,6 +1,7 @@
 package HamsterYDS.UntilTheEnd.cap.tem;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 
 import org.bukkit.World;
@@ -20,10 +21,11 @@ public class ChangeTasks {
 	public static long temperatureChangeSpeedNatural=Temperature.yaml.getLong("temperatureChangeSpeedNatural"); 
 	public static double stoneChangePercent=Temperature.yaml.getDouble("stoneChangePercent"); 
 	public static long humidityChangeSpeed=Temperature.yaml.getLong("humidityChangeSpeed"); 
+	public static HashMap<String,Double> clothesChangeTemperature=new HashMap<String,Double>();
 	public ChangeTasks(UntilTheEnd plugin) {
 		this.plugin=plugin;
-		new PlayerTask().runTaskTimerAsynchronously(plugin,0L,20L);
-		new HumidityTask().runTaskTimerAsynchronously(plugin,0L,humidityChangeSpeed);
+		new PlayerTask().runTaskTimer(plugin,0L,20L);
+		new HumidityTask().runTaskTimer(plugin,0L,humidityChangeSpeed);
 	}
 	public class HumidityTask extends BukkitRunnable{
 		@Override
@@ -76,8 +78,35 @@ public class ChangeTasks {
 		public void goNatural(Player player) {
 			final int naturalTem=TemperatureProvider.getBlockTemperature(player.getLocation());
 			final int playerTem=PlayerManager.check(player.getName(),"tem");
-			if(playerTem<naturalTem) PlayerManager.change(player.getName(),"tem",1);
-			if(playerTem>naturalTem) PlayerManager.change(player.getName(),"tem",-1);
+			if(playerTem<naturalTem&&clothesChange(player,true)) 
+				PlayerManager.change(player.getName(),"tem",1);
+			if(playerTem>naturalTem&&clothesChange(player,false)) 
+				PlayerManager.change(player.getName(),"tem",-1);
+		}
+		public boolean clothesChange(Player player,boolean upOrDown) {
+			double upFactor=0.0;
+			double downFactor=0.0;
+			PlayerInventory inv=player.getInventory();
+			for(ItemStack item:inv.getArmorContents()) 
+				if(clothesChangeTemperature.containsKey(getName(item)))
+					if(clothesChangeTemperature.get(getName(item))>0) {
+						upFactor+=clothesChangeTemperature.get(getName(item));
+					}else downFactor+=clothesChangeTemperature.get(getName(item));
+			if(upOrDown) {
+				if(Math.random()<upFactor) 
+					return false;
+			}else {
+				if(Math.random()<downFactor) 
+					return false;
+			}
+			return true;
+		}
+		public String getName(ItemStack item) {
+			if(item!=null)
+				if(item.hasItemMeta()) 
+					if(item.getItemMeta().hasDisplayName()) 
+						return item.getItemMeta().getDisplayName();
+			return "";
 		}
 		public ArrayList<String> hasStone=new ArrayList<String>();
 		public long totStone=0;

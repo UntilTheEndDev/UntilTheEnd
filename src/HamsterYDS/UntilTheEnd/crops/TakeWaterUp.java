@@ -10,6 +10,7 @@ import org.bukkit.event.Listener;
 import org.bukkit.event.block.BlockFromToEvent;
 import org.bukkit.event.block.BlockGrowEvent;
 
+import HamsterYDS.UntilTheEnd.Config;
 import HamsterYDS.UntilTheEnd.UntilTheEnd;
 
 /**
@@ -18,10 +19,9 @@ import HamsterYDS.UntilTheEnd.UntilTheEnd;
  */
 public class TakeWaterUp implements Listener{
 	public static UntilTheEnd plugin;
-	static double percent=0;
+	static double percent=Crops.yaml.getDouble("takeWaterPercent");
 	public TakeWaterUp(UntilTheEnd plugin) {
 		this.plugin=plugin;
-		percent=plugin.getConfig().getDouble("crops.takewaterup.percent");
 		plugin.getServer().getPluginManager().registerEvents(this,plugin);
 	}
 	@EventHandler public void onLiquidRun(BlockFromToEvent event) {
@@ -34,6 +34,7 @@ public class TakeWaterUp implements Listener{
 		Block block=event.getBlock();
 		Location loc=block.getLocation();
 		World world=loc.getWorld();
+		if(!Config.enableWorlds.contains(world)) return;
 		boolean flag=true;
 		for(int x=-3;x<=3;x++) {
 			for(int y=-3;y<=3;y++) {

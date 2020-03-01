@@ -7,18 +7,15 @@ import org.bukkit.event.block.Action;
 import org.bukkit.event.player.PlayerInteractEvent;
 import org.bukkit.inventory.ItemStack;
 
-import HamsterYDS.UntilTheEnd.item.ItemLoader;
-import HamsterYDS.UntilTheEnd.item.ItemProvider;
+import HamsterYDS.UntilTheEnd.item.ItemManager;
 
 /**
  * @author 南外丶仓鼠
  * @version V5.1.1
  */
 public class SpiderGland implements Listener{
-	public static ItemStack item;
-	public SpiderGland() {		
-		ItemProvider.addItem(this.getClass(),item);
-		ItemLoader.plugin.getServer().getPluginManager().registerEvents(this,ItemLoader.plugin);
+	public SpiderGland() {
+		ItemManager.plugin.getServer().getPluginManager().registerEvents(this,ItemManager.plugin);
 	}
 	@EventHandler public void onRight(PlayerInteractEvent event) {
 		Player player=event.getPlayer();
@@ -27,7 +24,7 @@ public class SpiderGland implements Listener{
 		ItemStack item=player.getItemInHand().clone();
 		if(item==null) return;
 		item.setAmount(1);
-		if(item.equals(this.item)) {
+		if(item.equals(ItemManager.namesAndItems.get("§6蜘蛛腺体"))) {
 			ItemStack itemr=player.getItemInHand();
 			itemr.setAmount(itemr.getAmount()-1);
 			if(player.getHealth()+4.0>=player.getMaxHealth()) 

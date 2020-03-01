@@ -16,18 +16,15 @@ import org.bukkit.scheduler.BukkitRunnable;
 import org.bukkit.util.EulerAngle;
 import org.bukkit.util.Vector;
 
-import HamsterYDS.UntilTheEnd.item.ItemLoader;
-import HamsterYDS.UntilTheEnd.item.ItemProvider;
+import HamsterYDS.UntilTheEnd.item.ItemManager;
 
 /**
  * @author 南外丶仓鼠
  * @version V5.1.1
  */
 public class Sclerite implements Listener{
-	public static ItemStack item;
-	public Sclerite() {		
-		ItemProvider.addItem(this.getClass(),item);
-		ItemLoader.plugin.getServer().getPluginManager().registerEvents(this,ItemLoader.plugin);
+	public Sclerite() {	
+		ItemManager.plugin.getServer().getPluginManager().registerEvents(this,ItemManager.plugin);
 	}
 	@EventHandler public void onRight(PlayerInteractEvent event) {
 		Player player=event.getPlayer();
@@ -36,7 +33,7 @@ public class Sclerite implements Listener{
 		ItemStack item=player.getItemInHand().clone();
 		if(item==null) return;
 		item.setAmount(1);
-		if(item.equals(this.item)) {
+		if(item.equals(ItemManager.namesAndItems.get("§6骨片"))) {
 			ItemStack itemr=player.getItemInHand();
 			itemr.setAmount(itemr.getAmount()-1);
 			//骨片扔出
@@ -84,7 +81,7 @@ public class Sclerite implements Listener{
 			this.vec=vec;
 			this.armor=armor;
 			this.player=player;
-			runTaskTimer(ItemLoader.plugin,0L,1L);
+			runTaskTimer(ItemManager.plugin,0L,1L);
 		}
 	}
 }
