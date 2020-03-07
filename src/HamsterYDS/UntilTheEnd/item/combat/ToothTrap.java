@@ -29,8 +29,8 @@ import HamsterYDS.UntilTheEnd.player.death.DeathCause;
 import HamsterYDS.UntilTheEnd.player.death.DeathMessage;
 
 public class ToothTrap implements Listener{
-	public static double damage=ItemManager.yaml.getDouble("狗牙陷阱.damage");
-	public static double brokenPercent=ItemManager.yaml.getDouble("狗牙陷阱.brokenPercent");
+	public static double damage=ItemManager.yaml2.getDouble("狗牙陷阱.damage");
+	public static double brokenPercent=ItemManager.yaml2.getDouble("狗牙陷阱.brokenPercent");
 	public static ArrayList<String> touched=new ArrayList<String>();
 	public ToothTrap() {
 		loadBlocks();

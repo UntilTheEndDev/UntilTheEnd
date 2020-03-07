@@ -18,9 +18,9 @@ import HamsterYDS.UntilTheEnd.item.ItemManager;
 import HamsterYDS.UntilTheEnd.player.PlayerManager;
 
 public class FireWand implements Listener{
-	public static int firePeriod=ItemManager.yaml.getInt("旋风.firePeriod");
-	public static int maxDist=ItemManager.yaml.getInt("旋风.maxDist");
-	public static double range=ItemManager.yaml.getDouble("旋风.range");
+	public static int firePeriod=ItemManager.yaml2.getInt("旋风.firePeriod");
+	public static int maxDist=ItemManager.yaml2.getInt("旋风.maxDist");
+	public static double range=ItemManager.yaml2.getDouble("旋风.range");
 	public FireWand() {		
 		HashMap<ItemStack,Integer> materials=new HashMap<ItemStack,Integer>();
 		materials.put(ItemManager.namesAndItems.get("§6红宝石"),3);

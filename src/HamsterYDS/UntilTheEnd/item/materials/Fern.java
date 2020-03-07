@@ -16,7 +16,7 @@ import HamsterYDS.UntilTheEnd.item.ItemManager;
  * @version V5.1.1
  */
 public class Fern implements Listener{
-	public static double heal=ItemManager.yaml.getDouble("蕨类植物.heal");
+	public static double heal=ItemManager.yaml2.getDouble("蕨类植物.heal");
 	public Fern() {		
 		HashMap<ItemStack,Integer> materials=new HashMap<ItemStack,Integer>();
 		materials.put(new ItemStack(Material.SEEDS),6);

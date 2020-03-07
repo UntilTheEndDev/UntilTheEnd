@@ -17,7 +17,7 @@ import HamsterYDS.UntilTheEnd.player.PlayerManager;
  * @version V5.1.1
  */
 public class Hail implements Listener{
-	public static int temperatureReduce=ItemManager.yaml.getInt("冰雹.temperatureReduce");
+	public static int temperatureReduce=ItemManager.yaml2.getInt("冰雹.temperatureReduce");
 	public Hail() {		
 		HashMap<ItemStack,Integer> materials=new HashMap<ItemStack,Integer>();
 		materials.put(new ItemStack(Material.PACKED_ICE),1);

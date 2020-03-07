@@ -17,8 +17,8 @@ import org.bukkit.util.Vector;
 import HamsterYDS.UntilTheEnd.item.ItemManager;
 
 public class WeatherPain implements Listener{
-	public static int dist=ItemManager.yaml.getInt("旋风.dist");
-	public static double range=ItemManager.yaml.getDouble("旋风.range");
+	public static int dist=ItemManager.yaml2.getInt("旋风.dist");
+	public static double range=ItemManager.yaml2.getDouble("旋风.range");
 	public WeatherPain() {
 		HashMap<ItemStack,Integer> materials=new HashMap<ItemStack,Integer>();
 		materials.put(ItemManager.namesAndItems.get("§6齿轮"),3);

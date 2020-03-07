@@ -30,10 +30,10 @@ import HamsterYDS.UntilTheEnd.player.death.DeathMessage;
  * @version V5.1.1
  */
 public class BlowArrow3 implements Listener{
-	public static double damage=ItemManager.yaml.getDouble("麻醉吹箭.damage");
-	public static double range=ItemManager.yaml.getDouble("麻醉吹箭.range");
-	public static int maxDist=ItemManager.yaml.getInt("麻醉吹箭.maxDist");
-	public static int blindPeriod=ItemManager.yaml.getInt("麻醉吹箭.blindPeriod");
+	public static double damage=ItemManager.yaml2.getDouble("麻醉吹箭.damage");
+	public static double range=ItemManager.yaml2.getDouble("麻醉吹箭.range");
+	public static int maxDist=ItemManager.yaml2.getInt("麻醉吹箭.maxDist");
+	public static int blindPeriod=ItemManager.yaml2.getInt("麻醉吹箭.blindPeriod");
 	public BlowArrow3() {
 		HashMap<ItemStack,Integer> materials=new HashMap<ItemStack,Integer>();
 		materials.put(ItemManager.namesAndItems.get("§6芦苇"),3);

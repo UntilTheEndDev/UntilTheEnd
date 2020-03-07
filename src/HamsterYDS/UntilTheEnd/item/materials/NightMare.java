@@ -12,7 +12,7 @@ import HamsterYDS.UntilTheEnd.item.ItemManager;
  * @version V5.1.1
  */
 public class NightMare{
-	public static int sanityReduce=ItemManager.yaml.getInt("冰雹.sanityReduce");
+	public static int sanityReduce=ItemManager.yaml2.getInt("冰雹.sanityReduce");
 	public NightMare() {	
 		HashMap<ItemStack,Integer> materials=new HashMap<ItemStack,Integer>();
 		materials.put(new ItemStack(Material.GHAST_TEAR),4);
