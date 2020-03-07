@@ -41,8 +41,6 @@ public class Commands implements CommandExecutor, Listener, TabCompleter {
         for (Season season : Season.values())
             seasonTab.add(season.name().toLowerCase());
         capTab.addAll(Arrays.asList("san", "hum", "tem"));
-        capTab.add("hum");
-        capTab.add("tem");
         Collections.sort(itemTab);
         Collections.sort(cmdTab);
     }
@@ -54,7 +52,7 @@ public class Commands implements CommandExecutor, Listener, TabCompleter {
     }
 
     public static void sendHelp(CommandSender sender) {
-        sender.sendMessage("[UTE§r]§bUTE v" + UntilTheEnd.getInstance().getDescription().getVersion());
+        sender.sendMessage(Config.yaml.get("prefix") + "§bUTE v" + UntilTheEnd.getInstance().getDescription().getVersion());
         sender.sendMessage(Config.getLang("cmd.label_1"));
         if (sender.hasPermission("ute.cheat"))
             sender.sendMessage(Config.getLang("cmd.ute_cheat"));
@@ -268,7 +266,7 @@ public class Commands implements CommandExecutor, Listener, TabCompleter {
         String latest = null;
         List<String> list = new ArrayList<>();
         if (args.length != 0) {
-            latest = args[0];
+            latest = args[args.length - 1];
         }
         switch (args.length) {
             case 0:
@@ -331,6 +329,7 @@ public class Commands implements CommandExecutor, Listener, TabCompleter {
                         break;
                     }
                 }
+                break;
             }
         }
         filter(list, latest);

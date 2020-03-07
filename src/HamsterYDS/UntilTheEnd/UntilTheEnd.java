@@ -6,6 +6,7 @@ import java.net.HttpURLConnection;
 import java.net.URL;
 import java.util.logging.Level;
 
+import HamsterYDS.UntilTheEnd.papi.UTEExpansion;
 import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
@@ -67,6 +68,7 @@ public class UntilTheEnd extends JavaPlugin implements Listener {
         new Block(this);
         new ItemManager(this);
         new Commands(this);
+        new UTEExpansion().register();
     }
 
     @Override
