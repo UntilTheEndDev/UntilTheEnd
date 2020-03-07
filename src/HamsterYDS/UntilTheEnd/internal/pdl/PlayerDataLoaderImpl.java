@@ -1,6 +1,7 @@
 package HamsterYDS.UntilTheEnd.internal.pdl;
 
 import HamsterYDS.UntilTheEnd.Config;
+import HamsterYDS.UntilTheEnd.UntilTheEnd;
 import HamsterYDS.UntilTheEnd.api.spi.PlayerDataLoader;
 
 /**
@@ -12,7 +13,7 @@ public class PlayerDataLoaderImpl {
     public static PlayerDataLoader loader;
 
     static {
-        switch (Config.yaml.getString("saving", "name")) {
+        switch (UntilTheEnd.getInstance().getConfig().getString("saving", "name")) {
             case "nameV2":
                 loader = new PlayerNameYmlV2();
                 break;

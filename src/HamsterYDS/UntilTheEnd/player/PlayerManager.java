@@ -69,23 +69,18 @@ public class PlayerManager implements Listener {
     }
 
     public static void load(OfflinePlayer name) {
-        File file = new File(plugin.getDataFolder() + "/playerdata/", name + ".yml");
-        if (!file.exists()) {
-            IPlayer player = new IPlayer(37, 0, 200);
-            players.put(name.getUniqueId(), player);
-            return;
-        }
         int humidity = 0;
         int temperature = 37;
         int sanity = 200;
         try {
             final Map<String, Object> load = PlayerDataLoaderImpl.loader.load(playerdata, name);
-            if (load == null) {
+            if (load != null) {
                 humidity = ((Number) load.get("humidity")).intValue();
                 temperature = ((Number) load.get("temperature")).intValue();
                 sanity = ((Number) load.get("sanity")).intValue();
             }
-        } catch (Throwable ignore) {
+        } catch (Throwable exception) {
+            plugin.getLogger().log(Level.WARNING, "Failed to load " + name, exception);
         }
         IPlayer player = new IPlayer(temperature, humidity, sanity);
         players.put(name.getUniqueId(), player);

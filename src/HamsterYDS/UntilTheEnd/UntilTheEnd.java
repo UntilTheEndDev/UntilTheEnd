@@ -6,6 +6,8 @@ import java.net.HttpURLConnection;
 import java.net.URL;
 import java.util.logging.Level;
 
+import HamsterYDS.UntilTheEnd.api.spi.PlayerDataLoader;
+import HamsterYDS.UntilTheEnd.internal.pdl.PlayerDataLoaderImpl;
 import HamsterYDS.UntilTheEnd.papi.UTEExpansion;
 import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
@@ -69,6 +71,7 @@ public class UntilTheEnd extends JavaPlugin implements Listener {
         new ItemManager(this);
         new Commands(this);
         new UTEExpansion().register();
+        getLogger().log(Level.INFO, "数据存储模式: " + PlayerDataLoaderImpl.loader.getClass().getSimpleName() + "[" + getConfig().getString("saving") + "]");
     }
 
     @Override
