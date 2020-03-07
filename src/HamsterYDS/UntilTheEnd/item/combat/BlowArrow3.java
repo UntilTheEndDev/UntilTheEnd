@@ -22,12 +22,18 @@ import org.bukkit.util.EulerAngle;
 import org.bukkit.util.Vector;
 
 import HamsterYDS.UntilTheEnd.item.ItemManager;
+import HamsterYDS.UntilTheEnd.player.death.DeathCause;
+import HamsterYDS.UntilTheEnd.player.death.DeathMessage;
 
 /**
  * @author 南外丶仓鼠
  * @version V5.1.1
  */
 public class BlowArrow3 implements Listener{
+	public static double damage=ItemManager.yaml.getDouble("麻醉吹箭.damage");
+	public static double range=ItemManager.yaml.getDouble("麻醉吹箭.range");
+	public static int maxDist=ItemManager.yaml.getInt("麻醉吹箭.maxDist");
+	public static int blindPeriod=ItemManager.yaml.getInt("麻醉吹箭.blindPeriod");
 	public BlowArrow3() {
 		HashMap<ItemStack,Integer> materials=new HashMap<ItemStack,Integer>();
 		materials.put(ItemManager.namesAndItems.get("§6芦苇"),3);
@@ -60,7 +66,7 @@ public class BlowArrow3 implements Listener{
 		}
 	}
 	public class Task extends BukkitRunnable{
-		int range=300;
+		int range=maxDist;
 		Vector vec;
 		ArmorStand armor;
 		Player player;
@@ -74,13 +80,14 @@ public class BlowArrow3 implements Listener{
 			Location loc=armor.getLocation().add(0.0,1.0,0.0);
 			armor.getWorld().spawnParticle(Particle.SUSPENDED_DEPTH,armor.getLocation().add(0,1.0,0),3);
 			armor.setVelocity(vec);
-			for(Entity entity:armor.getNearbyEntities(0.5,0.5,0.5)) {
+			for(Entity entity:armor.getNearbyEntities(BlowArrow3.range,BlowArrow3.range,BlowArrow3.range)) {
 				if(entity==player) continue;
 				if(entity instanceof LivingEntity) {
 					LivingEntity creature=(LivingEntity) entity;
-					creature.damage(10.0,player);
-					creature.addPotionEffect(new PotionEffect(PotionEffectType.BLINDNESS,1200,0));
-					creature.addPotionEffect(new PotionEffect(PotionEffectType.NIGHT_VISION,1200,0));
+					creature.damage(damage,player);
+					creature.addPotionEffect(new PotionEffect(PotionEffectType.BLINDNESS,blindPeriod*20,0));
+					creature.addPotionEffect(new PotionEffect(PotionEffectType.NIGHT_VISION,blindPeriod*20,0));
+					if(creature.isDead()) DeathMessage.causes.put(creature.getName(),DeathCause.BLOWARROW);
 					armor.remove();
 					cancel();
 					return;
@@ -96,7 +103,7 @@ public class BlowArrow3 implements Listener{
 						armor.remove();
 						cancel();
 					}
-				}.runTaskTimer(ItemManager.plugin,ItemManager.plugin.getConfig().getInt("item.blowarrow.autoclear"),1);
+				}.runTaskTimer(ItemManager.plugin,ItemManager.plugin.getConfig().getInt("item.blowarrow.autoclear")*20,1);
 				cancel();
 				return;
 			}

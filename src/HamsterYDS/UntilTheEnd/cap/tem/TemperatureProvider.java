@@ -11,15 +11,31 @@ import org.bukkit.block.Block;
 import HamsterYDS.UntilTheEnd.Config;
 import HamsterYDS.UntilTheEnd.UntilTheEnd;
 import HamsterYDS.UntilTheEnd.api.UntilTheEndApi;
+import HamsterYDS.UntilTheEnd.world.WorldProvider.Season;
 
 public class TemperatureProvider {
 	public static UntilTheEnd plugin;
 	public static HashMap<World,Integer> worldTemperatures=new HashMap<World,Integer>();
 	public static HashMap<Material,Integer> blockTemperatures=new HashMap<Material,Integer>();
+	public static HashMap<Material,FMBlock> fmBlocks=new HashMap<Material,FMBlock>();
 	public TemperatureProvider(UntilTheEnd plugin) {
 		this.plugin=plugin;
 		loadWorldTemperatures();
 		loadBlockTemperatures();
+		loadFMBlocks();
+	}
+	public static void loadFMBlocks() {
+		for(String path:Temperature.yaml.getKeys(true)) {
+			if(path.startsWith("fmBlocks.")) {
+				if(path.replace("fmBlocks.","").contains(".")) continue;
+				Material currentMaterial=Material.valueOf(path.replace("fmBlocks.",""));
+				Material newMaterial=Material.valueOf(Temperature.yaml.getString(path+".newMaterial"));
+				boolean isIncrease=Temperature.yaml.getBoolean(path+".increase");
+				int temperature=Temperature.yaml.getInt(path+".temperature");
+				fmBlocks.put(currentMaterial,new FMBlock(newMaterial,temperature,isIncrease));
+				System.out.println("检测到随温度变化而变化的方块"+path.replace("fmBlocks.","")+"->"+newMaterial.toString()+"变化温度为："+temperature);
+			}
+		}
 	}
 	public static void loadWorldTemperatures() {
 		for(World world:Bukkit.getWorlds()) {
@@ -35,8 +51,7 @@ public class TemperatureProvider {
 	}
 	public static void loadBlockTemperatures() {
 		for(String path:Temperature.yaml.getKeys(true)) {
-			if(path.equalsIgnoreCase("blockTemperature")) continue;
-			if(path.startsWith("blockTemperature")) {
+			if(path.startsWith("blockTemperature.")) {
 				int tem=Temperature.yaml.getInt(path);
 				path=path.replace("blockTemperature.","");
 				Material material=Material.getMaterial(path);
@@ -46,7 +61,7 @@ public class TemperatureProvider {
 		}
 	}
 	public static int getWorldTemperature(World world) {
-		HamsterYDS.UntilTheEnd.world.WorldProvider.Season season=UntilTheEndApi.WorldApi.getSeason(world);
+		Season season=UntilTheEndApi.WorldApi.getSeason(world);
 		int day=UntilTheEndApi.WorldApi.getDay(world);
 		int temperature=37;
 		switch(season) {
@@ -64,6 +79,10 @@ public class TemperatureProvider {
 		}
 		case WINTER: {
 			temperature=(int) (0.15*day*day-3.5*day+3.3-Math.random()*(-5)+Math.random()*5-Math.sqrt(Math.sqrt(Math.sqrt(world.getTime()))));
+			break;
+		}
+		case NULL: {
+			temperature=37;
 			break;
 		}
 		}
@@ -85,18 +104,28 @@ public class TemperatureProvider {
 					Location newLoc=new Location(loc.getWorld(),loc.getX()+x,loc.getY()+y,loc.getZ()+z);
 					if(newLoc.getBlock()==null) continue;
 					Material blockMaterial=newLoc.getBlock().getType();
-					double factor=loc.distance(newLoc);
+					double factor=loc.distance(newLoc)*0.4;
 					if(blockTemperatures.containsKey(blockMaterial)) {
 						int blockTem=blockTemperatures.get(blockMaterial);
 						int d_value=Math.abs(blockTem-seasonTem); 
-						int influent=(int) Math.pow(d_value/factor/2.3,1.5);
+						double influent=(double)d_value/(double)factor;
 						tot++;
 						if(blockTem>seasonTem) tems+=seasonTem+influent;
 						else tems+=seasonTem-influent;
 					}
 				}
 		int result=(int) (tems/tot);
-		result=(int) (result-(1.6*((loc.getBlockY()-50)/10)));
+		result=(int) (result-(1.5*((loc.getBlockY()-50)/10)));
 		return result;
+	}
+	public static class FMBlock{
+		Material newMaterial;
+		int temperature;
+		boolean upOrDown;
+		public FMBlock(Material newBlock,int temperature,boolean upOrDown) {
+			this.newMaterial=newBlock;
+			this.temperature=temperature;
+			this.upOrDown=upOrDown;
+		}
 	}
 }

@@ -50,7 +50,6 @@ public class Thermometer implements Listener{
 			clicked.add(toString);
 			int tem=TemperatureProvider.getBlockTemperature(loc);
 			String text="§e§l温度§d§l"+tem+"§e§l°C";
-			System.out.println(text);
 			final Hologram hologram=HologramsAPI.createHologram(ItemManager.plugin,loc.add(0.5,2.2,0.5).clone());
 			hologram.appendTextLine(text);
 			if(tem>=55)

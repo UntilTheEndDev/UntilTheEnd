@@ -18,7 +18,6 @@ public class Sanity {
 		this.plugin=plugin;
 		Config.autoUpdateConfigs("sanity.yml");
 		File file=new File(plugin.getDataFolder(),"sanity.yml");
-		if(!file.exists()) plugin.saveResource("sanity.yml",true);
 		yaml=YamlConfiguration.loadConfiguration(file);
 		System.out.println("[UntilTheEnd]正在加载理智计算模块......");
 		SanityProvider.loadAura();

@@ -1,6 +1,6 @@
 package HamsterYDS.UntilTheEnd.cap.hum;
 
-import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 
 import org.bukkit.entity.Entity;
@@ -29,21 +29,22 @@ public class InfluenceEvents implements Listener{
 		this.plugin=plugin;
 		plugin.getServer().getPluginManager().registerEvents(this,plugin);
 	}
-	private ArrayList<String> wetFoodEaters=new ArrayList<String>();
+	private HashMap<String,Integer> wetFoodLevels=new HashMap<String,Integer>();
 	@EventHandler public void onUse(PlayerItemConsumeEvent event) {
 		if(!Config.enableWorlds.contains(event.getPlayer().getWorld())) return;
 		ItemStack item=event.getItem();
 		if(!item.getType().isEdible()) return;
 		if(isWet(item)) 
-			wetFoodEaters.add(event.getPlayer().getName());
+			wetFoodLevels.put(event.getPlayer().getName(),event.getPlayer().getFoodLevel());
 	}
 	@EventHandler public void onEat(FoodLevelChangeEvent event) {
 		Entity entity=event.getEntity();
 		if(!Config.enableWorlds.contains(event.getEntity().getWorld())) return;
-		if(wetFoodEaters.contains(entity.getName())) {
-			event.setFoodLevel((int)(event.getFoodLevel()*wetFoodLevel));
+		if(wetFoodLevels.containsKey(entity.getName())) {
+			int currentLevel=wetFoodLevels.get(entity.getName());
+			event.setFoodLevel((int)(((double)(event.getFoodLevel()-currentLevel))*wetFoodLevel)+currentLevel);
 			entity.sendMessage("§6[§cUntilTheEnd§6]§r 潮湿的食物真难吃~");  //Language-TODO
-			wetFoodEaters.remove(entity.getName());
+			wetFoodLevels.remove(entity.getName());
 		}
 	}
 	@EventHandler public void onDrag(InventoryDragEvent event) {

@@ -101,11 +101,9 @@ public class CraftGuide implements Listener{
 			player.openInventory(this.inv);
 		if(event.getSlot()==0) {
 			ArrayList<Inventory> invs=playerInvs.get(player.getName());
-			if(invs.size()==0) 
-				player.openInventory(this.inv);
-			else {
+			if(invs.size()!=0) {
 				player.openInventory(invs.get(invs.size()-1));
-				invs.remove(invs.size()-1);
+				invs.remove(invs.get(invs.size()-1));
 				playerInvs.remove(player.getName());
 				playerInvs.put(player.getName(),invs);
 			}
@@ -169,7 +167,7 @@ public class CraftGuide implements Listener{
 		ItemStack next=getItem("§a下一页",Material.STAINED_GLASS_PANE,11);
 		inv.setItem(36,last);inv.setItem(44,next);
 		ItemStack back=getItem("§a返回上一层",Material.STAINED_GLASS_PANE,6);
-		ItemStack menu=getItem("§a返回主菜单",Material.STAINED_GLASS_PANE,8);
+		ItemStack menu=getItem("§a返回主菜单",Material.STAINED_GLASS_PANE,9);
 		inv.setItem(0,back);inv.setItem(8,menu);
 		return inv;
 	}

@@ -1,6 +1,6 @@
 package HamsterYDS.UntilTheEnd.world;
 
-import java.util.ArrayList;
+import java.util.HashSet;
 
 import org.bukkit.World;
 import org.bukkit.entity.Player;
@@ -21,7 +21,7 @@ public class WorldCounter extends BukkitRunnable{
 	static int autumn=HamsterYDS.UntilTheEnd.world.World.plugin.getConfig().getInt("world.season.autumn");
 	static int summer=HamsterYDS.UntilTheEnd.world.World.plugin.getConfig().getInt("world.season.summer");
 	static int winter=HamsterYDS.UntilTheEnd.world.World.plugin.getConfig().getInt("world.season.winter");
-	private ArrayList<String> changingWorlds=new ArrayList<String>();
+	private HashSet<String> changingWorlds=new HashSet<String>();
 	@Override
 	public void run() {
 		for(World world:Config.enableWorlds) {
@@ -36,7 +36,6 @@ public class WorldCounter extends BukkitRunnable{
 	}
 	private void newDay(World world) {
 		IWorld state=WorldProvider.worldStates.get(world.getName());
-		WorldProvider.worldStates.remove(world.getName());
 		int days=state.day;
 		switch(state.season) {
 		case SPRING: {
@@ -69,6 +68,7 @@ public class WorldCounter extends BukkitRunnable{
 		}
 		default: break;
 		}
+		WorldProvider.worldStates.remove(world.getName());
 		WorldProvider.worldStates.put(world.getName(),state);
 		WorldProvider.saveWorlds();
 		tellPlayers(world);

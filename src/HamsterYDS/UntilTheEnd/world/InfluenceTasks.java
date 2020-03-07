@@ -17,6 +17,8 @@ import org.bukkit.scheduler.BukkitRunnable;
 import HamsterYDS.UntilTheEnd.Config;
 import HamsterYDS.UntilTheEnd.UntilTheEnd;
 import HamsterYDS.UntilTheEnd.player.PlayerManager;
+import HamsterYDS.UntilTheEnd.player.death.DeathCause;
+import HamsterYDS.UntilTheEnd.player.death.DeathMessage;
 
 /**
  * @author 南外丶仓鼠
@@ -114,6 +116,7 @@ public class InfluenceTasks{
 						if(darkness.get(player.getName())>=attack) {
 							player.sendTitle("§8ヾ(≧O≦)〃啊~！什么东西？","§8他打了我一下....");
 							player.damage(damage);
+							if(player.getHealth()<=san_attack) DeathMessage.causes.put(player.getName(),DeathCause.DARKNESS);
 							PlayerManager.change(player.getName(),"san",san_attack);
 						}
 					}

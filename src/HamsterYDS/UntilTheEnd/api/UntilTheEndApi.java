@@ -2,7 +2,6 @@ package HamsterYDS.UntilTheEnd.api;
 
 import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Set;
 
 import org.bukkit.Bukkit;
@@ -12,17 +11,31 @@ import org.bukkit.World;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.Inventory;
 import org.bukkit.inventory.ItemStack;
-import org.inventivetalent.bossbar.BossBar;
-import org.inventivetalent.bossbar.BossBarAPI;
 
 import HamsterYDS.UntilTheEnd.block.BlockManager;
+import HamsterYDS.UntilTheEnd.cap.HudProvider;
 import HamsterYDS.UntilTheEnd.guide.CraftGuide;
 import HamsterYDS.UntilTheEnd.item.ItemManager;
 import HamsterYDS.UntilTheEnd.item.ItemProvider;
 import HamsterYDS.UntilTheEnd.player.PlayerManager;
 import HamsterYDS.UntilTheEnd.world.WorldProvider;
+import HamsterYDS.UntilTheEnd.world.WorldProvider.Season;
+import me.clip.placeholderapi.PlaceholderAPI;
 
 public class UntilTheEndApi {
+	public static class PluginApi{
+		public static Class<?> getNMS(String name){
+			try {
+				return Class.forName("net.minecraft.server." + getVersion() + "." + name);
+			} catch (ClassNotFoundException e) {
+				e.printStackTrace();
+				return null;
+			}
+		}
+		public static String getVersion() {
+			return Bukkit.getServer().getClass().getPackage().getName().split("\\.")[3];
+		}
+	}
 	public static class BlockApi{
 		public static String getSpecialBlock(Location loc) {
 			World world=loc.getWorld();
@@ -83,11 +96,6 @@ public class UntilTheEndApi {
 			return toString;
 		}
 	}
-	public static class HudApi{
-		public static List<BossBar> getBars(Player player){
-			return BossBarAPI.getBossBars(player);
-		}
-	}
 	public static class ItemApi{
 		public static Set<ItemStack> getItems(){
 			return ItemManager.itemsAndIds.keySet();
@@ -97,6 +105,39 @@ public class UntilTheEndApi {
 		}
 	}
 	public static class PlayerApi{
+		public static String getPAPI(Player player,String line) {
+			String newLine=PlaceholderAPI.setPlaceholders(player,line);
+			return newLine;
+		}
+		public static String getChangingTend(Player player,String type) {
+			if(type.equalsIgnoreCase("san")) return HudProvider.sanity.get(player.getName());
+			if(type.equalsIgnoreCase("tem")) return HudProvider.temperature.get(player.getName());
+			if(type.equalsIgnoreCase("hum")) return HudProvider.humidity.get(player.getName());
+			return "";
+		}
+		public static String getSanityColor(Player player) {
+			int san=getValue(player,"san");
+			if(san>=120) return HudProvider.yaml.getString("sanityColor.120");
+			if(san>=90) return HudProvider.yaml.getString("sanityColor.90");
+			if(san>=60) return HudProvider.yaml.getString("sanityColor.60");
+			if(san>=30) return HudProvider.yaml.getString("sanityColor.30");
+			if(san>=0) return HudProvider.yaml.getString("sanityColor.0");
+			return "";
+		}
+		public static String getHumidityColor(Player player) {
+			int hum=getValue(player,"hum");
+			if(hum<=5) return HudProvider.yaml.getString("humidityColor.5");
+			if(hum<=15) return HudProvider.yaml.getString("humidityColor.15");
+			if(hum<=25) return HudProvider.yaml.getString("humidityColor.25");
+			return "";
+		}
+		public static String getTemperatureColor(Player player) {
+			int tem=getValue(player,"tem");
+			if(tem<=15) return HudProvider.yaml.getString("temperatureColor.15");
+			if(tem<=50) return HudProvider.yaml.getString("temperatureColor.50");
+			if(tem<=75) return HudProvider.yaml.getString("temperatureColor.75");
+			return "";
+		}
 		public static int getValue(Player player,String type) {
 			return PlayerManager.check(player.getName(),type);
 		}
@@ -105,11 +146,34 @@ public class UntilTheEndApi {
 		}
 	}
 	public static class WorldApi{
-		public static HamsterYDS.UntilTheEnd.world.WorldProvider.Season getSeason(World world) {
-			return WorldProvider.worldStates.get(world.getName()).season;
+		public static String getSeasonColor(World world) {
+			switch(getSeason(world)) {
+			case SPRING: return HudProvider.yaml.getString("seasonColor.SPRING");
+			case SUMMER: return HudProvider.yaml.getString("seasonColor.SUMMER");
+			case AUTUMN: return HudProvider.yaml.getString("seasonColor.AUTUMN");
+			case WINTER: return HudProvider.yaml.getString("seasonColor.WINTER");
+			default: return "";
+			}
+		}
+		public static String getName(Season season){
+			switch(season) {
+			case SPRING: return "春天";
+			case SUMMER: return "夏天";
+			case AUTUMN: return "秋天";
+			case WINTER: return "冬天";
+			case NULL: return "未启用";
+			default: return "秋天";
+			}
+		}
+		public static Season getSeason(World world) {
+			if(WorldProvider.worldStates.containsKey(world.getName()))
+				return WorldProvider.worldStates.get(world.getName()).season;
+			return Season.NULL;
 		}
 		public static int getDay(World world) {
-			return WorldProvider.worldStates.get(world.getName()).day;
+			if(WorldProvider.worldStates.containsKey(world.getName()))
+				return WorldProvider.worldStates.get(world.getName()).day;
+			return -1;
 		}
 	}
 	public static class GuideApi{
@@ -124,7 +188,7 @@ public class UntilTheEndApi {
 		}
 		public static void addCraftToItem(ItemStack item,Inventory inventory) {
 			ItemStack back=CraftGuide.getItem("§a返回上一层",Material.STAINED_GLASS_PANE,6);
-			ItemStack menu=CraftGuide.getItem("§a返回主菜单",Material.STAINED_GLASS_PANE,8);
+			ItemStack menu=CraftGuide.getItem("§a返回主菜单",Material.STAINED_GLASS_PANE,9);
 			inventory.setItem(0,back);inventory.setItem(8,menu);
 			CraftGuide.crafts.put(item,inventory);
 		}

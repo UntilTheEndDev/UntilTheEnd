@@ -10,15 +10,18 @@
 噩梦燃料: 
   enable: true
   id: NightMare
+  sanityReduce: -1  #每个噩梦燃料每10秒钟对理智的影响
 金币: 
   enable: true
   id: Coin
 蕨类植物: 
   enable: true
   id: Fern
+  heal: 0.5
 冰雹: 
   enable: true
   id: Hail
+  temperatureReduce: -1  #每使用一个冰雹温度变化数值
 芦苇: 
   enable: true
   id: Reed
@@ -47,9 +50,12 @@
 骨片: 
   enable: true
   id: Sclerite
+  damage: 1  #骨片击中生物伤害
+  range: 0.5  #骨片击中生物判定范围
 蜘蛛腺体: 
   enable: true
   id: SpiderGland
+  heal: 4  #使用蜘蛛腺体可以回复多少血
 痰: 
   enable: true
   id: Spit
@@ -59,6 +65,7 @@
 灰烬: 
   enable: true
   id: Ashes
+  percent: 0.25
 红宝石: 
   enable: true
   id: RedGum
@@ -78,15 +85,21 @@
 兔毛耳罩: 
   enable: true
   id: Earmuff
+  percent: 0.4  #兔毛耳罩减免温度下降速率的百分数
 花环: 
   enable: true
   id: Garland
+  sanityImprove: 1  #戴着花环每10秒改变的理智值
 草帽: 
   enable: true
   id: StrawHat
+  percent: 0.4  #草帽减免温度上升速率的百分数
 眼球伞: 
   enable: true
   id: EyeballUmbrella
+  sanityImprove: 3  #戴着眼球伞每10秒改变的理智值
+  range: 10.0  #眼球伞吸收雷电的范围
+  damageIncreasePeriod: 30  #吸收雷电转化成的力量III效果持续多少秒
 
 便携包: 
   enable: true
@@ -121,16 +134,57 @@
 ACD试验药: 
   enable: true
   id: ACDDrug
+豪华风扇:
+  enable: true
+  id: LuxuryFan
+稻草卷:
+  enable: true
+  id: StrawRoll
+毛皮卷:
+  enable: true
+  id: FurRoll
+水球:
+  enable: true
+  id: WaterBalloon
+简易小木棚:
+  enable: true
+  id: SiestaLeanto
 
 吹箭: 
   enable: true
   id: BlowArraw1
+  damage: 30  #吹箭伤害
+  range: 0.5  #吹箭判定范围
+  maxDist: 300  #吹箭最远飞行距离（不是以格子为单位）
 火吹箭: 
   enable: true
   id: BlowArraw2
+  damage: 30  #伤害
+  range: 0.5  #判定范围
+  maxDist: 300  #最远飞行距离
+  firePeriod: 20  #击中生物燃烧的秒数
 麻醉吹箭: 
   enable: true
   id: BlowArraw3
+  damage: 30  #伤害
+  range: 0.5  #判定范围
+  maxDist: 300  #最远飞行距离
+  blindPeriod: 30  #击中玩家无法看见任何事物的秒数
+蜜蜂地雷:
+  enable: true
+  id: BeeMine
+  explosionAmount: 2  #爆炸规模
+  poison: 7.5  #踩中地雷有多少秒的中毒效果
+狗牙陷阱:
+  enable: true
+  id: ToothTrap
+  damage: 8  #踩中生物受到的伤害
+  brokenPercent: 0.2  #每踩一次有多大几率陷阱坏掉
+旋风:
+  enable: true
+  id: WeatherPain
+  dist: 400  #旋风最远飞行距离（不是以格子为单位）
+  range: 3.0  #旋风波及范围
 
 电器元件: 
   enable: true
@@ -154,3 +208,6 @@ ACD试验药:
 火魔杖: 
   enable: true
   id: FireWand
+  firePeriod: 40  #魔咒击中的生物燃烧的秒数
+  maxDist: 300  #魔咒最远飞行距离（不是以格子为单位）
+  range: 0.2  #魔咒判定范围

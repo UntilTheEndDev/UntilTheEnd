@@ -8,6 +8,7 @@ temperatureChangeSpeedStone: 1 #有暖石的玩家温度随暖石变化的速度
 temperatureChangeSpeedNatural: 5 #没有暖石的玩家温度随环境变化的速度(越小变化越快，反之变化越慢)
 stoneChangePercent: 0.1 #暖石温度随自然变化的速率(大于0小于1)
 humidityChangeSpeed: 150 #玩家温度随湿度的变化速度(数值越小，变化越快，反之变化越慢)
+fmChangeSpeed: 200 #每多少刻判定一次温度影响方块（影响的方块在fmBlocks下设置）
 
 blockTemperature: #方块的温度(没有设置的方块为环境温度)
 # 方块Material名字: 温度
@@ -24,3 +25,46 @@ blockTemperature: #方块的温度(没有设置的方块为环境温度)
   BEACON: 37
   ENDER_STONE: 0
   #可以继续添加
+  
+fmBlocks: #随着温度变化，背包内物品也变化的方块设定
+#格式：
+  #物品Material名:
+  #  increase: true/false (true代表高于温度变化，false代表低于温度变化)
+  #  temperature: 0 (高于/低于某个温度时变化)
+  #  newBlock: 变化成的新物品的Material名
+  WATER_BUCKET: 
+    increase: false
+    temperature: 0
+    newMaterial: ICE
+  ICE:
+    increase: true
+    temperature: 10
+    newMaterial: AIR
+  WATER_BUCKET:
+    increase: true
+    temperature: 55
+    newMaterial: BUCKET
+  MAGMA:
+    increase: false
+    temperature: 40
+    newMaterial: NETHERRACK
+  LAVA_BUCKET:
+    increase: false
+    temperature: 40
+    newMaterial: OBSIDIAN
+  ENDER_STONE:
+    increase: true
+    temperature: 20
+    newMaterial: STONE
+  STONE:
+    increase: true
+    temperature: 50
+    newMaterial: COBBLESTONE
+  SOUL_SAND:
+    increase: false
+    temperature: 40
+    newMaterial: SAND
+  FIRE:
+    increase: false
+    temperature: 10
+    newMaterial: AIR

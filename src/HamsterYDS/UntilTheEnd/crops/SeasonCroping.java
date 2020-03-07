@@ -1,6 +1,7 @@
 package HamsterYDS.UntilTheEnd.crops;
 
 import java.util.HashMap;
+
 import org.bukkit.Material;
 import org.bukkit.World;
 import org.bukkit.block.Block;
@@ -12,6 +13,7 @@ import org.bukkit.event.block.BlockGrowEvent;
 import HamsterYDS.UntilTheEnd.Config;
 import HamsterYDS.UntilTheEnd.UntilTheEnd;
 import HamsterYDS.UntilTheEnd.api.UntilTheEndApi.WorldApi;
+import HamsterYDS.UntilTheEnd.world.WorldProvider.Season;
 
 /**
  * @author 南外丶仓鼠
@@ -28,14 +30,13 @@ public class SeasonCroping implements Listener{
 		Block block=event.getBlock();
 		World world=block.getWorld();
 		if(!Config.enableWorlds.contains(world)) return;
-		HamsterYDS.UntilTheEnd.world.WorldProvider.Season season=WorldApi.getSeason(world);
-		String seasonName=season.toString();
+		Season season=WorldApi.getSeason(world);
 		Material material=block.getState().getData().getItemType();
 		String name=material.toString();
 		if(CropProvider.seasonCrops.containsKey(name)) {
 			HashMap<String,Double> crop=CropProvider.seasonCrops.get(name);
-			if(crop.containsKey(seasonName)) {
-				double percent=crop.get(seasonName);
+			if(crop.containsKey(season.toString())) {
+				double percent=crop.get(season.toString());
 				if(Math.random()>percent) 
 					event.setCancelled(true);
 			}else event.setCancelled(true);

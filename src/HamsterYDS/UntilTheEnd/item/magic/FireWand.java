@@ -18,6 +18,9 @@ import HamsterYDS.UntilTheEnd.item.ItemManager;
 import HamsterYDS.UntilTheEnd.player.PlayerManager;
 
 public class FireWand implements Listener{
+	public static int firePeriod=ItemManager.yaml.getInt("旋风.firePeriod");
+	public static int maxDist=ItemManager.yaml.getInt("旋风.maxDist");
+	public static double range=ItemManager.yaml.getDouble("旋风.range");
 	public FireWand() {		
 		HashMap<ItemStack,Integer> materials=new HashMap<ItemStack,Integer>();
 		materials.put(ItemManager.namesAndItems.get("§6红宝石"),3);
@@ -52,8 +55,7 @@ public class FireWand implements Listener{
 			Vector vec=player.getEyeLocation().getDirection().multiply(0.5);
 			PlayerManager.change(player.getName(),"san",-5);
 			new BukkitRunnable() {
-				int range=100;
-				
+				int range=maxDist;
 				@Override
 				public void run() {
 					for(int i=0;i<5;i++) {
@@ -65,9 +67,9 @@ public class FireWand implements Listener{
 						}
 						loc.getWorld().spawnParticle(Particle.LAVA,loc,1);
 						loc.add(vec);
-						for(Entity entity:loc.getWorld().getNearbyEntities(loc,0.1,0.1,0.1)) {
+						for(Entity entity:loc.getWorld().getNearbyEntities(loc,FireWand.range,FireWand.range,FireWand.range)) {
 							if(entity.getEntityId()==player.getEntityId()) continue;
-							entity.setFireTicks(200);
+							entity.setFireTicks(firePeriod*20);
 							cancel();
 							cd.remove(player.getName());
 							return;

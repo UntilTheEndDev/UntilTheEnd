@@ -10,14 +10,17 @@ import org.bukkit.configuration.file.YamlConfiguration;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.block.BlockBreakEvent;
+import org.bukkit.event.block.BlockExplodeEvent;
 import org.bukkit.event.block.BlockPistonExtendEvent;
 import org.bukkit.event.block.BlockPlaceEvent;
+import org.bukkit.event.entity.EntityExplodeEvent;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.scheduler.BukkitRunnable;
 
 import HamsterYDS.UntilTheEnd.UntilTheEnd;
 import HamsterYDS.UntilTheEnd.api.UntilTheEndApi.BlockApi;
 import HamsterYDS.UntilTheEnd.item.ItemManager;
+import HamsterYDS.UntilTheEnd.item.combat.ToothTrap;
 
 /**
  * @author 南外丶仓鼠
@@ -71,6 +74,7 @@ public class BlockManager extends BukkitRunnable implements Listener{
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
+		ToothTrap.saveBlocks();
 	}
 	public static void loadBlocks() {
 		File file=new File(plugin.getDataFolder()+"/data/","blocks.yml");
@@ -90,6 +94,26 @@ public class BlockManager extends BukkitRunnable implements Listener{
 		loc.getWorld().dropItemNaturally(loc,ItemManager.namesAndItems.get(ItemManager.idsAndNames.get(blocks.get(toString))));
 		removeBlockData(blocks.get(toString),toString);
 		blocks.remove(toString);
+	}
+	@EventHandler public void onBlockExplode(BlockExplodeEvent event) {
+		for(org.bukkit.block.Block block:event.blockList()) {
+			Location loc=block.getLocation();
+			String toString=BlockApi.locToStr(loc);
+			if(blocks.get(toString)==null) return; 
+			loc.getWorld().dropItemNaturally(loc,ItemManager.namesAndItems.get(ItemManager.idsAndNames.get(blocks.get(toString))));
+			removeBlockData(blocks.get(toString),toString);
+			blocks.remove(toString);
+		}
+	}
+	@EventHandler public void onEntityExplode(EntityExplodeEvent event) {
+		for(org.bukkit.block.Block block:event.blockList()) {
+			Location loc=block.getLocation();
+			String toString=BlockApi.locToStr(loc);
+			if(blocks.get(toString)==null) return; 
+			loc.getWorld().dropItemNaturally(loc,ItemManager.namesAndItems.get(ItemManager.idsAndNames.get(blocks.get(toString))));
+			removeBlockData(blocks.get(toString),toString);
+			blocks.remove(toString);
+		}
 	}
 	@EventHandler public void onPlace(BlockPlaceEvent event) {
 		if(event.isCancelled()) return;

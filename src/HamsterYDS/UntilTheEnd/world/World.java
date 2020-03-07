@@ -5,6 +5,7 @@ import java.io.File;
 import org.bukkit.configuration.file.YamlConfiguration;
 
 import HamsterYDS.UntilTheEnd.UntilTheEnd;
+//import HamsterYDS.UntilTheEnd.world.nms.DarkNight;
 
 /**
  * @author 南外丶仓鼠
@@ -19,8 +20,8 @@ public class World {
 		file=new File(plugin.getDataFolder(),"worlds.yml");
 		yaml=YamlConfiguration.loadConfiguration(file);
 		WorldProvider.loadWorlds();
-		WorldProvider.saveWorlds();
 		new WorldCounter().runTaskTimer(plugin,0L,20L);
 		new InfluenceTasks(plugin);
+//		new DarkNight().runTaskTimer(plugin,0L,50L);
 	} 
 }

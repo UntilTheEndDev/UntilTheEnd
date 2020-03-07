@@ -3,6 +3,7 @@ package HamsterYDS.UntilTheEnd.player;
 import org.bukkit.Bukkit;
 
 import HamsterYDS.UntilTheEnd.UntilTheEnd;
+import HamsterYDS.UntilTheEnd.player.death.DeathMessage;
 
 /**
  * @author 南外丶仓鼠
@@ -16,6 +17,6 @@ public class Player {
 		for(org.bukkit.entity.Player player:Bukkit.getOnlinePlayers()) 
 			PlayerManager.load(player.getName());
 		new PlayerInventoryAdapt(plugin);
-		new PlayerDeath(plugin);
+		plugin.getServer().getPluginManager().registerEvents(new DeathMessage(),plugin);
 	}
 }

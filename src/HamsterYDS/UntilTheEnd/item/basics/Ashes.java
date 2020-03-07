@@ -10,14 +10,19 @@ import HamsterYDS.UntilTheEnd.item.ItemManager;
  * @author 南外丶仓鼠
  * @version V5.1.1
  */
-public class Ashes implements Listener{
+public class Ashes implements Listener {
+	public static double percent = ItemManager.yaml2.getDouble("灰烬.percent");
+
 	public Ashes() {
-		ItemManager.plugin.getServer().getPluginManager().registerEvents(this,ItemManager.plugin);
+		ItemManager.plugin.getServer().getPluginManager().registerEvents(this, ItemManager.plugin);
 	}
-	@EventHandler(priority=EventPriority.HIGHEST) public void onBurn(BlockBurnEvent event) {
-		if(event.isCancelled()) return;
-		if(Math.random()<=0.25) { //TODO
-			event.getBlock().getWorld().dropItem(event.getBlock().getLocation(),ItemManager.namesAndItems.get("§6灰烬"));
+
+	@EventHandler(priority = EventPriority.HIGHEST)
+	public void onBurn(BlockBurnEvent event) {
+		if (event.isCancelled())
+			return;
+		if (Math.random() <= percent) {
+			event.getBlock().getWorld().dropItem(event.getBlock().getLocation(), ItemManager.namesAndItems.get("§6灰烬"));
 		}
 	}
 }

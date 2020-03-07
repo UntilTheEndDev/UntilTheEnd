@@ -5,6 +5,7 @@ import java.util.HashMap;
 import org.bukkit.Material;
 import org.bukkit.entity.Entity;
 import org.bukkit.entity.LivingEntity;
+import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.entity.FoodLevelChangeEvent;
@@ -26,33 +27,41 @@ public class RottenFoodInfluence implements Listener{
 		this.plugin=plugin;
 		plugin.getServer().getPluginManager().registerEvents(this,plugin);
 	}
+	private HashMap<String,Integer> eatenFoodRottens=new HashMap<String,Integer>();
 	private HashMap<String,Integer> eatenFoodLevels=new HashMap<String,Integer>();
 	@EventHandler public void onUse(PlayerItemConsumeEvent event) {
 		ItemStack item=event.getItem();
 		if(!item.getType().isEdible()) return;
-		if(item.getType().equals(Material.ROTTEN_FLESH))
-			eatenFoodLevels.put(event.getPlayer().getName(),-100);
-		int level=RottenFoodTask.getRottenLevel(item);
-		System.out.println(level);
-		eatenFoodLevels.put(event.getPlayer().getName(),level);
+		eatenFoodRottens.remove(event.getPlayer().getName());
+		eatenFoodLevels.put(event.getPlayer().getName(),event.getPlayer().getFoodLevel());
+		if(item.getType()==Material.ROTTEN_FLESH) eatenFoodRottens.put(event.getPlayer().getName(),-100);
+		else eatenFoodRottens.put(event.getPlayer().getName(),RottenFoodTask.getRottenLevel(item));
 	}
 	@EventHandler public void onEat(FoodLevelChangeEvent event) {
 		Entity entity=event.getEntity();
-		if(eatenFoodLevels.containsKey(entity.getName())) {
-			int level=eatenFoodLevels.get(entity.getName());
+		if(!(entity instanceof Player)) return;
+		if(eatenFoodRottens.containsKey(entity.getName())) {
+			int level=eatenFoodRottens.get(entity.getName());
 			if(level==-100) {
 				PlayerManager.change(entity.getName(),"san",-30);
 				LivingEntity creature=(LivingEntity) entity;
 				creature.damage(2.0);
 				creature.addPotionEffect(new PotionEffect(PotionEffectType.WITHER,100,0));
 				entity.sendMessage("§6[§cUntilTheEnd§6]§r 口区口区口区口区口区口区口区口区");
+				event.setFoodLevel(eatenFoodLevels.get(entity.getName())-1);
+				eatenFoodRottens.remove(entity.getName());
+				return;
 			}
-			if(level<=60)
-				PlayerManager.change(entity.getName(),"san",(int)(-15.0D*(level/200)));
-			event.setFoodLevel((int) (((double)event.getFoodLevel())*((double)(level/200.0))+1));
-			if(level<=60)
+			int currentLevel=eatenFoodLevels.get(entity.getName());
+			int foodLevel=event.getFoodLevel()-currentLevel;
+			double percent=level/100.0;
+			int newLevel=(int) (percent*foodLevel+1.0);
+			event.setFoodLevel(currentLevel+newLevel);
+			if(level<=60){
+				PlayerManager.change(entity.getName(),"san",(int)(-15.0D*(level/100)));
 				entity.sendMessage("§6[§cUntilTheEnd§6]§r 食物貌似变味了~");
-			eatenFoodLevels.remove(entity.getName());
+				eatenFoodRottens.remove(entity.getName());
+			}
 		}
 	}
 }

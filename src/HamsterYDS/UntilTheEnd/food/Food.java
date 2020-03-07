@@ -12,6 +12,7 @@ public class Food {
 		this.plugin=plugin;
 		new RottenFoodTask(plugin);
 		new RottenFoodInfluence(plugin);
-		new Hunger(plugin);
+		if(plugin.getConfig().getBoolean("food.rotten.enable"))
+			new Hunger(plugin);
 	}
 }

@@ -18,7 +18,6 @@ public class Temperature {
 		this.plugin=plugin;
 		Config.autoUpdateConfigs("temperature.yml");
 		File file=new File(plugin.getDataFolder(),"temperature.yml");
-		if(!file.exists()) plugin.saveResource("temperature.yml",true);
 		yaml=YamlConfiguration.loadConfiguration(file);
 		System.out.println("[UntilTheEnd]正在加载温度计算模块......");
 		new TemperatureProvider(plugin);

@@ -22,15 +22,13 @@ public class Config {
 					enableWorlds.remove(world);
 		File file=new File(plugin.getDataFolder(),plugin.getConfig().getString("language"));
 		yaml=YamlConfiguration.loadConfiguration(file);
-		autoUpdateConfigs("config.yml");
 	}
 	public static String getLang(String path) {
-		return yaml.getString(path);
+		return (yaml.getString("prefix")+yaml.getString(path));
 	}
 	public static void autoUpdateConfigs(String name) {
 		File file=new File(plugin.getDataFolder(),name);
 		final YamlConfiguration yaml=YamlConfiguration.loadConfiguration(file);
-		file.delete();
 		plugin.saveResource(name,true);
 		YamlConfiguration newYaml=YamlConfiguration.loadConfiguration(file);
 		for(String path:yaml.getKeys(true)) {

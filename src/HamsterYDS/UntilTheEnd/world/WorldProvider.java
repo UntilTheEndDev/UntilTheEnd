@@ -39,7 +39,7 @@ public class WorldProvider {
 		}
 	}
 	public enum Season{
-		SPRING("春天"),SUMMER("夏天"),AUTUMN("秋天"),WINTER("冬天");
+		SPRING("春天"),SUMMER("夏天"),AUTUMN("秋天"),WINTER("冬天"),NULL("未启用");
 		String name;
 		Season(String name) {this.name=name;}
 		static Season getSeason(String name){
@@ -51,6 +51,7 @@ public class WorldProvider {
 			default: return AUTUMN;
 			}
 		}
+		
 	}
 	public static class IWorld{
 		public Season season;

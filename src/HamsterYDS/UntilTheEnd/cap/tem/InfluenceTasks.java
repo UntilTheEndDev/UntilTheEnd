@@ -19,7 +19,10 @@ import org.bukkit.scheduler.BukkitRunnable;
 import HamsterYDS.UntilTheEnd.Config;
 import HamsterYDS.UntilTheEnd.UntilTheEnd;
 import HamsterYDS.UntilTheEnd.api.UntilTheEndApi.BlockApi;
+import HamsterYDS.UntilTheEnd.cap.tem.TemperatureProvider.FMBlock;
 import HamsterYDS.UntilTheEnd.player.PlayerManager;
+import HamsterYDS.UntilTheEnd.player.death.DeathCause;
+import HamsterYDS.UntilTheEnd.player.death.DeathMessage;
 
 public class InfluenceTasks {
 	public static UntilTheEnd plugin;
@@ -29,10 +32,12 @@ public class InfluenceTasks {
 	public static long smoulderCancellerFireTicks=Temperature.yaml.getLong("smoulderCancellerFireTicks"); 
 	public static int coldTem=Temperature.yaml.getInt("coldTem"); 
 	public static int hotTem=Temperature.yaml.getInt("hotTem"); 
+	public static long fmChangeSpeed=Temperature.yaml.getLong("fmChangeSpeed"); 
 	public InfluenceTasks(UntilTheEnd plugin) {
 		this.plugin=plugin;
 		new Smoulder().runTaskTimer(plugin,0L,smoulderSpeed);
 		new Damager().runTaskTimer(plugin,0L,20L);
+		new FMChange().runTaskTimer(plugin,0L,fmChangeSpeed);
 	}
 	public class Damager extends BukkitRunnable{
 		@Override
@@ -40,16 +45,47 @@ public class InfluenceTasks {
 			for(World world:Config.enableWorlds) 
 				for(Player player:world.getPlayers()) {
 					int playerTem=PlayerManager.check(player.getName(),"tem");
-					//TODO - LANG
 					if(playerTem>hotTem) {
+						if(player.getHealth()<=0.2*(playerTem-hotTem)) 
+							DeathMessage.causes.put(player.getName(),DeathCause.HOTNESS);
 						player.damage(0.2*(playerTem-hotTem));
-						player.sendTitle("§6§l太热了！","");
 					}
 					if(playerTem<coldTem) {
-						player.sendTitle("§b§l太冷了！","");
+						if(player.getHealth()<=0.2*(coldTem-playerTem)) 
+							DeathMessage.causes.put(player.getName(),DeathCause.COLDNESS);
 						player.damage(0.2*(coldTem-playerTem));
 						player.addPotionEffect(new PotionEffect(PotionEffectType.SLOW,100,100));
 					}
+				}
+		}
+	}
+	public class FMChange extends BukkitRunnable{
+		@Override
+		public void run() {
+			for(World world:Config.enableWorlds) 
+				for(Player player:world.getPlayers()) {
+					Location playerLoc=player.getLocation();
+					for(int i=-3;i<=3;i++)
+						for(int j=-3;j<=3;j++)
+							for(int k=-3;k<=3;k++) {
+								Location loc=new Location(playerLoc.getWorld(),playerLoc.getX()+i,playerLoc.getY()+j,playerLoc.getZ()+k);
+								if(TemperatureProvider.fmBlocks.containsKey(loc.getBlock().getType())){
+									FMBlock fmBlock=TemperatureProvider.fmBlocks.get(loc.getBlock().getType());
+									int tem=(int)(
+									TemperatureProvider.getBlockTemperature(loc.add(0,1,0))+
+									TemperatureProvider.getBlockTemperature(loc.add(0,-1,0))+
+									TemperatureProvider.getBlockTemperature(loc.add(1,0,0))+
+									TemperatureProvider.getBlockTemperature(loc.add(-1,0,0))+
+									TemperatureProvider.getBlockTemperature(loc.add(0,0,1))+
+									TemperatureProvider.getBlockTemperature(loc.add(0,0,-1))/6.0);
+									if(fmBlock.upOrDown) 
+										if(tem>=fmBlock.temperature) 
+											loc.getBlock().setType(fmBlock.newMaterial);
+									if(!fmBlock.upOrDown) 
+										if(tem<=fmBlock.temperature) 
+											loc.getBlock().setType(fmBlock.newMaterial);
+								}
+							}
 				}
 		}
 	}
@@ -73,6 +109,21 @@ public class InfluenceTasks {
 			for(World world:Config.enableWorlds) {
 				for(Player player:world.getPlayers()) {
 					Location playerLoc=player.getLocation();
+					for(int i=-3;i<=3;i++)
+						for(int j=-3;j<=3;j++)
+							for(int k=-3;k<=3;k++) {
+								Location loc=new Location(playerLoc.getWorld(),playerLoc.getX()+i,playerLoc.getY()+j,playerLoc.getZ()+k);
+								if(TemperatureProvider.fmBlocks.containsKey(loc.getBlock().getType())){
+									FMBlock fmBlock=TemperatureProvider.fmBlocks.get(loc.getBlock().getType());
+									int tem=TemperatureProvider.getBlockTemperature(loc);
+									if(fmBlock.upOrDown) 
+										if(tem>=fmBlock.temperature) 
+											loc.getBlock().setType(fmBlock.newMaterial);
+									if(!fmBlock.upOrDown) 
+										if(tem<=fmBlock.temperature) 
+											loc.getBlock().setType(fmBlock.newMaterial);
+								}
+							}
 					int x=(int) (Math.random()*17-Math.random()*17);
 					int y=(int) (Math.random()*17-Math.random()*17);
 					int z=(int) (Math.random()*17-Math.random()*17);

@@ -19,7 +19,6 @@ public class Humidity implements Listener{
 		this.plugin=plugin;
 		Config.autoUpdateConfigs("humidity.yml");
 		File file=new File(plugin.getDataFolder(),"humidity.yml");
-		if(!file.exists()) plugin.saveResource("humidity.yml",true);
 		yaml=YamlConfiguration.loadConfiguration(file);
 		System.out.println("[UntilTheEnd]正在加载湿度计算模块......");
 		HumidityProvider.loadConfig();

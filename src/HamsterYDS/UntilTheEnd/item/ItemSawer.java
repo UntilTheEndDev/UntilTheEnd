@@ -1,13 +1,9 @@
 package HamsterYDS.UntilTheEnd.item;
 
-import org.bukkit.Location;
 import org.bukkit.World;
 import org.bukkit.entity.Entity;
 import org.bukkit.entity.Item;
 import org.bukkit.scheduler.BukkitRunnable;
-
-import com.gmail.filoghost.holographicdisplays.api.Hologram;
-import com.gmail.filoghost.holographicdisplays.api.HologramsAPI;
 
 import HamsterYDS.UntilTheEnd.Config;
 
@@ -15,29 +11,20 @@ import HamsterYDS.UntilTheEnd.Config;
  * @author 南外丶仓鼠
  * @version V5.1.1
  */
-public class ItemSawer extends BukkitRunnable{
+public class ItemSawer extends BukkitRunnable {
 	@Override
 	public void run() {
-		for(World world:Config.enableWorlds) {
-			for(Entity entity:world.getEntities()) {
-				if(!(entity instanceof Item)) continue;
-				if(!entity.isOnGround()) continue;
-				try {
-					Item item=(Item) entity;
-					if(item.getItemStack().getItemMeta()==null) continue;
-					if(item.getItemStack().getItemMeta().getDisplayName()==null) continue;
-					Location where=entity.getLocation();
-					String text=item.getItemStack().getItemMeta().getDisplayName();
-					final Hologram hologram=HologramsAPI.createHologram(ItemManager.plugin, where.add(0.0, 0.6, 0.0));
-					hologram.appendTextLine(text);
-					new BukkitRunnable() {
-						@Override
-						public void run() {
-							hologram.delete();
-							cancel();
-						}
-					}.runTaskTimer(ItemManager.plugin,19L,1L);
-				}catch(NoClassDefFoundError e) {}
+		for (World world : Config.enableWorlds) {
+			for (Entity entity : world.getEntities()) {
+				if (!(entity instanceof Item))
+					continue;
+				Item item = (Item) entity;
+				if (item.getItemStack().getItemMeta() == null)
+					continue;
+				if (item.getItemStack().getItemMeta().getDisplayName() == null)
+					continue;
+				item.setCustomName(item.getItemStack().getItemMeta().getDisplayName());
+				item.setCustomNameVisible(true);
 			}
 		}
 	}

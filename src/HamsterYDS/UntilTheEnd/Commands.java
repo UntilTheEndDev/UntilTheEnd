@@ -156,11 +156,11 @@ public class Commands implements CommandExecutor, Listener{
 					String itemName=ct[2];
 					int amount=1;
 					if(ct.length==4)
-						try {Integer.valueOf(ct[3]);} 
+						try {amount=Integer.valueOf(ct[3]);} 
 						catch(Exception e) {
 							cs.sendMessage(Config.getLang("cmd.notANumber"));
 							return true;
-						}amount=Integer.valueOf(ct[3]);
+						}
 					if(amount<=0) {
 						cs.sendMessage(Config.getLang("cmd.notPositive"));
 						return true;

@@ -18,7 +18,6 @@ public class Crops {
 		this.plugin=plugin;
 		Config.autoUpdateConfigs("crops.yml");
 		File file=new File(plugin.getDataFolder(),"crops.yml");
-		plugin.saveResource("crops.yml",true);
 		yaml=YamlConfiguration.loadConfiguration(file);
 		System.out.println("[UntilTheEnd]正在加载农作物计算模块......");
 		CropProvider.loadConfig();

@@ -16,6 +16,7 @@ import HamsterYDS.UntilTheEnd.item.ItemManager;
  * @version V5.1.1
  */
 public class Fern implements Listener{
+	public static double heal=ItemManager.yaml.getDouble("蕨类植物.heal");
 	public Fern() {		
 		HashMap<ItemStack,Integer> materials=new HashMap<ItemStack,Integer>();
 		materials.put(new ItemStack(Material.SEEDS),6);
@@ -29,11 +30,11 @@ public class Fern implements Listener{
 		ItemStack itemClone=player.getItemInHand().clone();
 		if(itemClone==null) return;
 		itemClone.setAmount(1);
-		if(itemClone.equals(ItemManager.namesAndItems.get("§6蕨叶"))) {
+		if(itemClone.equals(ItemManager.namesAndItems.get("§6蕨类植物"))) {
 			ItemStack item=player.getItemInHand();
 			item.setAmount(item.getAmount()-1);
-			if(player.getHealth()+0.5>=player.getMaxHealth()) player.setHealth(player.getMaxHealth());
-			else player.setHealth(player.getHealth()+0.5);
+			if(player.getHealth()+heal>=player.getMaxHealth()) player.setHealth(player.getMaxHealth());
+			else player.setHealth(player.getHealth()+heal);
 		}
 	}
 }

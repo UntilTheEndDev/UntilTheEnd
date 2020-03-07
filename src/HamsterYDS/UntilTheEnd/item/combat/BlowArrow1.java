@@ -20,12 +20,17 @@ import org.bukkit.util.EulerAngle;
 import org.bukkit.util.Vector;
 
 import HamsterYDS.UntilTheEnd.item.ItemManager;
+import HamsterYDS.UntilTheEnd.player.death.DeathCause;
+import HamsterYDS.UntilTheEnd.player.death.DeathMessage;
 
 /**
  * @author 南外丶仓鼠
  * @version V5.1.1
  */
 public class BlowArrow1 implements Listener{
+	public static double damage=ItemManager.yaml2.getDouble("吹箭.damage");
+	public static double range=ItemManager.yaml2.getDouble("吹箭.range");
+	public static int maxDist=ItemManager.yaml2.getInt("吹箭.maxDist");
 	public BlowArrow1() {
 		HashMap<ItemStack,Integer> materials=new HashMap<ItemStack,Integer>();
 		materials.put(ItemManager.namesAndItems.get("§6芦苇"),3);
@@ -58,7 +63,7 @@ public class BlowArrow1 implements Listener{
 		}
 	}
 	public class Task extends BukkitRunnable{
-		int range=300;
+		int range=maxDist;
 		Vector vec;
 		ArmorStand armor;
 		Player player;
@@ -72,11 +77,12 @@ public class BlowArrow1 implements Listener{
 			Location loc=armor.getLocation().add(0.0,1.0,0.0);
 			armor.getWorld().spawnParticle(Particle.WATER_BUBBLE,armor.getLocation().add(0,1.0,0),15);
 			armor.setVelocity(vec);
-			for(Entity entity:armor.getNearbyEntities(0.5,0.5,0.5)) {
+			for(Entity entity:armor.getNearbyEntities(BlowArrow1.range,BlowArrow1.range,BlowArrow1.range)) {
 				if(entity==player) continue;
 				if(entity instanceof LivingEntity) {
 					LivingEntity creature=(LivingEntity) entity;
-					creature.damage(30.0,player);
+					creature.damage(damage,player);
+					if(creature.isDead()) DeathMessage.causes.put(creature.getName(),DeathCause.BLOWARROW);
 					armor.remove();
 					cancel();
 					return;
@@ -86,13 +92,13 @@ public class BlowArrow1 implements Listener{
 			if(!loc.getBlock().getType().isTransparent()) {
 				armor.teleport(loc.add(0.0, -1.0, 0.0));
 				armor.setGravity(false);
-				new BukkitRunnable() {
+				new BukkitRunnable() { 
 					@Override
 					public void run() {
 						armor.remove();
 						cancel();
 					}
-				}.runTaskTimer(ItemManager.plugin,ItemManager.plugin.getConfig().getInt("item.blowarrow.autoclear"),1);
+				}.runTaskTimer(ItemManager.plugin,ItemManager.plugin.getConfig().getInt("item.blowarrow.autoclear")*20,1);
 				cancel();
 				return;
 			}

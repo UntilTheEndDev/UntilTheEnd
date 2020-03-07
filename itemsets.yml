@@ -60,7 +60,7 @@
   meta:
     ==: ItemMeta
     meta-type: UNSPECIFIC
-    display-name: §6蕨叶
+    display-name: §6蕨类植物
     lore:
     - §8-合成的基础材料
     - '§8-原生态的食物(＾－＾)V'
@@ -82,7 +82,7 @@
   meta:
     ==: ItemMeta
     meta-type: UNSPECIFIC
-    display-name: §6芦苇纸
+    display-name: §6芦苇
     lore:
     - §8-合成的基础材料
     - '§8-结实不易断'
@@ -386,7 +386,7 @@
     - '§8-效用: §d拿它蹲下右击可回复六颗心'
 ACD试验药:
   ==: org.bukkit.inventory.ItemStack
-  type: SPLASH_POTION
+  type: MAGMA_CREAM
   meta:
     ==: ItemMeta
     meta-type: UNSPECIFIC
@@ -394,6 +394,62 @@ ACD试验药:
     lore:
     - §8-“该药品为处方药，请在医师指导下使用...”
     - '§8-效用: §d拿它蹲下右击可增加3颗血量上限(最多20颗)'
+豪华风扇:
+  ==: org.bukkit.inventory.ItemStack
+  type: WOOD_HOE
+  meta:
+    ==: ItemMeta
+    meta-type: UNSPECIFIC
+    display-name: §6豪华风扇
+    lore:
+    - §8-凉快~
+    - '§8-效用: §d拿它蹲下右击可使得周围5*5*5区域的温度降低30度'
+稻草卷:
+  ==: org.bukkit.inventory.ItemStack
+  type: BED
+  meta:
+    ==: ItemMeta
+    meta-type: UNSPECIFIC
+    display-name: §6稻草卷
+    lore:
+    - §8-睡个安稳觉
+    - '§8-效用: §d拿它蹲下右击可进入小憩模式，增加理智、生命'
+    - '§8-效用: §d移动或饱食度为0时结束小憩'
+毛皮卷:
+  ==: org.bukkit.inventory.ItemStack
+  type: BED
+  meta:
+    ==: ItemMeta
+    meta-type: UNSPECIFIC
+    display-name: §6毛皮卷
+    lore:
+    - §8-多睡几个安稳觉
+    - '§8-效用: §d拿它蹲下右击可进入小憩模式，更快增加理智、生命'
+    - '§8-效用: §d移动或饱食度为0时结束小憩，该物品有几率在使用时不消耗'
+水球:
+  ==: org.bukkit.inventory.ItemStack
+  type: SPLASH_POTION
+  meta:
+    ==: ItemMeta
+    meta-type: UNSPECIFIC
+    display-name: §6水球
+    lore:
+    - §8-妈妈再也不怕我掉岩浆了！
+    - '§8-效用: §d拿它蹲下右击可引爆水球'
+    - '§8-效用: §d大幅度降低温度并熄灭周围的热源，还能吸水~'
+简易小木棚:
+  ==: org.bukkit.inventory.ItemStack
+  type: CARPET
+  meta:
+    ==: ItemMeta
+    meta-type: UNSPECIFIC
+    display-name: §6简易小木棚
+    lore:
+    - §8-睡个午觉
+    - '§8-效用: §d将其放置与地面，右击即可小睡一会~'
+    - '§8-效用: §d按Shift即可结束睡眠'
+    - '§8-效用: §d可以使用多次，每次使用有10%消耗掉'
+    - '§8-效用: §d极快增加理智、生命，饥饿掉的较慢'
     
 吹箭:
   ==: org.bukkit.inventory.ItemStack
@@ -427,6 +483,39 @@ ACD试验药:
     - §8-这味道让我昏昏欲睡.
     - '§8-效用: §d拿它蹲下右击可射出一发中等伤害的剑'
     - '§8-效用: §d被射中的玩家无法看见任何东西很长时间'
+蜜蜂地雷:
+  ==: org.bukkit.inventory.ItemStack
+  type: GOLD_PLATE
+  meta:
+    ==: ItemMeta
+    meta-type: UNSPECIFIC
+    display-name: §6蜜蜂地雷
+    lore:
+    - §8-轻拿轻放.
+    - '§8-效用: §d将其放在地上即可设置地雷'
+    - '§8-效用: §d踩中地雷的生物获得爆炸伤害和中毒效果'
+狗牙陷阱:
+  ==: org.bukkit.inventory.ItemStack
+  type: IRON_PLATE
+  meta:
+    ==: ItemMeta
+    meta-type: UNSPECIFIC
+    display-name: §6狗牙陷阱
+    lore:
+    - §8-多次使用.
+    - '§8-效用: §d将其放在地上即可设置陷阱'
+    - '§8-效用: §d踩中陷阱的生物获得8点伤害'
+    - '§8-效用: §d陷阱被踩中后会失效，可以右击使其重新布置'
+旋风:
+  ==: org.bukkit.inventory.ItemStack
+  type: IRON_HOE
+  meta:
+    ==: ItemMeta
+    meta-type: UNSPECIFIC
+    display-name: §6旋风
+    lore:
+    - §8-给爷爪巴.
+    - '§8-效用: §d右击刮出一阵风吹走你视线上的生物'
     
 电器元件:
   ==: org.bukkit.inventory.ItemStack

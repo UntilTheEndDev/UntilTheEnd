@@ -16,7 +16,7 @@ import org.bukkit.event.player.PlayerQuitEvent;
 import org.bukkit.scheduler.BukkitRunnable;
 
 import HamsterYDS.UntilTheEnd.UntilTheEnd;
-import HamsterYDS.UntilTheEnd.cap.HudBar;
+import HamsterYDS.UntilTheEnd.cap.HudProvider;
 
 /**
  * @author 南外丶仓鼠
@@ -30,15 +30,24 @@ public class PlayerManager implements Listener{
 		this.plugin=plugin;
 		new SavingTask();
 		plugin.getServer().getPluginManager().registerEvents(this,plugin);
+		for(Player player:Bukkit.getOnlinePlayers()) load(player.getName());
 	}
 	@EventHandler public void onJoin(PlayerJoinEvent event) {
 		Player player=event.getPlayer();
-		load(player.getName());
+		String name=player.getName();
+		load(name);
+		HudProvider.sanity.put(name," ");
+		HudProvider.humidity.put(name," ");
+		HudProvider.temperature.put(name," ");
 	}
 	@EventHandler public void onQuit(PlayerQuitEvent event) {
 		Player player=event.getPlayer();
-		save(player.getName());
-		players.remove(player.getName());
+		String name=player.getName();
+		save(name);
+		players.remove(name);
+		HudProvider.sanity.remove(name);
+		HudProvider.humidity.remove(name);
+		HudProvider.temperature.remove(name);
 	}
 	@EventHandler public void onDeath(PlayerDeathEvent event) {
 		players.remove(event.getEntity().getName());
@@ -78,11 +87,12 @@ public class PlayerManager implements Listener{
 	}
 	public static int check(String name,String type) {
 		IPlayer player=players.get(name);
+		if(player==null) return 1;
 		switch(type){
 			case "tem": return player.temperature;
 			case "hum": return player.humidity;
 			case "san": return player.sanity;
-			default: return -1;
+			default: return 1;
 		}
 	}
 	public static void change(String name,String type,int changement) {
@@ -99,26 +109,47 @@ public class PlayerManager implements Listener{
 		switch(type){
 			case "tem": {
 				player.temperature+=changement;
-				HudBar.temperature.remove(name);
-				HudBar.temperature.put(name,mark);
-				if(player.temperature==5) rplayer.sendTitle("§9太冷了！","");
-				if(player.temperature==60) rplayer.sendTitle("§9太热了！","");
+				HudProvider.temperature.remove(name);
+				HudProvider.temperature.put(name,mark);
+				new BukkitRunnable(){
+					@Override public void run() {
+						HudProvider.temperature.remove(name);
+						HudProvider.temperature.put(name,"");
+						cancel();
+					}
+				}.runTaskTimer(plugin,40L,20L);
+				if(player.temperature<=10) rplayer.sendTitle("§9太冷了！","");
+				if(player.temperature>=60) rplayer.sendTitle("§9太热了！","");
 				if(player.temperature<-5) player.temperature=-5;
 				if(player.temperature>75) player.temperature=75;
 				break;
 			}
 			case "hum": {
 				player.humidity+=changement;
-				HudBar.humidity.remove(name);
-				HudBar.humidity.put(name,mark);
+				HudProvider.humidity.remove(name);
+				HudProvider.humidity.put(name,mark);
+				new BukkitRunnable(){
+					@Override public void run() {
+						HudProvider.humidity.remove(name);
+						HudProvider.humidity.put(name,"");
+						cancel();
+					}
+				}.runTaskTimer(plugin,40L,20L);
 				if(player.humidity<0) player.humidity=0;
 				if(player.humidity>100) player.humidity=100;
 				break;
 			}
 			case "san": {
 				player.sanity+=changement;
-				HudBar.sanity.remove(name);
-				HudBar.sanity.put(name,mark);
+				HudProvider.sanity.remove(name);
+				HudProvider.sanity.put(name,mark);
+				new BukkitRunnable(){
+					@Override public void run() {
+						HudProvider.sanity.remove(name);
+						HudProvider.sanity.put(name,"");
+						cancel();
+					}
+				}.runTaskTimer(plugin,40L,20L);
 				if(player.sanity<0) player.sanity=0;
 				if(player.sanity>200) player.sanity=200;
 				break;

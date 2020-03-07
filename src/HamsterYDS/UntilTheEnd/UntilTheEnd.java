@@ -12,11 +12,10 @@ import org.bukkit.event.Listener;
 import org.bukkit.event.player.PlayerJoinEvent;
 import org.bukkit.plugin.java.JavaPlugin;
 import org.bukkit.scheduler.BukkitRunnable;
-import org.inventivetalent.bossbar.BossBarAPI;
 
 import HamsterYDS.UntilTheEnd.block.Block;
 import HamsterYDS.UntilTheEnd.block.BlockManager;
-import HamsterYDS.UntilTheEnd.cap.HudBar;
+import HamsterYDS.UntilTheEnd.cap.HudProvider;
 import HamsterYDS.UntilTheEnd.cap.hum.Humidity;
 import HamsterYDS.UntilTheEnd.cap.san.Sanity;
 import HamsterYDS.UntilTheEnd.cap.tem.Temperature;
@@ -24,9 +23,9 @@ import HamsterYDS.UntilTheEnd.crops.Crops;
 import HamsterYDS.UntilTheEnd.food.Food;
 import HamsterYDS.UntilTheEnd.guide.Guide;
 import HamsterYDS.UntilTheEnd.item.ItemManager;
-import HamsterYDS.UntilTheEnd.papi.UTEPapi;
 import HamsterYDS.UntilTheEnd.player.PlayerManager;
 import HamsterYDS.UntilTheEnd.world.World;
+import HamsterYDS.UntilTheEnd.world.WorldProvider;
 import me.clip.placeholderapi.metrics.bukkit.Metrics;
 
 /**
@@ -44,7 +43,6 @@ public class UntilTheEnd extends JavaPlugin implements Listener{
 		loadConfig();
 		new Config(this);
 		new World(this);
-	  //固有属性重构完毕
 		new Temperature(this);
 		new Sanity(this);
 		new Humidity(this);
@@ -52,21 +50,17 @@ public class UntilTheEnd extends JavaPlugin implements Listener{
 		new Guide(this);
 		new Crops(this);
 		new HamsterYDS.UntilTheEnd.player.Player(this);
-	  //未重构
+		new HudProvider(this);
 		new Food(this);
 		new Block(this);
-		new HudBar(this);
 		new ItemManager(this);
 		new Commands(this);
-		if(Bukkit.getPluginManager().isPluginEnabled("PlaceholderAPI")) {
-			new UTEPapi(this).hook();
-		}
 	}
 	@Override public void onDisable() {
 		for(Player player:Bukkit.getOnlinePlayers()) {
-			BossBarAPI.removeAllBars(player);
 			PlayerManager.save(player.getName());
 		}
+		WorldProvider.saveWorlds();
 		BlockManager.saveBlocks();
 	}
 	public void loadConfig() {
