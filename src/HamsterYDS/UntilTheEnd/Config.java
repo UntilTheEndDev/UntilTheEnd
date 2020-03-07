@@ -24,7 +24,7 @@ public class Config {
 		yaml=YamlConfiguration.loadConfiguration(file);
 	}
 	public static String getLang(String path) {
-		return (yaml.getString("prefix")+yaml.getString(path));
+		return (yaml.getString("prefix")+yaml.getString(path,path));
 	}
 	public static void autoUpdateConfigs(String name) {
 		File file=new File(plugin.getDataFolder(),name);

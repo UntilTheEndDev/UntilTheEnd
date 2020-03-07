@@ -7,9 +7,7 @@ import HamsterYDS.UntilTheEnd.UntilTheEnd;
  * @version V5.1.1
  */
 public class Block {
-	public static UntilTheEnd plugin;
-	public Block(UntilTheEnd plugin) {
-		this.plugin=plugin;
-		new BlockManager(plugin);
-	}
+    public Block(UntilTheEnd plugin) {
+        new BlockManager(plugin);
+    }
 }
