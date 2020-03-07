@@ -19,13 +19,12 @@ import HamsterYDS.UntilTheEnd.player.PlayerManager;
 public class NightMareTask extends BukkitRunnable{
 	public static UntilTheEnd plugin;
 	public NightMareTask(UntilTheEnd plugin) {
-		this.plugin=plugin;
 		runTaskTimer(plugin,0L,600L); 
 	}
 	@Override
 	public void run() {
 		for(World world:Bukkit.getWorlds()) {
-			if(Config.disableWorlds.contains(world.getName())) continue;
+			if(!Config.enableWorlds.contains(world)) continue;
 			for(Player player:world.getPlayers()) {
 				int tot=0;
 				PlayerInventory inv=player.getInventory();

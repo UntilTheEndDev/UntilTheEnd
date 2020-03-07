@@ -33,7 +33,7 @@ public class BlockTemperature {
 		}
 	}
 	public static int getTemperature(Location loc) {
-		if(Config.disableWorlds.contains(loc.getWorld().getName())) return 37;
+		if(!Config.enableWorlds.contains(loc.getWorld())) return 37;
 		Block block=loc.getBlock();
 		Material material;
 		if(block==null) material=Material.AIR;

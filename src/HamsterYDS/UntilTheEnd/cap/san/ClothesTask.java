@@ -23,7 +23,7 @@ public class ClothesTask extends BukkitRunnable{
 	@Override
 	public void run() {
 		for(World world:Bukkit.getWorlds()) {
-			if(Config.disableWorlds.contains(world.getName())) continue;
+			if(!Config.enableWorlds.contains(world)) continue;
 			for(Player player:world.getPlayers()) {
 				int fac=GetSan.getSan(player);
 				PlayerManager.change(player.getName(),"san",fac);

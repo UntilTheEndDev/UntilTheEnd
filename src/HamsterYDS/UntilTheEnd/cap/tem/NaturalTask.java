@@ -21,17 +21,16 @@ import HamsterYDS.UntilTheEnd.player.PlayerManager;
  * @version V5.1.1
  */
 public class NaturalTask {
-	public static UntilTheEnd plugin;
+	public static UntilTheEnd plugin = UntilTheEnd.getInstance();
 	public NaturalTask(UntilTheEnd plugin) {
-		this.plugin=plugin;
 		new PlayerTask();
 	}
 	private static ArrayList<String> players=new ArrayList<String>();
-	public class PlayerTask extends BukkitRunnable{
+	public static class PlayerTask extends BukkitRunnable{
 		@Override
 		public void run() {
 			for(World world:Bukkit.getWorlds()) {
-				if(Config.disableWorlds.contains(world.getName())) continue;
+				if(!Config.enableWorlds.contains(world)) continue;
 				for(Player player:world.getPlayers()) {
 					int slot=hasWarmStone(player);
 					if(slot!=-1) {
@@ -67,7 +66,7 @@ public class NaturalTask {
 				}
 			}
 			for(Player player:Bukkit.getOnlinePlayers()) {
-				if(Config.disableWorlds.contains(player.getWorld().getName())) continue;
+				if(!Config.enableWorlds.contains(player.getWorld())) continue;
 				int pt=PlayerManager.check(player.getName(),"tem");
 				if(pt<=5) 
 					player.damage(0.5);
@@ -87,7 +86,7 @@ public class NaturalTask {
 			for(String str:lores) {
 				if(str.contains("§8- §8§l温度 ")) {
 					str=str.replace("§8- §8§l温度 ","");
-					int tem=Integer.valueOf(str);
+					int tem=Integer.parseInt(str);
 					int nt=BlockTemperature.getTemperature(player.getLocation());
 					if(tem>nt){
 						String newStr="§8- §8§l温度 "+(tem-1);

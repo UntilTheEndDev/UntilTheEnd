@@ -27,11 +27,9 @@ import HamsterYDS.UntilTheEnd.UntilTheEnd;
 
 //20l
 public class PlayerInventoryAdapt extends BukkitRunnable implements Listener{
-	public static UntilTheEnd plugin;
 	public static int lockingSlot=18;
 	public static HashMap<String,Integer> containerSizes=new HashMap<String,Integer>();
 	public PlayerInventoryAdapt(UntilTheEnd plugin) {
-		this.plugin=plugin;
 		lockingSlot=plugin.getConfig().getInt("player.inventory.lockSlots");
 		plugin.getServer().getPluginManager().registerEvents(this,plugin);
 		this.runTaskTimer(plugin,0L,20L);
@@ -53,7 +51,7 @@ public class PlayerInventoryAdapt extends BukkitRunnable implements Listener{
 	private static int[] slots=new int[] {0,1,2,3,4,5,6,7,8,27,28,29,30,31,32,33,34,35,18,19,20,21,22,23,24,25,26,9,10,11,12,13,14,15,16,17};
 	@Override
 	public void run() {
-		if(plugin.getConfig().getBoolean("player.inventory.enable"))
+		if(UntilTheEnd.getInstance().getConfig().getBoolean("player.inventory.enable"))
 			for(World world:Config.enableWorlds)
 				for(Player player:world.getPlayers()) {
 					if(player.getGameMode()==GameMode.CREATIVE) continue;

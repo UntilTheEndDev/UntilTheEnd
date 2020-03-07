@@ -93,7 +93,7 @@ public class Influence extends BukkitRunnable implements Listener{
 	@Override
 	public void run() {
 		for(Player player:Bukkit.getOnlinePlayers()) {
-			if(Config.disableWorlds.contains(player.getWorld().getName())) continue;
+			if(!Config.enableWorlds.contains(player.getWorld())) continue;
 			int tem=NaturalTemperature.naturalTemperatures.get(player.getWorld().getName());
 			getBurnt(player);
 			tem=PlayerManager.check(player.getName(),"tem");

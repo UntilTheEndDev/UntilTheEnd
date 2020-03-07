@@ -13,20 +13,19 @@ import HamsterYDS.UntilTheEnd.player.PlayerManager;
  * @author 南外丶仓鼠
  * @version V5.1.1
  */
-public class HumidityTask extends BukkitRunnable{
-	public static UntilTheEnd plugin;
-	public HumidityTask(UntilTheEnd plugin) {
-		this.plugin=plugin;
-		runTaskTimer(plugin,0L,150L); 
-	}
-	@Override
-	public void run() {
-		for(World world:Bukkit.getWorlds()) {
-			if(Config.disableWorlds.contains(world.getName())) continue;
-			for(Player player:world.getPlayers()) {
-				int hum=PlayerManager.check(player.getName(),"hum");
-				PlayerManager.change(player.getName(),"tem",-hum/5);
-			}
-		}
-	}
+public class HumidityTask extends BukkitRunnable {
+    public HumidityTask(UntilTheEnd plugin) {
+        runTaskTimer(plugin, 0L, 150L);
+    }
+
+    @Override
+    public void run() {
+        for (World world : Bukkit.getWorlds()) {
+            if (!Config.enableWorlds.contains(world)) continue;
+            for (Player player : world.getPlayers()) {
+                int hum = PlayerManager.check(player.getName(), "hum");
+                PlayerManager.change(player.getName(), "tem", -hum / 5);
+            }
+        }
+    }
 }
