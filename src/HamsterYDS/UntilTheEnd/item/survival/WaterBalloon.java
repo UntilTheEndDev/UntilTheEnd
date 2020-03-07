@@ -35,7 +35,7 @@ public class WaterBalloon implements Listener{
 			event.setCancelled(true);
 			ItemStack itemr=player.getItemInHand();
 			itemr.setAmount(itemr.getAmount()-1);
-			PlayerManager.change(player.getName(),"tem",-10);
+			PlayerManager.change(player,"tem",-10);
 			Location loc=player.getLocation();
 			for(int x=-3;x<=3;x++)
 				for(int y=-3;y<=3;y++)

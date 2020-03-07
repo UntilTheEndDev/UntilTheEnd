@@ -42,11 +42,11 @@ public class ChangeTasks {
 						}
 						if(hasSuit) continue;
 						if(hasShelter(player)) continue;
-						PlayerManager.change(player.getName(),"hum",1);
+						PlayerManager.change(player,"hum",1);
 					}
 				}else {
 					for(Player player:world.getPlayers()) 
-						PlayerManager.change(player.getName(),"hum",-1);
+						PlayerManager.change(player,"hum",-1);
 				}
 			}
 		}
@@ -81,7 +81,7 @@ public class ChangeTasks {
 				for(Player player:world.getPlayers()) {
 					Location loc=player.getLocation();
 					if(world.getBlockAt(loc).getType().equals(Material.WATER)||world.getBlockAt(loc).getType().equals(Material.STATIONARY_WATER)) 
-						PlayerManager.change(player.getName(),"hum",1);
+						PlayerManager.change(player,"hum",1);
 				}
 		}
 	}

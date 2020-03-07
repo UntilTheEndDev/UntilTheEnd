@@ -1,8 +1,12 @@
 name: UntilTheEnd
 main: HamsterYDS.UntilTheEnd.UntilTheEnd
-version: 5.6
+version: "5.6.1-Alpha"
 depend: [LibsDisguises,HolographicDisplays,PlaceholderAPI]
 softdepend: [ProtocolLib,Multiverse-Core]
+authors:
+  - "南外丶仓鼠"
+  - "瑞瑞瑞瑞阿"
+  - "Karlatemp"
 commands:
   ute:
     usage: /ute

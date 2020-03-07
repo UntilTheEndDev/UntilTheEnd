@@ -155,11 +155,11 @@ public class UntilTheEndApi {
         }
 
         public static int getValue(Player player, String type) {
-            return PlayerManager.check(player.getName(), type);
+            return PlayerManager.check(player, type);
         }
 
         public static void setValue(Player player, String type, int value) {
-            PlayerManager.change(player.getName(), type, value);
+            PlayerManager.change(player, type, value);
         }
     }
 

@@ -9,21 +9,19 @@ import org.bukkit.configuration.file.YamlConfiguration;
 import HamsterYDS.UntilTheEnd.UntilTheEnd;
 
 public class HudProvider {
-	public static UntilTheEnd plugin;
-	public static YamlConfiguration yaml;
-	public static List<String> lines;
-	public static HashMap<String,String> sanity=new HashMap<String,String>();
-	public static HashMap<String,String> humidity=new HashMap<String,String>();
-	public static HashMap<String,String> temperature=new HashMap<String,String>();
-	public HudProvider(UntilTheEnd plugin) {
-		this.plugin=plugin;
-		plugin.saveResource("hud.yml",false);
-		File file=new File(plugin.getDataFolder(),"hud.yml");
-		yaml=YamlConfiguration.loadConfiguration(file);
-		lines=yaml.getStringList("scoreboard.list");
-		if(yaml.getBoolean("bar.enable"))
-			new HudBossBar().runTaskTimer(plugin,0L,yaml.getLong("fresh"));
-		if(yaml.getBoolean("scoreboard.enable"))
-			new HudScoreBoard().runTaskTimer(plugin,0L,yaml.getLong("fresh"));
-	}
+    public static UntilTheEnd plugin;
+    public static YamlConfiguration yaml;
+    public static List<String> lines;
+    public static HashMap<String, String> sanity = new HashMap<String, String>();
+    public static HashMap<String, String> humidity = new HashMap<String, String>();
+    public static HashMap<String, String> temperature = new HashMap<String, String>();
+
+    public HudProvider(UntilTheEnd plugin) {
+        plugin.saveResource("hud.yml", false);
+        File file = new File(plugin.getDataFolder(), "hud.yml");
+        yaml = YamlConfiguration.loadConfiguration(file);
+        lines = yaml.getStringList("scoreboard.list");
+        if (yaml.getBoolean("bar.enable"))
+            new HudBossBar().runTaskTimer(plugin, 0L, yaml.getLong("fresh"));
+    }
 }

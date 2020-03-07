@@ -61,3 +61,11 @@ block:
   fresh: 60   #方块保存与读取的CD
 disableWorlds:   #不启用插件的世界
 - world_nether
+
+# 数据保存设置
+# name -> 玩家名 & yml (v1)
+# nameV2 -> 玩家名 & yml (v2)
+# uuid -> UUID & yml
+# name-bin -> 玩家名 & 二进制
+# uuid-bin -> uuid & 二进制
+saving: "name"

@@ -27,9 +27,9 @@ public class HudBossBar extends BukkitRunnable{
 	public void run() {
 		for(World world:Config.enableWorlds)
 			for(Player player:world.getPlayers()) { 
-				int san=PlayerManager.check(player.getName(),"san");
-				int tem=PlayerManager.check(player.getName(),"tem");
-				int hum=PlayerManager.check(player.getName(),"hum");
+				int san=PlayerManager.check(player,"san");
+				int tem=PlayerManager.check(player,"tem");
+				int hum=PlayerManager.check(player,"hum");
 				BossBar bars=(!bossBars.containsKey(player.getName()))?Bukkit.createBossBar("",BarColor.GREEN,BarStyle.SOLID,BarFlag.CREATE_FOG):bossBars.get(player.getName());
 				bars.setTitle("§6§l"+HudProvider.sanity.get(player.getName())+"  §c§l理智   §r§b§l"+san+"  §6§l"+HudProvider.sanity.get(player.getName()));
 				bars.setProgress(((float)san/200.0));

@@ -74,7 +74,7 @@ public class UntilTheEnd extends JavaPlugin implements Listener {
     @Override
     public void onDisable() {
         for (Player player : Bukkit.getOnlinePlayers()) {
-            PlayerManager.save(player.getName());
+            PlayerManager.save(player);
         }
         WorldProvider.saveWorlds();
         BlockManager.saveBlocks();

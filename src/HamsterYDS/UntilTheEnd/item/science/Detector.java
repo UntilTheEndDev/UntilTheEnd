@@ -33,7 +33,7 @@ public class Detector implements Listener{
 //			if(Math.random()<=0.03) {
 //				int dist=0;
 //				player.sendTitle("§8§l您距离目的地§e"+String.valueOf(dist)+"格","");
-//				PlayerManager.change(player.getName(),"san",-5);
+//				PlayerManager.change(player,"san",-5);
 //			}
 //		}
 //	}

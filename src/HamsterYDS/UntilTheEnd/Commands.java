@@ -233,8 +233,8 @@ public class Commands implements CommandExecutor, Listener, TabCompleter {
                     return true;
                 }
                 int value = Integer.parseInt(ct[3]);
-                PlayerManager.change(playerName, typeName, (value - PlayerManager.check(playerName, typeName)));
-                PlayerManager.save(playerName);
+                PlayerManager.change(player, typeName, (value - PlayerManager.check(player, typeName)));
+                PlayerManager.save(player);
                 cs.sendMessage(Config.getLang("cmd.setHud"));
                 break;
             }

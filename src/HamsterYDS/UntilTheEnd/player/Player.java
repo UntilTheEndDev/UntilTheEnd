@@ -12,10 +12,9 @@ import HamsterYDS.UntilTheEnd.player.death.DeathMessage;
 public class Player {
 	public static UntilTheEnd plugin;
 	public Player(UntilTheEnd plugin) {
-		this.plugin=plugin;
 		new PlayerManager(plugin);
 		for(org.bukkit.entity.Player player:Bukkit.getOnlinePlayers()) 
-			PlayerManager.load(player.getName());
+			PlayerManager.load(player);
 		new PlayerInventoryAdapt(plugin);
 		plugin.getServer().getPluginManager().registerEvents(new DeathMessage(),plugin);
 	}

@@ -34,7 +34,7 @@ public class Hail implements Listener{
 		if(item.equals(ItemManager.namesAndItems.get("§6冰雹"))) {
 			ItemStack itemr=player.getItemInHand();
 			itemr.setAmount(itemr.getAmount()-1);
-			PlayerManager.change(player.getName(),"tem",temperatureReduce);
+			PlayerManager.change(player,"tem",temperatureReduce);
 		}
 	}
 }
