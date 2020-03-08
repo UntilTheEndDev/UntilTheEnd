@@ -1,0 +1,9 @@
+# 更新历史
+v5.6.1-Alpha
+    存储模式多样化
+    zh_cn.yml的一个错误
+    生物群系影响. 高温不下雨判断.
+    系统GUI采用Holder判断了!
+    内置PAPI挂钩支持
+    Command类重写
+    Update check优化
