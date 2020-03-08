@@ -40,76 +40,20 @@ public class BlowArrow2 implements Listener{
 		materials.put(ItemManager.namesAndItems.get("§6暖石"),1);
 		ItemManager.registerRecipe(materials,ItemManager.namesAndItems.get("§6火吹箭"),"§6战斗");
 		ItemManager.plugin.getServer().getPluginManager().registerEvents(this,ItemManager.plugin);
+		ItemManager.cosumeItems.add("BlowArrow1");
 	}
 	@EventHandler public void onRight(PlayerInteractEvent event) {
 		Player player=event.getPlayer();
 		if(!player.isSneaking()) return;
 		if(!(event.getAction()==Action.RIGHT_CLICK_AIR||event.getAction()==Action.RIGHT_CLICK_BLOCK)) return;
-		ItemStack itemClone=player.getItemInHand().clone();
-		if(itemClone==null) return;
-		itemClone.setAmount(1);
-		if(itemClone.equals(ItemManager.namesAndItems.get("§6火吹箭"))) {
-			ItemStack item=player.getItemInHand();
-			item.setAmount(item.getAmount()-1);
+		ItemStack item=player.getInventory().getItemInMainHand();
+		if(ItemManager.isSimilar(item,ItemManager.namesAndItems.get("§6火吹箭"))) {
 			Entity entity=player.getWorld().spawnEntity(player.getLocation().add(0,1.0,0),EntityType.ARMOR_STAND);
 			ArmorStand armor=(ArmorStand) entity;
 			armor.setItemInHand(new ItemStack(Material.GOLD_SWORD));
 			Vector vec=player.getEyeLocation().getDirection().multiply(2.0);
-			armor.setInvulnerable(true);
 			armor.setSmall(true);
-			armor.setRightArmPose(new EulerAngle(0,0,0));
 			armor.setVisible(false);
-			armor.setAI(false);
-			new Task(vec,armor,player);
-		}
-	}
-	public class Task extends BukkitRunnable{
-		int range=maxDist;
-		Vector vec;
-		ArmorStand armor;
-		Player player;
-		@Override
-		public void run() {
-			range--;
-			if(range==0) {
-				cancel();
-				return;
-			}
-			Location loc=armor.getLocation().add(0.0,1.0,0.0);
-			armor.getWorld().spawnParticle(Particle.LAVA,armor.getLocation().add(0,1.0,0),3);
-			armor.setVelocity(vec);
-			for(Entity entity:armor.getNearbyEntities(BlowArrow2.range,BlowArrow2.range,BlowArrow2.range)) {
-				if(entity==player) continue;
-				if(entity instanceof LivingEntity) {
-					LivingEntity creature=(LivingEntity) entity;
-					creature.damage(damage,player);
-					creature.setFireTicks(firePeriod*20); 
-					if(creature.isDead()) DeathMessage.causes.put(creature.getName(),DeathCause.BLOWARROW);
-					armor.remove();
-					cancel();
-					return;
-				}
-			}
-			loc.add(vec);
-			if(!loc.getBlock().getType().isTransparent()) {
-				armor.teleport(loc.add(0.0, -1.0, 0.0));
-				armor.setGravity(false);
-				new BukkitRunnable() {
-					@Override
-					public void run() {
-						armor.remove();
-						cancel();
-					}
-				}.runTaskTimer(ItemManager.plugin,ItemManager.plugin.getConfig().getInt("item.blowarrow.autoclear")*20,1);
-				cancel();
-				return;
-			}
-		}
-		public Task(Vector vec,ArmorStand armor,Player player) {
-			this.vec=vec;
-			this.armor=armor;
-			this.player=player;
-			runTaskTimer(ItemManager.plugin,0L,1L);
 		}
 	}
 }

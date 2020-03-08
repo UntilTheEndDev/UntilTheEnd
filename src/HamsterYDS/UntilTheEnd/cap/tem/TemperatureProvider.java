@@ -63,30 +63,24 @@ public class TemperatureProvider {
 	public static int getWorldTemperature(World world) {
 		Season season=UntilTheEndApi.WorldApi.getSeason(world);
 		int day=UntilTheEndApi.WorldApi.getDay(world);
-		int temperature=37;
 		switch(season) {
 		case SPRING: {
-			temperature=(int) (Math.random()*(-5)+Math.random()*5+1.5*day-Math.sqrt(Math.sqrt(Math.sqrt(world.getTime()))));
-			break;
+			return (int) (Math.random()*(-5)+Math.random()*5+1.5*day-Math.sqrt(Math.sqrt(Math.sqrt(world.getTime()))));
 		}
 		case SUMMER: {
-			temperature=(int) (Math.random()*(-5)+Math.random()*15-0.2*day*day+4.6*day+35.5-Math.sqrt(Math.sqrt(Math.sqrt(world.getTime()))));
-			break;
+			return (int) (Math.random()*(-5)+Math.random()*15-0.2*day*day+4.6*day+35.5-Math.sqrt(Math.sqrt(Math.sqrt(world.getTime()))));
 		}
 		case AUTUMN: {
-			temperature=(int) (Math.random()*(-5)+Math.random()*5+50-1.5*day-Math.sqrt(Math.sqrt(Math.sqrt(world.getTime()))));
-			break;
+			return (int) (Math.random()*(-5)+Math.random()*5+50-1.5*day-Math.sqrt(Math.sqrt(Math.sqrt(world.getTime()))));
 		}
 		case WINTER: {
-			temperature=(int) (0.15*day*day-3.5*day+3.3-Math.random()*(-5)+Math.random()*5-Math.sqrt(Math.sqrt(Math.sqrt(world.getTime()))));
-			break;
+			return (int) (0.15*day*day-3.5*day+3.3-Math.random()*(-5)+Math.random()*5-Math.sqrt(Math.sqrt(Math.sqrt(world.getTime()))));
 		}
 		case NULL: {
-			temperature=37;
-			break;
+			return 37;
 		}
+		default: return 37;
 		}
-		return temperature;
 	}
 	public static int getBlockTemperature(Location loc) {
 		if(!Config.enableWorlds.contains(loc.getWorld())) return 37;
@@ -98,7 +92,7 @@ public class TemperatureProvider {
 		int seasonTem=TemperatureProvider.worldTemperatures.get(world);
 		double tems=seasonTem;
 		int tot=1;
-		for(int x=-4;x<=4;x++) 
+		for(int x=-4;x<=4;x++)
 			for(int y=-4;y<=4;y++) 
 				for(int z=-4;z<=4;z++) {
 					Location newLoc=new Location(loc.getWorld(),loc.getX()+x,loc.getY()+y,loc.getZ()+z);
@@ -107,8 +101,8 @@ public class TemperatureProvider {
 					double factor=loc.distance(newLoc)*0.4;
 					if(blockTemperatures.containsKey(blockMaterial)) {
 						int blockTem=blockTemperatures.get(blockMaterial);
-						int d_value=Math.abs(blockTem-seasonTem); 
-						double influent=(double)d_value/(double)factor;
+						int dValue=Math.abs(blockTem-seasonTem);
+						double influent=(double)dValue/(double)factor;
 						tot++;
 						if(blockTem>seasonTem) tems+=seasonTem+influent;
 						else tems+=seasonTem-influent;
@@ -116,6 +110,13 @@ public class TemperatureProvider {
 				}
 		int result=(int) (tems/tot);
 		result=(int) (result-(1.5*((loc.getBlockY()-50)/10)));
+		final double temperature = block.getTemperature();
+		if (temperature < 0) {
+			result-=temperature*20;
+		}
+		if (temperature > 1.2) {
+			result+=temperature*20;
+		}
 		return result;
 	}
 	public static class FMBlock{

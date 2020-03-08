@@ -50,13 +50,17 @@ public class Sclerite implements Listener {
 				public void run() {
 					for (int i = 0; i <= 5; i++)
 						armor.setVelocity(vec);
+
 					for (Entity entity : armor.getNearbyEntities(range, range, range)) {
 						if (entity.getUniqueId() == player.getUniqueId())
 							continue;
 						if (!(entity instanceof LivingEntity))
 							continue;
 						((LivingEntity) entity).damage(damage);
+						cancel();
 					}
+					if(armor.getLocation().getBlock().getType().isTransparent())
+						cancel();
 					if (dist++ >= maxDist)
 						cancel();
 				}

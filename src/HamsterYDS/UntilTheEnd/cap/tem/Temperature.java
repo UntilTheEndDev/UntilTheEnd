@@ -22,6 +22,5 @@ public class Temperature {
         new TemperatureProvider(plugin);
         new ChangeTasks(plugin);
         new InfluenceTasks(plugin);
-        new BiomeTasks();
     }
 }

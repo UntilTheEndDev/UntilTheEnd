@@ -1,15 +1,12 @@
 package HamsterYDS.UntilTheEnd.item.combat;
 
-import java.util.HashMap;
-
+import HamsterYDS.UntilTheEnd.item.ItemManager;
+import HamsterYDS.UntilTheEnd.player.death.DeathCause;
+import HamsterYDS.UntilTheEnd.player.death.DeathMessage;
 import org.bukkit.Location;
 import org.bukkit.Material;
 import org.bukkit.Particle;
-import org.bukkit.entity.ArmorStand;
-import org.bukkit.entity.Entity;
-import org.bukkit.entity.EntityType;
-import org.bukkit.entity.LivingEntity;
-import org.bukkit.entity.Player;
+import org.bukkit.entity.*;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.block.Action;
@@ -19,9 +16,7 @@ import org.bukkit.scheduler.BukkitRunnable;
 import org.bukkit.util.EulerAngle;
 import org.bukkit.util.Vector;
 
-import HamsterYDS.UntilTheEnd.item.ItemManager;
-import HamsterYDS.UntilTheEnd.player.death.DeathCause;
-import HamsterYDS.UntilTheEnd.player.death.DeathMessage;
+import java.util.HashMap;
 
 /**
  * @author 南外丶仓鼠
@@ -39,75 +34,43 @@ public class BlowArrow1 implements Listener{
 		materials.put(ItemManager.namesAndItems.get("§6鳞片"),1);
 		ItemManager.registerRecipe(materials,ItemManager.namesAndItems.get("§6吹箭"),"§6战斗");
 		ItemManager.plugin.getServer().getPluginManager().registerEvents(this,ItemManager.plugin);
+		ItemManager.cosumeItems.add("BlowArrow1");
 	}
 	@EventHandler public void onRight(PlayerInteractEvent event) {
 		Player player=event.getPlayer();
 		if(!player.isSneaking()) return;
-		if(!(event.getAction()==Action.RIGHT_CLICK_AIR||event.getAction()==Action.RIGHT_CLICK_BLOCK)) return;
-		ItemStack itemClone=player.getItemInHand().clone();
-		if(itemClone==null) return;
-		itemClone.setAmount(1);
-		if(itemClone.equals(ItemManager.namesAndItems.get("§6吹箭"))) {
-			ItemStack item=player.getItemInHand();
-			item.setAmount(item.getAmount()-1);
-			Entity entity=player.getWorld().spawnEntity(player.getLocation().add(0,1.0,0),EntityType.ARMOR_STAND);
+		if (event.getAction() != Action.RIGHT_CLICK_AIR && event.getAction() != Action.RIGHT_CLICK_BLOCK)
+			return;
+		ItemStack item = player.getInventory().getItemInMainHand();
+		if (ItemManager.isSimilar(item, ItemManager.namesAndItems.get("§6吹箭"))) {
+			Entity entity = player.getWorld().spawnEntity(player.getLocation().add(0, 1.3, 0), EntityType.ARMOR_STAND);
 			ArmorStand armor=(ArmorStand) entity;
-			armor.setItemInHand(new ItemStack(Material.IRON_SWORD));
 			Vector vec=player.getEyeLocation().getDirection().multiply(2.0);
+			armor.setItemInHand(new ItemStack(Material.IRON_SWORD));
 			armor.setInvulnerable(true);
-			armor.setSmall(true);
-			armor.setRightArmPose(new EulerAngle(0,0,0));
 			armor.setVisible(false);
-			armor.setAI(false);
-			new Task(vec,armor,player);
-		}
-	}
-	public class Task extends BukkitRunnable{
-		int range=maxDist;
-		Vector vec;
-		ArmorStand armor;
-		Player player;
-		@Override
-		public void run() {
-			range--;
-			if(range==0) {
-				cancel();
-				return;
-			}
-			Location loc=armor.getLocation().add(0.0,1.0,0.0);
-			armor.getWorld().spawnParticle(Particle.WATER_BUBBLE,armor.getLocation().add(0,1.0,0),15);
-			armor.setVelocity(vec);
-			for(Entity entity:armor.getNearbyEntities(BlowArrow1.range,BlowArrow1.range,BlowArrow1.range)) {
-				if(entity==player) continue;
-				if(entity instanceof LivingEntity) {
-					LivingEntity creature=(LivingEntity) entity;
-					creature.damage(damage,player);
-					if(creature.isDead()) DeathMessage.causes.put(creature.getName(),DeathCause.BLOWARROW);
-					armor.remove();
-					cancel();
-					return;
-				}
-			}
-			loc.add(vec);
-			if(!loc.getBlock().getType().isTransparent()) {
-				armor.teleport(loc.add(0.0, -1.0, 0.0));
-				armor.setGravity(false);
-				new BukkitRunnable() { 
-					@Override
-					public void run() {
-						armor.remove();
+			new BukkitRunnable() {
+				int dist = 0;
+
+				@Override
+				public void run() {
+					for (int i = 0; i <= 5; i++)
+						armor.setVelocity(vec);
+
+					for (Entity entity : armor.getNearbyEntities(range, range, range)) {
+						if (entity.getUniqueId() == player.getUniqueId())
+							continue;
+						if (!(entity instanceof LivingEntity))
+							continue;
+						((LivingEntity) entity).damage(damage);
 						cancel();
 					}
-				}.runTaskTimer(ItemManager.plugin,ItemManager.plugin.getConfig().getInt("item.blowarrow.autoclear")*20,1);
-				cancel();
-				return;
-			}
-		}
-		public Task(Vector vec,ArmorStand armor,Player player) {
-			this.vec=vec;
-			this.armor=armor;
-			this.player=player;
-			runTaskTimer(ItemManager.plugin,0L,1L);
+					if(armor.getLocation().getBlock().getType().isTransparent())
+						cancel();
+					if (dist++ >= maxDist)
+						cancel();
+				}
+			}.runTaskTimer(ItemManager.plugin, 0L, 1L);
 		}
 	}
 }
