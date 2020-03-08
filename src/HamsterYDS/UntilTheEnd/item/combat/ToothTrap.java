@@ -81,7 +81,6 @@ public class ToothTrap implements Listener{
 			}
 			player.getWorld().spawnParticle(Particle.CRIT,loc.add(0.5,0.5,0.5),5);
 			if(player.getHealth()<=damage) DeathMessage.causes.put(player.getName(),DeathCause.TOOTHTRAP);
-			System.out.println(damage);
 			player.damage(damage);
 		}
 	}

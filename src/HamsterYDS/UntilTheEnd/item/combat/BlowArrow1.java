@@ -1,9 +1,6 @@
 package HamsterYDS.UntilTheEnd.item.combat;
 
 import HamsterYDS.UntilTheEnd.item.ItemManager;
-import HamsterYDS.UntilTheEnd.player.death.DeathCause;
-import HamsterYDS.UntilTheEnd.player.death.DeathMessage;
-import org.bukkit.Location;
 import org.bukkit.Material;
 import org.bukkit.Particle;
 import org.bukkit.entity.*;
@@ -13,7 +10,6 @@ import org.bukkit.event.block.Action;
 import org.bukkit.event.player.PlayerInteractEvent;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.scheduler.BukkitRunnable;
-import org.bukkit.util.EulerAngle;
 import org.bukkit.util.Vector;
 
 import java.util.HashMap;
@@ -45,33 +41,50 @@ public class BlowArrow1 implements Listener{
 		ItemStack item = player.getInventory().getItemInMainHand();
 		if (ItemManager.isSimilar(item, ItemManager.namesAndItems.get("§6吹箭"))) {
 			event.setCancelled(true);
-			Entity entity = player.getWorld().spawnEntity(player.getLocation(), EntityType.ARMOR_STAND);
-			ArmorStand armor=(ArmorStand) entity;
-			Vector vec=player.getEyeLocation().getDirection();
+			Vector vec = player.getEyeLocation().getDirection().multiply(10);
+			Entity entity = player.getWorld().spawnEntity(player.getLocation().add(0, 1, 0), EntityType.ARMOR_STAND);
+			ArmorStand armor = (ArmorStand) entity;
+			armor.setSmall(true);
 			armor.setItemInHand(new ItemStack(Material.IRON_SWORD));
-			armor.setGravity(false);
+			armor.setCollidable(false);
 			armor.setVisible(false);
-			armor.setRemoveWhenFarAway(true);
 			armor.setAI(false);
 			new BukkitRunnable() {
 				int dist = 0;
 
 				@Override
 				public void run() {
-					armor.setVelocity(vec);
-					armor.getWorld().spawnParticle(Particle.TOTEM,armor.getLocation().add(0,1.3,0),2);
+					for (int i = 0; i <= 5; i++)
+						armor.setVelocity(vec);
+
 					for (Entity entity : armor.getNearbyEntities(range, range, range)) {
 						if (entity.getUniqueId() == player.getUniqueId())
 							continue;
 						if (!(entity instanceof LivingEntity))
 							continue;
 						((LivingEntity) entity).damage(damage);
-						cancel();
+						clear();
 					}
-					if(!armor.getLocation().add(0,1.3,0).getBlock().getType().isTransparent())
-						cancel();
+					
+					if(!armor.getLocation().add(0,0.2,0).getBlock().getType().isTransparent()){
+						armor.setGravity(false);
+						armor.setVelocity(vec);
+						armor.getWorld().spawnParticle(Particle.CRIT,armor.getLocation().add(0,0.2,0),1); 
+						clear();
+					}
 					if (dist++ >= maxDist)
-						cancel();
+						clear();
+				}
+				
+				public void clear() {
+					new BukkitRunnable(){
+						@Override
+						public void run() {
+							armor.remove();
+							cancel();
+						}
+					}.runTaskTimer(ItemManager.plugin,ItemManager.plugin.getConfig().getInt("item.blowarrow.autoclear")*20,20L);
+					cancel();
 				}
 			}.runTaskTimer(ItemManager.plugin, 0L, 1L);
 		}

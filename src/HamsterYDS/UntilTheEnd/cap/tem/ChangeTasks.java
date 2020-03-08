@@ -56,9 +56,9 @@ public class ChangeTasks {
                         line = line.replace("§8- §8§l温度 ", "");
                         int naturalTem = TemperatureProvider.getBlockTemperature(player.getLocation());
                         int stoneTem = Integer.parseInt(line);
-                        int playerTem = PlayerManager.check(player, PlayerManager.CheckType.TEMPERATURE);
-                        if (playerTem < stoneTem) PlayerManager.change(player, PlayerManager.CheckType.TEMPERATURE, 1);
-                        if (playerTem > stoneTem) PlayerManager.change(player, PlayerManager.CheckType.TEMPERATURE, -1);
+                        int playerTem = PlayerManager.check(player, "tem");
+                        if (playerTem < stoneTem) PlayerManager.change(player, "tem", 1);
+                        if (playerTem > stoneTem) PlayerManager.change(player, "tem", -1);
                         if (Math.random() <= stoneChangePercent) {
                             if (stoneTem > naturalTem)
                                 line = "§8- §8§l温度 " + (stoneTem - 1);
@@ -81,11 +81,11 @@ public class ChangeTasks {
 
         public void goNatural(Player player) {
             final int naturalTem = TemperatureProvider.getBlockTemperature(player.getLocation());
-            final int playerTem = PlayerManager.check(player, PlayerManager.CheckType.TEMPERATURE);
+            final int playerTem = PlayerManager.check(player, "tem");
             if (playerTem < naturalTem && clothesChange(player, true))
-                PlayerManager.change(player, PlayerManager.CheckType.TEMPERATURE, 1);
+                PlayerManager.change(player, "tem", 1);
             if (playerTem > naturalTem && clothesChange(player, false))
-                PlayerManager.change(player, PlayerManager.CheckType.TEMPERATURE, -1);
+                PlayerManager.change(player, "tem", -1);
         }
 
         public boolean clothesChange(Player player, boolean upOrDown) {

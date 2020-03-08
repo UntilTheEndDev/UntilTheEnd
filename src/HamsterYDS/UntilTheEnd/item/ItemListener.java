@@ -52,12 +52,11 @@ public class ItemListener implements Listener {
 			int amount = item.getAmount();
 			itemClone.setAmount(1);
 			itemClone.setDurability((short) 0);
+			
 			if (!ItemManager.itemsAndIds.containsKey(itemClone))
 				return;
-
 			String id = ItemManager.itemsAndIds.get(itemClone);
 			if (ItemManager.cosumeItems.contains(id)){
-				System.out.println("ses");
 				item.setAmount(amount - 1);
 			}
 		}

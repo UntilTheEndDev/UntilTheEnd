@@ -8,13 +8,13 @@
 
 package HamsterYDS.UntilTheEnd.manager;
 
-import HamsterYDS.UntilTheEnd.cap.hum.HumidityProvider;
-import org.bukkit.Material;
+import java.util.ArrayList;
+import java.util.List;
+
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
 
-import java.util.ArrayList;
-import java.util.List;
+import HamsterYDS.UntilTheEnd.cap.hum.HumidityProvider;
 
 public class WetManager {
     public static void setWet(ItemStack stack, boolean state) {
