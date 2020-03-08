@@ -101,20 +101,18 @@ public class PlayerManager implements Listener {
         }
     }
 
-    public static int check(OfflinePlayer name, CheckType type) {
-        if (name instanceof Player) {
-            if (!Config.enableWorlds.contains(((Player) name).getWorld()))
-                switch (type) {
-                    case TEMPERATURE:
-                        return 37;
-                    case HUMIDITY:
-                        return 0;
-                    case SANITY:
-                        return 200;
-                    default:
-                        return 1;
-                }
-        }
+    public static int check(Player name, CheckType type) {
+        if (!Config.enableWorlds.contains(name.getWorld()))
+            switch (type) {
+                case TEMPERATURE:
+                    return 37;
+                case HUMIDITY:
+                    return 0;
+                case SANITY:
+                    return 200;
+                default:
+                    return 1;
+            }
         IPlayer player = players.get(name.getUniqueId());
         if (player == null || type == null) return 1;
         switch (type) {
@@ -129,7 +127,7 @@ public class PlayerManager implements Listener {
         }
     }
 
-    public static int check(OfflinePlayer name, String type) {
+    public static int check(Player name, String type) {
         return check(name, CheckType.search(type));
     }
 
@@ -213,16 +211,17 @@ public class PlayerManager implements Listener {
         }
     }
 
-    public static void change(Player name, CheckType type, int changement) {
-        if (name == null)
+    public static void change(Player player, CheckType type, int changement) {
+        if (player == null)
             return;
-        if (name.getGameMode() == GameMode.CREATIVE || name.getGameMode() == GameMode.SPECTATOR)
+        if (player.getGameMode() == GameMode.CREATIVE || player.getGameMode() == GameMode.SPECTATOR)
             return;
-        forgetChange(name, type, changement);
+        if (player.isDead()) return;
+        forgetChange(player, type, changement);
     }
 
-    public static void change(Player name, String type, int changement) {
-        change(name, CheckType.search(type), changement);
+    public static void change(Player player, String type, int changement) {
+        change(player, CheckType.search(type), changement);
     }
 
     private static class SavingTask extends BukkitRunnable {
