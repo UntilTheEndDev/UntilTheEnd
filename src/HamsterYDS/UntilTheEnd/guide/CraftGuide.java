@@ -2,6 +2,8 @@ package HamsterYDS.UntilTheEnd.guide;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.Map;
+import java.util.Objects;
 
 import org.bukkit.Bukkit;
 import org.bukkit.Material;
@@ -70,7 +72,7 @@ public class CraftGuide implements Listener {
     @EventHandler
     public void onOpen(InventoryOpenEvent event) {
         Inventory inv = event.getInventory();
-        if (inv.getName().equalsIgnoreCase("UntilTheEnd:合成帮助")) openers.add(event.getPlayer().getName());
+        if (inv instanceof HolderCraftingHelp) openers.add(event.getPlayer().getName());
     }
 
     @EventHandler
@@ -134,9 +136,12 @@ public class CraftGuide implements Listener {
 //		if(event.getSlot()==45) {
 //			//下一页
 //		}
-        if (crafts.containsKey(item)) {
+        // System.out.print(item);
+        // System.out.print(crafts);
+        Inventory find = find(item);
+        if (find != null) {
             if (cheating.contains(player.getName()))
-                if (crafts.get(item).getSize() == 27) {
+                if (find.getSize() == 27) {
                     event.setCancelled(true);
                     event.setCursor(item);
                     return;
@@ -145,8 +150,29 @@ public class CraftGuide implements Listener {
             invs.add(inv);
             playerInvs.remove(player.getName());
             playerInvs.put(player.getName(), invs);
-            player.openInventory(crafts.get(item));
+            player.openInventory(find);
         }
+    }
+
+    private Inventory find(ItemStack stack) {
+        final Material type = stack.getType();
+        final ItemMeta meta = stack.getItemMeta();
+        for (Map.Entry<ItemStack, Inventory> ivs : crafts.entrySet()) {
+            final ItemStack key = ivs.getKey();
+            if (key.getType() == type) {
+                if (meta != null) {
+                    if (key.hasItemMeta()) {
+                        final ItemMeta meta0 = key.getItemMeta();
+                        if (Objects.equals(meta0.getDisplayName(), meta.getDisplayName())) {
+                            return ivs.getValue();
+                        }
+                    }
+                } else {
+                    return ivs.getValue();
+                }
+            }
+        }
+        return null;
     }
 
     public static void addItem(String string, ItemStack item) {

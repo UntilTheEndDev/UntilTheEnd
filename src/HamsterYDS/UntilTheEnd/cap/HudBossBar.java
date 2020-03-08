@@ -34,7 +34,7 @@ public class HudBossBar extends BukkitRunnable implements Listener {
     private static final Deque<NdBossBar> released = new ConcurrentLinkedDeque<>();
     private static final Map<UUID, NdBossBar> bars = new HashMap<>();
 
-    private static NdBossBar create(UUID key) {
+    public static NdBossBar create(UUID key) {
         return bars.compute(key, (k, v) -> {
             if (v != null) return v;
             final NdBossBar old = released.poll();
@@ -63,7 +63,7 @@ public class HudBossBar extends BukkitRunnable implements Listener {
         Bukkit.getPluginManager().registerEvents(this, UntilTheEnd.getInstance());
     }
 
-    private static void release(UUID uid) {
+    public static void release(UUID uid) {
         final NdBossBar remove = bars.remove(uid);
         if (remove != null) {
             remove.san.removeAll();

@@ -6,6 +6,7 @@ import java.net.HttpURLConnection;
 import java.net.URL;
 import java.util.logging.Level;
 
+import HamsterYDS.UntilTheEnd.cap.HudBossBar;
 import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
@@ -77,6 +78,7 @@ public class UntilTheEnd extends JavaPlugin implements Listener {
     public void onDisable() {
         for (Player player : Bukkit.getOnlinePlayers()) {
             PlayerManager.save(player);
+            HudBossBar.release(player.getUniqueId());
         }
         WorldProvider.saveWorlds();
         BlockManager.saveBlocks();

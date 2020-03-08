@@ -165,18 +165,7 @@ public class UntilTheEndApi {
 
     public static class WorldApi {
         public static String getSeasonColor(World world) {
-            switch (getSeason(world)) {
-                case SPRING:
-                    return HudProvider.yaml.getString("seasonColor.SPRING");
-                case SUMMER:
-                    return HudProvider.yaml.getString("seasonColor.SUMMER");
-                case AUTUMN:
-                    return HudProvider.yaml.getString("seasonColor.AUTUMN");
-                case WINTER:
-                    return HudProvider.yaml.getString("seasonColor.WINTER");
-                default:
-                    return "";
-            }
+            return HudProvider.yaml.getString("seasonColor." + getSeason(world).name(), "");
         }
 
         public static String getName(Season season) {
@@ -189,7 +178,7 @@ public class UntilTheEndApi {
                     return "冬天";
                 case NULL:
                     return "未启用";
-				case AUTUMN:
+                case AUTUMN:
                 default:
                     return "秋天";
             }
