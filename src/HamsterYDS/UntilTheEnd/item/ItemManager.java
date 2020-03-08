@@ -4,6 +4,7 @@ import java.io.File;
 import java.util.ArrayList;
 import java.util.HashMap;
 
+import HamsterYDS.UntilTheEnd.item.clothes.*;
 import org.bukkit.Bukkit;
 import org.bukkit.NamespacedKey;
 import org.bukkit.configuration.file.YamlConfiguration;
@@ -30,11 +31,6 @@ import HamsterYDS.UntilTheEnd.item.basics.Scale;
 import HamsterYDS.UntilTheEnd.item.basics.Sclerite;
 import HamsterYDS.UntilTheEnd.item.basics.SpiderGland;
 import HamsterYDS.UntilTheEnd.item.basics.Spit;
-import HamsterYDS.UntilTheEnd.item.clothes.BushesHat;
-import HamsterYDS.UntilTheEnd.item.clothes.Earmuff;
-import HamsterYDS.UntilTheEnd.item.clothes.EyeballUmbrella;
-import HamsterYDS.UntilTheEnd.item.clothes.Garland;
-import HamsterYDS.UntilTheEnd.item.clothes.StrawHat;
 import HamsterYDS.UntilTheEnd.item.combat.BeeMine;
 import HamsterYDS.UntilTheEnd.item.combat.BlowArrow1;
 import HamsterYDS.UntilTheEnd.item.combat.BlowArrow2;
@@ -139,6 +135,7 @@ public class ItemManager {
 		new Earmuff();
 		new BushesHat();
 		new EyeballUmbrella();
+		new ConstantTemperatureClothes();
 
 		new MovablePack();
 		new NormalPack();
