@@ -2,6 +2,7 @@ package HamsterYDS.UntilTheEnd.cap.tem;
 
 import java.util.ArrayList;
 
+import HamsterYDS.UntilTheEnd.internal.ItemFactory;
 import org.bukkit.Location;
 import org.bukkit.Material;
 import org.bukkit.Particle;
@@ -72,8 +73,8 @@ public class InfluenceTasks {
                         for (int j = -3; j <= 3; j++)
                             for (int k = -3; k <= 3; k++) {
                                 Location loc = new Location(playerLoc.getWorld(), playerLoc.getX() + i, playerLoc.getY() + j, playerLoc.getZ() + k);
-                                if (TemperatureProvider.fmBlocks.containsKey(loc.getBlock().getType())) {
-                                    FMBlock fmBlock = TemperatureProvider.fmBlocks.get(loc.getBlock().getType());
+                                if (TemperatureProvider.fmBlocks.containsKey(ItemFactory.getType(loc.getBlock()))) {
+                                    FMBlock fmBlock = TemperatureProvider.fmBlocks.get(ItemFactory.getType(loc.getBlock()));
                                     int tem = (int) ((
                                             TemperatureProvider.getBlockTemperature(loc.add(0, 1, 0)) +
                                                     TemperatureProvider.getBlockTemperature(loc.add(0, -1, 0)) +

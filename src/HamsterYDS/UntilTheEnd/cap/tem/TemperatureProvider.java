@@ -2,6 +2,7 @@ package HamsterYDS.UntilTheEnd.cap.tem;
 
 import java.util.HashMap;
 
+import HamsterYDS.UntilTheEnd.internal.ItemFactory;
 import org.bukkit.Bukkit;
 import org.bukkit.Location;
 import org.bukkit.Material;
@@ -30,12 +31,12 @@ public class TemperatureProvider {
         for (String path : Temperature.yaml.getKeys(true)) {
             if (path.startsWith("fmBlocks.")) {
                 if (path.replace("fmBlocks.", "").contains(".")) continue;
-                Material currentMaterial = Material.valueOf(path.replace("fmBlocks.", ""));
-                Material newMaterial = Material.valueOf(Temperature.yaml.getString(path + ".newMaterial"));
+                Material currentMaterial = ItemFactory.valueOf(path.replace("fmBlocks.", ""));
+                Material newMaterial = ItemFactory.valueOf(Temperature.yaml.getString(path + ".newMaterial"));
                 boolean isIncrease = Temperature.yaml.getBoolean(path + ".increase");
                 int temperature = Temperature.yaml.getInt(path + ".temperature");
                 fmBlocks.put(currentMaterial, new FMBlock(newMaterial, temperature, isIncrease));
-                System.out.println("检测到随温度变化而变化的方块" + path.replace("fmBlocks.", "") + "->" + newMaterial.toString() + "变化温度为：" + temperature);
+                System.out.println("检测到随温度变化而变化的方块" + path.replace("fmBlocks.", "") + "->" + newMaterial+ "变化温度为：" + temperature);
             }
         }
     }
@@ -59,8 +60,8 @@ public class TemperatureProvider {
             if (path.startsWith("blockTemperature.")) {
                 int tem = Temperature.yaml.getInt(path);
                 path = path.replace("blockTemperature.", "");
-                Material material = Material.getMaterial(path);
-                System.out.println("检测到带有温度的方块" + path + "温度为：" + tem);
+                Material material = ItemFactory.valueOf(path);
+                System.out.println("检测到带有温度的方块" + material + "温度为：" + tem);
                 blockTemperatures.put(material, tem);
             }
         }
@@ -95,7 +96,7 @@ public class TemperatureProvider {
         if (loc.getBlock() == null) return 37;
         World world = loc.getWorld();
         Block block = loc.getBlock();
-        Material material = block.getType();
+        Material material = ItemFactory.getType(block);
         if (blockTemperatures.containsKey(material)) return blockTemperatures.get(material);
         int seasonTem = TemperatureProvider.worldTemperatures.get(world);
         double tems = seasonTem;
@@ -105,12 +106,12 @@ public class TemperatureProvider {
                 for (int z = -4; z <= 4; z++) {
                     Location newLoc = new Location(loc.getWorld(), loc.getX() + x, loc.getY() + y, loc.getZ() + z);
                     if (newLoc.getBlock() == null) continue;
-                    Material blockMaterial = newLoc.getBlock().getType();
+                    Material blockMaterial = ItemFactory.getType(newLoc.getBlock());
                     double factor = loc.distance(newLoc) * 0.4;
                     if (blockTemperatures.containsKey(blockMaterial)) {
                         int blockTem = blockTemperatures.get(blockMaterial);
                         int dValue = Math.abs(blockTem - seasonTem);
-                        double influent = (double) dValue / (double) factor;
+                        double influent = (double) dValue / factor;
                         tot++;
                         if (blockTem > seasonTem) tems += seasonTem + influent;
                         else tems += seasonTem - influent;

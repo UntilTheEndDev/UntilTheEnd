@@ -100,8 +100,9 @@ public class PlayerManager implements Listener {
         }
     }
 
-    public static int check(Player name, CheckType type) {
-        if (!Config.enableWorlds.contains(name.getWorld()))
+    public static int check(Player player, CheckType type) {
+        if (!Config.enableWorlds.contains(player.getWorld()) ||
+                (player.getGameMode() == GameMode.CREATIVE || player.getGameMode() == GameMode.SPECTATOR))
             switch (type) {
                 case TEMPERATURE:
                     return 37;
@@ -112,15 +113,15 @@ public class PlayerManager implements Listener {
                 default:
                     return 1;
             }
-        IPlayer player = players.get(name.getUniqueId());
-        if (player == null || type == null) return 1;
+        IPlayer ip = players.get(player.getUniqueId());
+        if (ip == null || type == null) return 1;
         switch (type) {
             case TEMPERATURE:
-                return player.temperature;
+                return ip.temperature;
             case HUMIDITY:
-                return player.humidity;
+                return ip.humidity;
             case SANITY:
-                return player.sanity;
+                return ip.sanity;
             default:
                 return 1;
         }

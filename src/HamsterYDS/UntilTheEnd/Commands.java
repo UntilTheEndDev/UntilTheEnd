@@ -2,6 +2,7 @@ package HamsterYDS.UntilTheEnd;
 
 import java.util.*;
 
+import HamsterYDS.UntilTheEnd.internal.ItemFactory;
 import org.bukkit.Bukkit;
 import org.bukkit.Location;
 import org.bukkit.World;
@@ -36,7 +37,7 @@ public class Commands implements CommandExecutor, Listener, TabCompleter {
 
     static {
         itemTab.addAll(ItemManager.idsAndNames.keySet());
-        cmdTab.addAll(Arrays.asList("cheat", "give", "guide", "help", "material", "entitytype", "set", "season"));
+        cmdTab.addAll(Arrays.asList("cheat", "give", "guide", "help", "material", "entitytype", "set", "season", "temp"));
         for (Season season : Season.values())
             seasonTab.add(season.name().toLowerCase());
         capTab.addAll(Arrays.asList("san", "hum", "tem"));
@@ -116,7 +117,7 @@ public class Commands implements CommandExecutor, Listener, TabCompleter {
                 if (pl == null) {
                     notPlayer(cs);
                 } else {
-                    pl.sendMessage(pl.getLocation().add(0, -1, 0).getBlock().getType().toString());
+                    pl.sendMessage(String.valueOf(ItemFactory.getType(pl.getLocation().add(0, -1, 0).getBlock())));
                 }
                 break;
             }

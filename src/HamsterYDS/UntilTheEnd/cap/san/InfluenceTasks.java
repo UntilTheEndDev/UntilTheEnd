@@ -28,7 +28,10 @@ public class InfluenceTasks {
 
     public InfluenceTasks(UntilTheEnd plugin) {
         this.plugin = plugin;
-        new CreatureDisguise().runTaskTimer(plugin, 0L, 1000L);
+        try {
+            new CreatureDisguise().runTaskTimer(plugin, 0L, 1000L);
+        } catch (Throwable ignore) {
+        }
         new Confusion().runTaskTimer(plugin, 0L, 80L);
     }
 
