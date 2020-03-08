@@ -1,5 +1,6 @@
 package HamsterYDS.UntilTheEnd.item.combat;
 
+import HamsterYDS.UntilTheEnd.internal.ArrowManager;
 import HamsterYDS.UntilTheEnd.item.ItemManager;
 import org.bukkit.Material;
 import org.bukkit.Particle;
@@ -40,64 +41,23 @@ public class BlowArrow2 implements Listener {
     }
 
     @EventHandler
-	public void onRight(PlayerInteractEvent event) {
-		Player player = event.getPlayer();
-		if (!player.isSneaking())
-			return;
-		if (event.getAction() == Action.RIGHT_CLICK_AIR || event.getAction() == Action.RIGHT_CLICK_BLOCK) {
-			ItemStack item = player.getInventory().getItemInMainHand();
-			if (ItemManager.isSimilar(item, ItemManager.namesAndItems.get("§6火吹箭"))) {
-				event.setCancelled(true);
-				Vector vec = player.getEyeLocation().getDirection().multiply(5);
-				Entity entity = player.getWorld().spawnEntity(player.getLocation().add(0, 1, 0),
-						EntityType.ARMOR_STAND);
-				ArmorStand armor = (ArmorStand) entity;
-				armor.setSmall(true);
-				armor.setItemInHand(new ItemStack(Material.GOLD_SWORD));
-				armor.setVisible(false);
-				armor.setBasePlate(false);
-				armor.setArms(false);
-				armor.setGravity(false);
-				new BukkitRunnable() {
-					int dist = 0;
-
-					@Override
-					public void run() {
-						for(int i=0;i<=15;i++) {
-							armor.teleport(armor.getLocation().add(vec));
-							if (armor.getLocation().getBlock().getType()!=Material.AIR) {
-								armor.getWorld().spawnParticle(Particle.CRIT, armor.getLocation().add(0, 1, 0), 1);
-								cancel();
-								return;
-							}
-							for (Entity entity : armor.getWorld().getNearbyEntities(armor.getLocation().add(0,0.3,0),range, range, range)) {
-								if (entity.getUniqueId() == player.getUniqueId())
-									continue;
-								if (!(entity instanceof LivingEntity))
-									continue;
-								((LivingEntity) entity).damage(damage);
-								((LivingEntity) entity).setFireTicks(firePeriod*20);
-								clear();
-							}
-							
-							if (dist++ >= maxDist)
-								clear();
-						}
-					}
-
-					public void clear() {
-						new BukkitRunnable() {
-							@Override
-							public void run() {
-								armor.remove();
-								cancel();
-							}
-						}.runTaskTimer(ItemManager.plugin,
-								ItemManager.plugin.getConfig().getInt("item.blowarrow.autoclear") * 20, 20L);
-						cancel();
-					}
-				}.runTaskTimer(ItemManager.plugin, 0L, 1L);
-			}
-		}
-	}
+    public void onRight(PlayerInteractEvent event) {
+        Player player = event.getPlayer();
+        if (!player.isSneaking())
+            return;
+        if (event.getAction() == Action.RIGHT_CLICK_AIR || event.getAction() == Action.RIGHT_CLICK_BLOCK) {
+            ItemStack item = player.getInventory().getItemInMainHand();
+            if (ItemManager.isSimilar(item, ItemManager.namesAndItems.get("§6火吹箭"))) {
+                event.setCancelled(true);
+                ArrowManager.startFire(e -> {
+                            e.damage(damage);
+                            e.setFireTicks(firePeriod * 20);
+                        }, null, new ItemStack(Material.GOLD_SWORD),
+                        player.getLocation().add(0, 1, 0),
+                        maxDist,
+                        ItemManager.plugin.getConfig().getInt("item.blowarrow.autoclear"),
+                        player, range);
+            }
+        }
+    }
 }

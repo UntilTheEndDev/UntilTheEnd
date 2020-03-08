@@ -3,9 +3,12 @@ package HamsterYDS.UntilTheEnd.item;
 import java.io.File;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.Objects;
 
+import HamsterYDS.UntilTheEnd.internal.ItemFactory;
 import HamsterYDS.UntilTheEnd.item.clothes.*;
 import org.bukkit.Bukkit;
+import org.bukkit.Material;
 import org.bukkit.NamespacedKey;
 import org.bukkit.configuration.file.YamlConfiguration;
 import org.bukkit.inventory.Inventory;
@@ -69,137 +72,148 @@ import HamsterYDS.UntilTheEnd.item.survival.StrawRoll;
 import HamsterYDS.UntilTheEnd.item.survival.Umbrella;
 import HamsterYDS.UntilTheEnd.item.survival.WarmStone;
 import HamsterYDS.UntilTheEnd.item.survival.WaterBalloon;
+import org.bukkit.inventory.meta.ItemMeta;
 
 /**
  * @author 南外丶仓鼠
  * @version V5.1.1
  */
 public class ItemManager {
-	public static UntilTheEnd plugin;
-	private static HashMap<ItemStack, NamespacedKey> nsks = new HashMap<ItemStack, NamespacedKey>();
-	public static HashMap<String, String> idsAndNames = new HashMap<String, String>();
-	public static HashMap<String, ItemStack> namesAndItems = new HashMap<String, ItemStack>();
-	public static HashMap<ItemStack, String> itemsAndIds = new HashMap<ItemStack, String>();
-	public static HashMap<String, ItemStack> canPlaceBlocks = new HashMap<String, ItemStack>();
-	public static HashMap<ItemStack, HashMap<ItemStack, Integer>> recipes = new HashMap<ItemStack, HashMap<ItemStack, Integer>>();
-	public static ArrayList<String> cosumeItems = new ArrayList<String>();
-	public static YamlConfiguration yaml1;
-	public static YamlConfiguration yaml2;
+    public static UntilTheEnd plugin;
+    private static HashMap<ItemStack, NamespacedKey> nsks = new HashMap<ItemStack, NamespacedKey>();
+    public static HashMap<String, String> idsAndNames = new HashMap<String, String>();
+    public static HashMap<String, ItemStack> namesAndItems = new HashMap<String, ItemStack>();
+    public static HashMap<ItemStack, String> itemsAndIds = new HashMap<ItemStack, String>();
+    public static HashMap<String, ItemStack> canPlaceBlocks = new HashMap<String, ItemStack>();
+    public static HashMap<ItemStack, HashMap<ItemStack, Integer>> recipes = new HashMap<ItemStack, HashMap<ItemStack, Integer>>();
+    public static ArrayList<String> cosumeItems = new ArrayList<String>();
+    public static YamlConfiguration yaml1;
+    public static YamlConfiguration yaml2;
 
-	public ItemManager(UntilTheEnd plugin) {
-		this.plugin = plugin;
-		File file1 = new File(plugin.getDataFolder(), "itemsets.yml");
-		File file2 = new File(plugin.getDataFolder(), "items.yml");
-		Config.autoUpdateConfigs("itemsets.yml");// TODO
-		Config.autoUpdateConfigs("items.yml");// TODO
-		yaml1 = YamlConfiguration.loadConfiguration(file1);
-		yaml2 = YamlConfiguration.loadConfiguration(file2);
-		for (String path : yaml2.getKeys(false)) {
-			if (!yaml2.getBoolean(path + ".enable"))
-				continue;
-			String id = yaml2.getString(path + ".id");
-			ItemStack item = yaml1.getItemStack(path);
-			idsAndNames.put(id, "§6" + path);
-			namesAndItems.put("§6" + path, item);
-			itemsAndIds.put(item, id);
-			nsks.put(item, new NamespacedKey(plugin, "ute." + id.toLowerCase()));
-		}
-		new Brick();
-		new Plank();
-		new Rope();
-		new NightMare();
-		new Coin();
-		new Fern();
-		new Hail();
-		new Reed();
+    public ItemManager(UntilTheEnd plugin) {
+        this.plugin = plugin;
+        File file1 = new File(plugin.getDataFolder(), "itemsets.yml");
+        File file2 = new File(plugin.getDataFolder(), "items.yml");
+        Config.autoUpdateConfigs("itemsets.yml");// TODO
+        Config.autoUpdateConfigs("items.yml");// TODO
+        yaml1 = YamlConfiguration.loadConfiguration(file1);
+        yaml2 = YamlConfiguration.loadConfiguration(file2);
+        for (String path : yaml2.getKeys(false)) {
+            if (!yaml2.getBoolean(path + ".enable"))
+                continue;
+            String id = yaml2.getString(path + ".id");
+            ItemStack item = yaml1.getItemStack(path);
+            idsAndNames.put(id, "§6" + path);
+            namesAndItems.put("§6" + path, item);
+            itemsAndIds.put(item, id);
+            nsks.put(item, new NamespacedKey(plugin, "ute." + id.toLowerCase()));
+        }
+        new Brick();
+        new Plank();
+        new Rope();
+        new NightMare();
+        new Coin();
+        new Fern();
+        new Hail();
+        new Reed();
 
-		new CatTail();
-		new CowHair();
-		new DogTooth();
-		new Horn();
-		new PigSkin();
-		new RabbitFur();
-		new Scale();
-		new Sclerite();
-		new SpiderGland();
-		new Spit();
-		new Gear();
-		new Ashes();
-		new BlueGum();
-		new RedGum();
-		new PurpleGum();
-		new AnimateWood();
+        new CatTail();
+        new CowHair();
+        new DogTooth();
+        new Horn();
+        new PigSkin();
+        new RabbitFur();
+        new Scale();
+        new Sclerite();
+        new SpiderGland();
+        new Spit();
+        new Gear();
+        new Ashes();
+        new BlueGum();
+        new RedGum();
+        new PurpleGum();
+        new AnimateWood();
 
-		new StrawHat();
-		new Garland();
-		new Earmuff();
-		new BushesHat();
-		new EyeballUmbrella();
-		new ConstantTemperatureClothes();
+        new StrawHat();
+        new Garland();
+        new Earmuff();
+        new BushesHat();
+        new EyeballUmbrella();
+        new ConstantTemperatureClothes();
 
-		new MovablePack();
-		new NormalPack();
-		new PigPack();
-		new Reviver();
-		new WarmStone();
-		new Umbrella();
-		new FlowerUmbrella();
-		new HealingSalve();
-		new HoneyPoultice();
-		new ACDDrug();
-		new LuxuryFan();
-		new StrawRoll();
-		new FurRoll();
-		new WaterBalloon();
-		new SiestaLeanto();
+        new MovablePack();
+        new NormalPack();
+        new PigPack();
+        new Reviver();
+        new WarmStone();
+        new Umbrella();
+        new FlowerUmbrella();
+        new HealingSalve();
+        new HoneyPoultice();
+        new ACDDrug();
+        new LuxuryFan();
+        new StrawRoll();
+        new FurRoll();
+        new WaterBalloon();
+        new SiestaLeanto();
 
-		new BlowArrow1();
-		new BlowArrow2();
-		new BlowArrow3();
-		new BeeMine();
-		new ToothTrap();
-		new WeatherPain();
+        new BlowArrow1();
+        new BlowArrow2();
+        new BlowArrow3();
+        new BeeMine();
+        new ToothTrap();
+        new WeatherPain();
 
-		new Element();
-		new Thermometer();
-		new Hygrometer();
-		new LightningArrester();
-		new IceFlingomatic();
-		new Refridgerator();
-		new Detector();
+        new Element();
+        new Thermometer();
+        new Hygrometer();
+        new LightningArrester();
+        new IceFlingomatic();
+        new Refridgerator();
+        new Detector();
 
-		new FireWand();
+        new FireWand();
 
-		
-		if (plugin.getConfig().getBoolean("item.sawer.enable"))
-			new ItemSawer().runTaskTimer(plugin, 0L, 20L);
-		ItemProvider.loadDrops();
-		plugin.getServer().getPluginManager().registerEvents(new ItemListener(),plugin);
-	}
 
-	private static int[] slots = new int[] { 15, 14, 16, 13 };
+        if (plugin.getConfig().getBoolean("item.sawer.enable"))
+            new ItemSawer().runTaskTimer(plugin, 0L, 20L);
+        ItemProvider.loadDrops();
+        plugin.getServer().getPluginManager().registerEvents(new ItemListener(), plugin);
+    }
 
-	public static void registerRecipe(HashMap<ItemStack, Integer> materials, ItemStack result, String category) {
-		ShapelessRecipe recipe = new ShapelessRecipe(nsks.get(result), result);
-		Inventory inv = CraftGuide.getCraftInventory();
-		inv.setItem(11, result);
-		int tot = 0;
-		for (ItemStack material : materials.keySet()) {
-			ItemStack materialClone = material.clone();
-			materialClone.setAmount(materials.get(material));
-			inv.setItem(slots[tot++], materialClone);
-			recipe.addIngredient(materials.get(material), material.getType());
-		}
-		Bukkit.addRecipe(recipe);
-		UntilTheEndApi.GuideApi.addCraftToItem(result, inv);
-		UntilTheEndApi.GuideApi.addItemToCategory(category, result);
-		recipes.put(result, materials);
-	}
+    private static int[] slots = new int[]{15, 14, 16, 13};
 
-	public static boolean isSimilar(ItemStack item, ItemStack uteItem) {
-		ItemStack itemClone=item.clone();
-		itemClone.setAmount(1);
-		itemClone.setDurability((short) 0);
-		return itemClone.equals(uteItem);
-	}
+    public static void registerRecipe(HashMap<ItemStack, Integer> materials, ItemStack result, String category) {
+        ShapelessRecipe recipe = new ShapelessRecipe(nsks.get(result), result);
+        Inventory inv = CraftGuide.getCraftInventory();
+        inv.setItem(11, result);
+        int tot = 0;
+        for (ItemStack material : materials.keySet()) {
+            ItemStack materialClone = material.clone();
+            materialClone.setAmount(materials.get(material));
+            inv.setItem(slots[tot++], materialClone);
+            recipe.addIngredient(materials.get(material), material.getType());
+        }
+        Bukkit.addRecipe(recipe);
+        UntilTheEndApi.GuideApi.addCraftToItem(result, inv);
+        UntilTheEndApi.GuideApi.addItemToCategory(category, result);
+        recipes.put(result, materials);
+    }
+
+    public static boolean isSimilar(ItemStack item, ItemStack uteItem) {
+        if (item == uteItem) return true;
+        Material m1 = item.getType();
+        Material m2 = uteItem.getType();
+        if (m1 == Material.AIR) m1 = ItemFactory.getType(item);
+        if (m2 == Material.AIR) m2 = ItemFactory.getType(uteItem);
+        if (m1 == Material.AIR || m2 == Material.AIR) return m1 == m2;
+        if (m1 == m2) {
+            ItemMeta meta = item.getItemMeta();
+            ItemMeta meta2 = uteItem.getItemMeta();
+            if (Objects.equals(meta.getDisplayName(), meta2.getDisplayName())) {
+                return Objects.equals(meta.getLore(), meta2.getLore());
+            }
+        }
+        return false;
+    }
 }
