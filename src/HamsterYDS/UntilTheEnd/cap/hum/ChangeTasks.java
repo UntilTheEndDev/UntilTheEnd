@@ -33,7 +33,7 @@ public class ChangeTasks {
             for (World world : Config.enableWorlds) {
                 if (world.hasStorm()) {
                     for (Player player : world.getPlayers()) {
-                    	// 莫得雨
+                        // 莫得雨
                         if (player.getLocation().getBlock().getTemperature() > 1.0) {
                             continue;
                         }
@@ -89,6 +89,7 @@ public class ChangeTasks {
         public void run() {
             for (World world : Config.enableWorlds)
                 for (Player player : world.getPlayers()) {
+                    if (player.isInsideVehicle()) continue;
                     Location loc = player.getLocation();
                     if (world.getBlockAt(loc).getType().equals(Material.WATER) || world.getBlockAt(loc).getType().equals(Material.STATIONARY_WATER))
                         PlayerManager.change(player, PlayerManager.CheckType.HUMIDITY, 1);

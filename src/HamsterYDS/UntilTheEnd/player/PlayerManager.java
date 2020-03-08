@@ -8,6 +8,7 @@ import java.util.UUID;
 import java.util.function.BiFunction;
 import java.util.logging.Level;
 
+import HamsterYDS.UntilTheEnd.Config;
 import org.bukkit.Bukkit;
 import org.bukkit.GameMode;
 import org.bukkit.OfflinePlayer;
