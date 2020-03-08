@@ -30,7 +30,9 @@ public class WetManager {
         if (meta == null) return;
         List<String> lore = meta.getLore();
         if (lore == null) lore = new ArrayList<>();
-        lore.add("§8- §8§l潮湿的");
+        if (state) {
+            lore.add("§8- §8§l潮湿的");
+        } else lore.remove("§8- §8§l潮湿的");
         meta.setLore(lore);
         stack.setItemMeta(meta);
     }
