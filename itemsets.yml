@@ -284,14 +284,14 @@
     - '§8-效用: §d既可以拿在手上也可以戴在头上~'
 恒温服:
   ==: org.bukkit.inventory.ItemStack
-    type: GOLD_CHESTPLATE
-    meta:
-      ==: ItemMeta
-      meta-type: UNSPECIFIC
-      display-name: §6恒温服
-      lore:
-        - §8-保暖至极
-        - '§8-效用: §d穿上后温度不再随自然环境变化'
+  type: GOLD_CHESTPLATE
+  meta:
+    ==: ItemMeta
+    meta-type: UNSPECIFIC
+    display-name: §6恒温服
+    lore:
+    - §8-保暖至极
+    - '§8-效用: §d穿上后温度不再随自然环境变化'
     
 便携包:
   ==: org.bukkit.inventory.ItemStack

@@ -155,20 +155,20 @@ ACD试验药:
 
 吹箭: 
   enable: true
-  id: BlowArraw1
+  id: BlowArrow1
   damage: 30  #吹箭伤害
   range: 0.5  #吹箭判定范围
   maxDist: 300  #吹箭最远飞行距离（不是以格子为单位）
 火吹箭: 
   enable: true
-  id: BlowArraw2
+  id: BlowArrow2
   damage: 30  #伤害
   range: 0.5  #判定范围
   maxDist: 300  #最远飞行距离
   firePeriod: 20  #击中生物燃烧的秒数
 麻醉吹箭: 
   enable: true
-  id: BlowArraw3
+  id: BlowArrow3
   damage: 30  #伤害
   range: 0.5  #判定范围
   maxDist: 300  #最远飞行距离

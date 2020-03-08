@@ -48,7 +48,6 @@ public class BlowArrow1 implements Listener{
 			armor.setGravity(false);
 			armor.setVisible(false);
 			armor.setRemoveWhenFarAway(true);
-			armor.setAI(false);
 			new BukkitRunnable() {
 				int dist = 0;
 
