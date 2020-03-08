@@ -5,6 +5,7 @@ import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.UUID;
+import java.util.function.BiFunction;
 import java.util.logging.Level;
 
 import HamsterYDS.UntilTheEnd.internal.pdl.PlayerDataLoaderImpl;
@@ -114,64 +115,96 @@ public class PlayerManager implements Listener {
         }
     }
 
-    public static void change(Player name, String type, int changement) {
+    public enum CheckType {
+        SANITY("san"), TEMPERATURE("tem"), HUMIDITY("hum");
+        private final String sname;
+
+        public String getShortName() {
+            return sname;
+        }
+
+        CheckType(String shorter) {
+            this.sname = shorter;
+        }
+
+        public static CheckType search(String name) {
+            if (name == null) return null;
+            CheckType[] val = values();
+            for (CheckType c : val) {
+                if (c.sname.equalsIgnoreCase(name) || c.name().equalsIgnoreCase(name))
+                    return c;
+            }
+            return null;
+        }
+    }
+
+    private static BiFunction<String, String, String> buildMarkFunc(String mark) {
+        return (k, v) -> {
+            if (v.equalsIgnoreCase(mark)) return " ";
+            return v;
+        };
+    }
+
+    public static void forgetChange(Player player, CheckType type, int counter) {
+        if (player == null) return;
+        if (type == null) return;
+        IPlayer ip = players.get(player.getUniqueId());
+        String mark;
+        if (counter > 0) mark = "↑";
+        else if (counter < 0) mark = "↓";
+        else mark = " ";
+        switch (type) {
+            case TEMPERATURE:
+                ip.temperature += counter;
+                HudProvider.temperature.put(player.getName(), mark);
+                new BukkitRunnable() {
+                    @Override
+                    public void run() {
+                        HudProvider.temperature.computeIfPresent(player.getName(), buildMarkFunc(mark));
+                    }
+                }.runTaskLater(plugin, 40L);
+                if (ip.temperature <= 10) player.sendTitle("§9太冷了！", "");
+                if (ip.temperature >= 60) player.sendTitle("§9太热了！", "");
+                if (ip.temperature < -5) ip.temperature = -5;
+                if (ip.temperature > 75) ip.temperature = 75;
+                break;
+            case HUMIDITY:
+                ip.humidity += counter;
+                HudProvider.humidity.put(player.getName(), mark);
+                new BukkitRunnable() {
+                    @Override
+                    public void run() {
+                        HudProvider.humidity.computeIfPresent(player.getName(), buildMarkFunc(mark));
+                    }
+                }.runTaskLater(plugin, 40L);
+                if (ip.humidity < 0) ip.humidity = 0;
+                if (ip.humidity > 100) ip.humidity = 100;
+                break;
+            case SANITY:
+                ip.sanity += counter;
+                HudProvider.sanity.put(player.getName(), mark);
+                new BukkitRunnable() {
+                    @Override
+                    public void run() {
+                        HudProvider.sanity.computeIfPresent(player.getName(), buildMarkFunc(mark));
+                    }
+                }.runTaskLater(plugin, 40L);
+                if (ip.sanity < 0) ip.sanity = 0;
+                if (ip.sanity > 200) ip.sanity = 200;
+                break;
+        }
+    }
+
+    public static void change(Player name, CheckType type, int changement) {
         if (name == null)
             return;
         if (name.getGameMode() == GameMode.CREATIVE || name.getGameMode() == GameMode.SPECTATOR)
             return;
-        IPlayer player = players.get(name.getUniqueId());
-        String mark = "";
-        if (changement > 0) mark = "↑";
-        if (changement < 0) mark = "↓";
-        if (changement == 0) mark = " ";
-        switch (type) {
-            case "tem": {
-                player.temperature += changement;
-                HudProvider.temperature.remove(name.getName());
-                HudProvider.temperature.put(name.getName(), mark);
-                new BukkitRunnable() {
-                    @Override
-                    public void run() {
-                        HudProvider.temperature.put(name.getName(), "");
-                        cancel();
-                    }
-                }.runTaskTimer(plugin, 40L, 20L);
-                if (player.temperature <= 10) name.sendTitle("§9太冷了！", "");
-                if (player.temperature >= 60) name.sendTitle("§9太热了！", "");
-                if (player.temperature < -5) player.temperature = -5;
-                if (player.temperature > 75) player.temperature = 75;
-                break;
-            }
-            case "hum": {
-                player.humidity += changement;
-                HudProvider.humidity.put(name.getName(), mark);
-                new BukkitRunnable() {
-                    @Override
-                    public void run() {
-                        HudProvider.humidity.put(name.getName(), "");
-                        cancel();
-                    }
-                }.runTaskTimer(plugin, 40L, 20L);
-                if (player.humidity < 0) player.humidity = 0;
-                if (player.humidity > 100) player.humidity = 100;
-                break;
-            }
-            case "san": {
-                player.sanity += changement;
-                HudProvider.sanity.put(name.getName(), mark);
-                new BukkitRunnable() {
-                    @Override
-                    public void run() {
-                        HudProvider.sanity.put(name.getName(), "");
-                        cancel();
-                    }
-                }.runTaskTimer(plugin, 40L, 20L);
-                if (player.sanity < 0) player.sanity = 0;
-                if (player.sanity > 200) player.sanity = 200;
-                break;
-            }
-        }
-        players.put(name.getUniqueId(), player);
+        forgetChange(name, type, changement);
+    }
+
+    public static void change(Player name, String type, int changement) {
+        change(name, CheckType.search(type), changement);
     }
 
     private static class SavingTask extends BukkitRunnable {

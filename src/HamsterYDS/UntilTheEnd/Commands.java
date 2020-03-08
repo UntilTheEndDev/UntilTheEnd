@@ -3,6 +3,7 @@ package HamsterYDS.UntilTheEnd;
 import java.util.*;
 
 import org.bukkit.Bukkit;
+import org.bukkit.Location;
 import org.bukkit.World;
 import org.bukkit.command.*;
 import org.bukkit.entity.Entity;
@@ -233,9 +234,16 @@ public class Commands implements CommandExecutor, Listener, TabCompleter {
                     return true;
                 }
                 int value = Integer.parseInt(ct[3]);
-                PlayerManager.change(player, typeName, (value - PlayerManager.check(player, typeName)));
+                PlayerManager.forgetChange(player, PlayerManager.CheckType.search(typeName), (value - PlayerManager.check(player, typeName)));
                 PlayerManager.save(player);
                 cs.sendMessage(Config.getLang("cmd.setHud"));
+                break;
+            }
+            case "temp": {
+                if (pl != null) {
+                    final Location location = pl.getLocation();
+                    pl.sendMessage(TemperatureProvider.getBlockTemperature(location) + ", " + location.getBlock().getTemperature());
+                }
                 break;
             }
         }
