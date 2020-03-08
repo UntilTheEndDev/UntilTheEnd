@@ -41,7 +41,7 @@ public class ArrowManager {
         armor.setArms(false);
         armor.setGravity(false);
         armor.setRemoveWhenFarAway(true);
-        final Vector vec = loc.getDirection().normalize().multiply(0.7);
+        final Vector vec = loc.getDirection().normalize().multiply(0.2);
         new BukkitRunnable() {
             int dist = 0;
 
@@ -53,7 +53,7 @@ public class ArrowManager {
                     armor.remove();
                     return;
                 }
-                for (int i = 0; i <= 15; i++) {
+                for (int i = 0; i <= 45; i++) {
                     loc.add(vec);
                     if (loc.getBlock().getType() != Material.AIR) {
                         armor.getWorld().spawnParticle(Particle.CRIT, loc.clone().add(0, 1, 0), 1);

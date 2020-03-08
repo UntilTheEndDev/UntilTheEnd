@@ -89,7 +89,12 @@ public class ChangeTasks {
         public void run() {
             for (World world : Config.enableWorlds)
                 for (Player player : world.getPlayers()) {
-                    if (player.isInsideVehicle()) continue;
+                    if (player.isInsideVehicle()) {
+                        Location loc = player.getLocation().add(0, 1, 0); // 沉了
+                        if (world.getBlockAt(loc).getType().equals(Material.WATER) || world.getBlockAt(loc).getType().equals(Material.STATIONARY_WATER))
+                            PlayerManager.change(player, PlayerManager.CheckType.HUMIDITY, 1);
+                        continue;
+                    }
                     Location loc = player.getLocation();
                     if (world.getBlockAt(loc).getType().equals(Material.WATER) || world.getBlockAt(loc).getType().equals(Material.STATIONARY_WATER))
                         PlayerManager.change(player, PlayerManager.CheckType.HUMIDITY, 1);
