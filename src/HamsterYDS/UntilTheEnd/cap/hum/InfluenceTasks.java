@@ -1,8 +1,5 @@
 package HamsterYDS.UntilTheEnd.cap.hum;
 
-import java.util.ArrayList;
-import java.util.List;
-
 import HamsterYDS.UntilTheEnd.manager.WetManager;
 import org.bukkit.World;
 import org.bukkit.entity.Entity;
@@ -10,7 +7,6 @@ import org.bukkit.entity.Item;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.PlayerInventory;
-import org.bukkit.inventory.meta.ItemMeta;
 import org.bukkit.potion.PotionEffect;
 import org.bukkit.potion.PotionEffectType;
 import org.bukkit.scheduler.BukkitRunnable;
@@ -18,8 +14,6 @@ import org.bukkit.scheduler.BukkitRunnable;
 import HamsterYDS.UntilTheEnd.Config;
 import HamsterYDS.UntilTheEnd.UntilTheEnd;
 import HamsterYDS.UntilTheEnd.player.PlayerManager;
-
-import javax.jws.WebMethod;
 
 public class InfluenceTasks {
     public static long dampPeriod = Humidity.yaml.getLong("dampPeriod");

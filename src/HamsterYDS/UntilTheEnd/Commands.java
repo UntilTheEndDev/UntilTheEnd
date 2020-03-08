@@ -8,9 +8,7 @@ import org.bukkit.World;
 import org.bukkit.command.*;
 import org.bukkit.entity.Entity;
 import org.bukkit.entity.Player;
-import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
-import org.bukkit.event.server.TabCompleteEvent;
 import org.bukkit.inventory.ItemStack;
 
 import HamsterYDS.UntilTheEnd.cap.tem.TemperatureProvider;

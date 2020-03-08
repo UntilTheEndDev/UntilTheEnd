@@ -1,6 +1,5 @@
 package HamsterYDS.UntilTheEnd.internal.pdl;
 
-import HamsterYDS.UntilTheEnd.Config;
 import HamsterYDS.UntilTheEnd.UntilTheEnd;
 import HamsterYDS.UntilTheEnd.api.spi.PlayerDataLoader;
 

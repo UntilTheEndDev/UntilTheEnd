@@ -1,9 +1,6 @@
 package HamsterYDS.UntilTheEnd.item.combat;
 
 import HamsterYDS.UntilTheEnd.item.ItemManager;
-import HamsterYDS.UntilTheEnd.player.death.DeathCause;
-import HamsterYDS.UntilTheEnd.player.death.DeathMessage;
-import org.bukkit.Location;
 import org.bukkit.Material;
 import org.bukkit.Particle;
 import org.bukkit.entity.*;
@@ -13,7 +10,6 @@ import org.bukkit.event.block.Action;
 import org.bukkit.event.player.PlayerInteractEvent;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.scheduler.BukkitRunnable;
-import org.bukkit.util.EulerAngle;
 import org.bukkit.util.Vector;
 
 import java.util.HashMap;

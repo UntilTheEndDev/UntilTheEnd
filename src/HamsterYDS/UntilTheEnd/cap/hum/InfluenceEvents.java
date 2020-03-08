@@ -1,7 +1,6 @@
 package HamsterYDS.UntilTheEnd.cap.hum;
 
 import java.util.HashMap;
-import java.util.List;
 import java.util.UUID;
 
 import HamsterYDS.UntilTheEnd.manager.WetManager;
@@ -15,8 +14,6 @@ import org.bukkit.event.inventory.InventoryType;
 import org.bukkit.event.player.PlayerItemConsumeEvent;
 import org.bukkit.inventory.Inventory;
 import org.bukkit.inventory.ItemStack;
-import org.bukkit.inventory.meta.ItemMeta;
-
 import HamsterYDS.UntilTheEnd.Config;
 import HamsterYDS.UntilTheEnd.UntilTheEnd;
 

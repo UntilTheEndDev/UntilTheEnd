@@ -1,11 +1,11 @@
 package HamsterYDS.UntilTheEnd.item.clothes;
 
-import HamsterYDS.UntilTheEnd.cap.tem.ChangeTasks;
-import HamsterYDS.UntilTheEnd.item.ItemManager;
-import org.bukkit.Material;
+import java.util.HashMap;
+
 import org.bukkit.inventory.ItemStack;
 
-import java.util.HashMap;
+import HamsterYDS.UntilTheEnd.cap.tem.ChangeTasks;
+import HamsterYDS.UntilTheEnd.item.ItemManager;
 
 public class ConstantTemperatureClothes {
     public ConstantTemperatureClothes() {
