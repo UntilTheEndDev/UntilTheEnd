@@ -2,7 +2,6 @@ package HamsterYDS.UntilTheEnd.item.combat;
 
 import java.util.HashMap;
 
-import org.bukkit.Location;
 import org.bukkit.Material;
 import org.bukkit.Particle;
 import org.bukkit.entity.ArmorStand;
@@ -18,12 +17,9 @@ import org.bukkit.inventory.ItemStack;
 import org.bukkit.potion.PotionEffect;
 import org.bukkit.potion.PotionEffectType;
 import org.bukkit.scheduler.BukkitRunnable;
-import org.bukkit.util.EulerAngle;
 import org.bukkit.util.Vector;
 
 import HamsterYDS.UntilTheEnd.item.ItemManager;
-import HamsterYDS.UntilTheEnd.player.death.DeathCause;
-import HamsterYDS.UntilTheEnd.player.death.DeathMessage;
 
 /**
  * @author 南外丶仓鼠
@@ -43,76 +39,66 @@ public class BlowArrow3 implements Listener{
 		ItemManager.registerRecipe(materials,ItemManager.namesAndItems.get("§6麻醉吹箭"),"§6战斗");
 		ItemManager.plugin.getServer().getPluginManager().registerEvents(this,ItemManager.plugin);
 	}
-	@EventHandler public void onRight(PlayerInteractEvent event) {
-		Player player=event.getPlayer();
-		if(!player.isSneaking()) return;
-		if(!(event.getAction()==Action.RIGHT_CLICK_AIR||event.getAction()==Action.RIGHT_CLICK_BLOCK)) return;
-		ItemStack itemClone=player.getItemInHand().clone();
-		if(itemClone==null) return;
-		itemClone.setAmount(1);
-		if(itemClone.equals(ItemManager.namesAndItems.get("§6麻醉吹箭"))) {
-			ItemStack item=player.getItemInHand();
-			item.setAmount(item.getAmount()-1);
-			Entity entity=player.getWorld().spawnEntity(player.getLocation().add(0,1.0,0),EntityType.ARMOR_STAND);
-			ArmorStand armor=(ArmorStand) entity;
-			armor.setItemInHand(new ItemStack(Material.STONE_SWORD));
-			Vector vec=player.getEyeLocation().getDirection().multiply(2.0);
-			armor.setInvulnerable(true);
-			armor.setSmall(true);
-			armor.setRightArmPose(new EulerAngle(0,0,0));
-			armor.setVisible(false);
-			armor.setAI(false);
-			new Task(vec,armor,player);
-		}
-	}
-	public class Task extends BukkitRunnable{
-		int range=maxDist;
-		Vector vec;
-		ArmorStand armor;
-		Player player;
-		@Override
-		public void run() {
-			range--;
-			if(range==0) {
-				cancel();
-				return;
-			}
-			Location loc=armor.getLocation().add(0.0,1.0,0.0);
-			armor.getWorld().spawnParticle(Particle.SUSPENDED_DEPTH,armor.getLocation().add(0,1.0,0),3);
-			armor.setVelocity(vec);
-			for(Entity entity:armor.getNearbyEntities(BlowArrow3.range,BlowArrow3.range,BlowArrow3.range)) {
-				if(entity==player) continue;
-				if(entity instanceof LivingEntity) {
-					LivingEntity creature=(LivingEntity) entity;
-					creature.damage(damage,player);
-					creature.addPotionEffect(new PotionEffect(PotionEffectType.BLINDNESS,blindPeriod*20,0));
-					creature.addPotionEffect(new PotionEffect(PotionEffectType.NIGHT_VISION,blindPeriod*20,0));
-					if(creature.isDead()) DeathMessage.causes.put(creature.getName(),DeathCause.BLOWARROW);
-					armor.remove();
-					cancel();
-					return;
-				}
-			}
-			loc.add(vec);
-			if(!loc.getBlock().getType().isTransparent()) {
-				armor.teleport(loc.add(0.0, -1.0, 0.0));
+	@EventHandler
+	public void onRight(PlayerInteractEvent event) {
+		Player player = event.getPlayer();
+		if (!player.isSneaking())
+			return;
+		if (event.getAction() == Action.RIGHT_CLICK_AIR || event.getAction() == Action.RIGHT_CLICK_BLOCK) {
+			ItemStack item = player.getInventory().getItemInMainHand();
+			if (ItemManager.isSimilar(item, ItemManager.namesAndItems.get("§6麻醉吹箭"))) {
+				event.setCancelled(true);
+				Vector vec = player.getEyeLocation().getDirection().multiply(5);
+				Entity entity = player.getWorld().spawnEntity(player.getLocation().add(0, 1, 0),
+						EntityType.ARMOR_STAND);
+				ArmorStand armor = (ArmorStand) entity;
+				armor.setSmall(true);
+				armor.setItemInHand(new ItemStack(Material.STONE_SWORD));
+				armor.setVisible(false);
+				armor.setBasePlate(false);
+				armor.setArms(false);
 				armor.setGravity(false);
 				new BukkitRunnable() {
+					int dist = 0;
+
 					@Override
 					public void run() {
-						armor.remove();
+						for(int i=0;i<=15;i++) {
+							armor.teleport(armor.getLocation().add(vec));
+							if (armor.getLocation().getBlock().getType()!=Material.AIR) {
+								armor.getWorld().spawnParticle(Particle.CRIT, armor.getLocation().add(0, 1, 0), 1);
+								cancel();
+								return;
+							}
+							for (Entity entity : armor.getWorld().getNearbyEntities(armor.getLocation().add(0,0.3,0),range, range, range)) {
+								if (entity.getUniqueId() == player.getUniqueId())
+									continue;
+								if (!(entity instanceof LivingEntity))
+									continue;
+								((LivingEntity) entity).damage(damage);
+								((LivingEntity) entity).addPotionEffect(new PotionEffect(PotionEffectType.BLINDNESS,blindPeriod*20,0));
+								((LivingEntity) entity).addPotionEffect(new PotionEffect(PotionEffectType.NIGHT_VISION,blindPeriod*20,0));
+								clear();
+							}
+							
+							if (dist++ >= maxDist)
+								clear();
+						}
+					}
+
+					public void clear() {
+						new BukkitRunnable() {
+							@Override
+							public void run() {
+								armor.remove();
+								cancel();
+							}
+						}.runTaskTimer(ItemManager.plugin,
+								ItemManager.plugin.getConfig().getInt("item.blowarrow.autoclear") * 20, 20L);
 						cancel();
 					}
-				}.runTaskTimer(ItemManager.plugin,ItemManager.plugin.getConfig().getInt("item.blowarrow.autoclear")*20,1);
-				cancel();
-				return;
+				}.runTaskTimer(ItemManager.plugin, 0L, 1L);
 			}
-		}
-		public Task(Vector vec,ArmorStand armor,Player player) {
-			this.vec=vec;
-			this.armor=armor;
-			this.player=player;
-			runTaskTimer(ItemManager.plugin,0L,1L);
 		}
 	}
 }

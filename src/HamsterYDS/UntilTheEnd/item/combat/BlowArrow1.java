@@ -32,61 +32,65 @@ public class BlowArrow1 implements Listener{
 		ItemManager.plugin.getServer().getPluginManager().registerEvents(this,ItemManager.plugin);
 		ItemManager.cosumeItems.add("BlowArrow1");
 	}
-	@EventHandler public void onRight(PlayerInteractEvent event) {
-		if(event.isCancelled()) return;
-		Player player=event.getPlayer();
-		if(!player.isSneaking()) return;
-		if (event.getAction() != Action.RIGHT_CLICK_AIR && event.getAction() != Action.RIGHT_CLICK_BLOCK)
+
+	@EventHandler
+	public void onRight(PlayerInteractEvent event) {
+		Player player = event.getPlayer();
+		if (!player.isSneaking())
 			return;
-		ItemStack item = player.getInventory().getItemInMainHand();
-		if (ItemManager.isSimilar(item, ItemManager.namesAndItems.get("§6吹箭"))) {
-			event.setCancelled(true);
-			Vector vec = player.getEyeLocation().getDirection().multiply(10);
-			Entity entity = player.getWorld().spawnEntity(player.getLocation().add(0, 1, 0), EntityType.ARMOR_STAND);
-			ArmorStand armor = (ArmorStand) entity;
-			armor.setSmall(true);
-			armor.setItemInHand(new ItemStack(Material.IRON_SWORD));
-			armor.setCollidable(false);
-			armor.setVisible(false);
-			armor.setAI(false);
-			new BukkitRunnable() {
-				int dist = 0;
+		if (event.getAction() == Action.RIGHT_CLICK_AIR || event.getAction() == Action.RIGHT_CLICK_BLOCK) {
+			ItemStack item = player.getInventory().getItemInMainHand();
+			if (ItemManager.isSimilar(item, ItemManager.namesAndItems.get("§6吹箭"))) {
+				event.setCancelled(true);
+				Vector vec = player.getEyeLocation().getDirection().multiply(2);
+				Entity entity = player.getWorld().spawnEntity(player.getLocation().add(0, 1, 0),
+						EntityType.ARMOR_STAND);
+				ArmorStand armor = (ArmorStand) entity;
+				armor.setSmall(true);
+				armor.setItemInHand(new ItemStack(Material.IRON_SWORD));
+				armor.setVisible(false);
+				armor.setBasePlate(false);
+				armor.setArms(false);
+				armor.setGravity(false);
+				new BukkitRunnable() {
+					int dist = 0;
 
-				@Override
-				public void run() {
-					for (int i = 0; i <= 5; i++)
-						armor.setVelocity(vec);
-
-					for (Entity entity : armor.getNearbyEntities(range, range, range)) {
-						if (entity.getUniqueId() == player.getUniqueId())
-							continue;
-						if (!(entity instanceof LivingEntity))
-							continue;
-						((LivingEntity) entity).damage(damage);
-						clear();
-					}
-					
-					if(!armor.getLocation().add(0,0.2,0).getBlock().getType().isTransparent()){
-						armor.setGravity(false);
-						armor.setVelocity(vec);
-						armor.getWorld().spawnParticle(Particle.CRIT,armor.getLocation().add(0,0.2,0),1); 
-						clear();
-					}
-					if (dist++ >= maxDist)
-						clear();
-				}
-				
-				public void clear() {
-					new BukkitRunnable(){
-						@Override
-						public void run() {
-							armor.remove();
-							cancel();
+					@Override
+					public void run() {
+						for(int i=0;i<=15;i++) {
+							armor.teleport(armor.getLocation().add(vec));
+							if (armor.getLocation().getBlock().getType()!=Material.AIR) {
+								armor.getWorld().spawnParticle(Particle.CRIT, armor.getLocation().add(0, 1, 0), 1);
+								cancel();
+								return;
+							}
+							for (Entity entity : armor.getWorld().getNearbyEntities(armor.getLocation().add(0,0.3,0),range, range, range)) {
+								if (entity.getUniqueId() == player.getUniqueId())
+									continue;
+								if (!(entity instanceof LivingEntity))
+									continue;
+								((LivingEntity) entity).damage(damage);
+								clear();
+							}
+							
+							if (dist++ >= maxDist)
+								clear();
 						}
-					}.runTaskTimer(ItemManager.plugin,ItemManager.plugin.getConfig().getInt("item.blowarrow.autoclear")*20,20L);
-					cancel();
-				}
-			}.runTaskTimer(ItemManager.plugin, 0L, 1L);
+					}
+
+					public void clear() {
+						new BukkitRunnable() {
+							@Override
+							public void run() {
+								armor.remove();
+								cancel();
+							}
+						}.runTaskTimer(ItemManager.plugin,
+								ItemManager.plugin.getConfig().getInt("item.blowarrow.autoclear") * 20, 20L);
+						cancel();
+					}
+				}.runTaskTimer(ItemManager.plugin, 0L, 1L);
+			}
 		}
 	}
 }

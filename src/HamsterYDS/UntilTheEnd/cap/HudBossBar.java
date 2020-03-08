@@ -7,12 +7,9 @@ import java.util.UUID;
 import java.util.concurrent.ConcurrentLinkedDeque;
 
 import HamsterYDS.UntilTheEnd.UntilTheEnd;
-import HamsterYDS.UntilTheEnd.world.WorldProvider;
 import org.bukkit.Bukkit;
-import org.bukkit.GameMode;
 import org.bukkit.World;
 import org.bukkit.boss.BarColor;
-import org.bukkit.boss.BarFlag;
 import org.bukkit.boss.BarStyle;
 import org.bukkit.boss.BossBar;
 import org.bukkit.entity.Player;
