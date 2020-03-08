@@ -41,6 +41,7 @@ public class ChangeTasks {
                         PlayerInventory inv = player.getInventory();
                         ItemStack rightHand = inv.getItemInMainHand();
                         ItemStack leftHand = inv.getItemInOffHand();
+                        if (hasShelter(player)) continue;
                         if (isUmbrella(rightHand) || isUmbrella(leftHand)) continue;
                         ItemStack[] armors = inv.getArmorContents();
                         boolean hasSuit = false;
@@ -48,7 +49,6 @@ public class ChangeTasks {
                             if (isSuit(armor)) hasSuit = true;
                         }
                         if (hasSuit) continue;
-                        if (hasShelter(player)) continue;
                         PlayerManager.change(player, "hum", 1);
                     }
                 } else {
@@ -58,7 +58,7 @@ public class ChangeTasks {
             }
         }
 
-        public boolean isUmbrella(ItemStack item) {
+        public static boolean isUmbrella(ItemStack item) {
             if (item == null) return false;
             if (item.hasItemMeta())
                 if (item.getItemMeta().hasDisplayName())
@@ -67,7 +67,7 @@ public class ChangeTasks {
             return false;
         }
 
-        public boolean isSuit(ItemStack item) {
+        public static boolean isSuit(ItemStack item) {
             if (item == null) return false;
             if (item.hasItemMeta())
                 if (item.getItemMeta().hasDisplayName())
@@ -76,7 +76,7 @@ public class ChangeTasks {
             return false;
         }
 
-        public boolean hasShelter(Player player) {
+        public static boolean hasShelter(Player player) {
             Location loc = player.getLocation();
             for (int i = 0; i <= 100; loc = loc.add(0, 1.0, 0), i++)
                 if (player.getWorld().getBlockAt(loc).getType() != Material.AIR)
