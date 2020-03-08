@@ -100,6 +100,9 @@
   sanityImprove: 3  #戴着眼球伞每10秒改变的理智值
   range: 10.0  #眼球伞吸收雷电的范围
   damageIncreasePeriod: 30  #吸收雷电转化成的力量III效果持续多少秒
+恒温服:
+  enable: true
+  id: ConstantTemperatureClothes
 
 便携包: 
   enable: true

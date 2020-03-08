@@ -282,6 +282,16 @@
     - §8-可笑的装饰,不过很实用！
     - '§8-效用: §d下雨天避雨+吸收周围雷电并转化为力量+快速增加理智'
     - '§8-效用: §d既可以拿在手上也可以戴在头上~'
+恒温服:
+  ==: org.bukkit.inventory.ItemStack
+    type: GOLD_CHESTPLATE
+    meta:
+      ==: ItemMeta
+      meta-type: UNSPECIFIC
+      display-name: §6恒温服
+      lore:
+        - §8-保暖至极
+        - '§8-效用: §d穿上后温度不再随自然环境变化'
     
 便携包:
   ==: org.bukkit.inventory.ItemStack

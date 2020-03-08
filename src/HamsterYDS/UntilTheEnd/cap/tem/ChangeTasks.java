@@ -93,10 +93,12 @@ public class ChangeTasks {
             double downFactor = 0.0;
             PlayerInventory inv = player.getInventory();
             for (ItemStack item : inv.getArmorContents())
-                if (clothesChangeTemperature.containsKey(getName(item)))
+                if (clothesChangeTemperature.containsKey(getName(item))){
                     if (clothesChangeTemperature.get(getName(item)) > 0) {
                         upFactor += clothesChangeTemperature.get(getName(item));
                     } else downFactor += clothesChangeTemperature.get(getName(item));
+                }
+            if(upFactor==2) return false;
             if (upOrDown) {
 				return !(Math.random() < upFactor);
             } else {
