@@ -263,7 +263,7 @@ public class Commands implements CommandExecutor, Listener, TabCompleter {
     }
 
     public static void changeSeason(World setWorld, Season season, int day) {
-        IWorld world = new IWorld(season, day);
+        IWorld world = new IWorld(season, day, season.newLoop());
         WorldProvider.worldStates.remove(setWorld.getName());
         WorldProvider.worldStates.put(setWorld.getName(), world);
         TemperatureProvider.loadWorldTemperatures();
