@@ -76,7 +76,7 @@ public class ChangeTasks {
         }
 
         public static boolean hasShelter(Player player) {
-            Location loc = player.getLocation();
+            Location loc = player.getLocation().add(0, 1, 0);
             for (int i = 0; i <= 100; loc = loc.add(0, 1.0, 0), i++)
                 if (player.getWorld().getBlockAt(loc).getType() != Material.AIR)
                     return true;
