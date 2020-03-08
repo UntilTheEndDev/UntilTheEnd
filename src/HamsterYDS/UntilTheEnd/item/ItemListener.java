@@ -38,28 +38,29 @@ public class ItemListener implements Listener {
 		}
 	}
 
-	@EventHandler(priority = EventPriority.HIGH)
+	@EventHandler(priority = EventPriority.LOWEST)
 	public void onUse(PlayerInteractEvent event) {
-		if (event.isCancelled())
-			return;
-		if (event.getAction() != Action.RIGHT_CLICK_AIR && event.getAction() != Action.RIGHT_CLICK_BLOCK)
-			return;
-		Player player = event.getPlayer();
-		if (player.getGameMode() == GameMode.CREATIVE)
-			return;
-		PlayerInventory inv = player.getInventory();
-		if (inv.getItemInMainHand() == null)
-			return;
-		ItemStack item = inv.getItemInMainHand();
-		ItemStack itemClone = item.clone();
-		itemClone.setAmount(1);
-		itemClone.setDurability((short) 0);
-		if (!ItemManager.itemsAndIds.containsKey(itemClone))
-			return;
-		String id = ItemManager.itemsAndIds.get(itemClone);
-		event.setCancelled(true);
-		if (ItemManager.cosumeItems.contains(id))
-			item.setAmount(item.getAmount() - 1);
+		if (event.getAction() == Action.RIGHT_CLICK_AIR || event.getAction() == Action.RIGHT_CLICK_BLOCK) {
+			Player player = event.getPlayer();
+			if (player.getGameMode() == GameMode.CREATIVE)
+				return;
+			PlayerInventory inv = player.getInventory();
+			if (inv.getItemInMainHand() == null)
+				return;
+			ItemStack item = inv.getItemInMainHand();
+			ItemStack itemClone = item.clone();
+			int amount = item.getAmount();
+			itemClone.setAmount(1);
+			itemClone.setDurability((short) 0);
+			if (!ItemManager.itemsAndIds.containsKey(itemClone))
+				return;
+
+			String id = ItemManager.itemsAndIds.get(itemClone);
+			if (ItemManager.cosumeItems.contains(id)){
+				System.out.println("ses");
+				item.setAmount(amount - 1);
+			}
+		}
 	}
 
 	@EventHandler
@@ -112,7 +113,7 @@ public class ItemListener implements Listener {
 		if (Math.random() <= percent)
 			world.dropItemNaturally(loc, item);
 	}
-	
+
 	@EventHandler
 	public void onDrop(ItemSpawnEvent event) {
 		if (!ItemManager.plugin.getConfig().getBoolean("item.sawer.enable"))

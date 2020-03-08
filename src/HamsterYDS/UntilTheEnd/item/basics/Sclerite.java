@@ -30,19 +30,22 @@ public class Sclerite implements Listener {
 	}
 	@EventHandler
 	public void onRight(PlayerInteractEvent event) {
+		if(event.isCancelled()) return;
 		Player player = event.getPlayer();
 		if (!player.isSneaking())
 			return;
-		if (event.getAction() != Action.RIGHT_CLICK_AIR && event.getAction() != Action.RIGHT_CLICK_BLOCK)
+		if (!(event.getAction() == Action.RIGHT_CLICK_AIR || event.getAction() == Action.RIGHT_CLICK_BLOCK))
 			return;
 		ItemStack item = player.getInventory().getItemInMainHand();
 		if (ItemManager.isSimilar(item, ItemManager.namesAndItems.get("§6骨片"))) {
-			Vector vec = player.getEyeLocation().getDirection().multiply(0.5);
+			event.setCancelled(true);
+			Vector vec = player.getEyeLocation().getDirection().multiply(15);
 			Entity entity = player.getWorld().spawnEntity(player.getLocation().add(0, 1.5, 0), EntityType.ARMOR_STAND);
 			ArmorStand armor = (ArmorStand) entity;
 			armor.setItemInHand(new ItemStack(Material.PRISMARINE_CRYSTALS));
 			armor.setInvulnerable(true);
 			armor.setVisible(false);
+			armor.setGravity(false);
 			new BukkitRunnable() {
 				int dist = 0;
 

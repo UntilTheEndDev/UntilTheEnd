@@ -21,13 +21,15 @@ public class SpiderGland implements Listener {
 	}
 	@EventHandler
 	public void onRight(PlayerInteractEvent event) {
+		if(event.isCancelled()) return;
 		Player player = event.getPlayer();
 		if (!player.isSneaking())
 			return;
-		if (event.getAction() != Action.RIGHT_CLICK_AIR && event.getAction() != Action.RIGHT_CLICK_BLOCK)
+		if (!(event.getAction() == Action.RIGHT_CLICK_AIR || event.getAction() == Action.RIGHT_CLICK_BLOCK))
 			return;
 		ItemStack item = player.getInventory().getItemInMainHand();
 		if (ItemManager.isSimilar(item, ItemManager.namesAndItems.get("§6蜘蛛腺体"))) {
+			event.setCancelled(true);
 			if (player.getHealth() + heal >= player.getMaxHealth())
 				player.setHealth(player.getMaxHealth());
 			else

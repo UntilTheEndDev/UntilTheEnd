@@ -37,26 +37,29 @@ public class BlowArrow1 implements Listener{
 		ItemManager.cosumeItems.add("BlowArrow1");
 	}
 	@EventHandler public void onRight(PlayerInteractEvent event) {
+		if(event.isCancelled()) return;
 		Player player=event.getPlayer();
 		if(!player.isSneaking()) return;
 		if (event.getAction() != Action.RIGHT_CLICK_AIR && event.getAction() != Action.RIGHT_CLICK_BLOCK)
 			return;
 		ItemStack item = player.getInventory().getItemInMainHand();
 		if (ItemManager.isSimilar(item, ItemManager.namesAndItems.get("§6吹箭"))) {
-			Entity entity = player.getWorld().spawnEntity(player.getLocation().add(0, 1.3, 0), EntityType.ARMOR_STAND);
+			event.setCancelled(true);
+			Entity entity = player.getWorld().spawnEntity(player.getLocation(), EntityType.ARMOR_STAND);
 			ArmorStand armor=(ArmorStand) entity;
-			Vector vec=player.getEyeLocation().getDirection().multiply(2.0);
+			Vector vec=player.getEyeLocation().getDirection();
 			armor.setItemInHand(new ItemStack(Material.IRON_SWORD));
-			armor.setInvulnerable(true);
+			armor.setGravity(false);
 			armor.setVisible(false);
+			armor.setRemoveWhenFarAway(true);
+			armor.setAI(false);
 			new BukkitRunnable() {
 				int dist = 0;
 
 				@Override
 				public void run() {
-					for (int i = 0; i <= 5; i++)
-						armor.setVelocity(vec);
-
+					armor.setVelocity(vec);
+					armor.getWorld().spawnParticle(Particle.TOTEM,armor.getLocation().add(0,1.3,0),2);
 					for (Entity entity : armor.getNearbyEntities(range, range, range)) {
 						if (entity.getUniqueId() == player.getUniqueId())
 							continue;
@@ -65,7 +68,7 @@ public class BlowArrow1 implements Listener{
 						((LivingEntity) entity).damage(damage);
 						cancel();
 					}
-					if(armor.getLocation().getBlock().getType().isTransparent())
+					if(!armor.getLocation().add(0,1.3,0).getBlock().getType().isTransparent())
 						cancel();
 					if (dist++ >= maxDist)
 						cancel();

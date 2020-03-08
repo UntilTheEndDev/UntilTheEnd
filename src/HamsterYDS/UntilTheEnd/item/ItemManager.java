@@ -197,8 +197,9 @@ public class ItemManager {
 	}
 
 	public static boolean isSimilar(ItemStack item, ItemStack uteItem) {
-		item.setAmount(1);
-		item.setDurability((short) 0);
-		return item.equals(uteItem);
+		ItemStack itemClone=item.clone();
+		itemClone.setAmount(1);
+		itemClone.setDurability((short) 0);
+		return itemClone.equals(uteItem);
 	}
 }
