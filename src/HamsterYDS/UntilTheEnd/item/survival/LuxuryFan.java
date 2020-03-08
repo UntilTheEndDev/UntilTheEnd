@@ -33,14 +33,16 @@ public class LuxuryFan implements Listener {
         if (item.equals(ItemManager.namesAndItems.get("§6豪华风扇"))) {
             event.setCancelled(true);
             if (!player.isSneaking()) return;
-            if (PlayerManager.check(player, "tem") >= 45) PlayerManager.change(player, "tem", -30);
-            else PlayerManager.change(player, "tem", 15 - PlayerManager.check(player, "tem"));
+            if (PlayerManager.check(player, PlayerManager.CheckType.TEMPERATURE) >= 45)
+                PlayerManager.change(player, PlayerManager.CheckType.TEMPERATURE, -30);
+            else
+                PlayerManager.change(player, PlayerManager.CheckType.TEMPERATURE, 15 - PlayerManager.check(player, PlayerManager.CheckType.TEMPERATURE));
             for (Entity entity : player.getNearbyEntities(5.0, 5.0, 5.0)) {
                 if (entity instanceof Player) {
-                    if (PlayerManager.check((Player) entity, "tem") >= 45)
-                        PlayerManager.change((Player) entity, "tem", -30);
+                    if (PlayerManager.check((Player) entity, PlayerManager.CheckType.TEMPERATURE) >= 45)
+                        PlayerManager.change((Player) entity, PlayerManager.CheckType.TEMPERATURE, -30);
                     else
-                        PlayerManager.change((Player) entity, "tem", 15 - PlayerManager.check((Player) entity, "tem"));
+                        PlayerManager.change((Player) entity, PlayerManager.CheckType.TEMPERATURE, 15 - PlayerManager.check((Player) entity, PlayerManager.CheckType.TEMPERATURE));
                 }
             }
         }

@@ -15,7 +15,7 @@
     display-name: §6石砖
     #可更改：物品lores 可以多行（支持颜色代码）
     lore:
-    - §8-合成的基础材料
+      - §8-合成的基础材料
 绳子:
   ==: org.bukkit.inventory.ItemStack
   type: LEASH
@@ -24,7 +24,7 @@
     meta-type: UNSPECIFIC
     display-name: §6绳子
     lore:
-    - §8-合成的基础材料
+      - §8-合成的基础材料
 板条:
   ==: org.bukkit.inventory.ItemStack
   type: WOOD_STEP
@@ -33,7 +33,7 @@
     meta-type: UNSPECIFIC
     display-name: §6板条
     lore:
-    - §8-合成的基础材料
+      - §8-合成的基础材料
 噩梦燃料:
   ==: org.bukkit.inventory.ItemStack
   type: GHAST_TEAR
@@ -42,9 +42,9 @@
     meta-type: UNSPECIFIC
     display-name: §6噩梦燃料
     lore:
-    - §8-合成的基础材料
-    - '§8-它.....太疯狂了！'
-    - '§8-影响: §d每分钟玩家理智值减去背包里噩梦燃料的个数'
+      - §8-合成的基础材料
+      - '§8-它.....太疯狂了！'
+      - '§8-影响: §d每分钟玩家理智值减去背包里噩梦燃料的个数'
 金币:
   ==: org.bukkit.inventory.ItemStack
   type: GOLD_NUGGET
@@ -53,7 +53,7 @@
     meta-type: UNSPECIFIC
     display-name: §6金币
     lore:
-    - §8-合成的基础材料
+      - §8-合成的基础材料
 蕨类植物:
   ==: org.bukkit.inventory.ItemStack
   type: LONG_GRASS
@@ -62,9 +62,9 @@
     meta-type: UNSPECIFIC
     display-name: §6蕨类植物
     lore:
-    - §8-合成的基础材料
-    - '§8-原生态的食物(＾－＾)V'
-    - '§8-效用: §d拿它蹲下右击可食用并提升0.5血量'
+      - §8-合成的基础材料
+      - '§8-原生态的食物(＾－＾)V'
+      - '§8-效用: §d拿它蹲下右击可食用并提升0.5血量'
 冰雹:
   ==: org.bukkit.inventory.ItemStack
   type: ICE
@@ -73,9 +73,9 @@
     meta-type: UNSPECIFIC
     display-name: §6冰雹
     lore:
-    - §8-合成的基础材料
-    - '§8-好凉快！'
-    - '§8-效用: §d拿它蹲下右击可降低温度'
+      - §8-合成的基础材料
+      - '§8-好凉快！'
+      - '§8-效用: §d拿它蹲下右击可降低温度'
 芦苇:
   ==: org.bukkit.inventory.ItemStack
   type: EMPTY_MAP
@@ -84,8 +84,8 @@
     meta-type: UNSPECIFIC
     display-name: §6芦苇
     lore:
-    - §8-合成的基础材料
-    - '§8-结实不易断'
+      - §8-合成的基础材料
+      - '§8-结实不易断'
 猫尾:
   ==: org.bukkit.inventory.ItemStack
   type: FEATHER
@@ -94,7 +94,7 @@
     meta-type: UNSPECIFIC
     display-name: §6猫尾
     lore:
-    - §8-好软！
+      - §8-好软！
 牛毛:
   ==: org.bukkit.inventory.ItemStack
   type: QUARTZ
@@ -103,7 +103,7 @@
     meta-type: UNSPECIFIC
     display-name: §6牛毛
     lore:
-    - §8-把它拔下来，它们一定很生气吧？
+      - §8-把它拔下来，它们一定很生气吧？
 狗牙:
   ==: org.bukkit.inventory.ItemStack
   type: IRON_NUGGET
@@ -112,7 +112,7 @@
     meta-type: UNSPECIFIC
     display-name: §6狗牙
     lore:
-    - §8-真够锋利的...
+      - §8-真够锋利的...
 牛角:
   ==: org.bukkit.inventory.ItemStack
   type: HOPPER
@@ -121,7 +121,7 @@
     meta-type: UNSPECIFIC
     display-name: §6牛角
     lore:
-    - §8-多么优美的形状~
+      - §8-多么优美的形状~
 猪皮:
   ==: org.bukkit.inventory.ItemStack
   type: LEATHER
@@ -130,7 +130,7 @@
     meta-type: UNSPECIFIC
     display-name: §6猪皮
     lore:
-    - §8-其实不是猪皮啦~只不过跟猪皮一样厚
+      - §8-其实不是猪皮啦~只不过跟猪皮一样厚
 兔毛:
   ==: org.bukkit.inventory.ItemStack
   type: LEATHER
@@ -139,7 +139,7 @@
     meta-type: UNSPECIFIC
     display-name: §6兔毛
     lore:
-    - §8-很柔软，可惜太脆弱了！
+      - §8-很柔软，可惜太脆弱了！
 鳞片:
   ==: org.bukkit.inventory.ItemStack
   type: PRISMARINE_CRYSTALS
@@ -148,7 +148,7 @@
     meta-type: UNSPECIFIC
     display-name: §6鳞片
     lore:
-    - §8-就像甲壳一样硬
+      - §8-就像甲壳一样硬
 骨片:
   ==: org.bukkit.inventory.ItemStack
   type: BONE
@@ -157,7 +157,7 @@
     meta-type: UNSPECIFIC
     display-name: §6骨片
     lore:
-    - §8-很硬，很锋利，差点割破了我的手
+      - §8-很硬，很锋利，差点割破了我的手
 蜘蛛腺体:
   ==: org.bukkit.inventory.ItemStack
   type: FERMENTED_SPIDER_EYE
@@ -166,8 +166,8 @@
     meta-type: UNSPECIFIC
     display-name: §6蜘蛛腺体
     lore:
-    - §8-用它治疗虽然原始了点但很有效！
-    - '§8-效用: §d拿它蹲下右击可回复两颗心'
+      - §8-用它治疗虽然原始了点但很有效！
+      - '§8-效用: §d拿它蹲下右击可回复两颗心'
 痰:
   ==: org.bukkit.inventory.ItemStack
   type: SUGAR
@@ -176,7 +176,7 @@
     meta-type: UNSPECIFIC
     display-name: §6痰
     lore:
-    - §8-真恶心！
+      - §8-真恶心！
 齿轮:
   ==: org.bukkit.inventory.ItemStack
   type: DOUBLE_PLANT
@@ -185,7 +185,7 @@
     meta-type: UNSPECIFIC
     display-name: §6齿轮
     lore:
-    - §8-机油味使我作呕，不过他们很有用...
+      - §8-机油味使我作呕，不过他们很有用...
 灰烬:
   ==: org.bukkit.inventory.ItemStack
   type: CLAY_BALL
@@ -194,8 +194,8 @@
     meta-type: UNSPECIFIC
     display-name: §6灰烬
     lore:
-    - §8-被燃尽的物品去哪里了呢？
-红宝石: 
+      - §8-被燃尽的物品去哪里了呢？
+红宝石:
   ==: org.bukkit.inventory.ItemStack
   type: NETHER_STAR
   meta:
@@ -203,7 +203,7 @@
     meta-type: UNSPECIFIC
     display-name: §6红宝石
     lore:
-    - §8-藏匿着热量……
+      - §8-藏匿着热量……
 蓝宝石:
   ==: org.bukkit.inventory.ItemStack
   type: NETHER_STAR
@@ -212,8 +212,8 @@
     meta-type: UNSPECIFIC
     display-name: §6蓝宝石
     lore:
-    - §8-冰晶结合体.......
-紫宝石: 
+      - §8-冰晶结合体.......
+紫宝石:
   ==: org.bukkit.inventory.ItemStack
   type: NETHER_STAR
   meta:
@@ -221,8 +221,8 @@
     meta-type: UNSPECIFIC
     display-name: §6紫宝石
     lore:
-    - §8-千年的闪耀之光......
-有生命的木头: 
+      - §8-千年的闪耀之光......
+有生命的木头:
   ==: org.bukkit.inventory.ItemStack
   type: LOG
   meta:
@@ -230,7 +230,7 @@
     meta-type: UNSPECIFIC
     display-name: §6有生命的木头
     lore:
-    - §8-它是动物吗？
+      - §8-它是动物吗？
 灌木丛帽子:
   ==: org.bukkit.inventory.ItemStack
   type: GOLD_HELMET
@@ -239,8 +239,8 @@
     meta-type: UNSPECIFIC
     display-name: §6灌木丛帽子
     lore:
-    - §8-让我悄悄地靠近你...！
-    - '§8-效用: §d让敌对生物无法检测到你的存在（对已经锁定你的生物无效）'
+      - §8-让我悄悄地靠近你...！
+      - '§8-效用: §d让敌对生物无法检测到你的存在（对已经锁定你的生物无效）'
 兔毛耳罩:
   ==: org.bukkit.inventory.ItemStack
   type: GOLD_HELMET
@@ -249,8 +249,8 @@
     meta-type: UNSPECIFIC
     display-name: §6兔毛耳罩
     lore:
-    - §8-有了它,我终于不用为冻疮而苦恼了！
-    - '§8-效用: §d略微减缓你在小于20度的环境下温度下降的速率'
+      - §8-有了它,我终于不用为冻疮而苦恼了！
+      - '§8-效用: §d略微减缓你在小于20度的环境下温度下降的速率'
 花环:
   ==: org.bukkit.inventory.ItemStack
   type: GOLD_HELMET
@@ -259,8 +259,8 @@
     meta-type: UNSPECIFIC
     display-name: §6花环
     lore:
-    - §8-我喜欢它！
-    - '§8-效用: §d+12理智/分钟'
+      - §8-我喜欢它！
+      - '§8-效用: §d+12理智/分钟'
 草帽:
   ==: org.bukkit.inventory.ItemStack
   type: GOLD_HELMET
@@ -269,8 +269,8 @@
     meta-type: UNSPECIFIC
     display-name: §6草帽
     lore:
-    - §8-遮挡夏日灼热的阳光！
-    - '§8-效用: §d略微减缓你在大于40度的环境下温度上升的速率'
+      - §8-遮挡夏日灼热的阳光！
+      - '§8-效用: §d略微减缓你在大于40度的环境下温度上升的速率'
 眼球伞:
   ==: org.bukkit.inventory.ItemStack
   type: GOLD_HELMET
@@ -279,20 +279,19 @@
     meta-type: UNSPECIFIC
     display-name: §6眼球伞
     lore:
-    - §8-可笑的装饰,不过很实用！
-    - '§8-效用: §d下雨天避雨+吸收周围雷电并转化为力量+快速增加理智'
-    - '§8-效用: §d既可以拿在手上也可以戴在头上~'
+      - §8-可笑的装饰,不过很实用！
+      - '§8-效用: §d下雨天避雨+吸收周围雷电并转化为力量+快速增加理智'
+      - '§8-效用: §d既可以拿在手上也可以戴在头上~'
 恒温服:
   ==: org.bukkit.inventory.ItemStack
-    type: GOLD_CHESTPLATE
-    meta:
-      ==: ItemMeta
-      meta-type: UNSPECIFIC
-      display-name: §6恒温服
-      lore:
-        - §8-保暖至极
-        - '§8-效用: §d穿上后温度不再随自然环境变化'
-    
+  type: GOLD_CHESTPLATE
+  meta:
+    ==: ItemMeta
+    meta-type: UNSPECIFIC
+    display-name: §6恒温服
+    lore:
+      - §8-保暖至极
+      - '§8-效用: §d穿上后温度不再随自然环境变化'
 便携包:
   ==: org.bukkit.inventory.ItemStack
   type: GOLD_CHESTPLATE
@@ -301,8 +300,8 @@
     meta-type: UNSPECIFIC
     display-name: §6便携包
     lore:
-    - §8-保护我的物品！
-    - '§8-效用: §d背包+4格且放置在该格子的物品不会腐烂/被偷走/潮湿'
+      - §8-保护我的物品！
+      - '§8-效用: §d背包+4格且放置在该格子的物品不会腐烂/被偷走/潮湿'
 背包:
   ==: org.bukkit.inventory.ItemStack
   type: GOLD_CHESTPLATE
@@ -311,8 +310,8 @@
     meta-type: UNSPECIFIC
     display-name: §6背包
     lore:
-    - §8-装更多的东西！
-    - '§8-效用: §d背包+8格但放置在该格子的物品更容易潮湿'
+      - §8-装更多的东西！
+      - '§8-效用: §d背包+8格但放置在该格子的物品更容易潮湿'
 皮质背包:
   ==: org.bukkit.inventory.ItemStack
   type: GOLD_CHESTPLATE
@@ -321,8 +320,8 @@
     meta-type: UNSPECIFIC
     display-name: §6皮质背包
     lore:
-    - §8-空间更大但是更重了！
-    - '§8-效用: §d背包+12格但穿着时减速'
+      - §8-空间更大但是更重了！
+      - '§8-效用: §d背包+12格但穿着时减速'
 救赎之心:
   ==: org.bukkit.inventory.ItemStack
   type: SKULL_ITEM
@@ -331,8 +330,8 @@
     meta-type: UNSPECIFIC
     display-name: §6救赎之心
     lore:
-    - §8-它就像真的一样，跳动着>..
-    - '§8-效用: §d拿它蹲下右击可拯救随机一名已死亡但未自动重生的玩家'
+      - §8-它就像真的一样，跳动着>..
+      - '§8-效用: §d拿它蹲下右击可拯救随机一名已死亡但未自动重生的玩家'
 暖石:
   ==: org.bukkit.inventory.ItemStack
   type: FLINT
@@ -341,9 +340,9 @@
     meta-type: UNSPECIFIC
     display-name: §6暖石
     lore:
-    - §8-便携式空调！
-    - '§8-效果: §d把暖石放入背包,玩家的体表温度将会向着暖石的温度而非环境温度靠近'
-    - '§8-用法: §d发暖石丢到地上一段时间,暖石将会带着该方块的余温'    
+      - §8-便携式空调！
+      - '§8-效果: §d把暖石放入背包,玩家的体表温度将会向着暖石的温度而非环境温度靠近'
+      - '§8-用法: §d发暖石丢到地上一段时间,暖石将会带着该方块的余温'
 探测器:
   ==: org.bukkit.inventory.ItemStack
   type: BLAZE_ROD
@@ -352,8 +351,8 @@
     meta-type: UNSPECIFIC
     display-name: §6探测器
     lore:
-    - §8-我觉得....我受"他"控制了！
-    - '§8-效用: §d拿着它可以探测自然建筑，同时可能找到改变世界的恶魔零件'
+      - §8-我觉得....我受"他"控制了！
+      - '§8-效用: §d拿着它可以探测自然建筑，同时可能找到改变世界的恶魔零件'
 伞:
   ==: org.bukkit.inventory.ItemStack
   type: SHIELD
@@ -362,8 +361,8 @@
     meta-type: UNSPECIFIC
     display-name: §6伞
     lore:
-    - §8-朴素的必要装备，出门的不二之选！
-    - '§8-效用: §d拿在手上可以在下雨天避雨'
+      - §8-朴素的必要装备，出门的不二之选！
+      - '§8-效用: §d拿在手上可以在下雨天避雨'
 花伞:
   ==: org.bukkit.inventory.ItemStack
   type: SHIELD
@@ -372,8 +371,8 @@
     meta-type: UNSPECIFIC
     display-name: §6花伞
     lore:
-    - §8-真好看！
-    - '§8-效用: §d拿在手上可以在下雨天避雨+增加理智'
+      - §8-真好看！
+      - '§8-效用: §d拿在手上可以在下雨天避雨+增加理智'
 治疗药膏:
   ==: org.bukkit.inventory.ItemStack
   type: MILK_BUCKET
@@ -382,8 +381,8 @@
     meta-type: UNSPECIFIC
     display-name: §6治疗药膏
     lore:
-    - §8-相比于蜘蛛腺体，用它体面了许多！
-    - '§8-效用: §d拿它蹲下右击可回复五颗心'
+      - §8-相比于蜘蛛腺体，用它体面了许多！
+      - '§8-效用: §d拿它蹲下右击可回复五颗心'
 止血剂:
   ==: org.bukkit.inventory.ItemStack
   type: DRAGONS_BREATH
@@ -392,8 +391,8 @@
     meta-type: UNSPECIFIC
     display-name: §6止血剂
     lore:
-    - §8-我想知道它的原理...
-    - '§8-效用: §d拿它蹲下右击可回复六颗心'
+      - §8-我想知道它的原理...
+      - '§8-效用: §d拿它蹲下右击可回复六颗心'
 ACD试验药:
   ==: org.bukkit.inventory.ItemStack
   type: MAGMA_CREAM
@@ -402,8 +401,8 @@ ACD试验药:
     meta-type: UNSPECIFIC
     display-name: §6ACD试验药
     lore:
-    - §8-“该药品为处方药，请在医师指导下使用...”
-    - '§8-效用: §d拿它蹲下右击可增加3颗血量上限(最多20颗)'
+      - §8-“该药品为处方药，请在医师指导下使用...”
+      - '§8-效用: §d拿它蹲下右击可增加3颗血量上限(最多20颗)'
 豪华风扇:
   ==: org.bukkit.inventory.ItemStack
   type: WOOD_HOE
@@ -412,8 +411,8 @@ ACD试验药:
     meta-type: UNSPECIFIC
     display-name: §6豪华风扇
     lore:
-    - §8-凉快~
-    - '§8-效用: §d拿它蹲下右击可使得周围5*5*5区域的温度降低30度'
+      - §8-凉快~
+      - '§8-效用: §d拿它蹲下右击可使得周围5*5*5区域的温度降低30度'
 稻草卷:
   ==: org.bukkit.inventory.ItemStack
   type: BED
@@ -422,9 +421,9 @@ ACD试验药:
     meta-type: UNSPECIFIC
     display-name: §6稻草卷
     lore:
-    - §8-睡个安稳觉
-    - '§8-效用: §d拿它蹲下右击可进入小憩模式，增加理智、生命'
-    - '§8-效用: §d移动或饱食度为0时结束小憩'
+      - §8-睡个安稳觉
+      - '§8-效用: §d拿它蹲下右击可进入小憩模式，增加理智、生命'
+      - '§8-效用: §d移动或饱食度为0时结束小憩'
 毛皮卷:
   ==: org.bukkit.inventory.ItemStack
   type: BED
@@ -433,9 +432,9 @@ ACD试验药:
     meta-type: UNSPECIFIC
     display-name: §6毛皮卷
     lore:
-    - §8-多睡几个安稳觉
-    - '§8-效用: §d拿它蹲下右击可进入小憩模式，更快增加理智、生命'
-    - '§8-效用: §d移动或饱食度为0时结束小憩，该物品有几率在使用时不消耗'
+      - §8-多睡几个安稳觉
+      - '§8-效用: §d拿它蹲下右击可进入小憩模式，更快增加理智、生命'
+      - '§8-效用: §d移动或饱食度为0时结束小憩，该物品有几率在使用时不消耗'
 水球:
   ==: org.bukkit.inventory.ItemStack
   type: SPLASH_POTION
@@ -444,9 +443,9 @@ ACD试验药:
     meta-type: UNSPECIFIC
     display-name: §6水球
     lore:
-    - §8-妈妈再也不怕我掉岩浆了！
-    - '§8-效用: §d拿它蹲下右击可引爆水球'
-    - '§8-效用: §d大幅度降低温度并熄灭周围的热源，还能吸水~'
+      - §8-妈妈再也不怕我掉岩浆了！
+      - '§8-效用: §d拿它蹲下右击可引爆水球'
+      - '§8-效用: §d大幅度降低温度并熄灭周围的热源，还能吸水~'
 简易小木棚:
   ==: org.bukkit.inventory.ItemStack
   type: CARPET
@@ -455,12 +454,12 @@ ACD试验药:
     meta-type: UNSPECIFIC
     display-name: §6简易小木棚
     lore:
-    - §8-睡个午觉
-    - '§8-效用: §d将其放置与地面，右击即可小睡一会~'
-    - '§8-效用: §d按Shift即可结束睡眠'
-    - '§8-效用: §d可以使用多次，每次使用有10%消耗掉'
-    - '§8-效用: §d极快增加理智、生命，饥饿掉的较慢'
-    
+      - §8-睡个午觉
+      - '§8-效用: §d将其放置与地面，右击即可小睡一会~'
+      - '§8-效用: §d按Shift即可结束睡眠'
+      - '§8-效用: §d可以使用多次，每次使用有10%消耗掉'
+      - '§8-效用: §d极快增加理智、生命，饥饿掉的较慢'
+
 吹箭:
   ==: org.bukkit.inventory.ItemStack
   type: MAP
@@ -469,8 +468,8 @@ ACD试验药:
     meta-type: UNSPECIFIC
     display-name: §6吹箭
     lore:
-    - §8-看起来好危险哟，里面的?已经蓄势待发了！
-    - '§8-效用: §d拿它蹲下右击可射出一发超高伤害的剑'
+      - §8-看起来好危险哟，里面的?已经蓄势待发了！
+      - '§8-效用: §d拿它蹲下右击可射出一发超高伤害的剑'
 火吹箭:
   ==: org.bukkit.inventory.ItemStack
   type: MAP
@@ -479,9 +478,9 @@ ACD试验药:
     meta-type: UNSPECIFIC
     display-name: §6火吹箭
     lore:
-    - §8-浓浓的火药味.
-    - '§8-效用: §d拿它蹲下右击可射出一发较高伤害的剑'
-    - '§8-效用: §d被射中的生物着火很长时间'
+      - §8-浓浓的火药味.
+      - '§8-效用: §d拿它蹲下右击可射出一发较高伤害的剑'
+      - '§8-效用: §d被射中的生物着火很长时间'
 麻醉吹箭:
   ==: org.bukkit.inventory.ItemStack
   type: MAP
@@ -490,9 +489,9 @@ ACD试验药:
     meta-type: UNSPECIFIC
     display-name: §6麻醉吹箭
     lore:
-    - §8-这味道让我昏昏欲睡.
-    - '§8-效用: §d拿它蹲下右击可射出一发中等伤害的剑'
-    - '§8-效用: §d被射中的玩家无法看见任何东西很长时间'
+      - §8-这味道让我昏昏欲睡.
+      - '§8-效用: §d拿它蹲下右击可射出一发中等伤害的剑'
+      - '§8-效用: §d被射中的玩家无法看见任何东西很长时间'
 蜜蜂地雷:
   ==: org.bukkit.inventory.ItemStack
   type: GOLD_PLATE
@@ -501,9 +500,9 @@ ACD试验药:
     meta-type: UNSPECIFIC
     display-name: §6蜜蜂地雷
     lore:
-    - §8-轻拿轻放.
-    - '§8-效用: §d将其放在地上即可设置地雷'
-    - '§8-效用: §d踩中地雷的生物获得爆炸伤害和中毒效果'
+      - §8-轻拿轻放.
+      - '§8-效用: §d将其放在地上即可设置地雷'
+      - '§8-效用: §d踩中地雷的生物获得爆炸伤害和中毒效果'
 狗牙陷阱:
   ==: org.bukkit.inventory.ItemStack
   type: IRON_PLATE
@@ -512,10 +511,10 @@ ACD试验药:
     meta-type: UNSPECIFIC
     display-name: §6狗牙陷阱
     lore:
-    - §8-多次使用.
-    - '§8-效用: §d将其放在地上即可设置陷阱'
-    - '§8-效用: §d踩中陷阱的生物获得8点伤害'
-    - '§8-效用: §d陷阱被踩中后会失效，可以右击使其重新布置'
+      - §8-多次使用.
+      - '§8-效用: §d将其放在地上即可设置陷阱'
+      - '§8-效用: §d踩中陷阱的生物获得8点伤害'
+      - '§8-效用: §d陷阱被踩中后会失效，可以右击使其重新布置'
 旋风:
   ==: org.bukkit.inventory.ItemStack
   type: IRON_HOE
@@ -524,9 +523,9 @@ ACD试验药:
     meta-type: UNSPECIFIC
     display-name: §6旋风
     lore:
-    - §8-给爷爪巴.
-    - '§8-效用: §d右击刮出一阵风吹走你视线上的生物'
-    
+      - §8-给爷爪巴.
+      - '§8-效用: §d右击刮出一阵风吹走你视线上的生物'
+
 电器元件:
   ==: org.bukkit.inventory.ItemStack
   type: GOLD_INGOT
@@ -535,8 +534,8 @@ ACD试验药:
     meta-type: UNSPECIFIC
     display-name: §6电器元件
     lore:
-    - §8-基础的科学类材料
-    - '§8-幸亏我学过物理！'
+      - §8-基础的科学类材料
+      - '§8-幸亏我学过物理！'
 温度计:
   ==: org.bukkit.inventory.ItemStack
   type: END_ROD
@@ -545,8 +544,8 @@ ACD试验药:
     meta-type: UNSPECIFIC
     display-name: §6温度计
     lore:
-    - §8-科学机器之一
-    - '§8-里面貌似不是汞，不过将就着用吧~'
+      - §8-科学机器之一
+      - '§8-里面貌似不是汞，不过将就着用吧~'
 湿度计:
   ==: org.bukkit.inventory.ItemStack
   type: STAINED_GLASS_PANE
@@ -555,8 +554,8 @@ ACD试验药:
     meta-type: UNSPECIFIC
     display-name: §6湿度计
     lore:
-    - §8-科学机器之一
-    - '§8-自制天气预报~嘟嘟！'
+      - §8-科学机器之一
+      - '§8-自制天气预报~嘟嘟！'
 避雷针:
   ==: org.bukkit.inventory.ItemStack
   type: IRON_FENCE
@@ -565,9 +564,9 @@ ACD试验药:
     meta-type: UNSPECIFIC
     display-name: §6避雷针
     lore:
-    - §8-科学机器之一
-    - '§8-再也不怕雷劈坏家里的东西了！'
-    - '§8-效用: §d自动接受周围20格的雷'
+      - §8-科学机器之一
+      - '§8-再也不怕雷劈坏家里的东西了！'
+      - '§8-效用: §d自动接受周围20格的雷'
 雪球发射机:
   ==: org.bukkit.inventory.ItemStack
   type: REDSTONE_LAMP_OFF
@@ -576,9 +575,9 @@ ACD试验药:
     meta-type: UNSPECIFIC
     display-name: §6雪球发射机
     lore:
-    - §8-科学机器之一
-    - '§8-闷烧？没听说过！'
-    - '§8-效用: §d自动熄灭周围20格的闷烧'
+      - §8-科学机器之一
+      - '§8-闷烧？没听说过！'
+      - '§8-效用: §d自动熄灭周围20格的闷烧'
 冰箱:
   ==: org.bukkit.inventory.ItemStack
   type: CHEST
@@ -587,10 +586,10 @@ ACD试验药:
     meta-type: UNSPECIFIC
     display-name: §6冰箱
     lore:
-    - §8-科学机器之一
-    - '§8-我自己的食物工厂！'
-    - '§8-效用: §d减缓冰箱内的食物腐烂速率'
-    
+      - §8-科学机器之一
+      - '§8-我自己的食物工厂！'
+      - '§8-效用: §d减缓冰箱内的食物腐烂速率'
+
 火魔杖:
   ==: org.bukkit.inventory.ItemStack
   type: WOOD_SPADE
@@ -599,5 +598,5 @@ ACD试验药:
     meta-type: UNSPECIFIC
     display-name: §6火魔杖
     lore:
-    - '§8-蓄势待发'
-    - '§8-效用: §d右击发射包含火的魔法攻击~'
+      - '§8-蓄势待发'
+      - '§8-效用: §d右击发射包含火的魔法攻击~'

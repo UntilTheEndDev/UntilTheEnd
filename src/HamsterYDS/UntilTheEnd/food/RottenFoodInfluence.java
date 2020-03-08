@@ -49,7 +49,7 @@ public class RottenFoodInfluence implements Listener {
         if (eatenFoodRottens.containsKey(entity.getName())) {
             int level = eatenFoodRottens.get(entity.getName());
             if (level == -100) {
-                PlayerManager.change((Player) entity, "san", -30);
+                PlayerManager.change((Player) entity, PlayerManager.CheckType.SANITY, -30);
                 entity.damage(2.0);
                 entity.addPotionEffect(new PotionEffect(PotionEffectType.WITHER, 100, 0));
                 entity.sendMessage("§6[§cUntilTheEnd§6]§r 口区口区口区口区口区口区口区口区");
@@ -63,7 +63,7 @@ public class RottenFoodInfluence implements Listener {
             int newLevel = (int) (percent * foodLevel + 1.0);
             event.setFoodLevel(currentLevel + newLevel);
             if (level <= 60) {
-                PlayerManager.change((Player) entity, "san", (int) (-15.0D * (level / 100)));
+                PlayerManager.change((Player) entity, PlayerManager.CheckType.SANITY, (int) (-15.0D * (level / 100)));
                 entity.sendMessage("§6[§cUntilTheEnd§6]§r 食物貌似变味了~");
                 eatenFoodRottens.remove(entity.getName());
             }

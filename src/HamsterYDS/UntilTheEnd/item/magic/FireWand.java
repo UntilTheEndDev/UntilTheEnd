@@ -53,7 +53,7 @@ public class FireWand implements Listener{
 				player.setItemInHand(null);
 			Location loc=player.getLocation().add(0.0,1.0,0.0);
 			Vector vec=player.getEyeLocation().getDirection().multiply(0.5);
-			PlayerManager.change(player,"san",-5);
+			PlayerManager.change(player, PlayerManager.CheckType.SANITY,-5);
 			new BukkitRunnable() {
 				int range=maxDist;
 				@Override

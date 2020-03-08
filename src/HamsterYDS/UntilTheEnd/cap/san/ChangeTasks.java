@@ -49,13 +49,13 @@ public class ChangeTasks {
 					String leggings=getName(inv.getLeggings());
 					String boots=getName(inv.getBoots()); 
 					if(clothesChangeSanity.containsKey(helmet))
-						PlayerManager.change(player,"san",clothesChangeSanity.get(helmet));
+						PlayerManager.change(player, PlayerManager.CheckType.SANITY,clothesChangeSanity.get(helmet));
 					if(clothesChangeSanity.containsKey(chestplate))
-						PlayerManager.change(player,"san",clothesChangeSanity.get(chestplate));
+						PlayerManager.change(player, PlayerManager.CheckType.SANITY,clothesChangeSanity.get(chestplate));
 					if(clothesChangeSanity.containsKey(leggings))
-						PlayerManager.change(player,"san",clothesChangeSanity.get(leggings));
+						PlayerManager.change(player, PlayerManager.CheckType.SANITY,clothesChangeSanity.get(leggings));
 					if(clothesChangeSanity.containsKey(boots))
-						PlayerManager.change(player,"san",clothesChangeSanity.get(boots));
+						PlayerManager.change(player, PlayerManager.CheckType.SANITY,clothesChangeSanity.get(boots));
 				}
 			}
 		}
@@ -77,7 +77,7 @@ public class ChangeTasks {
 						ItemStack item=inv.getItem(slot);
 						String itemName=getName(item);
 						if(itemsChangeSanity.containsKey(itemName))
-							PlayerManager.change(player,"san",item.getAmount()*itemsChangeSanity.get(itemName));
+							PlayerManager.change(player, PlayerManager.CheckType.SANITY,item.getAmount()*itemsChangeSanity.get(itemName));
 					}
 				}
 			}
@@ -98,9 +98,9 @@ public class ChangeTasks {
 					for(Entity entity:player.getNearbyEntities(auraRangeX,auraRangeY,auraRangeZ)) {
 						EntityType type=entity.getType();
 						if(SanityProvider.creatureAura.containsKey(type)) 
-							PlayerManager.change(player,"san",SanityProvider.creatureAura.get(type));
-						if(entity instanceof Player) PlayerManager.change(player,"san",playerChangeSanity);
-						if(entity instanceof Monster) PlayerManager.change(player,"san",monsterChangeSanity);
+							PlayerManager.change(player, PlayerManager.CheckType.SANITY,SanityProvider.creatureAura.get(type));
+						if(entity instanceof Player) PlayerManager.change(player, PlayerManager.CheckType.SANITY,playerChangeSanity);
+						if(entity instanceof Monster) PlayerManager.change(player, PlayerManager.CheckType.SANITY,monsterChangeSanity);
 					}
 		}
 	}
@@ -109,8 +109,8 @@ public class ChangeTasks {
 		public void run() {
 			for(World world:Config.enableWorlds) {
 				for(Player player:world.getPlayers()) {
-					int hum=PlayerManager.check(player,"hum");
-					PlayerManager.change(player,"san",-hum/10);
+					int hum=PlayerManager.check(player, PlayerManager.CheckType.HUMIDITY);
+					PlayerManager.change(player, PlayerManager.CheckType.SANITY,-hum/10);
 				}
 			}
 		}
@@ -125,10 +125,10 @@ public class ChangeTasks {
 				if(counter%2==0)
 					if(time>=evening&&time<=night)
 						for(Player player:world.getPlayers()) 
-							PlayerManager.change(player,"san",-1);
+							PlayerManager.change(player, PlayerManager.CheckType.SANITY,-1);
 				if(time>=night&&time<=day)
 					for(Player player:world.getPlayers()) 
-						PlayerManager.change(player,"san",-1);
+						PlayerManager.change(player, PlayerManager.CheckType.SANITY,-1);
 			}
 		}
 	}

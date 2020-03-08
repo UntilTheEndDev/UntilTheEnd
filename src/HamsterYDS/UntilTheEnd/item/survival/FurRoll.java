@@ -62,7 +62,7 @@ public class FurRoll implements Listener{
 					if(Math.random()<=0.1) {
 						if(player.getHealth()+1<player.getMaxHealth())
 							player.setHealth(player.getHealth()+1); 
-						PlayerManager.change(player,"san",1);
+						PlayerManager.change(player, PlayerManager.CheckType.SANITY,1);
 					}
 					if(Math.random()<=0.07) {
 						if(player.getFoodLevel()>=1) player.setFoodLevel(player.getFoodLevel()-1);

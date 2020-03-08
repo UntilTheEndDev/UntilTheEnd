@@ -44,7 +44,7 @@ public class InfluenceTasks {
             }
             for (World world : Config.enableWorlds)
                 for (Player player : world.getPlayers())
-                    if (PlayerManager.check(player, "san") <= disguiseSanity)
+                    if (PlayerManager.check(player, PlayerManager.CheckType.SANITY) <= disguiseSanity)
                         for (Entity entity : player.getNearbyEntities(disguiseRangeX, disguiseRangeY, disguiseRangeZ)) {
                             DisguiseType type = DisguiseType.values()[(int) (DisguiseType.values().length * Math.random() - 1)];
                             MobDisguise disguise = new MobDisguise(type);
@@ -61,7 +61,7 @@ public class InfluenceTasks {
         public void run() {
             for (World world : Config.enableWorlds)
                 for (Player player : world.getPlayers()) {
-                    if (PlayerManager.check(player, "san") <= confusionSanity) {
+                    if (PlayerManager.check(player, PlayerManager.CheckType.SANITY) <= confusionSanity) {
                         player.removePotionEffect(PotionEffectType.CONFUSION);
                         player.addPotionEffect(new PotionEffect(PotionEffectType.CONFUSION, 100, 0));
                     }

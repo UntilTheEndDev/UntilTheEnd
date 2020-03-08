@@ -8,6 +8,7 @@ import java.util.UUID;
 import java.util.function.BiFunction;
 import java.util.logging.Level;
 
+import HamsterYDS.UntilTheEnd.Config;
 import HamsterYDS.UntilTheEnd.internal.pdl.PlayerDataLoaderImpl;
 import org.bukkit.Bukkit;
 import org.bukkit.GameMode;
@@ -100,19 +101,36 @@ public class PlayerManager implements Listener {
         }
     }
 
-    public static int check(OfflinePlayer name, String type) {
+    public static int check(OfflinePlayer name, CheckType type) {
+        if (name instanceof Player) {
+            if (!Config.enableWorlds.contains(((Player) name).getWorld()))
+                switch (type) {
+                    case TEMPERATURE:
+                        return 37;
+                    case HUMIDITY:
+                        return 0;
+                    case SANITY:
+                        return 200;
+                    default:
+                        return 1;
+                }
+        }
         IPlayer player = players.get(name.getUniqueId());
-        if (player == null) return 1;
+        if (player == null || type == null) return 1;
         switch (type) {
-            case "tem":
+            case TEMPERATURE:
                 return player.temperature;
-            case "hum":
+            case HUMIDITY:
                 return player.humidity;
-            case "san":
+            case SANITY:
                 return player.sanity;
             default:
                 return 1;
         }
+    }
+
+    public static int check(OfflinePlayer name, String type) {
+        return check(name, CheckType.search(type));
     }
 
     public enum CheckType {
