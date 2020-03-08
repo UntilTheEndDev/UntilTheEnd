@@ -119,7 +119,7 @@ public class TemperatureProvider {
         int result = (int) (tems / tot);
         result = (int) (result - (1.5 * ((loc.getBlockY() - 50) / 10)));
         final double temperature = block.getTemperature();
-        result += (int) ((temperature - 0.8) * 10);
+        result += (int) ((temperature - 0.8) * 14); // TODO 配置可改
         return result;
     }
 
