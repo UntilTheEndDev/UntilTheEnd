@@ -15,6 +15,7 @@ public class HudProvider {
     public static HashMap<String, String> sanity = new HashMap<String, String>();
     public static HashMap<String, String> humidity = new HashMap<String, String>();
     public static HashMap<String, String> temperature = new HashMap<String, String>();
+    public static HashMap<String, String> tiredness = new HashMap<String, String>();
 
     public HudProvider(UntilTheEnd plugin) {
         plugin.saveResource("hud.yml", false);

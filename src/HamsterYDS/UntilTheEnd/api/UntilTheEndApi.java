@@ -125,6 +125,7 @@ public class UntilTheEndApi {
             if (type.equalsIgnoreCase("san")) return HudProvider.sanity.get(player.getName());
             if (type.equalsIgnoreCase("tem")) return HudProvider.temperature.get(player.getName());
             if (type.equalsIgnoreCase("hum")) return HudProvider.humidity.get(player.getName());
+            if (type.equalsIgnoreCase("tir")) return HudProvider.tiredness.get(player.getName());
             return "";
         }
 
@@ -151,6 +152,15 @@ public class UntilTheEndApi {
             if (tem <= 15) return HudProvider.yaml.getString("temperatureColor.15");
             if (tem <= 50) return HudProvider.yaml.getString("temperatureColor.50");
             if (tem <= 75) return HudProvider.yaml.getString("temperatureColor.75");
+            return "";
+        }
+        
+        public static String getTirednessColor(Player player) {
+            int tir = getValue(player, "tir");
+            if (tir <= 25) return HudProvider.yaml.getString("tirednessColor.25");
+            if (tir <= 50) return HudProvider.yaml.getString("tirednessColor.50");
+            if (tir <= 75) return HudProvider.yaml.getString("tirednessColor.75");
+            if (tir <= 100) return HudProvider.yaml.getString("tirednessColor.100");
             return "";
         }
 

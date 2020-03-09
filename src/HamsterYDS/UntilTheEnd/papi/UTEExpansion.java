@@ -32,6 +32,8 @@ public class UTEExpansion extends PlaceholderExpansion {
             return String.valueOf(UntilTheEndApi.PlayerApi.getValue(player, "tem"));
         } else if (identifier.equals("hum")) {
             return String.valueOf(UntilTheEndApi.PlayerApi.getValue(player, "hum"));
+        } else if (identifier.equals("tir")) {
+            return String.valueOf(UntilTheEndApi.PlayerApi.getValue(player, "tir"));
         } else if (identifier.equals("season")) {
             return UntilTheEndApi.WorldApi.getName(UntilTheEndApi.WorldApi.getSeason(player.getWorld()));
         } else if (identifier.equals("day")) {
@@ -42,14 +44,20 @@ public class UTEExpansion extends PlaceholderExpansion {
             return String.valueOf(UntilTheEndApi.PlayerApi.getTemperatureColor(player));
         } else if (identifier.equals("humiditycolor")) {
             return String.valueOf(UntilTheEndApi.PlayerApi.getHumidityColor(player));
+        } else if (identifier.equals("tirednesscolor")) {
+            return String.valueOf(UntilTheEndApi.PlayerApi.getTirednessColor(player));
         } else if (identifier.equals("seasoncolor")) {
             return String.valueOf(UntilTheEndApi.WorldApi.getSeasonColor(player.getWorld()));
         } else if (identifier.equals("sanitytend")) {
             return String.valueOf(UntilTheEndApi.PlayerApi.getChangingTend(player, "san"));
         } else if (identifier.equals("temperaturetend")) {
             return String.valueOf(UntilTheEndApi.PlayerApi.getChangingTend(player, "tem"));
+        } else if (identifier.equals("humiditytend")) {
+            return String.valueOf(UntilTheEndApi.PlayerApi.getChangingTend(player, "hum"));
+        } else if (identifier.equals("tirednesstend")) {
+            return String.valueOf(UntilTheEndApi.PlayerApi.getChangingTend(player, "tir"));
         } else {
-            return identifier.equals("humiditytend") ? String.valueOf(UntilTheEndApi.PlayerApi.getChangingTend(player, "hum")) : "";
+        	return identifier;
         }
     }
 }

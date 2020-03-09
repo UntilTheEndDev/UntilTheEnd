@@ -13,6 +13,11 @@ temperatureColor: #温度状态对应的颜色
   15: "§9§l"
   50: "§6§l"
   75: "§4§l"
+temperatureColor: #温度状态对应的颜色
+  25: "§e§l"
+  50: "§6§l"
+  75: "§c§l"
+  100: "§4§l"
 seasonColor: #季节文字对应的颜色
   SPRING: "§2§l"
   SUMMER: "§e§l"

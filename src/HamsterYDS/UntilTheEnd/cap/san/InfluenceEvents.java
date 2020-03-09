@@ -9,7 +9,6 @@ import org.bukkit.event.player.AsyncPlayerChatEvent;
 import org.bukkit.event.player.PlayerMoveEvent;
 
 import HamsterYDS.UntilTheEnd.Config;
-import HamsterYDS.UntilTheEnd.UntilTheEnd;
 import HamsterYDS.UntilTheEnd.player.PlayerManager;
 
 /**
@@ -20,10 +19,6 @@ public class InfluenceEvents implements Listener {
     public static int moveWronglySanity = Sanity.yaml.getInt("moveWronglySanity");
     public static double moveWronglyPercent = Sanity.yaml.getDouble("moveWronglyPercent");
     public static int chatablessSanity = Sanity.yaml.getInt("chatablessSanity");
-
-    public InfluenceEvents(UntilTheEnd plugin) {
-        plugin.getServer().getPluginManager().registerEvents(this, plugin);
-    }
 
     @EventHandler
     public void onMove(PlayerMoveEvent event) {

@@ -50,6 +50,7 @@ public class PlayerManager implements Listener {
         HudProvider.sanity.put(name, " ");
         HudProvider.humidity.put(name, " ");
         HudProvider.temperature.put(name, " ");
+        HudProvider.tiredness.put(name, " "); 
     }
 
     @EventHandler
@@ -61,11 +62,12 @@ public class PlayerManager implements Listener {
         HudProvider.sanity.remove(name);
         HudProvider.humidity.remove(name);
         HudProvider.temperature.remove(name);
+        HudProvider.tiredness.remove(name);
     }
 
     @EventHandler
     public void onDeath(PlayerDeathEvent event) {
-        IPlayer player = new IPlayer(37, 0, 200);
+        IPlayer player = new IPlayer(37, 0, 200, 0);
         players.put(event.getEntity().getUniqueId(), player);
     }
 
@@ -73,17 +75,19 @@ public class PlayerManager implements Listener {
         int humidity = 0;
         int temperature = 37;
         int sanity = 200;
+        int tiredness = 0;
         try {
             final Map<String, Object> load = PlayerDataLoaderImpl.loader.load(playerdata, name);
             if (load != null) {
                 humidity = ((Number) load.get("humidity")).intValue();
                 temperature = ((Number) load.get("temperature")).intValue();
                 sanity = ((Number) load.get("sanity")).intValue();
+                tiredness = ((Number) load.get("tiredness")).intValue();
             }
         } catch (Throwable exception) {
             plugin.getLogger().log(Level.WARNING, "Failed to load " + name, exception);
         }
-        IPlayer player = new IPlayer(temperature, humidity, sanity);
+        IPlayer player = new IPlayer(temperature, humidity, sanity, tiredness);
         players.put(name.getUniqueId(), player);
     }
 
@@ -93,6 +97,7 @@ public class PlayerManager implements Listener {
         data.put("humidity", player.humidity);
         data.put("temperature", player.temperature);
         data.put("sanity", player.sanity);
+        data.put("tiredness", player.tiredness);
         try {
             PlayerDataLoaderImpl.loader.save(playerdata, name, data);
         } catch (IOException e) {
@@ -110,6 +115,8 @@ public class PlayerManager implements Listener {
                     return 0;
                 case SANITY:
                     return 200;
+                case TIREDNESS:
+                	return 0;
                 default:
                     return 1;
             }
@@ -122,6 +129,8 @@ public class PlayerManager implements Listener {
                 return ip.humidity;
             case SANITY:
                 return ip.sanity;
+            case TIREDNESS:
+            	return ip.tiredness;
             default:
                 return 1;
         }
@@ -132,7 +141,7 @@ public class PlayerManager implements Listener {
     }
 
     public enum CheckType {
-        SANITY("san"), TEMPERATURE("tem"), HUMIDITY("hum");
+        SANITY("san"), TEMPERATURE("tem"), HUMIDITY("hum"), TIREDNESS("tir"); 
         private final String sname;
 
         public String getShortName() {
@@ -208,6 +217,18 @@ public class PlayerManager implements Listener {
                 if (ip.sanity < 0) ip.sanity = 0;
                 if (ip.sanity > 200) ip.sanity = 200;
                 break;
+            case TIREDNESS:
+            	ip.tiredness +=counter;
+            	HudProvider.tiredness.put(player.getName(), mark);
+            	 new BukkitRunnable() {
+                     @Override
+                     public void run() {
+                         HudProvider.tiredness.computeIfPresent(player.getName(), buildMarkFunc(mark));
+                     }
+                 }.runTaskLater(plugin, 40L);
+                 if (ip.tiredness < 0) ip.tiredness = 0;
+                 if (ip.tiredness > 100) ip.tiredness = 100;
+                 break;
         }
     }
 
@@ -240,11 +261,13 @@ public class PlayerManager implements Listener {
         public int temperature;
         public int humidity;
         public int sanity;
+        public int tiredness;
 
-        public IPlayer(int temperature, int humidity, int sanity) {
+        public IPlayer(int temperature, int humidity, int sanity, int tiredness) {
             this.temperature = temperature;
             this.humidity = humidity;
             this.sanity = sanity;
+            this.tiredness=tiredness;
         }
     }
 }
