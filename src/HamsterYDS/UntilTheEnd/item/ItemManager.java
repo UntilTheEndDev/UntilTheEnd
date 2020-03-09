@@ -79,7 +79,7 @@ import org.bukkit.inventory.meta.ItemMeta;
  * @version V5.1.1
  */
 public class ItemManager {
-    public static UntilTheEnd plugin;
+    public static UntilTheEnd plugin = UntilTheEnd.getInstance();
     private static HashMap<ItemStack, NamespacedKey> nsks = new HashMap<ItemStack, NamespacedKey>();
     public static HashMap<String, String> idsAndNames = new HashMap<String, String>();
     public static HashMap<String, ItemStack> namesAndItems = new HashMap<String, ItemStack>();
@@ -91,13 +91,8 @@ public class ItemManager {
     public static YamlConfiguration yaml2;
 
     public ItemManager(UntilTheEnd plugin) {
-        this.plugin = plugin;
-        File file1 = new File(plugin.getDataFolder(), "itemsets.yml");
-        File file2 = new File(plugin.getDataFolder(), "items.yml");
-        Config.autoUpdateConfigs("itemsets.yml");// TODO
-        Config.autoUpdateConfigs("items.yml");// TODO
-        yaml1 = YamlConfiguration.loadConfiguration(file1);
-        yaml2 = YamlConfiguration.loadConfiguration(file2);
+        yaml1 = Config.autoUpdateConfigs("itemsets.yml");// TODO
+        yaml2 = Config.autoUpdateConfigs("items.yml");// TODO
         for (String path : yaml2.getKeys(false)) {
             if (!yaml2.getBoolean(path + ".enable"))
                 continue;

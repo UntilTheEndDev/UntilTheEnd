@@ -3,6 +3,7 @@ package HamsterYDS.UntilTheEnd.world;
 import java.util.HashMap;
 
 import HamsterYDS.UntilTheEnd.internal.LightingCompensation;
+import HamsterYDS.UntilTheEnd.internal.UTEi18n;
 import org.bukkit.GameMode;
 import org.bukkit.Location;
 import org.bukkit.Material;
@@ -129,11 +130,11 @@ public class InfluenceTasks {
 
                     if (darkness.containsKey(player.getName())) {
                         if (darkness.get(player.getName()) == warn) {
-                            player.sendTitle("§8我什么也看不见....", "§8那是什么声音？");
+                            player.sendTitle(UTEi18n.cache("mechanism.darkness.who-is-there.main"), UTEi18n.cache("mechanism.darkness.who-is-there.sub"));
                             PlayerManager.change(player, PlayerManager.CheckType.SANITY, san_warn);
                         }
                         if (darkness.get(player.getName()) >= attack) {
-                            player.sendTitle("§8ヾ(≧O≦)〃啊~！什么东西？", "§8他打了我一下....");
+                            player.sendTitle(UTEi18n.cache("mechanism.darkness.hurt-me.main"), UTEi18n.cache("mechanism.darkness.hurt-me.sub"));
                             player.damage(damage);
                             if (player.getHealth() <= san_attack)
                                 DeathMessage.causes.put(player.getName(), DeathCause.DARKNESS);

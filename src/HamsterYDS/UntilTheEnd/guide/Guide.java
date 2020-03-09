@@ -2,6 +2,7 @@ package HamsterYDS.UntilTheEnd.guide;
 
 import java.util.ArrayList;
 
+import HamsterYDS.UntilTheEnd.internal.UTEi18n;
 import org.bukkit.Bukkit;
 import org.bukkit.Material;
 import org.bukkit.entity.Player;
@@ -28,23 +29,23 @@ public class Guide implements Listener {
     public static ItemStack item = new ItemStack(Material.ENCHANTED_BOOK);
     public static ItemStack craftItem = new ItemStack(Material.ENCHANTED_BOOK);
     public static ItemStack mechanismItem = new ItemStack(Material.ENCHANTED_BOOK);
-    public static Inventory inv = Bukkit.createInventory(HolderMainGuide.INSTANCE, 27, "UntilTheEnd:帮助");
+    public static Inventory inv = Bukkit.createInventory(HolderMainGuide.INSTANCE, 27, UTEi18n.cache("item.guide.help.main.main"));
 
     public Guide(UntilTheEnd plugin) {
         plugin.getServer().getPluginManager().registerEvents(this, plugin);
         new CraftGuide(plugin);
         new MechanismGuide(plugin);
         ItemMeta meta1 = item.getItemMeta();
-        meta1.setDisplayName("§6§lUntilTheEnd指导");
+        meta1.setDisplayName(UTEi18n.cache("item.guide.help.main.item"));
         item.setItemMeta(meta1);
         ItemMeta meta2 = craftItem.getItemMeta();
-        meta2.setDisplayName("§6§lUntilTheEnd合成指导");
+        meta2.setDisplayName(UTEi18n.cache("item.guide.help.crafting.item"));
         craftItem.setItemMeta(meta2);
         ItemMeta meta3 = mechanismItem.getItemMeta();
-        meta3.setDisplayName("§6§lUntilTheEnd机制指导");
+        meta3.setDisplayName(UTEi18n.cache("item.guide.help.mechanism.item"));
         mechanismItem.setItemMeta(meta3);
 
-        ItemStack frame = getItem("§8边框", Material.STAINED_GLASS_PANE, 15);
+        ItemStack frame = getItem(UTEi18n.cache("item.guide.border"), Material.STAINED_GLASS_PANE, 15);
         for (int i = 0; i < 9; i++) inv.setItem(i, frame);
         inv.setItem(9, frame);
         inv.setItem(17, frame);

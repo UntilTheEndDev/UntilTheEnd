@@ -59,6 +59,10 @@ public abstract class FormatAction {
         protected final Collection<FormatAction> actions;
         protected boolean closed;
 
+        public Collection<FormatAction> getActions() {
+            return actions;
+        }
+
         public ActionLink() {
             this(new ConcurrentLinkedQueue<>());
         }
@@ -165,6 +169,10 @@ public abstract class FormatAction {
     public static class ActionGetKey extends FormatAction {
         private final String key;
         private final BiConsumer<StringBuilder, String> unknown_variable;
+
+        public String getKey() {
+            return key;
+        }
 
         public ActionGetKey(@NotNull String key) {
             this(key, null);

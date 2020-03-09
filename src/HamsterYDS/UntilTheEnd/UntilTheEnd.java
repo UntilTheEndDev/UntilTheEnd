@@ -7,6 +7,7 @@ import java.net.URL;
 import java.util.logging.Level;
 
 import HamsterYDS.UntilTheEnd.cap.HudBossBar;
+import HamsterYDS.UntilTheEnd.internal.UTEi18n;
 import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
@@ -73,7 +74,7 @@ public class UntilTheEnd extends JavaPlugin implements Listener {
         new ItemManager(this);
         new Commands(this);
         new UTEExpansion().register();
-        getLogger().log(Level.INFO, "数据存储模式: " + PlayerDataLoaderImpl.loader.getClass().getSimpleName() + "[" + getConfig().getString("saving") + "]");
+        getLogger().log(Level.INFO, UTEi18n.parse("logging.store.type", PlayerDataLoaderImpl.loader.getClass().getSimpleName(), getConfig().getString("saving")));
     }
 
     @Override
@@ -99,16 +100,16 @@ public class UntilTheEnd extends JavaPlugin implements Listener {
     public void checkUpdate() {
         new BukkitRunnable() {
             public void run() {
-                Bukkit.getConsoleSender().sendMessage("[UntilTheEnd]插件检查更新中......");
-                Bukkit.getConsoleSender().sendMessage("[UntilTheEnd]插件当前版本为>>" + getDescription().getVersion());
+                Bukkit.getConsoleSender().sendMessage(UTEi18n.cacheWithPrefix("logging.update.checking"));
+                Bukkit.getConsoleSender().sendMessage(UTEi18n.cache("prefix") + UTEi18n.parse("logging.update.current", getDescription().getVersion()));
                 latestVersion = getLatestVersion();
                 if (latestVersion == null) {
                     return;
                 }
                 if (latestVersion.equalsIgnoreCase(getDescription().getVersion())) {
-                    getLogger().info("您的插件已经是最新版啦！");
+                    getLogger().info(UTEi18n.cacheWithPrefix("logging.update.latest"));
                 } else {
-                    getLogger().info("您的插件不是最新版，请立即更新！");
+                    getLogger().info(UTEi18n.cacheWithPrefix("logging.update.update"));
                     isLatest = false;
                     Bukkit.getOnlinePlayers().forEach(this::sendUpdate);
                     Bukkit.getPluginManager().registerEvents(new Listener() {
@@ -122,7 +123,7 @@ public class UntilTheEnd extends JavaPlugin implements Listener {
 
             private void sendUpdate(Player player) {
                 if (player.hasPermission("ute.update"))
-                    player.sendMessage("§6§l[UntilTheEnd]§4§l您的插件不是最新版，很有可能有BUG！");
+                    player.sendMessage(UTEi18n.cacheWithPrefix("logging.update.for-player"));
             }
         }.runTaskAsynchronously(this);
     }

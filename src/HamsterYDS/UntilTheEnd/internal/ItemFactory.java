@@ -21,6 +21,7 @@ import java.lang.invoke.MethodHandles;
 import java.lang.invoke.MethodType;
 import java.util.function.Function;
 
+@SuppressWarnings({"unchecked", "JavaLangInvokeHandleSignature"})
 public class ItemFactory {
     private static final Function<String, Material> valueOf;
     private static final Function<ItemStack, Material> getType;

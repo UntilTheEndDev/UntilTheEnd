@@ -3,6 +3,7 @@ package HamsterYDS.UntilTheEnd.cap.hum;
 import java.util.HashMap;
 import java.util.UUID;
 
+import HamsterYDS.UntilTheEnd.internal.UTEi18n;
 import HamsterYDS.UntilTheEnd.manager.WetManager;
 import org.bukkit.entity.Entity;
 import org.bukkit.event.EventHandler;
@@ -46,7 +47,7 @@ public class InfluenceEvents implements Listener {
         if (wetFoodLevels.containsKey(entity.getUniqueId())) {
             int currentLevel = wetFoodLevels.get(entity.getUniqueId());
             event.setFoodLevel((int) (((double) (event.getFoodLevel() - currentLevel)) * wetFoodLevel) + currentLevel);
-            entity.sendMessage("§6[§cUntilTheEnd§6]§r 潮湿的食物真难吃~");  //Language-TODO
+            entity.sendMessage(UTEi18n.cacheWithPrefix("item.machine.wet.use"));
             wetFoodLevels.remove(entity.getUniqueId());
         }
     }
@@ -57,7 +58,7 @@ public class InfluenceEvents implements Listener {
         ItemStack item = event.getCursor();
         if (item == null) return;
         if (WetManager.isWet(item)) {
-            event.getWhoClicked().sendMessage("§6[§cUntilTheEnd§6]§r 潮湿的物品貌似不能拖动，它们太笨重了！"); //Language-TODO
+            event.getWhoClicked().sendMessage(UTEi18n.cacheWithPrefix("item.machine.wet.inv-drag"));
             event.setCancelled(true);
         }
     }
@@ -71,7 +72,7 @@ public class InfluenceEvents implements Listener {
         ItemStack item = event.getCursor();
         if (item == null) return;
         if (WetManager.isWet(item)) {
-            event.getWhoClicked().sendMessage("§6[§cUntilTheEnd§6]§r 潮湿的物品貌似不能用于合成，它们太笨重了！"); //Language-TODO
+            event.getWhoClicked().sendMessage(UTEi18n.cacheWithPrefix("item.machine.wet.no-crafting"));
             event.setCancelled(true);
         }
     }

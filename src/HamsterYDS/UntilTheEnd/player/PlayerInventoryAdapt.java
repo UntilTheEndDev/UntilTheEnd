@@ -3,6 +3,7 @@ package HamsterYDS.UntilTheEnd.player;
 import java.util.ArrayList;
 import java.util.HashMap;
 
+import HamsterYDS.UntilTheEnd.internal.UTEi18n;
 import org.bukkit.Bukkit;
 import org.bukkit.GameMode;
 import org.bukkit.Material;
@@ -41,10 +42,10 @@ public class PlayerInventoryAdapt extends BukkitRunnable implements Listener{
 		ItemStack itemS=inv.getItem(event.getSlot());
 		ItemStack itemC=event.getCursor();
 		if(itemS!=null)
-			if(getName(itemS).equalsIgnoreCase("§8锁定")) 
+			if(getName(itemS).equalsIgnoreCase(UTEi18n.cache("item.locked")))
 				event.setCancelled(true);
 		if(itemC!=null)
-			if(getName(itemC).equalsIgnoreCase("§8锁定")) 
+			if(getName(itemC).equalsIgnoreCase(UTEi18n.cache("item.locked")))
 				event.setCancelled(true);
 	}
 	private static ArrayList<String> lockingPlayers=new ArrayList<String>();
@@ -62,7 +63,7 @@ public class PlayerInventoryAdapt extends BukkitRunnable implements Listener{
 						extraSize+=getSize(item);
 					for(int i=35;i>35-lockingSlot+extraSize;i--) {
 						if(i<0) break;
-						if(getName(inv.getItem(slots[i])).equalsIgnoreCase("§8锁定")) 
+						if(getName(inv.getItem(slots[i])).equalsIgnoreCase(UTEi18n.cache("item.locked")))
 							inv.getItem(slots[i]).setAmount(1); 
 						if(inv.getItem(slots[i])==null) 
 							inv.setItem(slots[i],item1);
@@ -70,7 +71,7 @@ public class PlayerInventoryAdapt extends BukkitRunnable implements Listener{
 					for(int i=35-lockingSlot+extraSize;i>-1;i--) {
 						if(i<0) break;
 						ItemStack item=inv.getItem(slots[i]);
-						if(getName(item).equalsIgnoreCase("§8锁定")) 
+						if(getName(item).equalsIgnoreCase(UTEi18n.cache("item.locked")))
 							inv.setItem(slots[i],new ItemStack(Material.AIR));
 					} 
 				}
@@ -79,7 +80,7 @@ public class PlayerInventoryAdapt extends BukkitRunnable implements Listener{
 			PlayerInventory inv=player.getInventory();
 			for(int slot=0;slot<inv.getSize();slot++) {
 				ItemStack item=inv.getItem(slot);
-				if(getName(item).equalsIgnoreCase("§8锁定"))
+				if(getName(item).equalsIgnoreCase(UTEi18n.cache("item.locked")))
 					inv.remove(item);
 			}
 		}
@@ -97,7 +98,7 @@ public class PlayerInventoryAdapt extends BukkitRunnable implements Listener{
 				return item.getItemMeta().getDisplayName();
 		return "";
 	}
-	private ItemStack item1=getItem(Material.STAINED_GLASS_PANE,15,"§8锁定");
+	private ItemStack item1=getItem(Material.STAINED_GLASS_PANE,15,UTEi18n.cache("item.locked"));
 	public static ItemStack getItem(Material material,int data,String name) {
 		ItemStack item=new ItemStack(material,1);
 		item.setDurability((short) data);

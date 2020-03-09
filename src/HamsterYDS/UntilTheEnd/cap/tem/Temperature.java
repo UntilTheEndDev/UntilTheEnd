@@ -2,6 +2,8 @@ package HamsterYDS.UntilTheEnd.cap.tem;
 
 import java.io.File;
 
+import HamsterYDS.UntilTheEnd.internal.UTEi18n;
+import org.bukkit.Bukkit;
 import org.bukkit.configuration.file.YamlConfiguration;
 
 import HamsterYDS.UntilTheEnd.Config;
@@ -15,10 +17,8 @@ public class Temperature {
     public static YamlConfiguration yaml;
 
     public Temperature(UntilTheEnd plugin) {
-        Config.autoUpdateConfigs("temperature.yml");
-        File file = new File(plugin.getDataFolder(), "temperature.yml");
-        yaml = YamlConfiguration.loadConfiguration(file);
-        System.out.println("[UntilTheEnd]正在加载温度计算模块......");
+        yaml = Config.autoUpdateConfigs("temperature.yml");
+        Bukkit.getConsoleSender().sendMessage(UTEi18n.cacheWithPrefix("cap.tem.provider.loading"));
         new TemperatureProvider(plugin);
         new ChangeTasks(plugin);
         new InfluenceTasks(plugin);

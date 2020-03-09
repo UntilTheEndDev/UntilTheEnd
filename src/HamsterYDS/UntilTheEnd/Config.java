@@ -50,7 +50,7 @@ public class Config {
         return (yaml.getString("prefix") + yaml.getString(path, path));
     }
 
-    public static void autoUpdateConfigs(String name) {
+    public static YamlConfiguration autoUpdateConfigs(String name) {
         File file = new File(plugin.getDataFolder(), name);
         final YamlConfiguration yaml = YamlConfiguration.loadConfiguration(file);
         plugin.saveResource(name, true);
@@ -64,5 +64,6 @@ public class Config {
         } catch (IOException e) {
             e.printStackTrace();
         }
+        return YamlConfiguration.loadConfiguration(file);
     }
 }

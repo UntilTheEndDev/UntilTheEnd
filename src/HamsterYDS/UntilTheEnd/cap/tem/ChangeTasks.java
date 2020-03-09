@@ -51,7 +51,9 @@ public class ChangeTasks {
                 if (meta.getDisplayName() == null) continue;
                 if (meta.getDisplayName().equalsIgnoreCase("§6暖石")) {
                     List<String> lores = meta.getLore();
+                    int line_line = -1;
                     for (String line : lores) {
+                        line_line++;
                         if (!line.contains("§8- §8§l温度 ")) continue;
                         line = line.replace("§8- §8§l温度 ", "");
                         int naturalTem = TemperatureProvider.getBlockTemperature(player.getLocation());
@@ -66,8 +68,7 @@ public class ChangeTasks {
                                 line = "§8- §8§l温度 " + (stoneTem + 1);
                             if (stoneTem == naturalTem)
                                 line = "§8- §8§l温度 " + (stoneTem);
-                            lores.remove(lores.size() - 1);
-                            lores.add(line);
+                            lores.set(line_line, line);
                             meta.setLore(lores);
                             item.setItemMeta(meta);
                             inv.setItem(slot, item);
@@ -93,18 +94,18 @@ public class ChangeTasks {
             double downFactor = 0.0;
             PlayerInventory inv = player.getInventory();
             for (ItemStack item : inv.getArmorContents())
-                if (clothesChangeTemperature.containsKey(getName(item))){
+                if (clothesChangeTemperature.containsKey(getName(item))) {
                     if (clothesChangeTemperature.get(getName(item)) > 0) {
                         upFactor += clothesChangeTemperature.get(getName(item));
                     } else downFactor += clothesChangeTemperature.get(getName(item));
                 }
-            if(upFactor==2) return false;
+            if (upFactor == 2) return false;
             if (upOrDown) {
-				return !(Math.random() < upFactor);
+                return !(Math.random() < upFactor);
             } else {
-				return !(Math.random() < downFactor);
+                return !(Math.random() < downFactor);
             }
-		}
+        }
 
         public String getName(ItemStack item) {
             if (item != null)

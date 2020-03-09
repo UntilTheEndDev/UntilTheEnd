@@ -40,7 +40,9 @@ public class Commands implements CommandExecutor, Listener, TabCompleter {
         cmdTab.addAll(Arrays.asList("cheat", "give", "guide", "help", "material", "entitytype", "set", "season", "temp"));
         for (Season season : Season.values())
             seasonTab.add(season.name().toLowerCase());
-        capTab.addAll(Arrays.asList("san", "hum", "tem"));
+        for (PlayerManager.CheckType type : PlayerManager.CheckType.values()) {
+            capTab.add(type.getShortName());
+        }
         Collections.sort(itemTab);
         Collections.sort(cmdTab);
     }

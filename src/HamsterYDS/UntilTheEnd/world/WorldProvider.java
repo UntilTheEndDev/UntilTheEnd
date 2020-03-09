@@ -5,6 +5,7 @@ import java.util.HashMap;
 
 import HamsterYDS.UntilTheEnd.Config;
 import HamsterYDS.UntilTheEnd.UntilTheEnd;
+import HamsterYDS.UntilTheEnd.internal.UTEi18n;
 
 public class WorldProvider {
     public static HashMap<String, IWorld> worldStates = new HashMap<String, IWorld>();
@@ -33,7 +34,7 @@ public class WorldProvider {
     public static void saveWorlds() {
         for (org.bukkit.World world : Config.enableWorlds) {
             IWorld state = worldStates.get(world.getName());
-            World.yaml.set(world.getName() + ".season", state.season.name);
+            World.yaml.set(world.getName() + ".season", state.season.name());
             World.yaml.set(world.getName() + ".day", state.day);
             World.yaml.set(world.getName() + ".loop", state.loop);
             try {
@@ -45,11 +46,11 @@ public class WorldProvider {
     }
 
     public enum Season {
-        SPRING("春天", 1),
-        SUMMER("夏天", 2),
-        AUTUMN("秋天", 3),
-        WINTER("冬天", 0),
-        NULL("未启用", 4);
+        SPRING(UTEi18n.cache("season.spring"), 1),
+        SUMMER(UTEi18n.cache("season.summer"), 2),
+        AUTUMN(UTEi18n.cache("season.autumn"), 3),
+        WINTER(UTEi18n.cache("season.winter"), 0),
+        NULL(UTEi18n.cache("season.disable"), 4);
         String name;
         int keepTime;
         int next;
@@ -64,18 +65,7 @@ public class WorldProvider {
         }
 
         static Season getSeason(String name) {
-            switch (name) {
-                case "春天":
-                    return SPRING;
-                case "夏天":
-                    return SUMMER;
-                case "秋天":
-                    return AUTUMN;
-                case "冬天":
-                    return WINTER;
-                default:
-                    return AUTUMN;
-            }
+            return found(name);
         }
 
         private void load() {
@@ -101,6 +91,10 @@ public class WorldProvider {
 
         public int newLoop() {
             return Math.max(1, keepTime + (int) ((Math.random() - 0.5) * 10));
+        }
+
+        public String getName() {
+            return name;
         }
     }
 

@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Set;
 
+import HamsterYDS.UntilTheEnd.internal.UTEi18n;
 import org.bukkit.Bukkit;
 import org.bukkit.Location;
 import org.bukkit.Material;
@@ -179,19 +180,7 @@ public class UntilTheEndApi {
         }
 
         public static String getName(Season season) {
-            switch (season) {
-                case SPRING:
-                    return "春天";
-                case SUMMER:
-                    return "夏天";
-                case WINTER:
-                    return "冬天";
-                case NULL:
-                    return "未启用";
-                case AUTUMN:
-                default:
-                    return "秋天";
-            }
+            return season.getName();
         }
 
         public static Season getSeason(World world) {
@@ -220,8 +209,8 @@ public class UntilTheEndApi {
         }
 
         public static void addCraftToItem(ItemStack item, Inventory inventory) {
-            ItemStack back = CraftGuide.getItem("§a返回上一层", Material.STAINED_GLASS_PANE, 6);
-            ItemStack menu = CraftGuide.getItem("§a返回主菜单", Material.STAINED_GLASS_PANE, 9);
+            ItemStack back = CraftGuide.getItem(UTEi18n.cache("item.guide.action.previous"), Material.STAINED_GLASS_PANE, 6);
+            ItemStack menu = CraftGuide.getItem(UTEi18n.cache("item.guide.action.main"), Material.STAINED_GLASS_PANE, 9);
             inventory.setItem(0, back);
             inventory.setItem(8, menu);
             CraftGuide.crafts.put(item, inventory);

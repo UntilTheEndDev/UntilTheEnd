@@ -1,5 +1,6 @@
 package HamsterYDS.UntilTheEnd.cap.hum;
 
+import HamsterYDS.UntilTheEnd.internal.UTEi18n;
 import HamsterYDS.UntilTheEnd.manager.WetManager;
 import org.bukkit.World;
 import org.bukkit.entity.Entity;
@@ -38,7 +39,7 @@ public class InfluenceTasks {
                     int hum = PlayerManager.check(player, PlayerManager.CheckType.HUMIDITY);
                     if (hum <= effectHumidity) continue;
                     if (!player.hasPotionEffect(PotionEffectType.SLOW_DIGGING))
-                        player.sendMessage("§6[§cUntilTheEnd§6]§r 我全身都淋湿了！");  //Language-TODO
+                        player.sendMessage(UTEi18n.cacheWithPrefix("cap.hum.drenched"));
                     player.removePotionEffect(PotionEffectType.SLOW_DIGGING);
                     player.addPotionEffect(new PotionEffect(PotionEffectType.SLOW_DIGGING, 300, 1));
                 }

@@ -5,6 +5,7 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.Objects;
 
+import HamsterYDS.UntilTheEnd.internal.UTEi18n;
 import org.bukkit.Bukkit;
 import org.bukkit.Material;
 import org.bukkit.entity.Player;
@@ -35,7 +36,7 @@ public class CraftGuide implements Listener {
     public static HashMap<String, ArrayList<Inventory>> playerInvs = new HashMap<String, ArrayList<Inventory>>();
     public static ArrayList<String> cheating = new ArrayList<String>();
 
-    public static Inventory inv = Bukkit.createInventory(HolderCraftingHelp.INSTANCE, 45, "UntilTheEnd:合成帮助");
+    public static Inventory inv = Bukkit.createInventory(HolderCraftingHelp.INSTANCE, 45, UTEi18n.cache("item.guide.help.crafting.main"));
 
     public CraftGuide(UntilTheEnd plugin) {
         plugin.getServer().getPluginManager().registerEvents(this, plugin);
@@ -50,7 +51,7 @@ public class CraftGuide implements Listener {
     }
 
     public static void loadTypes() {
-        ItemStack frame = getItem("§8边框", Material.STAINED_GLASS_PANE, 15);
+        ItemStack frame = getItem(UTEi18n.cache("item.guide.border"), Material.STAINED_GLASS_PANE, 15);
         for (int i = 0; i < 9; i++) inv.setItem(i, frame);
         inv.setItem(9, frame);
         inv.setItem(17, frame);
@@ -202,8 +203,8 @@ public class CraftGuide implements Listener {
 
     //获取一个新的类型GUI（多物品）
     public static Inventory loadNew() {
-        ItemStack frame = getItem("§8边框", Material.STAINED_GLASS_PANE, 15);
-        Inventory inv = Bukkit.createInventory(HolderCraftingHelp.INSTANCE, 45, "UntilTheEnd:合成帮助");
+        ItemStack frame = getItem(UTEi18n.cache("item.guide.border"), Material.STAINED_GLASS_PANE, 15);
+        Inventory inv = Bukkit.createInventory(HolderCraftingHelp.INSTANCE, 45, UTEi18n.cache("item.guide.help.crafting.main"));
         /**/
         for (int i = 0; i < 9; i++) inv.setItem(i, frame);
         inv.setItem(9, frame);
@@ -214,12 +215,12 @@ public class CraftGuide implements Listener {
         inv.setItem(35, frame);
         for (int i = 36; i < 45; i++) inv.setItem(i, frame);
         /**/
-        ItemStack last = getItem("§a上一页", Material.STAINED_GLASS_PANE, 4);
-        ItemStack next = getItem("§a下一页", Material.STAINED_GLASS_PANE, 11);
+        ItemStack last = getItem(UTEi18n.cache("item.guide.action.previous-page"), Material.STAINED_GLASS_PANE, 4);
+        ItemStack next = getItem(UTEi18n.cache("item.guide.action.next-page"), Material.STAINED_GLASS_PANE, 11);
         inv.setItem(36, last);
         inv.setItem(44, next);
-        ItemStack back = getItem("§a返回上一层", Material.STAINED_GLASS_PANE, 6);
-        ItemStack menu = getItem("§a返回主菜单", Material.STAINED_GLASS_PANE, 9);
+        ItemStack back = getItem(UTEi18n.cache("item.guide.action.previous"), Material.STAINED_GLASS_PANE, 6);
+        ItemStack menu = getItem(UTEi18n.cache("item.guide.action.main"), Material.STAINED_GLASS_PANE, 9);
         inv.setItem(0, back);
         inv.setItem(8, menu);
         return inv;
@@ -234,8 +235,8 @@ public class CraftGuide implements Listener {
 
     //加载一个新的物品合成展示GUI
     public static Inventory getCraftInventory() {
-        ItemStack frame = getItem("§8边框", Material.STAINED_GLASS_PANE, 15);
-        Inventory craftInv = Bukkit.createInventory(HolderCraftingHelp.INSTANCE, 27, "UntilTheEnd:合成帮助");
+        ItemStack frame = getItem(UTEi18n.cache("item.guide.border"), Material.STAINED_GLASS_PANE, 15);
+        Inventory craftInv = Bukkit.createInventory(HolderCraftingHelp.INSTANCE, 27, UTEi18n.cache("item.guide.help.crafting.main"));
         for (int i = 0; i < 9; i++) craftInv.setItem(i, frame);
         craftInv.setItem(9, frame);
         craftInv.setItem(17, frame);

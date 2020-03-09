@@ -11,12 +11,15 @@ package HamsterYDS.UntilTheEnd.manager;
 import java.util.ArrayList;
 import java.util.List;
 
+import HamsterYDS.UntilTheEnd.internal.UTEi18n;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
 
 import HamsterYDS.UntilTheEnd.cap.hum.HumidityProvider;
 
 public class WetManager {
+    private static final String LORE = UTEi18n.cache("item.machine.wet.lore");
+
     public static void setWet(ItemStack stack, boolean state) {
         if (stack == null) return;
         if (state) {
@@ -31,8 +34,9 @@ public class WetManager {
         List<String> lore = meta.getLore();
         if (lore == null) lore = new ArrayList<>();
         if (state) {
-            lore.add("§8- §8§l潮湿的");
-        } else lore.remove("§8- §8§l潮湿的");
+            if (!lore.contains(LORE))
+                lore.add(LORE);
+        } else lore.remove(LORE);
         meta.setLore(lore);
         stack.setItemMeta(meta);
     }
@@ -43,9 +47,7 @@ public class WetManager {
         if (!item.getItemMeta().hasLore()) return false;
         ItemMeta meta = item.getItemMeta();
         List<String> lore = meta.getLore();
-        for (String s : lore)
-            if (s.startsWith("§8- §8§l潮湿的"))
-                return true;
+        if (lore != null) return lore.contains(LORE);
         return false;
     }
 }

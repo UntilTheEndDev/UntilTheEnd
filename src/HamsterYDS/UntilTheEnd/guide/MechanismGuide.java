@@ -1,8 +1,10 @@
 package HamsterYDS.UntilTheEnd.guide;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
+import HamsterYDS.UntilTheEnd.internal.UTEi18n;
 import org.bukkit.Bukkit;
 import org.bukkit.Material;
 import org.bukkit.entity.Player;
@@ -23,7 +25,7 @@ import HamsterYDS.UntilTheEnd.UntilTheEnd;
  * @version V5.1.1
  */
 public class MechanismGuide implements Listener {
-    public static Inventory inv = Bukkit.createInventory(HolderMechanismGuide.INSTANCE, 45, "UntilTheEnd:机制帮助");
+    public static Inventory inv = Bukkit.createInventory(HolderMechanismGuide.INSTANCE, 45, UTEi18n.cache("item.guide.help.mechanism.main"));
 
     public MechanismGuide(UntilTheEnd plugin) {
         plugin.getServer().getPluginManager().registerEvents(this, plugin);
@@ -31,7 +33,7 @@ public class MechanismGuide implements Listener {
     }
 
     public MechanismGuide() {
-        ItemStack frame = getItem1("§8边框", Material.STAINED_GLASS_PANE, 15);
+        ItemStack frame = getItem1(UTEi18n.cache("item.guide.border"), Material.STAINED_GLASS_PANE, 15);
         for (int i = 0; i < 9; i++) inv.setItem(i, frame);
         inv.setItem(9, frame);
         inv.setItem(17, frame);
@@ -41,62 +43,24 @@ public class MechanismGuide implements Listener {
         inv.setItem(35, frame);
         for (int i = 36; i < 45; i++) inv.setItem(i, frame);
 
-        List<String> hudLores = new ArrayList<String>();
-        hudLores.add("§c§l玩家死亡将会回复原位");
-        hudLores.add("§e§l正常属性：");
-        hudLores.add("§d理智值§8-§d200");
-        hudLores.add("§d温度§8-§d15-55°C");
-        hudLores.add("§d湿度§8-§d小于10");
-        ItemStack hud = getItem2("§6固有属性", Material.STAINED_GLASS, 5, hudLores);
+        ItemStack hud = getItem2(UTEi18n.cache("item.guide.mechanism.normal.name"), Material.STAINED_GLASS, 5, Arrays.asList(
+                UTEi18n.cache("item.guide.mechanism.normal.lore").split("\\n")
+        ));
         inv.setItem(19, hud);
 
-        List<String> sanLores = new ArrayList<String>();
-        sanLores.add("§8玩家§d固有§8属性-表示玩家的§d清醒程度");
-        sanLores.add("§d§l控制因素(包括但不限于)：");
-        sanLores.add("§8▷身旁有§e§l怪物↓§8或§e§l玩家↑");
-        sanLores.add("§8▷湿度§e§l过高↓");
-        sanLores.add("§8▷穿§e§l特殊衣物↑↓");
-        sanLores.add("§8▷身上或持有§e§l特殊物品↑↓");
-        sanLores.add("§8▷§e§l傍晚↓夜晚↓↓");
-        sanLores.add("§8▷吃§e§l特殊食物↑↓");
-        sanLores.add("§8▷亮度§e§l过低↓");
-        sanLores.add("§d§l影响：");
-        sanLores.add("§8▷反胃§c<=§l120");
-        sanLores.add("§8▷打字乱码§c<=§l60");
-        sanLores.add("§8▷无法说话§c<=§l30");
-        sanLores.add("§8▷生物变形(例:玩家变成僵尸)§c<=§l30");
-        sanLores.add("§8▷梦魇出现§c<=§l20");
-        ItemStack sanity = getItem2("§r§3§k§m§l-----------§r§6理智值§r§3§k§m§l-----------", Material.SKULL_ITEM, 3, sanLores);
+        ItemStack sanity = getItem2(UTEi18n.cache("item.guide.mechanism.sanity.name"), Material.SKULL_ITEM, 3, Arrays.asList(
+                UTEi18n.cache("item.guide.mechanism.sanity.lore").split("\\n")
+        ));
         inv.setItem(21, sanity);
 
-        List<String> humLores = new ArrayList<String>();
-        humLores.add("§8玩家§d固有§8属性-表示玩家的§d潮湿程度");
-        humLores.add("§d§l控制因素(包括但不限于)：");
-        humLores.add("§8▷在§e§l雨§8中↑");
-        humLores.add("§8▷在§e§l水§8中↑");
-        humLores.add("§d§l影响：");
-        humLores.add("§8▷背包物品变§c潮湿");
-        humLores.add("§8▷背包内一些物品会§c变形§8(例如石头变成苔石)");
-        humLores.add("§8▷无法打出§c群体§8伤害");
-        humLores.add("§8▷潮湿食物使用效果§c减半");
-        humLores.add("§8▷潮湿物品无法§c用于合成");
-        ItemStack humidity = getItem2("§r§3§k§m§l-----------§r§6湿度§r§3§k§m§l-----------", Material.WATER_BUCKET, 0, humLores);
+        ItemStack humidity = getItem2(UTEi18n.cache("item.guide.mechanism.humidity.name"), Material.WATER_BUCKET, 0, Arrays.asList(
+                UTEi18n.cache("item.guide.mechanism.humidity.lore").split("\\n")
+        ));
         inv.setItem(23, humidity);
 
-        List<String> temLores = new ArrayList<String>();
-        temLores.add("§8玩家§d固有§8属性-表示玩家的§d体表温度");
-        temLores.add("§d§l控制因素(包括但不限于)：");
-        temLores.add("§8▷§e§l季节的变化§8（冬冷夏热）");
-        temLores.add("§8▷§e§l周围方块§8的布置");
-        temLores.add("§8▷湿度§e§l过高↓");
-        temLores.add("§8▷身着或持有§e§l特殊物品↑↓");
-        temLores.add("§d§l玩家自身温度影响：");
-        temLores.add("§8▷冰冻状态(缓慢效果+扣血)");
-        temLores.add("§8▷炎热状态(扣血*2)");
-        temLores.add("§d§l环境温度影响：");
-        temLores.add("§8▷周围方块闷烧§c>=§l60°C");
-        temLores.add("§8▷周围方块闷烧加速§c>=§l65°C");
-        ItemStack temperature = getItem2("§r§3§k§m§l-----------§r§6温度§r§3§k§m§l-----------", Material.ICE, 0, temLores);
+        ItemStack temperature = getItem2(UTEi18n.cache("item.guide.mechanism.temperature.name"), Material.ICE, 0, Arrays.asList(
+                UTEi18n.cache("item.guide.mechanism.temperature.lore").split("\\n")
+        ));
         inv.setItem(25, temperature);
     }
 

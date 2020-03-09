@@ -2,6 +2,8 @@ package HamsterYDS.UntilTheEnd.cap.hum;
 
 import java.io.File;
 
+import HamsterYDS.UntilTheEnd.internal.UTEi18n;
+import org.bukkit.Bukkit;
 import org.bukkit.configuration.file.YamlConfiguration;
 import org.bukkit.event.Listener;
 
@@ -16,10 +18,9 @@ public class Humidity implements Listener {
     public static YamlConfiguration yaml;
 
     public Humidity(UntilTheEnd plugin) {
-        Config.autoUpdateConfigs("humidity.yml");
         File file = new File(plugin.getDataFolder(), "humidity.yml");
-        yaml = YamlConfiguration.loadConfiguration(file);
-        System.out.println("[UntilTheEnd]正在加载湿度计算模块......");
+        yaml = Config.autoUpdateConfigs("humidity.yml");
+        Bukkit.getConsoleSender().sendMessage(UTEi18n.cacheWithPrefix("cap.hum.provider.loading"));
         HumidityProvider.loadConfig();
         new ChangeTasks(plugin);
         new InfluenceTasks(plugin);

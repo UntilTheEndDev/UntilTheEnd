@@ -9,6 +9,7 @@ import java.util.function.BiFunction;
 import java.util.logging.Level;
 
 import HamsterYDS.UntilTheEnd.Config;
+import HamsterYDS.UntilTheEnd.internal.UTEi18n;
 import org.bukkit.Bukkit;
 import org.bukkit.GameMode;
 import org.bukkit.OfflinePlayer;
@@ -50,7 +51,7 @@ public class PlayerManager implements Listener {
         HudProvider.sanity.put(name, " ");
         HudProvider.humidity.put(name, " ");
         HudProvider.temperature.put(name, " ");
-        HudProvider.tiredness.put(name, " "); 
+        HudProvider.tiredness.put(name, " ");
     }
 
     @EventHandler
@@ -79,10 +80,10 @@ public class PlayerManager implements Listener {
         try {
             final Map<String, Object> load = PlayerDataLoaderImpl.loader.load(playerdata, name);
             if (load != null) {
-                humidity = ((Number) load.get("humidity")).intValue();
-                temperature = ((Number) load.get("temperature")).intValue();
-                sanity = ((Number) load.get("sanity")).intValue();
-                tiredness = ((Number) load.get("tiredness")).intValue();
+                humidity = ((Number) load.getOrDefault("humidity", 0)).intValue();
+                temperature = ((Number) load.getOrDefault("temperature", 37)).intValue();
+                sanity = ((Number) load.getOrDefault("sanity", 200)).intValue();
+                tiredness = ((Number) load.getOrDefault("tiredness", 0)).intValue();
             }
         } catch (Throwable exception) {
             plugin.getLogger().log(Level.WARNING, "Failed to load " + name, exception);
@@ -116,7 +117,7 @@ public class PlayerManager implements Listener {
                 case SANITY:
                     return 200;
                 case TIREDNESS:
-                	return 0;
+                    return 0;
                 default:
                     return 1;
             }
@@ -130,7 +131,7 @@ public class PlayerManager implements Listener {
             case SANITY:
                 return ip.sanity;
             case TIREDNESS:
-            	return ip.tiredness;
+                return ip.tiredness;
             default:
                 return 1;
         }
@@ -141,7 +142,7 @@ public class PlayerManager implements Listener {
     }
 
     public enum CheckType {
-        SANITY("san"), TEMPERATURE("tem"), HUMIDITY("hum"), TIREDNESS("tir"); 
+        SANITY("san"), TEMPERATURE("tem"), HUMIDITY("hum"), TIREDNESS("tir");
         private final String sname;
 
         public String getShortName() {
@@ -188,8 +189,8 @@ public class PlayerManager implements Listener {
                         HudProvider.temperature.computeIfPresent(player.getName(), buildMarkFunc(mark));
                     }
                 }.runTaskLater(plugin, 40L);
-                if (ip.temperature <= 10) player.sendTitle("§9太冷了！", "");
-                if (ip.temperature >= 60) player.sendTitle("§9太热了！", "");
+                if (ip.temperature <= 10) player.sendTitle(UTEi18n.cache("mechanism.temperature.to-cool"), "");
+                if (ip.temperature >= 60) player.sendTitle(UTEi18n.cache("mechanism.temperature.to-hot"), "");
                 if (ip.temperature < -5) ip.temperature = -5;
                 if (ip.temperature > 75) ip.temperature = 75;
                 break;
@@ -218,17 +219,17 @@ public class PlayerManager implements Listener {
                 if (ip.sanity > 200) ip.sanity = 200;
                 break;
             case TIREDNESS:
-            	ip.tiredness +=counter;
-            	HudProvider.tiredness.put(player.getName(), mark);
-            	 new BukkitRunnable() {
-                     @Override
-                     public void run() {
-                         HudProvider.tiredness.computeIfPresent(player.getName(), buildMarkFunc(mark));
-                     }
-                 }.runTaskLater(plugin, 40L);
-                 if (ip.tiredness < 0) ip.tiredness = 0;
-                 if (ip.tiredness > 100) ip.tiredness = 100;
-                 break;
+                ip.tiredness += counter;
+                HudProvider.tiredness.put(player.getName(), mark);
+                new BukkitRunnable() {
+                    @Override
+                    public void run() {
+                        HudProvider.tiredness.computeIfPresent(player.getName(), buildMarkFunc(mark));
+                    }
+                }.runTaskLater(plugin, 40L);
+                if (ip.tiredness < 0) ip.tiredness = 0;
+                if (ip.tiredness > 100) ip.tiredness = 100;
+                break;
         }
     }
 
@@ -267,7 +268,7 @@ public class PlayerManager implements Listener {
             this.temperature = temperature;
             this.humidity = humidity;
             this.sanity = sanity;
-            this.tiredness=tiredness;
+            this.tiredness = tiredness;
         }
     }
 }
