@@ -1,4 +1,4 @@
-package HamsterYDS.UntilTheEnd.cap.tiredness;
+package HamsterYDS.UntilTheEnd.cap.tir;
 
 import HamsterYDS.UntilTheEnd.UntilTheEnd;
 

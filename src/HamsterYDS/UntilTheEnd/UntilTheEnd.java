@@ -21,7 +21,7 @@ import HamsterYDS.UntilTheEnd.cap.HudProvider;
 import HamsterYDS.UntilTheEnd.cap.hum.Humidity;
 import HamsterYDS.UntilTheEnd.cap.san.Sanity;
 import HamsterYDS.UntilTheEnd.cap.tem.Temperature;
-import HamsterYDS.UntilTheEnd.cap.tiredness.Tiredness;
+import HamsterYDS.UntilTheEnd.cap.tir.Tiredness;
 import HamsterYDS.UntilTheEnd.crops.Crops;
 import HamsterYDS.UntilTheEnd.food.Food;
 import HamsterYDS.UntilTheEnd.guide.Guide;

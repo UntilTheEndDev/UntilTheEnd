@@ -1,4 +1,4 @@
-package HamsterYDS.UntilTheEnd.cap.tiredness;
+package HamsterYDS.UntilTheEnd.cap.tir;
 
 import org.bukkit.World;
 import org.bukkit.entity.Player;
