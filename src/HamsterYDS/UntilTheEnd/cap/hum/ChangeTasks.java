@@ -1,7 +1,13 @@
 package HamsterYDS.UntilTheEnd.cap.hum;
 
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Map;
+import java.util.UUID;
+import java.util.concurrent.atomic.AtomicInteger;
+import java.util.function.BiFunction;
 
+import org.bukkit.Bukkit;
 import org.bukkit.Location;
 import org.bukkit.Material;
 import org.bukkit.World;
@@ -20,6 +26,39 @@ public class ChangeTasks {
     public static ArrayList<String> waterProofSuits = new ArrayList<String>();
     public static long weahterChangePeriod = Humidity.yaml.getLong("weahterChangePeriod");
     public static long stateChangePeriod = Humidity.yaml.getLong("stateChangePeriod");
+    public static int stormSlowLevel = Humidity.yaml.getInt("stormSlowLevel", 5);
+    public static Map<UUID, Number> stepStatus = new HashMap<>();
+    private static final int highest;
+
+    static {
+        int h = 0;
+        //noinspection NumberEquality
+        do {
+            h++;
+        } while (Integer.valueOf(h) != Integer.valueOf(h));
+        highest = h - 1;
+    }
+
+    public static final BiFunction<UUID, Number, Number> step_reset = (uuid, old) -> {
+        if (old == null) return 0;
+        if (old instanceof AtomicInteger) {
+            ((AtomicInteger) old).set(0);
+            return old;
+        }
+        return 0;
+    };
+    public static final BiFunction<UUID, Number, Number> step_status_changer = (uuid, old) -> {
+        if (old == null) return 0;
+        if (old instanceof AtomicInteger) {
+            ((AtomicInteger) old).incrementAndGet();
+            return old;
+        }
+        int val = old.intValue();
+        if (val < highest) {
+            return val + 1;
+        }
+        return new AtomicInteger(val + 1);
+    };
 
     public ChangeTasks(UntilTheEnd plugin) {
         ChangeTasks.plugin = plugin;
@@ -32,28 +71,41 @@ public class ChangeTasks {
         public void run() {
             for (World world : Config.enableWorlds) {
                 if (world.hasStorm()) {
+                    player_loop:
                     for (Player player : world.getPlayers()) {
                         // 莫得雨
                         if (player.getLocation().getBlock().getTemperature() > 1.0) {
+                            PlayerManager.change(player, PlayerManager.CheckType.HUMIDITY, -1);
                             continue;
                         }
                         PlayerInventory inv = player.getInventory();
                         ItemStack rightHand = inv.getItemInMainHand();
                         ItemStack leftHand = inv.getItemInOffHand();
-                        if (hasShelter(player)) continue;
+                        if (hasShelter(player)) {
+                            doTickStorm(player);
+                            continue;
+                        }
                         if (isUmbrella(rightHand) || isUmbrella(leftHand)) continue;
                         ItemStack[] armors = inv.getArmorContents();
-                        boolean hasSuit = false;
                         for (ItemStack armor : armors) {
-                            if (isSuit(armor)) hasSuit = true;
+                            if (isSuit(armor)) {
+                                doTickStorm(player);
+                                continue player_loop;
+                            }
                         }
-                        if (hasSuit) continue;
                         PlayerManager.change(player, PlayerManager.CheckType.HUMIDITY, 1);
                     }
                 } else {
                     for (Player player : world.getPlayers())
                         PlayerManager.change(player, PlayerManager.CheckType.HUMIDITY, -1);
                 }
+            }
+        }
+
+        public static void doTickStorm(Player p) {
+            if (stepStatus.compute(p.getUniqueId(), step_status_changer).intValue() >= stormSlowLevel) {
+                stepStatus.compute(p.getUniqueId(), step_reset);
+                PlayerManager.change(p, PlayerManager.CheckType.HUMIDITY, -1);
             }
         }
 
