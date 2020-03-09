@@ -4,11 +4,6 @@ import java.util.HashMap;
 
 import HamsterYDS.UntilTheEnd.internal.ArrowManager;
 import org.bukkit.Material;
-import org.bukkit.Particle;
-import org.bukkit.entity.ArmorStand;
-import org.bukkit.entity.Entity;
-import org.bukkit.entity.EntityType;
-import org.bukkit.entity.LivingEntity;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
@@ -17,9 +12,6 @@ import org.bukkit.event.player.PlayerInteractEvent;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.potion.PotionEffect;
 import org.bukkit.potion.PotionEffectType;
-import org.bukkit.scheduler.BukkitRunnable;
-import org.bukkit.util.Vector;
-
 import HamsterYDS.UntilTheEnd.item.ItemManager;
 
 /**
