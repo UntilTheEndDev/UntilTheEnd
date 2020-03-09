@@ -28,7 +28,7 @@ import HamsterYDS.UntilTheEnd.player.PlayerManager;
  */
 public class HudBossBar extends BukkitRunnable implements Listener {
     private static class NdBossBar {
-        BossBar san, tem, hum;
+        BossBar san, tem, hum, tir;
     }
 
     private static final Deque<NdBossBar> released = new ConcurrentLinkedDeque<>();
@@ -43,6 +43,7 @@ public class HudBossBar extends BukkitRunnable implements Listener {
             nd.san = Bukkit.createBossBar("", BarColor.GREEN, BarStyle.SOLID);
             nd.tem = Bukkit.createBossBar("", BarColor.PURPLE, BarStyle.SOLID);
             nd.hum = Bukkit.createBossBar("", BarColor.BLUE, BarStyle.SOLID);
+            nd.tir = Bukkit.createBossBar("", BarColor.RED, BarStyle.SOLID);
             return nd;
         });
     }
@@ -69,6 +70,7 @@ public class HudBossBar extends BukkitRunnable implements Listener {
             remove.san.removeAll();
             remove.tem.removeAll();
             remove.hum.removeAll();
+            remove.tir.removeAll();
             released.add(remove);
         }
     }
@@ -81,6 +83,7 @@ public class HudBossBar extends BukkitRunnable implements Listener {
                 int san = PlayerManager.check(p, PlayerManager.CheckType.SANITY);
                 int tem = PlayerManager.check(p, PlayerManager.CheckType.TEMPERATURE);
                 int hum = PlayerManager.check(p, PlayerManager.CheckType.HUMIDITY);
+                int tir = PlayerManager.check(p, PlayerManager.CheckType.TIREDNESS);
                 ndBossBar.san.setTitle("§6§l" + HudProvider.sanity.get(p.getName()) + "  §c§l理智   §r§b§l" + san + "  §6§l" + HudProvider.sanity.get(p.getName()));
                 ndBossBar.san.setProgress(san / 200.0);
                 ndBossBar.san.addPlayer(p);
@@ -88,6 +91,10 @@ public class HudBossBar extends BukkitRunnable implements Listener {
                 ndBossBar.tem.setTitle("§6§l" + HudProvider.temperature.get(p.getName()) + "  §e§l温度   §r§b§l" + tem + "  §6§l" + HudProvider.temperature.get(p.getName()));
                 ndBossBar.tem.setProgress((tem + 5) / 85.0);
                 ndBossBar.tem.addPlayer(p);
+                
+                ndBossBar.tir.setTitle("§6§l" + HudProvider.temperature.get(p.getName()) + "  §d§l疲劳   §r§b§l" + tir + "  §6§l" + HudProvider.tiredness.get(p.getName()));
+                ndBossBar.tir.setProgress(tir / 100.0);
+                ndBossBar.tir.addPlayer(p);
                 boolean hiddenHum;
                 switch (p.getGameMode()) {
                     case CREATIVE:

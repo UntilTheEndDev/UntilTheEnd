@@ -23,6 +23,6 @@ public class Sanity {
 		SanityProvider.loadAura();
 		new ChangeTasks(plugin);
 		new InfluenceTasks(plugin);
-		new InfluenceEvents(plugin);
+		plugin.getServer().getPluginManager().registerEvents(new InfluenceEvents(), plugin);
 	}
 }

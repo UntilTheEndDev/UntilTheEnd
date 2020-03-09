@@ -21,6 +21,7 @@ import HamsterYDS.UntilTheEnd.cap.HudProvider;
 import HamsterYDS.UntilTheEnd.cap.hum.Humidity;
 import HamsterYDS.UntilTheEnd.cap.san.Sanity;
 import HamsterYDS.UntilTheEnd.cap.tem.Temperature;
+import HamsterYDS.UntilTheEnd.cap.tiredness.Tiredness;
 import HamsterYDS.UntilTheEnd.crops.Crops;
 import HamsterYDS.UntilTheEnd.food.Food;
 import HamsterYDS.UntilTheEnd.guide.Guide;
@@ -61,6 +62,7 @@ public class UntilTheEnd extends JavaPlugin implements Listener {
         new Temperature(this);
         new Sanity(this);
         new Humidity(this);
+        new Tiredness(this);
         //new Tiredness(this);
         new Guide(this);
         new Crops(this);
