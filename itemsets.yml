@@ -292,6 +292,17 @@
     lore:
       - §8-保暖至极
       - '§8-效用: §d穿上后温度不再随自然环境变化'
+防水服:
+  ==: org.bukkit.inventory.ItemStack
+  type: GOLD_CHESTPLATE
+  meta:
+    ==: ItemMeta
+    meta-type: UNSPECIFIC
+    display-name: §6防水服
+    lore:
+      - §8-下水专用
+      - '§8-效用: §d穿上后湿度不再随自然环境变化'
+      
 便携包:
   ==: org.bukkit.inventory.ItemStack
   type: GOLD_CHESTPLATE
@@ -544,7 +555,7 @@ ACD试验药:
     meta-type: UNSPECIFIC
     display-name: §6温度计
     lore:
-      - §8-科学机器之一
+      - §8-尔辈不能究物理
       - '§8-里面貌似不是汞，不过将就着用吧~'
 湿度计:
   ==: org.bukkit.inventory.ItemStack
@@ -554,7 +565,7 @@ ACD试验药:
     meta-type: UNSPECIFIC
     display-name: §6湿度计
     lore:
-      - §8-科学机器之一
+      - §8-我就来水个经验好上6级-草五叶
       - '§8-自制天气预报~嘟嘟！'
 避雷针:
   ==: org.bukkit.inventory.ItemStack
@@ -564,7 +575,7 @@ ACD试验药:
     meta-type: UNSPECIFIC
     display-name: §6避雷针
     lore:
-      - §8-科学机器之一
+      - §8-比加速火把还……
       - '§8-再也不怕雷劈坏家里的东西了！'
       - '§8-效用: §d自动接受周围20格的雷'
 雪球发射机:
@@ -575,7 +586,7 @@ ACD试验药:
     meta-type: UNSPECIFIC
     display-name: §6雪球发射机
     lore:
-      - §8-科学机器之一
+      - §8-AI打雪仗排行榜第一名
       - '§8-闷烧？没听说过！'
       - '§8-效用: §d自动熄灭周围20格的闷烧'
 冰箱:
@@ -586,9 +597,20 @@ ACD试验药:
     meta-type: UNSPECIFIC
     display-name: §6冰箱
     lore:
-      - §8-科学机器之一
+      - §8-好奇心冷死猫
       - '§8-我自己的食物工厂！'
       - '§8-效用: §d减缓冰箱内的食物腐烂速率'
+科学机器: 
+  ==: org.bukkit.inventory.ItemStack
+  type: CHEST
+  meta:
+    ==: ItemMeta
+    meta-type: UNSPECIFIC
+    display-name: §6科学机器
+    lore:
+      - §8-科技起源
+      - '§8-从这里开始，我想我知道他是怎么运行的'
+      - '§8-效用: §d提供配方与合成'
 
 火魔杖:
   ==: org.bukkit.inventory.ItemStack

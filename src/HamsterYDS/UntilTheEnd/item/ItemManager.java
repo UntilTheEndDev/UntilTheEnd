@@ -1,6 +1,5 @@
 package HamsterYDS.UntilTheEnd.item;
 
-import java.io.File;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Objects;
@@ -56,6 +55,7 @@ import HamsterYDS.UntilTheEnd.item.science.Hygrometer;
 import HamsterYDS.UntilTheEnd.item.science.IceFlingomatic;
 import HamsterYDS.UntilTheEnd.item.science.LightningArrester;
 import HamsterYDS.UntilTheEnd.item.science.Refridgerator;
+import HamsterYDS.UntilTheEnd.item.science.ScienceMachine;
 import HamsterYDS.UntilTheEnd.item.science.Thermometer;
 import HamsterYDS.UntilTheEnd.item.survival.ACDDrug;
 import HamsterYDS.UntilTheEnd.item.survival.FlowerUmbrella;
@@ -81,12 +81,18 @@ import org.bukkit.inventory.meta.ItemMeta;
 public class ItemManager {
     public static UntilTheEnd plugin = UntilTheEnd.getInstance();
     private static HashMap<ItemStack, NamespacedKey> nsks = new HashMap<ItemStack, NamespacedKey>();
+    
     public static HashMap<String, String> idsAndNames = new HashMap<String, String>();
     public static HashMap<String, ItemStack> namesAndItems = new HashMap<String, ItemStack>();
     public static HashMap<ItemStack, String> itemsAndIds = new HashMap<ItemStack, String>();
+    
+    public static HashMap<String, Integer> itemsNeedLevels = new HashMap<String, Integer>();
+    public static HashMap<String, Integer> itemsWithLevels = new HashMap<String, Integer>();
+   
     public static HashMap<String, ItemStack> canPlaceBlocks = new HashMap<String, ItemStack>();
     public static HashMap<ItemStack, HashMap<ItemStack, Integer>> recipes = new HashMap<ItemStack, HashMap<ItemStack, Integer>>();
     public static ArrayList<String> cosumeItems = new ArrayList<String>();
+    
     public static YamlConfiguration yaml1;
     public static YamlConfiguration yaml2;
 
@@ -102,6 +108,7 @@ public class ItemManager {
             namesAndItems.put("§6" + path, item);
             itemsAndIds.put(item, id);
             nsks.put(item, new NamespacedKey(plugin, "ute." + id.toLowerCase()));
+//            if()
         }
         new Brick();
         new Plank();
@@ -135,6 +142,7 @@ public class ItemManager {
         new BushesHat();
         new EyeballUmbrella();
         new ConstantTemperatureClothes();
+        new SwimmingSuit();
 
         new MovablePack();
         new NormalPack();
@@ -166,6 +174,7 @@ public class ItemManager {
         new IceFlingomatic();
         new Refridgerator();
         new Detector();
+        new ScienceMachine();
 
         new FireWand();
 

@@ -103,6 +103,9 @@
 恒温服:
   enable: true
   id: ConstantTemperatureClothes
+防水服:
+  enable: true
+  id: SwimmingSuit
 
 便携包: 
   enable: true
@@ -207,6 +210,9 @@ ACD试验药:
 冰箱: 
   enable: true
   id: Refridgerator
+科学机器: 
+  enable: true
+  id: ScienceMachine
 
 火魔杖: 
   enable: true

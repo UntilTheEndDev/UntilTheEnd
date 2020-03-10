@@ -1,7 +1,5 @@
 package HamsterYDS.UntilTheEnd.crops;
 
-import java.io.File;
-
 import org.bukkit.configuration.file.YamlConfiguration;
 
 import HamsterYDS.UntilTheEnd.Config;

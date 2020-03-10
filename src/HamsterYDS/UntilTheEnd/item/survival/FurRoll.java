@@ -1,6 +1,9 @@
 package HamsterYDS.UntilTheEnd.item.survival;
 
 import java.util.HashMap;
+import java.util.HashSet;
+import java.util.Set;
+import java.util.UUID;
 
 import org.bukkit.Location;
 import org.bukkit.World.Environment;
@@ -29,6 +32,7 @@ public class FurRoll implements Listener{
 		ItemManager.registerRecipe(materials,ItemManager.namesAndItems.get("§6毛皮卷"),"§6生存");
 		ItemManager.plugin.getServer().getPluginManager().registerEvents(this,ItemManager.plugin);
 	}
+	public static Set<UUID> sleeping=new HashSet<UUID>();
 	@EventHandler public void onClick(PlayerInteractEvent event) {
 		Player player=event.getPlayer();
 		if(event.getAction()!=Action.RIGHT_CLICK_AIR) return;
@@ -51,6 +55,7 @@ public class FurRoll implements Listener{
 				ItemStack itemr=player.getItemInHand();
 				itemr.setAmount(itemr.getAmount()-1);
 			}
+			sleeping.add(player.getUniqueId());
 			Location loc=player.getLocation();
 			new BukkitRunnable() {
 				@Override
@@ -66,9 +71,15 @@ public class FurRoll implements Listener{
 					}
 					if(Math.random()<=0.07) {
 						if(player.getFoodLevel()>=1) player.setFoodLevel(player.getFoodLevel()-1);
-						else cancel();
+						else {
+							cancel();
+							sleeping.remove(player.getUniqueId());
+						}
 					}
-					if(!BlockApi.locToStr(player.getLocation()).equalsIgnoreCase(BlockApi.locToStr(loc))) cancel();
+					if(!BlockApi.locToStr(player.getLocation()).equalsIgnoreCase(BlockApi.locToStr(loc))) {
+						cancel();
+						sleeping.remove(player.getUniqueId());
+					}
 				}
 			}.runTaskTimer(ItemManager.plugin,0L,1L); 
 		}

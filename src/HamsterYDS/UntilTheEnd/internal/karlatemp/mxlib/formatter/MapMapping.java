@@ -28,7 +28,6 @@ public class MapMapping<K, V> implements Replacer {
     }
 
     @Override
-    @SuppressWarnings({"element-type-mismatch", "SuspiciousMethodCalls"})
     public String apply(String t) {
         return String.valueOf(m.get(t));
     }

@@ -1,6 +1,9 @@
 package HamsterYDS.UntilTheEnd.item.survival;
 
 import java.util.HashMap;
+import java.util.HashSet;
+import java.util.Set;
+import java.util.UUID;
 
 import org.bukkit.Location;
 import org.bukkit.World.Environment;
@@ -28,6 +31,7 @@ public class StrawRoll implements Listener{
 		ItemManager.registerRecipe(materials,ItemManager.namesAndItems.get("§6稻草卷"),"§6生存");
 		ItemManager.plugin.getServer().getPluginManager().registerEvents(this,ItemManager.plugin);
 	}
+	public static Set<UUID> sleeping=new HashSet<UUID>();
 	@EventHandler public void onClick(PlayerInteractEvent event) {
 		Player player=event.getPlayer();
 		if(event.getAction()!=Action.RIGHT_CLICK_AIR) return;
@@ -49,6 +53,7 @@ public class StrawRoll implements Listener{
 			ItemStack itemr=player.getItemInHand();
 			itemr.setAmount(itemr.getAmount()-1);
 			Location loc=player.getLocation();
+			sleeping.add(player.getUniqueId());
 			new BukkitRunnable() {
 				@Override
 				public void run() {
@@ -63,9 +68,16 @@ public class StrawRoll implements Listener{
 					}
 					if(Math.random()<=0.07) {
 						if(player.getFoodLevel()>=1) player.setFoodLevel(player.getFoodLevel()-1);
-						else cancel();
+						else {
+							cancel();
+							sleeping.remove(player.getUniqueId());
+						}
+						
 					}
-					if(!BlockApi.locToStr(player.getLocation()).equalsIgnoreCase(BlockApi.locToStr(loc))) cancel();
+					if(!BlockApi.locToStr(player.getLocation()).equalsIgnoreCase(BlockApi.locToStr(loc))) {
+						cancel();
+						sleeping.remove(player.getUniqueId());
+					}
 				}
 			}.runTaskTimer(ItemManager.plugin,0L,1L); 
 		}

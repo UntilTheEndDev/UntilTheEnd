@@ -1,7 +1,5 @@
 package HamsterYDS.UntilTheEnd.cap.san;
 
-import java.io.File;
-
 import HamsterYDS.UntilTheEnd.internal.UTEi18n;
 import org.bukkit.Bukkit;
 import org.bukkit.configuration.file.YamlConfiguration;

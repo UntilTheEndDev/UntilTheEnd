@@ -1,0 +1,36 @@
+change: 
+  task: #每2秒计算一次
+    sprint: 2 #疾跑疲劳+2
+    sit: -2 #左下疲劳-2
+    sleep: -4 #睡觉疲劳-4
+    block: 2 #正在敲打方块疲劳+2
+    glide: 3 #正在滑翔+3 
+    move: 1 #正在移动+1
+    stop: -1 #停在原地较长时间-1
+    item: #背包内物品重量
+      #格式:
+      #物品Material名: 权重
+      DIAMOND: 0.2 #钻石每一个增加的疲劳
+      GOLD_INGOT: 0.3 #金锭每一个增加的疲劳
+      default: 0.01 #背包其它未定义物品每一个增加的疲劳值
+  event: #每次事件计算一次
+    teleport: 3 #传送+3
+    break: 1 #破坏方块
+    chat: 1 #发言
+    tab: 1 #TAB补全
+    damage: 2 #伤害别的生物
+    beDamaged: 1 #被生物伤害
+    enchant: 5 #附魔
+
+influence: 
+  slowness: 50 #高于多少开始有缓慢效果（效果等级为 (疲劳-该值)/15）
+  slowdigging: 50 #高于多少开始有挖掘缓慢效果（效果等级为 (疲劳-该值)/15）
+  hunger: 75 #高于多少开始有饥饿效果（效果等级为 (疲劳-该值)/5）
+  wither: 90 #高于多少开始有凋零效果（效果等级为 (疲劳-该值)/5）
+  event:
+    talk: 70 #高于该值则不能说话
+    sprint: 50 #高于该值则不能疾跑
+    attack: 50 #高于该值则不能攻击
+    place: 70 #高于该值则不能放置物品
+    break: 70 #高于该值则不能破坏
+    teleport: 25 #高于该值则不能传送
