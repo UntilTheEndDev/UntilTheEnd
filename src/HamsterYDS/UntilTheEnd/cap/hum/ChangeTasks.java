@@ -139,6 +139,7 @@ public class ChangeTasks {
         @Override
         public void run() {
             for (World world : Config.enableWorlds)
+                playerLoop:
                 for (Player player : world.getPlayers()) {
                     if (player.isInsideVehicle()) {
                         Location loc = player.getLocation().add(0, 1, 0); // 沉了
@@ -151,7 +152,7 @@ public class ChangeTasks {
                     	ItemStack[] armors = player.getInventory().getArmorContents();
                         for (ItemStack armor : armors) {
                             if (isSuit(armor)) {
-                                continue;
+                                continue playerLoop;
                             }
                         }
                     	PlayerManager.change(player, PlayerManager.CheckType.HUMIDITY, 1);

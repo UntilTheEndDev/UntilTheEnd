@@ -18,7 +18,6 @@ public class Humidity implements Listener {
     public static YamlConfiguration yaml;
 
     public Humidity(UntilTheEnd plugin) {
-        File file = new File(plugin.getDataFolder(), "humidity.yml");
         yaml = Config.autoUpdateConfigs("humidity.yml");
         Bukkit.getConsoleSender().sendMessage(UTEi18n.cacheWithPrefix("cap.hum.provider.loading"));
         HumidityProvider.loadConfig();
