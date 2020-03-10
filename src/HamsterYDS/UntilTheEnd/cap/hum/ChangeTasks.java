@@ -147,9 +147,25 @@ public class ChangeTasks {
                         continue;
                     }
                     Location loc = player.getLocation();
-                    if (world.getBlockAt(loc).getType().equals(Material.WATER) || world.getBlockAt(loc).getType().equals(Material.STATIONARY_WATER))
-                        PlayerManager.change(player, PlayerManager.CheckType.HUMIDITY, 1);
+                    if (world.getBlockAt(loc).getType().equals(Material.WATER) || world.getBlockAt(loc).getType().equals(Material.STATIONARY_WATER)){
+                    	ItemStack[] armors = player.getInventory().getArmorContents();
+                        for (ItemStack armor : armors) {
+                            if (isSuit(armor)) {
+                                continue;
+                            }
+                        }
+                    	PlayerManager.change(player, PlayerManager.CheckType.HUMIDITY, 1);
+                    }
                 }
+        }
+        
+        public static boolean isSuit(ItemStack item) {
+            if (item == null) return false;
+            if (item.hasItemMeta())
+                if (item.getItemMeta().hasDisplayName())
+                    if (waterProofSuits.contains(item.getItemMeta().getDisplayName()))
+                        return true;
+            return false;
         }
     }
 }
