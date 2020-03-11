@@ -21,7 +21,7 @@ public class InfluenceTasks extends BukkitRunnable{
 	public void run() {
 		for(World world:Config.enableWorlds)
 			for(Player player:world.getPlayers()) {
-				int tir=PlayerManager.check(player,CheckType.TIREDNESS);
+				int tir=(int) PlayerManager.check(player,CheckType.TIREDNESS);
 				if(tir>=slowness) 
 					addEffect(player,PotionEffectType.SLOW,(tir-slowness)/15);
 				if(tir>=slowdigging) 
@@ -38,7 +38,7 @@ public class InfluenceTasks extends BukkitRunnable{
 	}
 	public void addEffect(Player player, PotionEffectType type, int level) {
 		player.removePotionEffect(type);
-		player.addPotionEffect(new PotionEffect(type,level,100)); 
+		player.addPotionEffect(new PotionEffect(type,200,level)); 
 	}
 
 }

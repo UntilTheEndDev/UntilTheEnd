@@ -166,7 +166,7 @@ public class UntilTheEndApi {
         }
 
         public static int getValue(Player player, String type) {
-            return PlayerManager.check(player, type);
+            return (int) PlayerManager.check(player, type);
         }
 
         public static void setValue(Player player, String type, int value) {

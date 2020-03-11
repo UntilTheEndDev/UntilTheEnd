@@ -81,12 +81,13 @@ public class HudBossBar extends BukkitRunnable implements Listener {
         for (World w : Config.enableWorlds) {
             for (Player p : w.getPlayers()) {
                 final NdBossBar ndBossBar = create(p.getUniqueId());
-                int san = PlayerManager.check(p, PlayerManager.CheckType.SANITY);
-                int tem = PlayerManager.check(p, PlayerManager.CheckType.TEMPERATURE);
-                int hum = PlayerManager.check(p, PlayerManager.CheckType.HUMIDITY);
-                int tir = PlayerManager.check(p, PlayerManager.CheckType.TIREDNESS);
+                double san = PlayerManager.check(p, PlayerManager.CheckType.SANITY);
+                double sanMax = PlayerManager.check(p, PlayerManager.CheckType.SANMAX);
+                double tem = PlayerManager.check(p, PlayerManager.CheckType.TEMPERATURE);
+                double hum = PlayerManager.check(p, PlayerManager.CheckType.HUMIDITY);
+                double tir = PlayerManager.check(p, PlayerManager.CheckType.TIREDNESS);
                 ndBossBar.san.setTitle(UTEi18n.parse("hud.bossbar.sanity", HudProvider.sanity.get(p.getName()), String.valueOf(san), HudProvider.sanity.get(p.getName())));
-                ndBossBar.san.setProgress(san / 200.0);
+                ndBossBar.san.setProgress(san / sanMax);
                 ndBossBar.san.addPlayer(p);
 
                 ndBossBar.tem.setTitle(UTEi18n.parse("hud.bossbar.temperature", HudProvider.temperature.get(p.getName()), String.valueOf(tem), HudProvider.temperature.get(p.getName())));

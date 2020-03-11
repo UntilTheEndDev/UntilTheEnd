@@ -1,6 +1,7 @@
 package HamsterYDS.UntilTheEnd.cap.tir;
 
-import java.util.ArrayList;
+import java.util.HashSet;
+import java.util.Set;
 import java.util.UUID;
 
 import org.bukkit.entity.LivingEntity;
@@ -27,7 +28,7 @@ public class ChangeEvents implements Listener {
 		this.plugin = plugin;
 	}
 
-	public static ArrayList<UUID> movingPlayers = new ArrayList<UUID>();
+	public static Set<UUID> movingPlayers = new HashSet<UUID>();
 
 	@EventHandler
 	public void onMove(PlayerMoveEvent event) {
@@ -37,7 +38,7 @@ public class ChangeEvents implements Listener {
 
 			@Override
 			public void run() {
-				movingPlayers.remove(movingPlayers.lastIndexOf(player.getUniqueId()));
+				movingPlayers.remove(player.getUniqueId());
 				cancel();
 			}
 
@@ -47,6 +48,7 @@ public class ChangeEvents implements Listener {
 	@EventHandler
 	public void onTeleport(PlayerTeleportEvent event) {
 		Player player = event.getPlayer();
+		if(event.getTo().distance(event.getFrom())<=10.0) return;
 		PlayerManager.change(player, CheckType.TIREDNESS, Tiredness.yaml.getInt("change.event.teleport"));
 	}
 

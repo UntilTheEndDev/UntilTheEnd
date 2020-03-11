@@ -109,7 +109,7 @@ public class ChangeTasks {
 		public void run() {
 			for(World world:Config.enableWorlds) {
 				for(Player player:world.getPlayers()) {
-					int hum=PlayerManager.check(player, PlayerManager.CheckType.HUMIDITY);
+					int hum=(int) PlayerManager.check(player, PlayerManager.CheckType.HUMIDITY);
 					PlayerManager.change(player, PlayerManager.CheckType.SANITY,-hum/10);
 				}
 			}

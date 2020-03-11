@@ -47,7 +47,7 @@ public class InfluenceTasks {
         public void run() {
             for (World world : Config.enableWorlds)
                 for (Player player : world.getPlayers()) {
-                    int playerTem = PlayerManager.check(player, PlayerManager.CheckType.TEMPERATURE);
+                    int playerTem = (int) PlayerManager.check(player, PlayerManager.CheckType.TEMPERATURE);
                     if (playerTem > hotTem) {
                         if (player.getHealth() <= 0.2 * (playerTem - hotTem))
                             DeathMessage.causes.put(player.getName(), DeathCause.HOTNESS);

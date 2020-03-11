@@ -34,7 +34,7 @@ public class ChangeTasks {
         public void run() {
             for (World world : Config.enableWorlds)
                 for (Player player : world.getPlayers()) {
-                    int hum = PlayerManager.check(player, PlayerManager.CheckType.HUMIDITY);
+                    int hum = (int) PlayerManager.check(player, PlayerManager.CheckType.HUMIDITY);
                     PlayerManager.change(player, PlayerManager.CheckType.TEMPERATURE, -hum / 5);
                 }
         }
@@ -58,7 +58,7 @@ public class ChangeTasks {
                         line = line.replace("§8- §8§l温度 ", "");
                         int naturalTem = TemperatureProvider.getBlockTemperature(player.getLocation());
                         int stoneTem = Integer.parseInt(line);
-                        int playerTem = PlayerManager.check(player, "tem");
+                        int playerTem = (int) PlayerManager.check(player, "tem");
                         if (playerTem < stoneTem) PlayerManager.change(player, "tem", 1);
                         if (playerTem > stoneTem) PlayerManager.change(player, "tem", -1);
                         if (Math.random() <= stoneChangePercent) {
@@ -82,7 +82,7 @@ public class ChangeTasks {
 
         public void goNatural(Player player) {
             final int naturalTem = TemperatureProvider.getBlockTemperature(player.getLocation());
-            final int playerTem = PlayerManager.check(player, "tem");
+            final int playerTem = (int) PlayerManager.check(player, "tem");
             if (playerTem < naturalTem && clothesChange(player, true))
                 PlayerManager.change(player, "tem", 1);
             if (playerTem > naturalTem && clothesChange(player, false))

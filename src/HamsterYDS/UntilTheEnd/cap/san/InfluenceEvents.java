@@ -24,7 +24,7 @@ public class InfluenceEvents implements Listener {
     public void onMove(PlayerMoveEvent event) {
         Player player = event.getPlayer();
         if (!Config.enableWorlds.contains(player.getWorld())) return;
-        int san = PlayerManager.check(player, PlayerManager.CheckType.SANITY);
+        int san = (int) PlayerManager.check(player, PlayerManager.CheckType.SANITY);
         if (san <= moveWronglySanity && Math.random() <= moveWronglyPercent) {
             Location loc = event.getTo();
             float fac = (moveWronglySanity - san) / 3F;
@@ -40,7 +40,7 @@ public class InfluenceEvents implements Listener {
         String newString = "";
         Player sender = event.getPlayer();
         if (!Config.enableWorlds.contains(sender.getWorld())) return;
-        int san = PlayerManager.check(sender, PlayerManager.CheckType.SANITY);
+        int san = (int) PlayerManager.check(sender, PlayerManager.CheckType.SANITY);
         if (san <= chatablessSanity) {
             for (int i = 0; i < Math.random() * 50; i++)
                 newString += (char) (10000 * Math.random() + 40);

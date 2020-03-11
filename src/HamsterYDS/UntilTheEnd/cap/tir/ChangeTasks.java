@@ -58,7 +58,8 @@ public class ChangeTasks {
 						PlayerManager.change(player,CheckType.TIREDNESS,Tiredness.yaml.getInt("change.task.move"));
 					PlayerInventory inv=player.getInventory();
 					int tot=0;
-					for(ItemStack item:inv.getContents()) {
+					for(int slot=0;slot<inv.getSize();slot++) {
+						ItemStack item=inv.getItem(slot);
 						if(item==null) continue;
 						if(weights.containsKey(item.getType()))
 							tot+=weights.get(item.getType())*item.getAmount();

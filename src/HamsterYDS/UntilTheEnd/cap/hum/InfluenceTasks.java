@@ -36,7 +36,7 @@ public class InfluenceTasks {
         public void run() {
             for (World world : Config.enableWorlds) {
                 for (Player player : world.getPlayers()) {
-                    int hum = PlayerManager.check(player, PlayerManager.CheckType.HUMIDITY);
+                    int hum = (int) PlayerManager.check(player, PlayerManager.CheckType.HUMIDITY);
                     if (hum <= effectHumidity) continue;
                     if (!player.hasPotionEffect(PotionEffectType.SLOW_DIGGING))
                         player.sendMessage(UTEi18n.cacheWithPrefix("cap.hum.drenched"));
@@ -64,7 +64,7 @@ public class InfluenceTasks {
                         }
                     }
                 for (Player player : world.getPlayers()) {
-                    int hum = PlayerManager.check(player, PlayerManager.CheckType.HUMIDITY);
+                    int hum = (int) PlayerManager.check(player, PlayerManager.CheckType.HUMIDITY);
                     if (hum <= dampHumidity) continue;
                     double wetLevel = 0.05 + (hum - 10) * 0.01;
                     PlayerInventory inv = player.getInventory();
@@ -99,7 +99,7 @@ public class InfluenceTasks {
                         }
                     }
                 for (Player player : world.getPlayers()) {
-                    int hum = PlayerManager.check(player, PlayerManager.CheckType.HUMIDITY);
+                    int hum = (int) PlayerManager.check(player, PlayerManager.CheckType.HUMIDITY);
                     if (hum > seasonHumidity) continue;
                     PlayerInventory inv = player.getInventory();
                     for (int slot = 0; slot < inv.getSize(); slot++) {
