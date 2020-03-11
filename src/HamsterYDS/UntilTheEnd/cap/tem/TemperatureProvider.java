@@ -36,7 +36,7 @@ public class TemperatureProvider {
                 boolean isIncrease = Temperature.yaml.getBoolean(path + ".increase");
                 int temperature = Temperature.yaml.getInt(path + ".temperature");
                 fmBlocks.put(currentMaterial, new FMBlock(newMaterial, temperature, isIncrease));
-                System.out.println("检测到随温度变化而变化的方块" + path.replace("fmBlocks.", "") + "->" + newMaterial+ "变化温度为：" + temperature);
+                System.out.println("检测到随温度变化而变化的方块" + path.replace("fmBlocks.", "") + "->" + newMaterial + "变化温度为：" + temperature);
             }
         }
     }
@@ -91,7 +91,7 @@ public class TemperatureProvider {
         }
     }
 
-    public static int getBlockTemperature(Location loc) {
+    public static double getBlockTemperature(Location loc) {
         if (!Config.enableWorlds.contains(loc.getWorld())) return 37;
         if (loc.getBlock() == null) return 37;
         World world = loc.getWorld();
@@ -117,10 +117,10 @@ public class TemperatureProvider {
                         else tems += seasonTem - influent;
                     }
                 }
-        int result = (int) (tems / tot);
-        result = (int) (result - (1.5 * ((loc.getBlockY() - 50) / 10)));
+        double result = (tems / tot);
+        result = (result - (1.5 * ((loc.getBlockY() - 50) / 10D)));
         final double temperature = block.getTemperature();
-        result += (int) ((temperature - 0.8) * 14); // TODO 配置可改
+        result += ((temperature - 0.8) * 14); // TODO 配置可改
         return result;
     }
 

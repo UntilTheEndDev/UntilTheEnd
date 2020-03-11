@@ -75,7 +75,7 @@ public class InfluenceTasks {
                                 Location loc = new Location(playerLoc.getWorld(), playerLoc.getX() + i, playerLoc.getY() + j, playerLoc.getZ() + k);
                                 if (TemperatureProvider.fmBlocks.containsKey(ItemFactory.getType(loc.getBlock()))) {
                                     FMBlock fmBlock = TemperatureProvider.fmBlocks.get(ItemFactory.getType(loc.getBlock()));
-                                    int tem = (int) ((
+                                    double tem = ((
                                             TemperatureProvider.getBlockTemperature(loc.add(0, 1, 0)) +
                                                     TemperatureProvider.getBlockTemperature(loc.add(0, -1, 0)) +
                                                     TemperatureProvider.getBlockTemperature(loc.add(1, 0, 0)) +
@@ -124,7 +124,7 @@ public class InfluenceTasks {
                                 Location loc = new Location(playerLoc.getWorld(), playerLoc.getX() + i, playerLoc.getY() + j, playerLoc.getZ() + k);
                                 if (TemperatureProvider.fmBlocks.containsKey(loc.getBlock().getType())) {
                                     FMBlock fmBlock = TemperatureProvider.fmBlocks.get(loc.getBlock().getType());
-                                    int tem = TemperatureProvider.getBlockTemperature(loc);
+                                    double tem = TemperatureProvider.getBlockTemperature(loc);
                                     if (fmBlock.upOrDown)
                                         if (tem >= fmBlock.temperature)
                                             loc.getBlock().setType(fmBlock.newMaterial);
@@ -138,7 +138,7 @@ public class InfluenceTasks {
                     int z = (int) (Math.random() * 17 - Math.random() * 17);
                     Location loc = playerLoc.add(x, y, z);
                     if (loc.getBlock() == null) continue;
-                    int blockTem = TemperatureProvider.getBlockTemperature(loc);
+                    int blockTem = (int) TemperatureProvider.getBlockTemperature(loc);
                     if (blockTem >= hotTem && Math.random() <= smoulderPercent) {
                         boolean isPrevented = false;
                         for (String str : BlockApi.getSpecialBlocks("IceFlingomatic")) {

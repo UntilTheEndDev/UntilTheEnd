@@ -48,7 +48,7 @@ public class Thermometer implements Listener{
 		if(UntilTheEndApi.BlockApi.getSpecialBlocks("Thermometer").contains(toString)) {
 			if(clicked.contains(toString)) return;
 			clicked.add(toString);
-			int tem=TemperatureProvider.getBlockTemperature(loc);
+			int tem=(int)TemperatureProvider.getBlockTemperature(loc);
 			String text="§e§l温度§d§l"+tem+"§e§l°C";
 			final Hologram hologram=HologramsAPI.createHologram(ItemManager.plugin,loc.add(0.5,2.2,0.5).clone());
 			hologram.appendTextLine(text);

@@ -43,13 +43,12 @@ public class WarmStone implements Listener{
 			new BukkitRunnable() {
 				@Override
 				public void run() {
-					lores.add("§8- §8§l温度 "+TemperatureProvider.getBlockTemperature(event.getItemDrop().getLocation()));
+					lores.add("§8- §8§l温度 "+(int)TemperatureProvider.getBlockTemperature(event.getItemDrop().getLocation()));
 					meta.setLore(lores);
 					ritem.setItemMeta(meta);
 					event.getItemDrop().setItemStack(ritem);
-					cancel();
 				}
-			}.runTaskTimer(ItemManager.plugin,20,1L);
+			}.runTaskLater(ItemManager.plugin,20);
 		}
 	}
 }

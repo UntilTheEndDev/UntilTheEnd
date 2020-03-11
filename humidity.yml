@@ -1,4 +1,4 @@
-weahterChangePeriod: 20 #在雨中湿度没多少刻上升1
+weahterChangePeriod: 10 #在雨中湿度没多少刻上升1
 stateChangePeriod: 5 #在水中湿度没多少刻上升1
 effectHumidity: 10 #玩家湿度高于多少触发挖掘疲劳效果
 dampPeriod: 50 #玩家背包内物品受潮计算周期(数值越大，受潮越快)

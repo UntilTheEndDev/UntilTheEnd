@@ -233,14 +233,14 @@ public class Commands implements CommandExecutor, Listener, TabCompleter {
                     return true;
                 }
                 String typeName = ct[2];
+                double value;
                 try {
-                    Integer.valueOf(ct[3]);
+                    value = Double.parseDouble(ct[3]);
                 } catch (Exception e) {
                     cs.sendMessage(Config.getLang("cmd.notANumber"));
                     return true;
                 }
-                int value = Integer.parseInt(ct[3]);
-                PlayerManager.forgetChange(player, PlayerManager.CheckType.search(typeName), (value - PlayerManager.check(player, typeName)));
+                PlayerManager.forgetChange(player, PlayerManager.CheckType.search(typeName), value, PlayerManager.EditAction.SET);
                 PlayerManager.save(player);
                 cs.sendMessage(Config.getLang("cmd.setHud"));
                 break;
