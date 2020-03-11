@@ -56,6 +56,7 @@ public class InfluenceTasks {
                         if (entity instanceof Item) {
                             Item entityItem = (Item) entity;
                             if (entity.getLocation().getBlock().getTemperature() > 1) continue;
+                            if (ChangeTasks.WeatherTask.hasShelter(entity)) continue;
                             ItemStack item = entityItem.getItemStack();
                             if ((!WetManager.isWet(item)) && Math.random() <= dampPercent) {
                                 WetManager.setWet(item, true);

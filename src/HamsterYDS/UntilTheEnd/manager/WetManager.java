@@ -22,6 +22,7 @@ public class WetManager {
 
     public static void setWet(ItemStack stack, boolean state) {
         if (stack == null) return;
+        if (getName(stack).equalsIgnoreCase(UTEi18n.cache("item.locked"))) return;
         if (state) {
             if (HumidityProvider.moistness.containsKey(stack.getType()))
                 stack.setType(HumidityProvider.moistness.get(stack.getType()));
@@ -39,8 +40,14 @@ public class WetManager {
         } else lore.remove(LORE);
         meta.setLore(lore);
         stack.setItemMeta(meta);
-    }
-
+    } 
+    public static String getName(ItemStack item) {
+		if(item==null) return "";
+		if(item.hasItemMeta())
+			if(item.getItemMeta().hasDisplayName())
+				return item.getItemMeta().getDisplayName();
+		return "";
+	}
     public static boolean isWet(ItemStack item) {
         if (item == null) return true;
         if (!item.hasItemMeta()) return false;

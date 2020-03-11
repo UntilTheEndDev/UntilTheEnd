@@ -10,6 +10,7 @@ import java.util.function.BiFunction;
 import org.bukkit.Location;
 import org.bukkit.Material;
 import org.bukkit.World;
+import org.bukkit.entity.Entity;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.PlayerInventory;
@@ -126,10 +127,10 @@ public class ChangeTasks {
             return false;
         }
 
-        public static boolean hasShelter(Player player) {
-            Location loc = player.getLocation().add(0, 1, 0);
+        public static boolean hasShelter(Entity entity) {
+            Location loc = entity.getLocation().add(0, 1, 0);
             for (int i = 0; i <= 100; loc = loc.add(0, 1.0, 0), i++)
-                if (player.getWorld().getBlockAt(loc).getType() != Material.AIR)
+                if (entity.getWorld().getBlockAt(loc).getType() != Material.AIR)
                     return true;
             return false;
         }
