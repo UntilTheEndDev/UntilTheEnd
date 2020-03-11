@@ -17,6 +17,7 @@ import HamsterYDS.UntilTheEnd.guide.CraftGuide;
 import HamsterYDS.UntilTheEnd.guide.Guide;
 import HamsterYDS.UntilTheEnd.item.ItemManager;
 import HamsterYDS.UntilTheEnd.player.PlayerManager;
+import HamsterYDS.UntilTheEnd.player.role.Roles;
 import HamsterYDS.UntilTheEnd.world.WorldCounter;
 import HamsterYDS.UntilTheEnd.world.WorldProvider;
 import HamsterYDS.UntilTheEnd.world.WorldProvider.IWorld;
@@ -34,15 +35,17 @@ public class Commands implements CommandExecutor, Listener, TabCompleter {
     public static ArrayList<String> itemTab = new ArrayList<String>();
     public static ArrayList<String> worldTab = new ArrayList<String>();
     public static ArrayList<String> capTab = new ArrayList<String>();
+    public static ArrayList<String> roleTab = new ArrayList<String>();
 
     static {
         itemTab.addAll(ItemManager.idsAndNames.keySet());
-        cmdTab.addAll(Arrays.asList("cheat", "give", "guide", "help", "material", "entitytype", "set", "season", "temp"));
+        cmdTab.addAll(Arrays.asList("cheat", "give", "guide", "help", "material", "entitytype", "set", "season", "temp", "role"));
         for (Season season : Season.values())
             seasonTab.add(season.name().toLowerCase());
-        for (PlayerManager.CheckType type : PlayerManager.CheckType.values()) {
+        for (PlayerManager.CheckType type : PlayerManager.CheckType.values()) 
             capTab.add(type.getShortName());
-        }
+        for (Roles role:Roles.values())
+        	roleTab.add(role.toString());
         Collections.sort(itemTab);
         Collections.sort(cmdTab);
     }
@@ -66,6 +69,8 @@ public class Commands implements CommandExecutor, Listener, TabCompleter {
             sender.sendMessage(Config.getLang("cmd.ute_give"));
         if (sender.hasPermission("ute.set"))
             sender.sendMessage(Config.getLang("cmd.ute_set"));
+        if (sender.hasPermission("ute.role"))
+            sender.sendMessage(Config.getLang("cmd.ute_role"));
         sender.sendMessage(Config.getLang("cmd.label_2"));
         if (sender.hasPermission("ute.material"))
             sender.sendMessage(Config.getLang("cmd.ute_material"));
@@ -247,6 +252,25 @@ public class Commands implements CommandExecutor, Listener, TabCompleter {
                 }
                 break;
             }
+            case "role": {
+            	if (pl == null) {
+            		notPlayer(cs);
+            	}
+            	if(ct.length==1) pl.sendMessage("你现在的角色: "+PlayerManager.checkRole(pl).name); //TODO
+            	if(ct.length==2) {
+            		Roles role=Roles.DEFAULT;
+            		try {
+            			role=Roles.valueOf(ct[1]);
+            		}catch(Exception e) {
+            			pl.sendMessage("非法角色"); //TODO
+            			return true; 
+            		}
+            		if(!pl.hasPermission("ute.role."+role.name)) notPermitted(cs);
+            		PlayerManager.changeRole(pl,role);
+            		PlayerManager.playerChangedRole.add(pl.getUniqueId());
+            		pl.sendMessage("改变角色成功"); 
+            	}
+            }
         }
         return true;
     }
@@ -336,6 +360,11 @@ public class Commands implements CommandExecutor, Listener, TabCompleter {
                             }
                         }
                         break;
+                    }
+                    case "role": {
+                    	if (sender.hasPermission("ute.role")) {
+                    		list.addAll(roleTab);
+                    	}
                     }
                 }
                 break;

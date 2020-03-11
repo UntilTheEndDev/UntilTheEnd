@@ -19,6 +19,7 @@ import HamsterYDS.UntilTheEnd.guide.CraftGuide;
 import HamsterYDS.UntilTheEnd.item.ItemManager;
 import HamsterYDS.UntilTheEnd.item.ItemProvider;
 import HamsterYDS.UntilTheEnd.player.PlayerManager;
+import HamsterYDS.UntilTheEnd.player.role.Roles;
 import HamsterYDS.UntilTheEnd.world.WorldProvider;
 import HamsterYDS.UntilTheEnd.world.WorldProvider.Season;
 import me.clip.placeholderapi.PlaceholderAPI;
@@ -41,9 +42,8 @@ public class UntilTheEndApi {
 
     public static class BlockApi {
         public static String getSpecialBlock(Location loc) {
-            World world = loc.getWorld();
-            String toString = world.getName() + "-" + loc.getBlockX() + "-" + loc.getBlockY() + "-" + loc.getBlockZ();
-            return BlockManager.blocks.get(toString);
+            String toString = locToStr(loc);
+            return BlockManager.blocks.containsKey(toString)?BlockManager.blocks.get(toString):" ";
         }
 
         public static HashMap<String, String> getSpecialBlocks(World world) {
@@ -171,6 +171,14 @@ public class UntilTheEndApi {
 
         public static void setValue(Player player, String type, int value) {
             PlayerManager.change(player, type, value);
+        }
+        
+        public static Roles getRole(Player player) {
+        	return PlayerManager.checkRole(player);
+        }
+        
+        public static void changeRole(Player player,Roles role) {
+        	PlayerManager.changeRole(player,role);
         }
     }
 

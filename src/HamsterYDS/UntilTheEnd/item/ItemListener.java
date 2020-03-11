@@ -2,6 +2,7 @@ package HamsterYDS.UntilTheEnd.item;
 
 import java.util.HashMap;
 
+import HamsterYDS.UntilTheEnd.api.UntilTheEndApi.BlockApi;
 import HamsterYDS.UntilTheEnd.internal.UTEi18n;
 import org.bukkit.GameMode;
 import org.bukkit.Location;
@@ -79,7 +80,7 @@ public class ItemListener implements Listener {
                 event.setCancelled(true);
                 event.getWhoClicked().sendMessage(UTEi18n.cacheWithPrefix("item.system.no-crafting"));
             }
-        }
+        } 
     }
 
     @EventHandler
@@ -94,8 +95,30 @@ public class ItemListener implements Listener {
         for (ItemStack material : materials.keySet())
             if (!inv.containsAtLeast(material, materials.get(material)))
                 event.setCancelled(true);
+        boolean flag=false;
+        Player player=(Player) event.getWhoClicked();
+        if(ItemManager.itemsNeedLevels.containsKey(ItemManager.itemsAndIds.get(item))) {
+        	int level=ItemManager.itemsNeedLevels.get(ItemManager.itemsAndIds.get(item));
+        	String machineId=ItemManager.itemsWithLevels.get(level);
+        	for(int i=-5;i<=5;i++)
+        		for(int j=-5;j<=5;j++)
+        			for(int k=-5;k<=5;k++){
+        				Location newLoc=new Location(player.getWorld(),
+        						player.getLocation().getX()+i,
+        						player.getLocation().getY()+j,
+        						player.getLocation().getZ()+k);
+        				newLoc=newLoc.getBlock().getLocation();
+        				if(BlockApi.getSpecialBlock(newLoc).equalsIgnoreCase(machineId)){
+        					return;
+        				}
+        			}
+        }
+        if(!flag) {
+        	event.getWhoClicked().sendMessage(UTEi18n.cacheWithPrefix("item.system.no-machine"));
+        	event.setCancelled(true);
+        }
     }
-
+    
     @EventHandler
     public void onDeath(EntityDeathEvent event) {
         EntityType type = event.getEntityType();

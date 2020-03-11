@@ -22,6 +22,7 @@ cmd:
   ute_set: '/ute set <玩家名> <固有属性名> <数量> 更改玩家的固有属性'
   ute_entitytype: '/ute entitytype 查看自己附近1格生物的EntityType名'
   ute_material: '/ute material 查看自己所在方块的Material名'
+  ute_role: '/ute role <角色英文大写> 调整自己的角色'
 game:
   eat_wet_food: '潮湿的食物真难吃~'
   drag_wet_item: '潮湿的物品貌似不能拖动，它们太笨重了！'

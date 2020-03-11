@@ -83,6 +83,7 @@ public class HudBossBar extends BukkitRunnable implements Listener {
                 final NdBossBar ndBossBar = create(p.getUniqueId());
                 double san = PlayerManager.check(p, PlayerManager.CheckType.SANITY);
                 double sanMax = PlayerManager.check(p, PlayerManager.CheckType.SANMAX);
+                if(san>=sanMax) san=sanMax;
                 double tem = PlayerManager.check(p, PlayerManager.CheckType.TEMPERATURE);
                 double hum = PlayerManager.check(p, PlayerManager.CheckType.HUMIDITY);
                 double tir = PlayerManager.check(p, PlayerManager.CheckType.TIREDNESS);

@@ -23,8 +23,8 @@ public class InfluenceTasks {
     public static double disguiseRangeX = Sanity.yaml.getDouble("disguiseRangeX");
     public static double disguiseRangeY = Sanity.yaml.getDouble("disguiseRangeY");
     public static double disguiseRangeZ = Sanity.yaml.getDouble("disguiseRangeZ");
-    public static int disguiseSanity = Sanity.yaml.getInt("disguiseSanity");
-    public static int confusionSanity = Sanity.yaml.getInt("confusionSanity");
+    public static double disguiseSanity = Sanity.yaml.getDouble("disguiseSanity");
+    public static double confusionSanity = Sanity.yaml.getDouble("confusionSanity");
 
     public InfluenceTasks(UntilTheEnd plugin) {
         this.plugin = plugin;
@@ -46,9 +46,11 @@ public class InfluenceTasks {
                 DisguiseAPI.undisguiseToAll(entity);
             }
             for (World world : Config.enableWorlds)
-                for (Player player : world.getPlayers())
-                    if (PlayerManager.check(player, PlayerManager.CheckType.SANITY) <= disguiseSanity)
-                        for (Entity entity : player.getNearbyEntities(disguiseRangeX, disguiseRangeY, disguiseRangeZ)) {
+                for (Player player : world.getPlayers()){
+                	int san=(int) PlayerManager.check(player, PlayerManager.CheckType.SANITY);
+                	int disguiseSanityCal=(int) (disguiseSanity*PlayerManager.check(player, PlayerManager.CheckType.SANMAX));
+                	if (san <= disguiseSanityCal)
+                		for (Entity entity : player.getNearbyEntities(disguiseRangeX, disguiseRangeY, disguiseRangeZ)) {
                             DisguiseType type = DisguiseType.values()[(int) (DisguiseType.values().length * Math.random() - 1)];
                             MobDisguise disguise = new MobDisguise(type);
                             DisguiseAPI.disguiseToPlayers(entity, disguise, player.getName());
@@ -56,6 +58,7 @@ public class InfluenceTasks {
                             disguise.startDisguise();
                             mobs.add(entity.getUniqueId());
                         }
+                }
         }
     }
 
@@ -64,7 +67,9 @@ public class InfluenceTasks {
         public void run() {
             for (World world : Config.enableWorlds)
                 for (Player player : world.getPlayers()) {
-                    if (PlayerManager.check(player, PlayerManager.CheckType.SANITY) <= confusionSanity) {
+                	int san=(int) PlayerManager.check(player, PlayerManager.CheckType.SANITY);
+                	int confusionSanityCal=(int) (confusionSanity*PlayerManager.check(player, PlayerManager.CheckType.SANMAX));
+                    if (san <= confusionSanityCal) {
                         player.removePotionEffect(PotionEffectType.CONFUSION);
                         player.addPotionEffect(new PotionEffect(PotionEffectType.CONFUSION, 100, 0));
                     }

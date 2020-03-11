@@ -1,11 +1,11 @@
 disguiseRangeX: 10.0 #变形范围（东西）
 disguiseRangeY: 5.0 #变形范围（上下）
 disguiseRangeZ: 10.0 #变形范围（南北）
-disguiseSanity: 30 #玩家理智低于多少时，生物开始在玩家眼中变形
-confusionSanity: 120 #玩家理智低于多少是，开始反胃
-moveWronglySanity: 90 #玩家理智低于多少,移动有几率晕头转向
+disguiseSanity: 0.15 #玩家理智低于多少时，生物开始在玩家眼中变形(0-1)
+confusionSanity: 0.6 #玩家理智低于多少是，开始反胃(0-1)
+moveWronglySanity: 0.45 #玩家理智低于百分之几,移动有几率晕头转向(0-1)
 moveWronglyPercent: 0.05 #晕头转向的几率
-chatablessSanity: 60 #玩家理智低于多少，说出的话是乱码
+chatablessSanity: 0.3 #玩家理智低于多少，说出的话是乱码(0-1)
 
 auraRangeX: 5.0 #理智光环判定范围（东西）
 auraRangeY: 3.0 #理智光环判定范围（上下）

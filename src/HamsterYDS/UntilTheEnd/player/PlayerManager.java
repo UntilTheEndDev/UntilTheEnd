@@ -2,6 +2,7 @@ package HamsterYDS.UntilTheEnd.player;
 
 import java.io.File;
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.UUID;
@@ -45,12 +46,16 @@ public class PlayerManager implements Listener {
 		for (Player player : Bukkit.getOnlinePlayers())
 			load(player);
 	}
-
+	
+	public static ArrayList<UUID> playerChangedRole=new ArrayList<UUID>();
+	
 	@EventHandler
 	public void onJoin(PlayerJoinEvent event) {
 		Player player = event.getPlayer();
 		String name = player.getName();
 		load(player);
+		if(checkRole(player)==Roles.DEFAULT)
+			player.sendMessage(UTEi18n.cache("role.unchosen")); 
 		HudProvider.sanity.put(name, " ");
 		HudProvider.humidity.put(name, " ");
 		HudProvider.temperature.put(name, " ");
@@ -71,13 +76,13 @@ public class PlayerManager implements Listener {
 
 	@EventHandler
 	public void onDeath(PlayerDeathEvent event) {
-		IPlayer player = new IPlayer(37, 0, 200, 0.0);
-		player.role = players.get(event.getEntity().getUniqueId()).role;
-		player.roleStats = players.get(event.getEntity().getUniqueId()).roleStats;
-		players.put(event.getEntity().getUniqueId(), player);
+		change(event.getEntity(),CheckType.TEMPERATURE,37);
+		change(event.getEntity(),CheckType.HUMIDITY,37);
+		change(event.getEntity(),CheckType.SANITY,Roles.DEFAULT.originSanMax);
+		change(event.getEntity(),CheckType.TIREDNESS,37);
+		changeRole(event.getEntity(),Roles.DEFAULT);
 		save(event.getEntity());
 		load(event.getEntity());
-		event.getEntity().setMaxHealth(player.roleStats.healthMax);
 	}
 
 	public static void load(OfflinePlayer name) {
@@ -99,16 +104,17 @@ public class PlayerManager implements Listener {
 				sanity = ((Number) load.getOrDefault("sanity", 200)).intValue();
 				tiredness = ((Number) load.getOrDefault("tiredness", 0)).intValue();
 				roleName = ((String) load.getOrDefault("role", "DEFAULT"));
-				level = ((Number) load.getOrDefault("level", 0)).intValue();
-				sanMax = ((Number) load.getOrDefault("sanMax", 200)).intValue();
-				healthMax = ((Number) load.getOrDefault("healthMax", 20)).intValue();
-				damageLevel = ((Number) load.getOrDefault("damageLevel", 1)).intValue();
+				Roles role=Roles.valueOf(roleName);
+				level = ((Number) load.getOrDefault("level", role.originLevel)).intValue();
+				sanMax = ((Number) load.getOrDefault("sanMax", role.originSanMax)).intValue();
+				healthMax = ((Number) load.getOrDefault("healthMax", role.originHealthMax)).intValue();
+				damageLevel = ((Number) load.getOrDefault("damageLevel", role.originDamageLevel)).intValue();
 			}
 		} catch (Throwable exception) {
 			plugin.getLogger().log(Level.WARNING, "Failed to load " + name, exception);
 		}
 		IPlayer player = new IPlayer(temperature, humidity, sanity, tiredness);
-
+		
 		player.role = Roles.valueOf(roleName);
 		player.roleStats = new IRole(level, sanMax, healthMax, damageLevel);
 
@@ -134,8 +140,27 @@ public class PlayerManager implements Listener {
 		}
 	}
 
+	public static Roles checkRole(Player player) {
+		if(!players.containsKey(player.getUniqueId())) return Roles.DEFAULT;
+		IPlayer ip = players.get(player.getUniqueId());
+		return ip.role==null?Roles.DEFAULT:ip.role;
+	}
+	
+	public static void changeRole(Player player,Roles newRole) {
+		IPlayer ip = players.get(player.getUniqueId());
+		ip.role=newRole;
+		ip.roleStats=new IRole(newRole.originLevel,newRole.originSanMax,
+				newRole.originHealthMax,newRole.originDamageLevel);
+		players.remove(player.getUniqueId());
+		players.put(player.getUniqueId(),ip);
+		save(player);
+		player.setMaxHealth(ip.roleStats.healthMax);
+	}
+	
 	public static double check(Player player, CheckType type) {
-		if (!Config.enableWorlds.contains(player.getWorld())
+		IPlayer ip = players.get(player.getUniqueId());
+		if(ip==null) return 0.0;
+		if ((!Config.enableWorlds.contains(player.getWorld()))
 				|| (player.getGameMode() == GameMode.CREATIVE || player.getGameMode() == GameMode.SPECTATOR))
 			switch (type) {
 			case TEMPERATURE:
@@ -143,19 +168,18 @@ public class PlayerManager implements Listener {
 			case HUMIDITY:
 				return 0;
 			case SANITY:
-				return 200;
+				return ip.roleStats.sanMax;
 			case TIREDNESS:
 				return 0;
 			case DAMAGELEVEL:
-				return 1;
+				return ip.roleStats.damageLevel;
 			case HEALTHMAX:
-				return 20;
+				return player.getMaxHealth();
 			case LEVEL:
-				return 0;
+				return ip.roleStats.level;
 			case SANMAX:
-				return 200;
+				return ip.roleStats.sanMax;
 			}
-		IPlayer ip = players.get(player.getUniqueId());
 		if (ip == null || type == null)
 			return 1;
 		switch (type) {
@@ -170,13 +194,13 @@ public class PlayerManager implements Listener {
 		case DAMAGELEVEL:
 			return ip.roleStats.damageLevel;
 		case HEALTHMAX:
-			return ip.roleStats.healthMax;
+			return player.getMaxHealth();
 		case LEVEL:
 			return ip.roleStats.level;
 		case SANMAX:
 			return ip.roleStats.sanMax;
 		}
-		return 0.0;
+		return 1.0;
 	}
 
 	public static double check(Player name, String type) {

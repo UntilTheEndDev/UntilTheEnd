@@ -4,6 +4,7 @@ import org.bukkit.Bukkit;
 
 import HamsterYDS.UntilTheEnd.UntilTheEnd;
 import HamsterYDS.UntilTheEnd.player.death.DeathMessage;
+import HamsterYDS.UntilTheEnd.player.role.events.GeneralEvents;
 
 /**
  * @author 南外丶仓鼠
@@ -17,5 +18,6 @@ public class Player {
 			PlayerManager.load(player);
 		new PlayerInventoryAdapt(plugin);
 		plugin.getServer().getPluginManager().registerEvents(new DeathMessage(),plugin);
+		plugin.getServer().getPluginManager().registerEvents(new GeneralEvents(),plugin);
 	}
 }

@@ -16,7 +16,9 @@ public class InfluenceTasks extends BukkitRunnable{
 	public static int slowdigging=Tiredness.yaml.getInt("influence.slowdigging");
 	public static int hunger=Tiredness.yaml.getInt("influence.hunger");
 	public static int wither=Tiredness.yaml.getInt("influence.wither");
+	public static int weak=Tiredness.yaml.getInt("influence.weak");
 	public static int sprint=Tiredness.yaml.getInt("influence.event.sprint");
+	
 	@Override
 	public void run() {
 		for(World world:Config.enableWorlds)
@@ -30,6 +32,8 @@ public class InfluenceTasks extends BukkitRunnable{
 					addEffect(player,PotionEffectType.HUNGER,(tir-hunger)/5);
 				if(tir>=wither) 
 					addEffect(player,PotionEffectType.WITHER,(tir-wither)/5);
+				if(tir>=weak) 
+					addEffect(player,PotionEffectType.WEAKNESS,(tir-weak)/15);
 				if(player.isSprinting()&&tir>=sprint) {
 					player.sendMessage(UTEi18n.cache("cap.tir.influence.sprint"));
 					player.setSprinting(false);

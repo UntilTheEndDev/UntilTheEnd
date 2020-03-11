@@ -13,7 +13,7 @@ import HamsterYDS.UntilTheEnd.item.ItemManager;
 public class Coin{
 	public Coin() {		
 		HashMap<ItemStack,Integer> materials=new HashMap<ItemStack,Integer>();
-		materials.put(new ItemStack(Material.GOLD_NUGGET),9);
+		materials.put(new ItemStack(Material.GOLD_NUGGET),8);
 		ItemManager.registerRecipe(materials,ItemManager.namesAndItems.get("§6金币"),"§6基础");
 	}
 }

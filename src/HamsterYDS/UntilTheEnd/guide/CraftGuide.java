@@ -11,6 +11,7 @@ import org.bukkit.Material;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
+import org.bukkit.event.inventory.ClickType;
 import org.bukkit.event.inventory.InventoryClickEvent;
 import org.bukkit.event.inventory.InventoryCloseEvent;
 import org.bukkit.event.inventory.InventoryDragEvent;
@@ -119,6 +120,11 @@ public class CraftGuide implements Listener {
         ItemStack item = event.getCurrentItem().clone();
         if (item.getItemMeta() == null) return;
         item.setAmount(1);
+        if(cheating.contains(player.getName())) 
+        	if(event.getClick()==ClickType.MIDDLE){
+        		event.setCursor(event.getCurrentItem());
+        		return;
+        	}
         if (event.getSlot() == 8)
             player.openInventory(CraftGuide.inv);
         if (event.getSlot() == 0) {
@@ -236,11 +242,15 @@ public class CraftGuide implements Listener {
     //加载一个新的物品合成展示GUI
     public static Inventory getCraftInventory() {
         ItemStack frame = getItem(UTEi18n.cache("item.guide.border"), Material.STAINED_GLASS_PANE, 15);
-        Inventory craftInv = Bukkit.createInventory(HolderCraftingHelp.INSTANCE, 27, UTEi18n.cache("item.guide.help.crafting.main"));
+        Inventory craftInv = Bukkit.createInventory(HolderCraftingHelp.INSTANCE, 45, UTEi18n.cache("item.guide.help.crafting.main"));
         for (int i = 0; i < 9; i++) craftInv.setItem(i, frame);
         craftInv.setItem(9, frame);
         craftInv.setItem(17, frame);
-        for (int i = 18; i < 27; i++) craftInv.setItem(i, frame);
+        craftInv.setItem(18, frame);
+        craftInv.setItem(26, frame);
+        craftInv.setItem(27, frame);
+        craftInv.setItem(35, frame);
+        for (int i = 36; i < 45; i++) craftInv.setItem(i, frame);
         return craftInv;
     }
 }

@@ -1,30 +1,38 @@
 石砖: 
   enable: true
   id: Brick
+  needLevel: 1
 绳子: 
   enable: true
   id: Rope
+  needLevel: 1
 板条: 
   enable: true
   id: Plank
+  needLevel: 1
 噩梦燃料: 
   enable: true
   id: NightMare
   sanityReduce: -1  #每个噩梦燃料每10秒钟对理智的影响
+  needLevel: 1
 金币: 
   enable: true
   id: Coin
+  needLevel: 1
 蕨类植物: 
   enable: true
   id: Fern
   heal: 0.5
+  needLevel: 1
 冰雹: 
   enable: true
   id: Hail
   temperatureReduce: -1  #每使用一个冰雹温度变化数值
+  needLevel: 1
 芦苇: 
   enable: true
   id: Reed
+  needLevel: 1
   
 猫尾: 
   enable: true
@@ -82,10 +90,12 @@
 灌木丛帽子: 
   enable: true
   id: BushesHat
+  needLevel: 1
 兔毛耳罩: 
   enable: true
   id: Earmuff
   percent: 0.4  #兔毛耳罩减免温度下降速率的百分数
+  needLevel: 1
 花环: 
   enable: true
   id: Garland
@@ -94,67 +104,87 @@
   enable: true
   id: StrawHat
   percent: 0.4  #草帽减免温度上升速率的百分数
+  needLevel: 1
 眼球伞: 
   enable: true
   id: EyeballUmbrella
   sanityImprove: 3  #戴着眼球伞每10秒改变的理智值
   range: 10.0  #眼球伞吸收雷电的范围
   damageIncreasePeriod: 30  #吸收雷电转化成的力量III效果持续多少秒
+  needLevel: 1
 恒温服:
   enable: true
   id: ConstantTemperatureClothes
+  needLevel: 1
 防水服:
   enable: true
   id: SwimmingSuit
+  needLevel: 1
 
 便携包: 
   enable: true
   id: MovablePack
+  needLevel: 1
 背包: 
   enable: true
   id: NormalPack
+  needLevel: 1
 皮质背包: 
   enable: true
   id: PigPack
+  needLevel: 1
 救赎之心: 
   enable: true
   id: Reviver
+  needLevel: 1
 暖石: 
   enable: true
   id: WarmStone
+  needLevel: 1
 探测器: 
   enable: true
   id: Detector
+  needLevel: 1
 伞: 
   enable: true
   id: Umbrella
+  needLevel: 1
 花伞: 
   enable: true
   id: FlowerUmbrella
+  needLevel: 1
 治疗药膏: 
   enable: true
   id: HealingSalve
+  needLevel: 1
 止血剂: 
   enable: true
   id: HoneyPoultice
+  needLevel: 1
 ACD试验药: 
   enable: true
   id: ACDDrug
+  needLevel: 1
 豪华风扇:
   enable: true
   id: LuxuryFan
+  needLevel: 1
 稻草卷:
   enable: true
   id: StrawRoll
+  needLevel: 1
 毛皮卷:
   enable: true
   id: FurRoll
+  needLevel: 1
 水球:
   enable: true
   id: WaterBalloon
+  needLevel: 1
 简易小木棚:
   enable: true
   id: SiestaLeanto
+  needLevel: 1
 
 吹箭: 
   enable: true
@@ -162,6 +192,7 @@ ACD试验药:
   damage: 30  #吹箭伤害
   range: 0.5  #吹箭判定范围
   maxDist: 300  #吹箭最远飞行距离（不是以格子为单位）
+  needLevel: 1
 火吹箭: 
   enable: true
   id: BlowArrow2
@@ -169,6 +200,7 @@ ACD试验药:
   range: 0.5  #判定范围
   maxDist: 300  #最远飞行距离
   firePeriod: 20  #击中生物燃烧的秒数
+  needLevel: 1
 麻醉吹箭: 
   enable: true
   id: BlowArrow3
@@ -176,43 +208,54 @@ ACD试验药:
   range: 0.5  #判定范围
   maxDist: 300  #最远飞行距离
   blindPeriod: 30  #击中玩家无法看见任何事物的秒数
+  needLevel: 1
 蜜蜂地雷:
   enable: true
   id: BeeMine
   explosionAmount: 2  #爆炸规模
   poison: 7.5  #踩中地雷有多少秒的中毒效果
+  needLevel: 1
 狗牙陷阱:
   enable: true
   id: ToothTrap
   damage: 8  #踩中生物受到的伤害
   brokenPercent: 0.2  #每踩一次有多大几率陷阱坏掉
+  needLevel: 1
 旋风:
   enable: true
   id: WeatherPain
   dist: 400  #旋风最远飞行距离（不是以格子为单位）
   range: 3.0  #旋风波及范围
+  needLevel: 1
 
 电器元件: 
   enable: true
   id: Element
+  needLevel: 1
 温度计: 
   enable: true
   id: Thermometer
+  needLevel: 1
 湿度计: 
   enable: true
   id: Hygrometer
+  needLevel: 1
 避雷针: 
   enable: true
   id: LightningArrester
+  needLevel: 1
 雪球发射机: 
   enable: true
   id: IceFlingomatic
+  needLevel: 1
 冰箱: 
   enable: true
   id: Refridgerator
+  needLevel: 1
 科学机器: 
   enable: true
   id: ScienceMachine
+  provideLevel: 1
 
 火魔杖: 
   enable: true

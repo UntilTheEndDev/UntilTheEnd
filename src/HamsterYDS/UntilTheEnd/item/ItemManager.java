@@ -87,7 +87,7 @@ public class ItemManager {
     public static HashMap<ItemStack, String> itemsAndIds = new HashMap<ItemStack, String>();
     
     public static HashMap<String, Integer> itemsNeedLevels = new HashMap<String, Integer>();
-    public static HashMap<String, Integer> itemsWithLevels = new HashMap<String, Integer>();
+    public static HashMap<Integer, String> itemsWithLevels = new HashMap<Integer, String>();
    
     public static HashMap<String, ItemStack> canPlaceBlocks = new HashMap<String, ItemStack>();
     public static HashMap<ItemStack, HashMap<ItemStack, Integer>> recipes = new HashMap<ItemStack, HashMap<ItemStack, Integer>>();
@@ -108,7 +108,14 @@ public class ItemManager {
             namesAndItems.put("§6" + path, item);
             itemsAndIds.put(item, id);
             nsks.put(item, new NamespacedKey(plugin, "ute." + id.toLowerCase()));
-//            if()
+            if(yaml2.contains(path+".needLevel")) {
+            	int needLevel=yaml2.getInt(path+".needLevel");
+            	itemsNeedLevels.put(id,needLevel);
+            }
+            if(yaml2.contains(path+".provideLevel")) {
+            	int needLevel=yaml2.getInt(path+".provideLevel");
+            	itemsWithLevels.put(needLevel,id);
+            }
         }
         new Brick();
         new Plank();
@@ -185,17 +192,18 @@ public class ItemManager {
         plugin.getServer().getPluginManager().registerEvents(new ItemListener(), plugin);
     }
 
-    private static int[] slots = new int[]{15, 14, 16, 13};
-
+    private static int[] slots = new int[]{24,23,25,15,14,16,33,32,34};
     public static void registerRecipe(HashMap<ItemStack, Integer> materials, ItemStack result, String category) {
         ShapelessRecipe recipe = new ShapelessRecipe(nsks.get(result), result);
         Inventory inv = CraftGuide.getCraftInventory();
-        inv.setItem(11, result);
+        inv.setItem(20, result);
         int tot = 0;
         for (ItemStack material : materials.keySet()) {
             ItemStack materialClone = material.clone();
-            materialClone.setAmount(materials.get(material));
-            inv.setItem(slots[tot++], materialClone);
+            materialClone.setAmount(1);
+            for(int i=0;i<materials.get(material);i++) {
+            	inv.setItem(slots[tot++], materialClone);
+            }
             recipe.addIngredient(materials.get(material), material.getType());
         }
         Bukkit.addRecipe(recipe);

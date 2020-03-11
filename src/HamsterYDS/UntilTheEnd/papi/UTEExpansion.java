@@ -1,6 +1,8 @@
 package HamsterYDS.UntilTheEnd.papi;
 
 import HamsterYDS.UntilTheEnd.api.UntilTheEndApi;
+import HamsterYDS.UntilTheEnd.player.PlayerManager;
+import HamsterYDS.UntilTheEnd.player.PlayerManager.CheckType;
 import me.clip.placeholderapi.expansion.PlaceholderExpansion;
 import org.bukkit.entity.Player;
 
@@ -36,6 +38,16 @@ public class UTEExpansion extends PlaceholderExpansion {
             return String.valueOf(UntilTheEndApi.PlayerApi.getValue(player, "tir"));
         } else if (identifier.equals("season")) {
             return UntilTheEndApi.WorldApi.getName(UntilTheEndApi.WorldApi.getSeason(player.getWorld()));
+        } else if (identifier.equals("role")) {
+            return UntilTheEndApi.PlayerApi.getRole(player).name;
+        } else if (identifier.equals("sanmax")) {
+        	 return String.valueOf(PlayerManager.check(player,CheckType.SANMAX));
+        } else if (identifier.equals("healthmax")) {
+        	return String.valueOf(PlayerManager.check(player,CheckType.HEALTHMAX));
+        } else if (identifier.equals("level")) {
+        	return String.valueOf(PlayerManager.check(player,CheckType.LEVEL));
+        } else if (identifier.equals("damagelevel")) {
+        	return String.valueOf(PlayerManager.check(player,CheckType.DAMAGELEVEL));
         } else if (identifier.equals("day")) {
             return String.valueOf(UntilTheEndApi.WorldApi.getDay(player.getWorld()));
         } else if (identifier.equals("sanitycolor")) {
