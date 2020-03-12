@@ -2,6 +2,7 @@ package HamsterYDS.UntilTheEnd.item.survival;
 
 import java.util.HashMap;
 
+import HamsterYDS.UntilTheEnd.internal.EventHelper;
 import org.bukkit.entity.Entity;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
@@ -26,8 +27,9 @@ public class LuxuryFan implements Listener {
     @EventHandler
     public void onClick(PlayerInteractEvent event) {
         Player player = event.getPlayer();
-        if (!(event.getAction() == Action.RIGHT_CLICK_AIR || event.getAction() == Action.RIGHT_CLICK_BLOCK)) return;
-        ItemStack item = player.getItemInHand().clone();
+        if (!event.hasItem()) return;
+        if (!EventHelper.isRight(event.getAction())) return;
+        ItemStack item = event.getItem().clone();
         if (item == null) return;
         item.setAmount(1);
         if (item.equals(ItemManager.namesAndItems.get("§6豪华风扇"))) {

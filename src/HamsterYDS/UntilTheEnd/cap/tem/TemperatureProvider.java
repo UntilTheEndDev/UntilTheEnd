@@ -3,6 +3,7 @@ package HamsterYDS.UntilTheEnd.cap.tem;
 import java.util.HashMap;
 
 import HamsterYDS.UntilTheEnd.internal.ItemFactory;
+import HamsterYDS.UntilTheEnd.internal.UTEi18n;
 import org.bukkit.Bukkit;
 import org.bukkit.Location;
 import org.bukkit.Material;
@@ -36,7 +37,7 @@ public class TemperatureProvider {
                 boolean isIncrease = Temperature.yaml.getBoolean(path + ".increase");
                 int temperature = Temperature.yaml.getInt(path + ".temperature");
                 fmBlocks.put(currentMaterial, new FMBlock(newMaterial, temperature, isIncrease));
-                System.out.println("检测到随温度变化而变化的方块" + path.replace("fmBlocks.", "") + "->" + newMaterial + "变化温度为：" + temperature);
+                System.out.println(UTEi18n.parse("cap.tem.provider.fmb.rule", path.replace("fmBlocks.", ""), String.valueOf(newMaterial), String.valueOf(temperature)));
             }
         }
     }
@@ -61,7 +62,7 @@ public class TemperatureProvider {
                 int tem = Temperature.yaml.getInt(path);
                 path = path.replace("blockTemperature.", "");
                 Material material = ItemFactory.valueOf(path);
-                System.out.println("检测到带有温度的方块" + material + "温度为：" + tem);
+                System.out.println(UTEi18n.parse("cap.tem.provider.block.tem.rule", String.valueOf(material), String.valueOf(tem)));
                 blockTemperatures.put(material, tem);
             }
         }

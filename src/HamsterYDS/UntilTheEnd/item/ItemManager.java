@@ -81,18 +81,18 @@ import org.bukkit.inventory.meta.ItemMeta;
 public class ItemManager {
     public static UntilTheEnd plugin = UntilTheEnd.getInstance();
     private static HashMap<ItemStack, NamespacedKey> nsks = new HashMap<ItemStack, NamespacedKey>();
-    
+
     public static HashMap<String, String> idsAndNames = new HashMap<String, String>();
     public static HashMap<String, ItemStack> namesAndItems = new HashMap<String, ItemStack>();
     public static HashMap<ItemStack, String> itemsAndIds = new HashMap<ItemStack, String>();
-    
+
     public static HashMap<String, Integer> itemsNeedLevels = new HashMap<String, Integer>();
     public static HashMap<Integer, String> itemsWithLevels = new HashMap<Integer, String>();
-   
+
     public static HashMap<String, ItemStack> canPlaceBlocks = new HashMap<String, ItemStack>();
     public static HashMap<ItemStack, HashMap<ItemStack, Integer>> recipes = new HashMap<ItemStack, HashMap<ItemStack, Integer>>();
     public static ArrayList<String> cosumeItems = new ArrayList<String>();
-    
+
     public static YamlConfiguration yaml1;
     public static YamlConfiguration yaml2;
 
@@ -108,13 +108,13 @@ public class ItemManager {
             namesAndItems.put("§6" + path, item);
             itemsAndIds.put(item, id);
             nsks.put(item, new NamespacedKey(plugin, "ute." + id.toLowerCase()));
-            if(yaml2.contains(path+".needLevel")) {
-            	int needLevel=yaml2.getInt(path+".needLevel");
-            	itemsNeedLevels.put(id,needLevel);
+            if (yaml2.contains(path + ".needLevel")) {
+                int needLevel = yaml2.getInt(path + ".needLevel");
+                itemsNeedLevels.put(id, needLevel);
             }
-            if(yaml2.contains(path+".provideLevel")) {
-            	int needLevel=yaml2.getInt(path+".provideLevel");
-            	itemsWithLevels.put(needLevel,id);
+            if (yaml2.contains(path + ".provideLevel")) {
+                int needLevel = yaml2.getInt(path + ".provideLevel");
+                itemsWithLevels.put(needLevel, id);
             }
         }
         new Brick();
@@ -192,7 +192,8 @@ public class ItemManager {
         plugin.getServer().getPluginManager().registerEvents(new ItemListener(), plugin);
     }
 
-    private static int[] slots = new int[]{24,23,25,15,14,16,33,32,34};
+    private static int[] slots = new int[]{24, 23, 25, 15, 14, 16, 33, 32, 34};
+
     public static void registerRecipe(HashMap<ItemStack, Integer> materials, ItemStack result, String category) {
         ShapelessRecipe recipe = new ShapelessRecipe(nsks.get(result), result);
         Inventory inv = CraftGuide.getCraftInventory();
@@ -201,8 +202,8 @@ public class ItemManager {
         for (ItemStack material : materials.keySet()) {
             ItemStack materialClone = material.clone();
             materialClone.setAmount(1);
-            for(int i=0;i<materials.get(material);i++) {
-            	inv.setItem(slots[tot++], materialClone);
+            for (int i = 0; i < materials.get(material); i++) {
+                inv.setItem(slots[tot++], materialClone);
             }
             recipe.addIngredient(materials.get(material), material.getType());
         }
@@ -214,6 +215,7 @@ public class ItemManager {
 
     public static boolean isSimilar(ItemStack item, ItemStack uteItem) {
         if (item == uteItem) return true;
+        if (item == null || uteItem == null) return false;
         Material m1 = item.getType();
         Material m2 = uteItem.getType();
         if (m1 == Material.AIR) m1 = ItemFactory.getType(item);

@@ -1,5 +1,6 @@
 package HamsterYDS.UntilTheEnd.item.basics;
 
+import HamsterYDS.UntilTheEnd.internal.EventHelper;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
@@ -14,26 +15,29 @@ import HamsterYDS.UntilTheEnd.item.ItemManager;
  * @version V5.1.1
  */
 public class SpiderGland implements Listener {
-	public static double heal = ItemManager.yaml2.getDouble("蜘蛛腺体.heal");
-	public SpiderGland() {
-		ItemManager.plugin.getServer().getPluginManager().registerEvents(this, ItemManager.plugin);
-		ItemManager.cosumeItems.add("SpiderGland");
-	}
-	@EventHandler
-	public void onRight(PlayerInteractEvent event) {
-		if(event.isCancelled()) return;
-		Player player = event.getPlayer();
-		if (!player.isSneaking())
-			return;
-		if (!(event.getAction() == Action.RIGHT_CLICK_AIR || event.getAction() == Action.RIGHT_CLICK_BLOCK))
-			return;
-		ItemStack item = player.getInventory().getItemInMainHand();
-		if (ItemManager.isSimilar(item, ItemManager.namesAndItems.get("§6蜘蛛腺体"))) {
-			event.setCancelled(true);
-			if (player.getHealth() + heal >= player.getMaxHealth())
-				player.setHealth(player.getMaxHealth());
-			else
-				player.setHealth(player.getHealth() + heal);
-		}
-	}
+    public static double heal = ItemManager.yaml2.getDouble("蜘蛛腺体.heal");
+
+    public SpiderGland() {
+        ItemManager.plugin.getServer().getPluginManager().registerEvents(this, ItemManager.plugin);
+        ItemManager.cosumeItems.add("SpiderGland");
+    }
+
+    @EventHandler
+    public void onRight(PlayerInteractEvent event) {
+        if (event.isCancelled()) return;
+        Player player = event.getPlayer();
+        if (!player.isSneaking())
+            return;
+        if (!EventHelper.isRight(event.getAction()))
+            return;
+        if (!event.hasItem()) return;
+        ItemStack item = event.getItem();
+        if (ItemManager.isSimilar(item, ItemManager.namesAndItems.get("§6蜘蛛腺体"))) {
+            event.setCancelled(true);
+            if (player.getHealth() + heal >= player.getMaxHealth())
+                player.setHealth(player.getMaxHealth());
+            else
+                player.setHealth(player.getHealth() + heal);
+        }
+    }
 }

@@ -3,7 +3,6 @@ prefix: '§6[§cUntilTheEnd§6]§r '
 cap.hum.provider.rule: "檢測到帶有潮濕方塊變化 {0} -> {1}"
 item.category.base: "§6基礎"
 logging.store.type: "數據存儲模式: {0}[{1}]"
-prefix: "§6[§cUntilTheEnd§6]§r "
 item.system.no-place: "您不能將該物品放置於地上！"
 item.system.no-crafting: "您不能用UTE物品合成其它物品！"
 item.system.no-machine: "合成此物品需要機器！您身邊沒有該機器！"
@@ -12,10 +11,10 @@ logging.update.current: "插件當前版本為>>{0}"
 logging.update.latest: "您的插件已經是最新版啦！"
 logging.update.update: "您的插件不是最新版，請立即更新！"
 logging.update.for-player: "插件不是最新版，很有可能有BUG！"
-item.guide.action.previous: "§a返回上壹層"
+item.guide.action.previous: "§a返回上一層"
 item.guide.action.main: "§a返回主菜單"
-item.guide.action.next-page: "§a下壹頁"
-item.guide.action.previous-page: "§a上壹頁"
+item.guide.action.next-page: "§a下一頁"
+item.guide.action.previous-page: "§a上一頁"
 item.guide.border: "§8邊框"
 item.machine.wet.use: "潮濕的食物真難吃~"
 item.machine.wet.inv-drag: "潮濕的物品貌似不能拖動，它們太笨重了！"
@@ -23,16 +22,21 @@ item.machine.wet.no-crafting: "潮濕的物品貌似不能用於合成，它們�
 cap.hum.drenched: "我全身都淋濕了！"
 crops.provider.rule: "檢測到帶有季節性作物{0}, 其數據為：{1}"
 cap.tem.provider.loading: "正在加載溫度計算模塊......"
+cap.tem.provider.fmb.rule: "檢測到隨溫度變化而變化的方塊{0}->{1}變化溫度為：{2}"
+cap.tem.provider.block.tem.rule: "檢測到帶有溫度的方塊{0}, 溫度為：{1}"
+cap.crops.provider.loading: "正在加載農作物計算模塊......"
+cap.tem.smoulder.title.main: "§4§l您處理了一個悶燒！"
+cap.tem.smoulder.title.sub: "§d§l它差點就燒起來了！"
 cap.hum.provider.loading: "正在加載濕度計算模塊......"
 cap.san.provider.loading: "正在加載理智計算模塊......"
 cap.tir.provider.loading: "正在加載疲勞計算模塊......"
 cap.san.provider.aura: "檢測到帶有理智光環的生物{0}影響理智值為：{1}"
-cap.tir.influence.talk: "妳太累了以至於不能發言"
-cap.tir.influence.sprint: "妳太累了以至於不能疾跑"
-cap.tir.influence.attack: "妳太累了以至於不能攻擊"
-cap.tir.influence.place: "妳太累了以至於不能放置"
-cap.tir.influence.break: "妳太累了以至於不能破壞"
-cap.tir.influence.teleport: "妳太累了以至於不能傳送"
+cap.tir.influence.talk: "你太累了以至於不能發言"
+cap.tir.influence.sprint: "你太累了以至於不能疾跑"
+cap.tir.influence.attack: "你太累了以至於不能攻擊"
+cap.tir.influence.place: "你太累了以至於不能放置"
+cap.tir.influence.break: "你太累了以至於不能破壞"
+cap.tir.influence.teleport: "你太累了以至於不能傳送"
 item.machine.wet.lore: "§8- §8§l潮濕的"
 item.guide.help.crafting.main: "UntilTheEnd:合成幫助"
 item.guide.help.mechanism.main: "UntilTheEnd:機制幫助"
@@ -70,7 +74,7 @@ item.guide.mechanism.humidity.lore: |
   §8▷在§e§l水§8中↑
   §d§l影響：
   §8▷背包物品變§c潮濕
-  §8▷背包內壹些物品會§c變形§8(例如石頭變成苔石)
+  §8▷背包內一些物品會§c變形§8(例如石頭變成苔石)
   §8▷無法打出§c群體§8傷害
   §8▷潮濕食物使用效果§c減半
   §8▷潮濕物品無法§c用於合成
@@ -95,9 +99,11 @@ hud.bossbar.humidity: "§6§l{0}  §3§l濕度   §r§b§l{1}  §6§l{2}"
 mechanism.darkness.who-is-there.main: "§8我什麽也看不見...."
 mechanism.darkness.who-is-there.sub: "§8那是什麽聲音？"
 mechanism.darkness.hurt-me.main: "§8ヾ(≧O≦)〃啊~！什麽東西？"
-mechanism.darkness.hurt-me.sub: "§8他打了我壹下...."
+mechanism.darkness.hurt-me.sub: "§8他打了我一下...."
 mechanism.world.next-day.main: "§e§l{0}"
 mechanism.world.next-day.sub: "§c第§d§l{0}§r§c天"
+mechanism.food.rotten.low: "食物貌似變味了~"
+mechanism.food.rotten.high: "口區口區口區口區口區口區口區口區"
 season.spring: "春天"
 season.summer: "夏天"
 season.autumn: "秋天"
@@ -106,10 +112,10 @@ season.disable: "禁用"
 item.locked: "§8鎖定"
 mechanism.temperature.to-cool: "§9太冷了！"
 mechanism.temperature.to-hot: "§9太熱了！"
-role.unchosen: "您貌似還沒有選擇人物~快選擇壹個人物開始遊戲吧~"
+role.unchosen: "您貌似還沒有選擇人物~快選擇一個人物開始遊戲吧~"
 cmd.not.season: '沒有這個季節！'
-cmd.not.number: '數量應該是壹個數字！'
-cmd.not.positive: '數量應該是壹個正整數！'
+cmd.not.number: '數量應該是一個數字！'
+cmd.not.positive: '數量應該是一個正整數！'
 cmd.not.world: '沒有該世界！'
 cmd.not.item: '物品不存在'
 cmd.null.player: '玩家不存在'
@@ -131,7 +137,7 @@ cmd.ute.material: '/ute material 查看自己所在方塊的Material名'
 cmd.ute.role: '/ute role <角色英文大寫> 調整自己的角色'
 cmd.role.invalid: '沒有該角色'
 cmd.role.change: '改變角色成功'
-cmd.role.check: '妳現在的角色:{role}'
+cmd.role.check: '你現在的角色:{role}'
 death.coldness: '玩家{player}凍死了'
 death.hotness: '玩家{player}熱死了'
 death.darkness: '玩家{player}死於黑暗'

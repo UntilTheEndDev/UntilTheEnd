@@ -33,6 +33,7 @@ public class ACDDrug implements Listener {
     public void onRight(PlayerInteractEvent event) {
         Player player = event.getPlayer();
         if (!EventHelper.isRight(event.getAction())) return;
+        if (!event.hasItem()) return;
         ItemStack item = event.getItem().clone();
         if (item == null) return;
         item.setAmount(1);

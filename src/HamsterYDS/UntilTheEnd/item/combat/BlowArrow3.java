@@ -3,6 +3,7 @@ package HamsterYDS.UntilTheEnd.item.combat;
 import java.util.HashMap;
 
 import HamsterYDS.UntilTheEnd.internal.ArrowManager;
+import HamsterYDS.UntilTheEnd.internal.EventHelper;
 import org.bukkit.Material;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
@@ -39,7 +40,8 @@ public class BlowArrow3 implements Listener {
         Player player = event.getPlayer();
         if (!player.isSneaking())
             return;
-        if (event.getAction() == Action.RIGHT_CLICK_AIR || event.getAction() == Action.RIGHT_CLICK_BLOCK) {
+        if (!event.hasItem()) return;
+        if (EventHelper.isRight(event.getAction())) {
             ItemStack item = player.getInventory().getItemInMainHand();
             if (ItemManager.isSimilar(item, ItemManager.namesAndItems.get("§6麻醉吹箭"))) {
                 event.setCancelled(true);

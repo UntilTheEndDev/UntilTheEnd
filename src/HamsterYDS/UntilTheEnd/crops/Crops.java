@@ -1,5 +1,7 @@
 package HamsterYDS.UntilTheEnd.crops;
 
+import HamsterYDS.UntilTheEnd.internal.UTEi18n;
+import org.bukkit.Bukkit;
 import org.bukkit.configuration.file.YamlConfiguration;
 
 import HamsterYDS.UntilTheEnd.Config;
@@ -14,7 +16,7 @@ public class Crops {
 
     public Crops(UntilTheEnd plugin) {
         yaml = Config.autoUpdateConfigs("crops.yml");
-        System.out.println("[UntilTheEnd]正在加载农作物计算模块......");
+        Bukkit.getServer().getConsoleSender().sendMessage(UTEi18n.cacheWithPrefix("cap.crops.provider.loading"));
         CropProvider.loadConfig();
         if (plugin.getConfig().getBoolean("crops.season"))
             new SeasonCroping(plugin);

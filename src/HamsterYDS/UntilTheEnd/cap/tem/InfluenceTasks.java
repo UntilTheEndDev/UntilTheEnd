@@ -3,6 +3,7 @@ package HamsterYDS.UntilTheEnd.cap.tem;
 import java.util.ArrayList;
 
 import HamsterYDS.UntilTheEnd.internal.ItemFactory;
+import HamsterYDS.UntilTheEnd.internal.UTEi18n;
 import org.bukkit.Location;
 import org.bukkit.Material;
 import org.bukkit.Particle;
@@ -95,7 +96,7 @@ public class InfluenceTasks {
         }
     }
 
-    public class Smoulder extends BukkitRunnable implements Listener {
+    public static class Smoulder extends BukkitRunnable implements Listener {
         public ArrayList<String> smoulderingBlocks = new ArrayList<String>();
 
         @EventHandler
@@ -108,8 +109,7 @@ public class InfluenceTasks {
             if (smoulderingBlocks.contains(toString)) {
                 smoulderingBlocks.remove(toString);
                 player.setFireTicks((int) smoulderCancellerFireTicks);
-                //TODO - LANG
-                player.sendTitle("§4§l您处理了一个闷烧！", "§d§l它差点就烧起来了！");
+                player.sendTitle(UTEi18n.cache("cap.tem.smoulder.title.main"), UTEi18n.cache("cap.tem.smoulder.title.sub"));
             }
         }
 

@@ -2,6 +2,7 @@ package HamsterYDS.UntilTheEnd.food;
 
 import java.util.HashMap;
 
+import HamsterYDS.UntilTheEnd.internal.UTEi18n;
 import org.bukkit.Material;
 import org.bukkit.entity.LivingEntity;
 import org.bukkit.entity.Player;
@@ -51,7 +52,7 @@ public class RottenFoodInfluence implements Listener {
                 PlayerManager.change((Player) entity, PlayerManager.CheckType.SANITY, -30);
                 entity.damage(2.0);
                 entity.addPotionEffect(new PotionEffect(PotionEffectType.WITHER, 100, 0));
-                entity.sendMessage("§6[§cUntilTheEnd§6]§r 口区口区口区口区口区口区口区口区");
+                entity.sendMessage(UTEi18n.cacheWithPrefix("mechanism.food.rotten.high"));
                 event.setFoodLevel(eatenFoodLevels.get(entity.getName()) - 1);
                 eatenFoodRottens.remove(entity.getName());
                 return;
@@ -63,7 +64,7 @@ public class RottenFoodInfluence implements Listener {
             event.setFoodLevel(currentLevel + newLevel);
             if (level <= 60) {
                 PlayerManager.change((Player) entity, PlayerManager.CheckType.SANITY, (int) (-15.0D * (level / 100)));
-                entity.sendMessage("§6[§cUntilTheEnd§6]§r 食物貌似变味了~");
+                entity.sendMessage(UTEi18n.cacheWithPrefix("mechanism.food.rotten.low"));
                 eatenFoodRottens.remove(entity.getName());
             }
         }
