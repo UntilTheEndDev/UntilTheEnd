@@ -17,7 +17,6 @@ import org.bukkit.event.world.WorldUnloadEvent;
 
 public class Config {
     public static UntilTheEnd plugin = UntilTheEnd.getInstance();
-    public static YamlConfiguration yaml = null;
     public static List<World> enableWorlds = new ArrayList<>();
     private static Set<String> disables = new HashSet<>();
 
@@ -42,12 +41,6 @@ public class Config {
                 enableWorlds.remove(event.getWorld());
             }
         }, plugin);
-        File file = new File(plugin.getDataFolder(), plugin.getConfig().getString("language"));
-        yaml = YamlConfiguration.loadConfiguration(file);
-    }
-
-    public static String getLang(String path) {
-        return (yaml.getString("prefix") + yaml.getString(path, path));
     }
 
     public static YamlConfiguration autoUpdateConfigs(String name) {
