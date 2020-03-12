@@ -1,0 +1,8 @@
+# 禁用特性
+
+# 禁用的属性检查
+check-type:
+  world:
+    list: [tir]
+    # 映射
+    mirror: [world_the_end, "$default"]
