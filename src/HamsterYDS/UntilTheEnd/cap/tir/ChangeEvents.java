@@ -61,8 +61,12 @@ public class ChangeEvents implements Listener {
     @EventHandler
     public void onTeleport(PlayerTeleportEvent event) {
         Player player = event.getPlayer();
+        try {
         if (event.getTo().distance(event.getFrom()) <= 10.0) return;
         PlayerManager.change(player, CheckType.TIREDNESS, Tiredness.yaml.getInt("change.event.teleport"));
+        }catch(Exception e) {
+        	return;
+        }
     }
 
     @EventHandler
