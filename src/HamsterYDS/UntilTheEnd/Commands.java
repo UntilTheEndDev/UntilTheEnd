@@ -282,7 +282,7 @@ public class Commands implements CommandExecutor, Listener, TabCompleter {
 		}
 		}
 		return true;
-	}
+	} 
 
 	public static void changeCheatingMode(Player player) {
 		player.sendMessage(UTEi18n.cache("cmd.cheat"));
