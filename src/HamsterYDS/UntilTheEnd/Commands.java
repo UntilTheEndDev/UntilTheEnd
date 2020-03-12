@@ -61,25 +61,25 @@ public class Commands implements CommandExecutor, Listener, TabCompleter {
 
     public static void sendHelp(CommandSender sender) {
         sender.sendMessage(
-                UTEi18n.cache("prefix") + "§bUTE v" + UntilTheEnd.getInstance().getDescription().getVersion());
-        sender.sendMessage(UTEi18n.cache("cmd.label.1"));
+                UTEi18n.cacheWithPrefix("prefix") + "§bUTE v" + UntilTheEnd.getInstance().getDescription().getVersion());
+        sender.sendMessage(UTEi18n.cacheWithPrefix("cmd.label.1"));
         if (sender.hasPermission("ute.cheat"))
-            sender.sendMessage(UTEi18n.cache("cmd.ute.cheat"));
+            sender.sendMessage(UTEi18n.cacheWithPrefix("cmd.ute.cheat"));
         if (sender.hasPermission("ute.guide"))
-            sender.sendMessage(UTEi18n.cache("cmd.ute.guide"));
+            sender.sendMessage(UTEi18n.cacheWithPrefix("cmd.ute.guide"));
         if (sender.hasPermission("ute.season"))
-            sender.sendMessage(UTEi18n.cache("cmd.ute.season"));
+            sender.sendMessage(UTEi18n.cacheWithPrefix("cmd.ute.season"));
         if (sender.hasPermission("ute.give"))
-            sender.sendMessage(UTEi18n.cache("cmd.ute.give"));
+            sender.sendMessage(UTEi18n.cacheWithPrefix("cmd.ute.give"));
         if (sender.hasPermission("ute.set"))
-            sender.sendMessage(UTEi18n.cache("cmd.ute.set"));
+            sender.sendMessage(UTEi18n.cacheWithPrefix("cmd.ute.set"));
         if (sender.hasPermission("ute.role"))
-            sender.sendMessage(UTEi18n.cache("cmd.ute.role"));
-        sender.sendMessage(UTEi18n.cache("cmd.label.2"));
+            sender.sendMessage(UTEi18n.cacheWithPrefix("cmd.ute.role"));
+        sender.sendMessage(UTEi18n.cacheWithPrefix("cmd.label.2"));
         if (sender.hasPermission("ute.material"))
-            sender.sendMessage(UTEi18n.cache("cmd.ute.material"));
+            sender.sendMessage(UTEi18n.cacheWithPrefix("cmd.ute.material"));
         if (sender.hasPermission("ute.entitytype"))
-            sender.sendMessage(UTEi18n.cache("cmd.ute.entitytype"));
+            sender.sendMessage(UTEi18n.cacheWithPrefix("cmd.ute.entitytype"));
     }
 
     @Override
@@ -157,19 +157,19 @@ public class Commands implements CommandExecutor, Listener, TabCompleter {
             }
             case "season": {
                 if (ct.length < 3) {
-                    cs.sendMessage(UTEi18n.cache("cmd.ute.season")); // TODO
+                    cs.sendMessage(UTEi18n.cacheWithPrefix("cmd.ute.season")); // TODO
                     return true;
                 }
                 Season season = Season.found(ct[1]);
                 if (season == null) {
-                    cs.sendMessage(UTEi18n.cache("cmd.not.season"));
+                    cs.sendMessage(UTEi18n.cacheWithPrefix("cmd.not.season"));
                     return true;
                 }
                 int day;
                 try {
                     day = Integer.parseInt(ct[2]);
                 } catch (NumberFormatException format) {
-                    cs.sendMessage(UTEi18n.cache("cmd.not.number"));
+                    cs.sendMessage(UTEi18n.cacheWithPrefix("cmd.not.number"));
                     return true;
                 }
                 World world = null;
@@ -189,17 +189,17 @@ public class Commands implements CommandExecutor, Listener, TabCompleter {
                         world = Bukkit.getWorld(tok);
                 }
                 if (world == null) {
-                    cs.sendMessage(UTEi18n.cache("cmd.not.world"));
+                    cs.sendMessage(UTEi18n.cacheWithPrefix("cmd.not.world"));
                     return true;
                 }
                 changeSeason(world, season, day);
                 WorldCounter.tellPlayers(world);
-                cs.sendMessage(UTEi18n.cache("cmd.set.season"));
+                cs.sendMessage(UTEi18n.cacheWithPrefix("cmd.set.season"));
                 break;
             }
             case "give": {
                 if (ct.length < 3) {
-                    cs.sendMessage(UTEi18n.cache("cmd.ute.give"));
+                    cs.sendMessage(UTEi18n.cacheWithPrefix("cmd.ute.give"));
                 } else {
                     String playerName = ct[1];
                     String itemName = ct[2];
@@ -208,27 +208,27 @@ public class Commands implements CommandExecutor, Listener, TabCompleter {
                         try {
                             amount = Integer.parseInt(ct[3]);
                         } catch (Exception e) {
-                            cs.sendMessage(UTEi18n.cache("cmd.not.number"));
+                            cs.sendMessage(UTEi18n.cacheWithPrefix("cmd.not.number"));
                             return true;
                         }
                     if (amount <= 0) {
-                        cs.sendMessage(UTEi18n.cache("cmd.not.positive"));
+                        cs.sendMessage(UTEi18n.cacheWithPrefix("cmd.not.positive"));
                         return true;
                     }
                     Player givee = Bukkit.getPlayer(playerName);
                     ItemStack item = ItemManager.namesAndItems.get(ItemManager.idsAndNames.get(itemName));
                     if (item == null) {
-                        cs.sendMessage(UTEi18n.cache("cmd.not.item"));
+                        cs.sendMessage(UTEi18n.cacheWithPrefix("cmd.not.item"));
                         return true;
                     }
                     if (givee == null) {
-                        cs.sendMessage(UTEi18n.cache("cmd.not.player"));
+                        cs.sendMessage(UTEi18n.cacheWithPrefix("cmd.not.player"));
                         return true;
                     }
                     item = item.clone();
                     item.setAmount(amount);
                     givee.getInventory().addItem(item);
-                    String message = UTEi18n.cache("cmd.give.item");
+                    String message = UTEi18n.cacheWithPrefix("cmd.give.item");
                     message = message.replace("{item}", item.getItemMeta().getDisplayName());
                     message = message.replace("{player}", playerName);
                     cs.sendMessage(message);
@@ -237,31 +237,31 @@ public class Commands implements CommandExecutor, Listener, TabCompleter {
             }
             case "set": {
                 if (ct.length < 4) {
-                    cs.sendMessage(UTEi18n.cache("cmd.ute.set"));
+                    cs.sendMessage(UTEi18n.cacheWithPrefix("cmd.ute.set"));
                     return true;
                 }
                 String playerName = ct[1];
                 Player player = Bukkit.getPlayer(playerName);
                 if (player == null) {
-                    cs.sendMessage(UTEi18n.cache("cmd.null.player"));
+                    cs.sendMessage(UTEi18n.cacheWithPrefix("cmd.null.player"));
                     return true;
                 }
                 if (!player.isOnline()) {
-                    cs.sendMessage(UTEi18n.cache("cmd.null.player"));
+                    cs.sendMessage(UTEi18n.cacheWithPrefix("cmd.null.player"));
                     return true;
                 }
                 String typeName = ct[2];
+                double val;
                 try {
-                    Integer.valueOf(ct[3]);
+                    val = Double.parseDouble(ct[3]);
                 } catch (Exception e) {
-                    cs.sendMessage(UTEi18n.cache("cmd.not.number"));
+                    cs.sendMessage(UTEi18n.cacheWithPrefix("cmd.not.number"));
                     return true;
                 }
-                int value = Integer.parseInt(ct[3]);
                 PlayerManager.forgetChange(player, PlayerManager.CheckType.search(typeName),
-                        (value - PlayerManager.check(player, typeName)));
+                        val, PlayerManager.EditAction.SET);
                 PlayerManager.save(player);
-                cs.sendMessage(UTEi18n.cache("cmd.set.hud"));
+                cs.sendMessage(UTEi18n.cacheWithPrefix("cmd.set.hud"));
                 break;
             }
             case "temp": {
@@ -275,22 +275,23 @@ public class Commands implements CommandExecutor, Listener, TabCompleter {
             case "role": {
                 if (pl == null) {
                     notPlayer(cs);
+                    break;
                 }
                 if (ct.length == 1)
-                    pl.sendMessage(UTEi18n.cache("cmd.role.check").replace("{role}", PlayerManager.checkRole(pl).name)); // TODO
+                    pl.sendMessage(UTEi18n.cacheWithPrefix("cmd.role.check").replace("{role}", PlayerManager.checkRole(pl).name)); // TODO
                 if (ct.length == 2) {
                     Roles role = Roles.DEFAULT;
                     try {
                         role = Roles.valueOf(ct[1]);
                     } catch (Exception e) {
-                        pl.sendMessage(UTEi18n.cache("cmd.role.invalid")); // TODO
+                        pl.sendMessage(UTEi18n.cacheWithPrefix("cmd.role.invalid")); // TODO
                         return true;
                     }
                     if (!pl.hasPermission("ute.role." + role.name))
                         notPermitted(cs);
                     PlayerManager.changeRole(pl, role);
                     PlayerManager.playerChangedRole.add(pl.getUniqueId());
-                    pl.sendMessage(UTEi18n.cache("cmd.role.change"));
+                    pl.sendMessage(UTEi18n.cacheWithPrefix("cmd.role.change"));
                 }
             }
         }
@@ -298,7 +299,7 @@ public class Commands implements CommandExecutor, Listener, TabCompleter {
     }
 
     public static void changeCheatingMode(Player player) {
-        player.sendMessage(UTEi18n.cache("cmd.cheat"));
+        player.sendMessage(UTEi18n.cacheWithPrefix("cmd.cheat"));
     }
 
     public static void notPlayer(CommandSender CommandSender) {
