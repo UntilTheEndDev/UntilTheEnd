@@ -1,18 +1,30 @@
-smoulderPercent: 0.05 #闷烧的几率(大于0小于1)
-smoulderSpeed: 20 #闷烧计算的数量(数值越小，闷烧出现越频繁)
-smoulderTimeout: 200 #闷烧开始后到方块开始着火的可熄灭时间
-smoulderCancellerFireTicks: 40 #踩灭闷烧的玩家将得到多久的燃烧效果
-coldTem: 10 #寒冷标准温度(低于这个温度判定为寒冷状态，开始扣血+缓慢)
-hotTem: 55 #炎热标准温度(高于这个温度判定为炎热状态，开始扣血+闷烧)
-temperatureChangeSpeedStone: 1 #有暖石的玩家温度随暖石变化的速度(越小变化越快，反之变化越慢)
-temperatureChangeSpeedNatural: 5 #没有暖石的玩家温度随环境变化的速度(越小变化越快，反之变化越慢)
-stoneChangePercent: 0.1 #暖石温度随自然变化的速率(大于0小于1)
-humidityChangeSpeed: 150 #玩家温度随湿度的变化速度(数值越小，变化越快，反之变化越慢)
-fmChangeSpeed: 200 #每多少刻判定一次温度影响方块（影响的方块在fmBlocks下设置）
+#闷烧的几率(大于0小于1)
+smoulderPercent: 0.05
+#闷烧计算的数量(数值越小，闷烧出现越频繁)
+smoulderSpeed: 20
+#闷烧开始后到方块开始着火的可熄灭时间
+smoulderTimeout: 200
+#踩灭闷烧的玩家将得到多久的燃烧效果
+smoulderCancellerFireTicks: 40
+#寒冷标准温度(低于这个温度判定为寒冷状态，开始扣血+缓慢)
+coldTem: 10
+#炎热标准温度(高于这个温度判定为炎热状态，开始扣血+闷烧)
+hotTem: 55
+#有暖石的玩家温度随暖石变化的速度(越小变化越快，反之变化越慢)
+temperatureChangeSpeedStone: 1
+#没有暖石的玩家温度随环境变化的速度(越小变化越快，反之变化越慢)
+temperatureChangeSpeedNatural: 5
+#暖石温度随自然变化的速率(大于0小于1)
+stoneChangePercent: 0.1
+#玩家温度随湿度的变化速度(数值越小，变化越快，反之变化越慢)
+humidityChangeSpeed: 150
+#每多少刻判定一次温度影响方块（影响的方块在fmBlocks下设置）
+fmChangeSpeed: 200
 
-blockTemperature: #方块的温度(没有设置的方块为环境温度)
-# 方块Material名字: 温度
-  BURNING_FURNACE: 65 
+#方块的温度(没有设置的方块为环境温度)
+blockTemperature:
+  #方块Material名字: 温度
+  BURNING_FURNACE: 65
   LAVA: 75
   STATIONARY_LAVA: 75
   FIRE: 75
@@ -25,14 +37,15 @@ blockTemperature: #方块的温度(没有设置的方块为环境温度)
   BEACON: 37
   ENDER_STONE: 0
   #可以继续添加
-  
-fmBlocks: #随着温度变化，背包内物品也变化的方块设定
-#格式：
+
+#随着温度变化，背包内物品也变化的方块设定
+fmBlocks:
+  #格式：
   #物品Material名:
   #  increase: true/false (true代表高于温度变化，false代表低于温度变化)
   #  temperature: 0 (高于/低于某个温度时变化)
   #  newBlock: 变化成的新物品的Material名
-  WATER_BUCKET: 
+  WATER_BUCKET:
     increase: false
     temperature: 0
     newMaterial: ICE
@@ -40,10 +53,6 @@ fmBlocks: #随着温度变化，背包内物品也变化的方块设定
     increase: true
     temperature: 10
     newMaterial: AIR
-  WATER_BUCKET:
-    increase: true
-    temperature: 55
-    newMaterial: BUCKET
   MAGMA:
     increase: false
     temperature: 40

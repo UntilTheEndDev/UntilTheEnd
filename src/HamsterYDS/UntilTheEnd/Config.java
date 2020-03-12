@@ -1,12 +1,12 @@
 package HamsterYDS.UntilTheEnd;
 
-import java.io.File;
-import java.io.IOException;
-import java.util.ArrayList;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Set;
+import java.io.*;
+import java.nio.charset.StandardCharsets;
+import java.util.*;
+import java.util.logging.Level;
+import java.util.stream.Collectors;
 
+import HamsterYDS.UntilTheEnd.internal.YamlUpdater;
 import org.bukkit.Bukkit;
 import org.bukkit.World;
 import org.bukkit.configuration.file.YamlConfiguration;
@@ -14,6 +14,7 @@ import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.world.WorldLoadEvent;
 import org.bukkit.event.world.WorldUnloadEvent;
+import org.jetbrains.annotations.NotNull;
 
 public class Config {
     public static UntilTheEnd plugin = UntilTheEnd.getInstance();
@@ -37,7 +38,7 @@ public class Config {
                 registerWorld(event.getWorld());
             }
 
-			@EventHandler
+            @EventHandler
             void onWorldUnload(WorldUnloadEvent event) {
                 enableWorlds.remove(event.getWorld());
             }
@@ -52,6 +53,73 @@ public class Config {
 
     public static YamlConfiguration autoUpdateConfigs(String name) {
         File file = new File(plugin.getDataFolder(), name);
+        final InputStream resource = plugin.getResource(name);
+        if (resource != null) {
+            if (!file.isFile()) {
+                plugin.saveResource(name, true);
+                return YamlConfiguration.loadConfiguration(file);
+            }
+            try (InputStreamReader reader = new InputStreamReader(resource, StandardCharsets.UTF_8)) {
+                try (BufferedReader buffer = new BufferedReader(reader)) {
+                    final ArrayDeque<String> strings = buffer.lines().collect(Collectors.toCollection(ArrayDeque::new));
+                    Map<String, List<String>> commits = new LinkedHashMap<>();
+                    Map<String, List<String>> area = new LinkedHashMap<>();
+                    Collection<String> copyright = new ArrayList<>();
+                    YamlUpdater.parse(strings, commits, area, copyright);
+                    try (RandomAccessFile data = new RandomAccessFile(file, "rw")) {
+                        try (InputStreamReader fReader = new InputStreamReader(new InputStream() {
+                            @Override
+                            public int read() throws IOException {
+                                return data.read();
+                            }
+
+                            @Override
+                            public int read(@NotNull byte[] b) throws IOException {
+                                return data.read(b);
+                            }
+
+                            @Override
+                            public int read(@NotNull byte[] b, int off, int len) throws IOException {
+                                return data.read(b, off, len);
+                            }
+                        }, StandardCharsets.UTF_8)) {
+                            try (BufferedReader fBuffer = new BufferedReader(fReader)) {
+                                Map<String, List<String>> output_commits = new LinkedHashMap<>();
+                                Map<String, List<String>> output_areas = new LinkedHashMap<>();
+                                YamlUpdater.parse(fBuffer.lines().collect(Collectors.toCollection(ArrayDeque::new)),
+                                        output_commits, output_areas, null);
+                                YamlUpdater.merge(commits, area, output_commits, output_areas);
+                                commits = output_commits;
+                                area = output_areas;
+                            }
+                        }
+                        data.seek(0);
+                        try (OutputStreamWriter writer = new OutputStreamWriter(new OutputStream() {
+                            @Override
+                            public void write(int b) throws IOException {
+                                data.write(b);
+                            }
+
+                            @Override
+                            public void write(@NotNull byte[] b, int off, int len) throws IOException {
+                                data.write(b, off, len);
+                            }
+
+                            @Override
+                            public void write(@NotNull byte[] b) throws IOException {
+                                data.write(b);
+                            }
+                        }, StandardCharsets.UTF_8)) {
+                            YamlUpdater.store(commits, area, copyright, writer);
+                        }
+                        data.setLength(data.getFilePointer());
+                    }
+                }
+            } catch (IOException ioe) {
+                plugin.getLogger().log(Level.SEVERE, "Failed in updating configuration " + name, ioe);
+            }
+        }
+        /*
         final YamlConfiguration yaml = YamlConfiguration.loadConfiguration(file);
         plugin.saveResource(name, true);
         YamlConfiguration newYaml = YamlConfiguration.loadConfiguration(file);
@@ -64,6 +132,7 @@ public class Config {
         } catch (IOException e) {
             e.printStackTrace();
         }
+        */
         return YamlConfiguration.loadConfiguration(file);
     }
 }

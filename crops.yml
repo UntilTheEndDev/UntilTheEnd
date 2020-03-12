@@ -1,46 +1,47 @@
-takeWaterPercent: 0.1  #农作物生长时吸水的几率
+#农作物生长时吸水的几率
+takeWaterPercent: 0.1
 
 seasonCrops:
   CROPS:
     seasons:
-    - SUMMER
-    - SPRING
+      - SUMMER
+      - SPRING
     percents:
-    - 0.3
-    - 0.2
+      - 0.3
+      - 0.2
   MELON_ITEM:
     seasons:
-    - SUMMER
+      - SUMMER
     percents:
-    - 0.2
+      - 0.2
   PUMPKIN_ITEM:
     seasons:
-    - AUTUMN
+      - AUTUMN
     percents:
-    - 0.2
+      - 0.2
   SUGAR_CANE:
     seasons:
-    - WINTER
+      - WINTER
     percents:
-    - 0.2
+      - 0.2
   POTATO:
     seasons:
-    - SUMMER
-    - AUTUMN
+      - SUMMER
+      - AUTUMN
     percents:
-    - 0.3
-    - 0.2
+      - 0.3
+      - 0.2
   CARROT:
     seasons:
-    - AUTUMN
-    - WINTER
+      - AUTUMN
+      - WINTER
     percents:
-    - 0.3
-    - 0.2
+      - 0.3
+      - 0.2
   COCOA:
     seasons:
-    - SPRING
-    - AUTUMN
+      - SPRING
+      - AUTUMN
     percents:
-    - 0.4
-    - 0.2
+      - 0.4
+      - 0.2

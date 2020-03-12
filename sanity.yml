@@ -1,28 +1,47 @@
-disguiseRangeX: 10.0 #变形范围（东西）
-disguiseRangeY: 5.0 #变形范围（上下）
-disguiseRangeZ: 10.0 #变形范围（南北）
-disguiseSanity: 0.15 #玩家理智低于多少时，生物开始在玩家眼中变形(0-1)
-confusionSanity: 0.6 #玩家理智低于多少是，开始反胃(0-1)
-moveWronglySanity: 0.45 #玩家理智低于百分之几,移动有几率晕头转向(0-1)
-moveWronglyPercent: 0.05 #晕头转向的几率
-chatablessSanity: 0.3 #玩家理智低于多少，说出的话是乱码(0-1)
+#变形范围（东西）
+disguiseRangeX: 10.0
+#变形范围（上下）
+disguiseRangeY: 5.0
+#变形范围（南北）
+disguiseRangeZ: 10.0
+#玩家理智低于多少时，生物开始在玩家眼中变形(0-1)
+disguiseSanity: 0.15
+#玩家理智低于多少是，开始反胃(0-1)
+confusionSanity: 0.6
+#玩家理智低于百分之几,移动有几率晕头转向(0-1)
+moveWronglySanity: 0.45
+#晕头转向的几率
+moveWronglyPercent: 0.05
+#玩家理智低于多少，说出的话是乱码(0-1)
+chatablessSanity: 0.3
 
-auraRangeX: 5.0 #理智光环判定范围（东西）
-auraRangeY: 3.0 #理智光环判定范围（上下）
-auraRangeZ: 5.0 #理智光环判定范围（南北）
-monsterChangeSanity: -1 #玩家周围有怪物时 单位时间auraPeriod 变化的理智值
-playerChangeSanity: 1 #玩家周围有别的玩家 单位时间auraPeriod 内变化的理智值
-auraPeriod: 40 #单位时间（刻）
-humidityPeriod: 100 #玩家湿度影响理智多少刻计算一次
-timePeriod: 150 #世界时间影响理智多少刻计算一次（黑夜为该值*2）（黄昏为该值）
-evening: 13000 #黄昏开始的时间（MC世界时间刻）
-night: 16000 #黑夜开始的时间（MC世界时间刻）
-day: 23000 #白天开始的时间（MC世界时间刻）
+#理智光环判定范围（东西）
+auraRangeX: 5.0
+#理智光环判定范围（上下）
+auraRangeY: 3.0
+#理智光环判定范围（南北）
+auraRangeZ: 5.0
+#玩家周围有怪物时 单位时间auraPeriod 变化的理智值
+monsterChangeSanity: -1
+#玩家周围有别的玩家 单位时间auraPeriod 内变化的理智值
+playerChangeSanity: 1
+#单位时间（刻）
+auraPeriod: 40
+#玩家湿度影响理智多少刻计算一次
+humidityPeriod: 100
+#世界时间影响理智多少刻计算一次（黑夜为该值*2）（黄昏为该值）
+timePeriod: 150
+#黄昏开始的时间（MC世界时间刻）
+evening: 13000
+#黑夜开始的时间（MC世界时间刻）
+night: 16000
+#白天开始的时间（MC世界时间刻）
+day: 23000
 
 #不同怪物给玩家的光环效果（以单位时间auraPeriod为周期变化）
 creatureAura:
   #格式
   #生物EntityType名: 每单位时间改变的理智值
-  GHAST: -1 
+  GHAST: -1
   #例如这个是恶魂：-1
   #可以再添加
