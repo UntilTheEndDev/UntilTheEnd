@@ -3,7 +3,6 @@ package HamsterYDS.UntilTheEnd.cap.tir;
 import java.util.*;
 import java.util.concurrent.ConcurrentHashMap;
 
-import org.bukkit.Bukkit;
 import org.bukkit.entity.LivingEntity;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;

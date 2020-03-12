@@ -9,6 +9,7 @@
 package HamsterYDS.UntilTheEnd.internal;
 
 import HamsterYDS.UntilTheEnd.Config;
+import HamsterYDS.UntilTheEnd.UntilTheEnd;
 import HamsterYDS.UntilTheEnd.internal.karlatemp.mxlib.formatter.*;
 import org.bukkit.configuration.ConfigurationSection;
 import org.bukkit.configuration.file.YamlConfiguration;
@@ -27,7 +28,7 @@ public class UTEi18n {
 
     static {
         PunctuateFormatter pf = new PunctuateFormatter("{", "}");
-        final YamlConfiguration configuration = Config.autoUpdateConfigs("i18n.zh_cn.yml");
+        final YamlConfiguration configuration = Config.autoUpdateConfigs(UntilTheEnd.getInstance().getConfig().getString("language"));
         for (Map.Entry<String, Object> val : configuration.getValues(true).entrySet()) {
             final Object value = val.getValue();
             if (value instanceof ConfigurationSection) continue;
