@@ -6,7 +6,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.UUID;
-import java.util.function.*; 
+import java.util.function.*;
 import java.util.logging.Level;
 
 import HamsterYDS.UntilTheEnd.Config;
@@ -83,6 +83,12 @@ public class PlayerManager implements Listener {
 
     @EventHandler
     public void onDeath(PlayerDeathEvent event) {
+        event.getDrops().removeIf(item -> {
+            if (item.hasItemMeta()) {
+                return item.getItemMeta().getDisplayName().equalsIgnoreCase(UTEi18n.cache("item.locked"));
+            }
+            return false;
+        });
         IPlayer ip = players.get(event.getEntity().getUniqueId());
         if (ip == null) return;
         Player p = event.getEntity();

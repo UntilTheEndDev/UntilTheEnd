@@ -107,9 +107,9 @@ public class UntilTheEnd extends JavaPlugin implements Listener {
                     return;
                 }
                 if (latestVersion.equalsIgnoreCase(getDescription().getVersion())) {
-                    getLogger().info(UTEi18n.cacheWithPrefix("logging.update.latest"));
+                    getServer().getConsoleSender().sendMessage(UTEi18n.cacheWithPrefix("logging.update.latest"));
                 } else {
-                    getLogger().info(UTEi18n.cacheWithPrefix("logging.update.update"));
+                    getServer().getConsoleSender().sendMessage(UTEi18n.cacheWithPrefix("logging.update.update"));
                     isLatest = false;
                     Bukkit.getOnlinePlayers().forEach(this::sendUpdate);
                     Bukkit.getPluginManager().registerEvents(new Listener() {

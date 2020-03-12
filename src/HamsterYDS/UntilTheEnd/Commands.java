@@ -42,7 +42,7 @@ public class Commands implements CommandExecutor, Listener, TabCompleter {
     static {
         itemTab.addAll(ItemManager.idsAndNames.keySet());
         cmdTab.addAll(Arrays.asList("cheat", "give", "guide", "help", "material", "entitytype", "set", "season", "temp",
-                "role"));
+                "role", "openguide"));
         for (Season season : Season.values())
             seasonTab.add(season.name().toLowerCase());
         for (PlayerManager.CheckType type : PlayerManager.CheckType.values())
@@ -105,6 +105,14 @@ public class Commands implements CommandExecutor, Listener, TabCompleter {
             return true;
         }
         switch (sub.toLowerCase()) {
+            case "openguide": {
+                if (pl == null) {
+                    notPlayer(cs);
+                } else {
+                    pl.openInventory(Guide.inv);
+                }
+                break;
+            }
             case "guide": {
                 if (ct.length > 1) {// Open for other
                     if (!cs.hasPermission("ute.guide.other")) {

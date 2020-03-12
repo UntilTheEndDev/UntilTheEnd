@@ -5,6 +5,7 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.Objects;
 
+import HamsterYDS.UntilTheEnd.internal.ItemFactory;
 import HamsterYDS.UntilTheEnd.internal.UTEi18n;
 import org.bukkit.Bukkit;
 import org.bukkit.Material;
@@ -120,11 +121,11 @@ public class CraftGuide implements Listener {
         ItemStack item = event.getCurrentItem().clone();
         if (item.getItemMeta() == null) return;
         item.setAmount(1);
-        if(cheating.contains(player.getName())) 
-        	if(event.getClick()==ClickType.MIDDLE){
-        		event.setCursor(event.getCurrentItem());
-        		return;
-        	}
+        if (cheating.contains(player.getName()))
+            if (event.getClick() == ClickType.MIDDLE) {
+                event.setCursor(event.getCurrentItem());
+                return;
+            }
         if (event.getSlot() == 8)
             player.openInventory(CraftGuide.inv);
         if (event.getSlot() == 0) {
@@ -143,8 +144,6 @@ public class CraftGuide implements Listener {
 //		if(event.getSlot()==45) {
 //			//下一页
 //		}
-        // System.out.print(item);
-        // System.out.print(crafts);
         Inventory find = find(item);
         if (find != null) {
             if (cheating.contains(player.getName()))
@@ -162,11 +161,11 @@ public class CraftGuide implements Listener {
     }
 
     private Inventory find(ItemStack stack) {
-        final Material type = stack.getType();
+        final Material type = ItemFactory.fromLegacy(ItemFactory.getType(stack));
         final ItemMeta meta = stack.getItemMeta();
         for (Map.Entry<ItemStack, Inventory> ivs : crafts.entrySet()) {
             final ItemStack key = ivs.getKey();
-            if (key.getType() == type) {
+            if (ItemFactory.fromLegacy(ItemFactory.getType(key)) == type) {
                 if (meta != null) {
                     if (key.hasItemMeta()) {
                         final ItemMeta meta0 = key.getItemMeta();
