@@ -2,6 +2,7 @@ package HamsterYDS.UntilTheEnd.guide;
 
 import java.util.ArrayList;
 
+import HamsterYDS.UntilTheEnd.internal.EventHelper;
 import HamsterYDS.UntilTheEnd.internal.UTEi18n;
 import org.bukkit.Bukkit;
 import org.bukkit.Material;
@@ -109,10 +110,10 @@ public class Guide implements Listener {
     @EventHandler
     public void onRight(PlayerInteractEvent event) {
         Player player = event.getPlayer();
-        if (event.getAction() == Action.RIGHT_CLICK_BLOCK || event.getAction() == Action.RIGHT_CLICK_AIR) {
-            if (player.getItemInHand() == null) return;
-            if (player.getItemInHand().equals(item))
-                player.openInventory(inv);
+        if (EventHelper.isRight(event.getAction())) {
+            if (event.hasItem())
+                if (event.getItem().equals(item))
+                    player.openInventory(inv);
         }
     }
 }

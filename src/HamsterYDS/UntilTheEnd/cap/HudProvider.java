@@ -3,6 +3,7 @@ package HamsterYDS.UntilTheEnd.cap;
 import java.io.File;
 import java.util.HashMap;
 import java.util.List;
+import java.util.UUID;
 
 import org.bukkit.configuration.file.YamlConfiguration;
 
@@ -12,10 +13,10 @@ public class HudProvider {
     public static UntilTheEnd plugin;
     public static YamlConfiguration yaml;
     public static List<String> lines;
-    public static HashMap<String, String> sanity = new HashMap<String, String>();
-    public static HashMap<String, String> humidity = new HashMap<String, String>();
-    public static HashMap<String, String> temperature = new HashMap<String, String>();
-    public static HashMap<String, String> tiredness = new HashMap<String, String>();
+    public static HashMap<UUID, String> sanity = new HashMap<>();
+    public static HashMap<UUID, String> humidity = new HashMap<>();
+    public static HashMap<UUID, String> temperature = new HashMap<>();
+    public static HashMap<UUID, String> tiredness = new HashMap<>();
 
     public HudProvider(UntilTheEnd plugin) {
         plugin.saveResource("hud.yml", false);

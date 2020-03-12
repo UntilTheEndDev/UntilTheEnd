@@ -3,6 +3,7 @@ package HamsterYDS.UntilTheEnd.item;
 import java.util.HashMap;
 
 import HamsterYDS.UntilTheEnd.api.UntilTheEndApi.BlockApi;
+import HamsterYDS.UntilTheEnd.internal.EventHelper;
 import HamsterYDS.UntilTheEnd.internal.UTEi18n;
 import org.bukkit.GameMode;
 import org.bukkit.Location;
@@ -42,7 +43,7 @@ public class ItemListener implements Listener {
 
     @EventHandler(priority = EventPriority.LOWEST)
     public void onUse(PlayerInteractEvent event) {
-        if (event.getAction() == Action.RIGHT_CLICK_AIR || event.getAction() == Action.RIGHT_CLICK_BLOCK) {
+        if (EventHelper.isRight(event.getAction())) {
             Player player = event.getPlayer();
             if (player.getGameMode() == GameMode.CREATIVE)
                 return;

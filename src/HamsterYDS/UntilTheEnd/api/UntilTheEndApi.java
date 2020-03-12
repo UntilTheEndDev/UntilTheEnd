@@ -123,10 +123,10 @@ public class UntilTheEndApi {
         }
 
         public static String getChangingTend(Player player, String type) {
-            if (type.equalsIgnoreCase("san")) return HudProvider.sanity.get(player.getName());
-            if (type.equalsIgnoreCase("tem")) return HudProvider.temperature.get(player.getName());
-            if (type.equalsIgnoreCase("hum")) return HudProvider.humidity.get(player.getName());
-            if (type.equalsIgnoreCase("tir")) return HudProvider.tiredness.get(player.getName());
+            if (type.equalsIgnoreCase("san")) return HudProvider.sanity.get(player.getUniqueId());
+            if (type.equalsIgnoreCase("tem")) return HudProvider.temperature.get(player.getUniqueId());
+            if (type.equalsIgnoreCase("hum")) return HudProvider.humidity.get(player.getUniqueId());
+            if (type.equalsIgnoreCase("tir")) return HudProvider.tiredness.get(player.getUniqueId());
             return "";
         }
 

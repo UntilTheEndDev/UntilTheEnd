@@ -1,6 +1,7 @@
 package HamsterYDS.UntilTheEnd.item.combat;
 
 import HamsterYDS.UntilTheEnd.internal.ArrowManager;
+import HamsterYDS.UntilTheEnd.internal.EventHelper;
 import HamsterYDS.UntilTheEnd.item.ItemManager;
 import org.bukkit.Material;
 import org.bukkit.entity.Player;
@@ -37,7 +38,7 @@ public class BlowArrow2 implements Listener {
         Player player = event.getPlayer();
         if (!player.isSneaking())
             return;
-        if (event.getAction() == Action.RIGHT_CLICK_AIR || event.getAction() == Action.RIGHT_CLICK_BLOCK) {
+        if (EventHelper.isRight(event.getAction())) {
             ItemStack item = player.getInventory().getItemInMainHand();
             if (ItemManager.isSimilar(item, ItemManager.namesAndItems.get("§6火吹箭"))) {
                 event.setCancelled(true);

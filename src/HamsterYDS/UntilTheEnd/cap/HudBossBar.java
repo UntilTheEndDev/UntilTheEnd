@@ -88,15 +88,15 @@ public class HudBossBar extends BukkitRunnable implements Listener {
                 double tem = PlayerManager.check(p, PlayerManager.CheckType.TEMPERATURE);
                 double hum = PlayerManager.check(p, PlayerManager.CheckType.HUMIDITY);
                 double tir = PlayerManager.check(p, PlayerManager.CheckType.TIREDNESS);
-                ndBossBar.san.setTitle(UTEi18n.parse("hud.bossbar.sanity", HudProvider.sanity.get(p.getName()), String.valueOf(MathHelper.p2(san)), HudProvider.sanity.get(p.getName())));
+                ndBossBar.san.setTitle(UTEi18n.parse("hud.bossbar.sanity", HudProvider.sanity.get(p.getUniqueId()), String.valueOf(MathHelper.p2(san)), HudProvider.sanity.get(p.getUniqueId())));
                 ndBossBar.san.setProgress(san / sanMax);
                 ndBossBar.san.addPlayer(p);
 
-                ndBossBar.tem.setTitle(UTEi18n.parse("hud.bossbar.temperature", HudProvider.temperature.get(p.getName()), String.valueOf(MathHelper.p2(tem)), HudProvider.temperature.get(p.getName())));
+                ndBossBar.tem.setTitle(UTEi18n.parse("hud.bossbar.temperature", HudProvider.temperature.get(p.getUniqueId()), String.valueOf(MathHelper.p2(tem)), HudProvider.temperature.get(p.getUniqueId())));
                 ndBossBar.tem.setProgress((tem + 5) / 85.0);
                 ndBossBar.tem.addPlayer(p);
 
-                ndBossBar.tir.setTitle(UTEi18n.parse("hud.bossbar.tiredness", HudProvider.tiredness.get(p.getName()), String.valueOf(MathHelper.p2(tir)), HudProvider.tiredness.get(p.getName())));
+                ndBossBar.tir.setTitle(UTEi18n.parse("hud.bossbar.tiredness", HudProvider.tiredness.get(p.getUniqueId()), String.valueOf(MathHelper.p2(tir)), HudProvider.tiredness.get(p.getUniqueId())));
                 ndBossBar.tir.setProgress(tir / 100.0);
                 ndBossBar.tir.addPlayer(p);
                 boolean hiddenHum;
@@ -116,7 +116,7 @@ public class HudBossBar extends BukkitRunnable implements Listener {
                 if (hiddenHum) {
                     ndBossBar.hum.removeAll();
                 } else {
-                    ndBossBar.hum.setTitle(UTEi18n.parse("hud.bossbar.humidity", HudProvider.tiredness.get(p.getName()), String.valueOf(MathHelper.p2(hum)), HudProvider.humidity.get(p.getName())));
+                    ndBossBar.hum.setTitle(UTEi18n.parse("hud.bossbar.humidity", HudProvider.humidity.get(p.getUniqueId()), String.valueOf(MathHelper.p2(hum)), HudProvider.humidity.get(p.getUniqueId())));
                     ndBossBar.hum.setProgress(hum / 100.0);
                     ndBossBar.hum.addPlayer(p);
                 }
