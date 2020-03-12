@@ -1,6 +1,7 @@
 package HamsterYDS.UntilTheEnd.papi;
 
 import HamsterYDS.UntilTheEnd.api.UntilTheEndApi;
+import HamsterYDS.UntilTheEnd.internal.MathHelper;
 import HamsterYDS.UntilTheEnd.player.PlayerManager;
 import HamsterYDS.UntilTheEnd.player.PlayerManager.CheckType;
 import me.clip.placeholderapi.expansion.PlaceholderExpansion;
@@ -29,23 +30,23 @@ public class UTEExpansion extends PlaceholderExpansion {
         if (player == null) {
             return "";
         } else if (identifier.equals("san")) {
-            return String.valueOf(UntilTheEndApi.PlayerApi.getValue(player, "san"));
+            return String.valueOf(MathHelper.p2(PlayerManager.check(player, CheckType.SANITY)));
         } else if (identifier.equals("tem")) {
-            return String.valueOf(UntilTheEndApi.PlayerApi.getValue(player, "tem"));
+            return String.valueOf(MathHelper.p2(PlayerManager.check(player, CheckType.TEMPERATURE)));
         } else if (identifier.equals("hum")) {
-            return String.valueOf(UntilTheEndApi.PlayerApi.getValue(player, "hum"));
+            return String.valueOf(MathHelper.p2(PlayerManager.check(player, CheckType.HUMIDITY)));
         } else if (identifier.equals("tir")) {
-            return String.valueOf(UntilTheEndApi.PlayerApi.getValue(player, "tir"));
+            return String.valueOf(MathHelper.p2(PlayerManager.check(player, CheckType.TIREDNESS)));
         } else if (identifier.equals("season")) {
             return UntilTheEndApi.WorldApi.getName(UntilTheEndApi.WorldApi.getSeason(player.getWorld()));
         } else if (identifier.equals("role")) {
             return UntilTheEndApi.PlayerApi.getRole(player).name;
         } else if (identifier.equals("sanmax")) {
-        	 return String.valueOf(PlayerManager.check(player,CheckType.SANMAX));
+        	 return String.valueOf(MathHelper.p2(PlayerManager.check(player, CheckType.SANMAX)));
         } else if (identifier.equals("healthmax")) {
-        	return String.valueOf(PlayerManager.check(player,CheckType.HEALTHMAX));
+        	return String.valueOf(MathHelper.p2(PlayerManager.check(player, CheckType.HEALTHMAX)));
         } else if (identifier.equals("level")) {
-        	return String.valueOf(PlayerManager.check(player,CheckType.LEVEL));
+        	return String.valueOf(MathHelper.p2(PlayerManager.check(player,CheckType.LEVEL)));
         } else if (identifier.equals("damagelevel")) {
         	return String.valueOf(PlayerManager.check(player,CheckType.DAMAGELEVEL));
         } else if (identifier.equals("day")) {

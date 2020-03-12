@@ -7,9 +7,11 @@ import java.util.UUID;
 import java.util.concurrent.atomic.AtomicInteger;
 import java.util.function.BiFunction;
 
+import HamsterYDS.UntilTheEnd.cap.tem.TemperatureProvider;
 import org.bukkit.Location;
 import org.bukkit.Material;
 import org.bukkit.World;
+import org.bukkit.block.Block;
 import org.bukkit.entity.Entity;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
@@ -67,6 +69,20 @@ public class ChangeTasks {
     }
 
     public static class WeatherTask extends BukkitRunnable {
+        public static void doTickTem(Player player) {
+            final Location location = player.getLocation();
+            final Block block = location.getBlock();
+            int rm = 10;
+            if (block.getType() == Material.WATER || block.getType() == Material.STATIONARY_WATER) {
+                rm += 15;
+            }
+            double tmp = TemperatureProvider.getBlockTemperature(location);
+            double pt = PlayerManager.check(player, PlayerManager.CheckType.TEMPERATURE);
+            if (tmp > pt) {
+                PlayerManager.change(player, PlayerManager.CheckType.HUMIDITY, (pt - tmp) / rm);
+            }
+        }
+
         @Override
         public void run() {
             for (World world : Config.enableWorlds) {
@@ -76,6 +92,7 @@ public class ChangeTasks {
                         // 莫得雨
                         if (player.getLocation().getBlock().getTemperature() > 1.0) {
                             PlayerManager.change(player, PlayerManager.CheckType.HUMIDITY, -1);
+                            doTickTem(player);
                             continue;
                         }
                         PlayerInventory inv = player.getInventory();
@@ -83,6 +100,7 @@ public class ChangeTasks {
                         ItemStack leftHand = inv.getItemInOffHand();
                         if (hasShelter(player)) {
                             doTickStorm(player);
+                            doTickTem(player);
                             continue;
                         }
                         if (isUmbrella(rightHand) || isUmbrella(leftHand)) continue;
@@ -90,14 +108,17 @@ public class ChangeTasks {
                         for (ItemStack armor : armors) {
                             if (isSuit(armor)) {
                                 doTickStorm(player);
+                                doTickTem(player);
                                 continue player_loop;
                             }
                         }
-                        PlayerManager.change(player, PlayerManager.CheckType.HUMIDITY, 1);
+                        PlayerManager.change(player, PlayerManager.CheckType.HUMIDITY, 0.3);
                     }
                 } else {
-                    for (Player player : world.getPlayers())
-                        PlayerManager.change(player, PlayerManager.CheckType.HUMIDITY, -1);
+                    for (Player player : world.getPlayers()) {
+                        doTickTem(player);
+                        PlayerManager.change(player, PlayerManager.CheckType.HUMIDITY, -0.3);
+                    }
                 }
             }
         }
@@ -139,7 +160,7 @@ public class ChangeTasks {
     public static class StateTask extends BukkitRunnable {
         @Override
         public void run() {
-            for (World world : Config.enableWorlds)
+            for (World world : Config.enableWorlds) {
                 playerLoop:
                 for (Player player : world.getPlayers()) {
                     if (player.isInsideVehicle()) {
@@ -149,18 +170,19 @@ public class ChangeTasks {
                         continue;
                     }
                     Location loc = player.getLocation();
-                    if (world.getBlockAt(loc).getType().equals(Material.WATER) || world.getBlockAt(loc).getType().equals(Material.STATIONARY_WATER)){
-                    	ItemStack[] armors = player.getInventory().getArmorContents();
+                    if (world.getBlockAt(loc).getType().equals(Material.WATER) || world.getBlockAt(loc).getType().equals(Material.STATIONARY_WATER)) {
+                        ItemStack[] armors = player.getInventory().getArmorContents();
                         for (ItemStack armor : armors) {
                             if (isSuit(armor)) {
                                 continue playerLoop;
                             }
                         }
-                    	PlayerManager.change(player, PlayerManager.CheckType.HUMIDITY, 1);
+                        PlayerManager.change(player, PlayerManager.CheckType.HUMIDITY, 1);
                     }
                 }
+            }
         }
-        
+
         public static boolean isSuit(ItemStack item) {
             if (item == null) return false;
             if (item.hasItemMeta())

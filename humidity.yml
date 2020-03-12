@@ -1,15 +1,24 @@
-weahterChangePeriod: 20 #在雨中湿度没多少刻上升1
-stateChangePeriod: 5 #在水中湿度没多少刻上升1
-effectHumidity: 10 #玩家湿度高于多少触发挖掘疲劳效果
-dampPeriod: 50 #玩家背包内物品受潮计算周期(数值越大，受潮越快)
-seasonPeriod: 50 #玩家背包内物品风干计算周期(数值越大，风干越快)
-dampPercent: 0.3 #每次计算时受潮的概率
-seasonPercent: 0.3 #每次计算时风干的概率
-seasonHumidity: 3 #玩家湿度低于多少背包内物品开始风干
-dampHumidity: 10 #玩家湿度高于多少背包内物品开始潮湿
+# 在雨中湿度没多少刻上升1
+weahterChangePeriod: 10
+# 在水中湿度没多少刻上升1
+stateChangePeriod: 5
+# 玩家湿度高于多少触发挖掘疲劳效果
+effectHumidity: 10
+#玩家背包内物品受潮计算周期(数值越大，受潮越快)
+dampPeriod: 50
+#玩家背包内物品风干计算周期(数值越大，风干越快)
+seasonPeriod: 50
+#每次计算时受潮的概率
+dampPercent: 0.3
+#每次计算时风干的概率
+seasonPercent: 0.3
+#玩家湿度低于多少背包内物品开始风干
+seasonHumidity: 3
+#玩家湿度高于多少背包内物品开始潮湿
+dampHumidity: 10
 
 #物品受潮之后变样的设定
-wetBlocks: 
+wetBlocks:
   #格式：
   #方块Material名字: 变样的方块Material名字
   COBBLESTONE: MOSSY_COBBLESTONE #圆石变苔石

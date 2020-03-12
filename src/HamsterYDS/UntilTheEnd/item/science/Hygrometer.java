@@ -48,7 +48,7 @@ public class Hygrometer implements Listener{
 		if(UntilTheEndApi.BlockApi.getSpecialBlocks("Hygrometer").contains(toString)) {
 			if(clicked.contains(toString)) return;
 			clicked.add(toString);
-			int tem=TemperatureProvider.getBlockTemperature(loc);
+			int tem=(int)TemperatureProvider.getBlockTemperature(loc);
 			String text="§e§l天气-§d§l"+(loc.getWorld().hasStorm()?"雨雪":"晴天");
 			String text2="§e§l目前该天气还有§d§l"+(loc.getWorld().getWeatherDuration()/20)+"§e§l秒";
 			final Hologram hologram=HologramsAPI.createHologram(ItemManager.plugin,loc.add(0.5,2.2,0.5).clone());

@@ -25,7 +25,7 @@ public class ChangeTasks {
 
     public ChangeTasks(UntilTheEnd plugin) {
         this.plugin = plugin;
-        new PlayerTask().runTaskTimer(plugin, 0L, 20L);
+        new PlayerTask().runTaskTimer(plugin, 0L, 10L);
         new HumidityTask().runTaskTimer(plugin, 0L, humidityChangeSpeed);
     }
 
@@ -40,8 +40,8 @@ public class ChangeTasks {
         }
     }
 
-    public class PlayerTask extends BukkitRunnable {
-        public boolean goWarmStone(Player player) {
+    public static class PlayerTask extends BukkitRunnable {
+        public static boolean goWarmStone(Player player) {
             PlayerInventory inv = player.getInventory();
             for (int slot = 0; slot < inv.getSize(); slot++) {
                 ItemStack item = inv.getItem(slot);
@@ -56,9 +56,9 @@ public class ChangeTasks {
                         line_line++;
                         if (!line.contains("§8- §8§l温度 ")) continue;
                         line = line.replace("§8- §8§l温度 ", "");
-                        int naturalTem = TemperatureProvider.getBlockTemperature(player.getLocation());
+                        int naturalTem = (int) TemperatureProvider.getBlockTemperature(player.getLocation());
                         int stoneTem = Integer.parseInt(line);
-                        int playerTem = (int) PlayerManager.check(player, "tem");
+                        double playerTem = PlayerManager.check(player, "tem");
                         if (playerTem < stoneTem) PlayerManager.change(player, "tem", 1);
                         if (playerTem > stoneTem) PlayerManager.change(player, "tem", -1);
                         if (Math.random() <= stoneChangePercent) {
@@ -80,16 +80,27 @@ public class ChangeTasks {
             return false;
         }
 
-        public void goNatural(Player player) {
-            final int naturalTem = TemperatureProvider.getBlockTemperature(player.getLocation());
-            final int playerTem = (int) PlayerManager.check(player, "tem");
-            if (playerTem < naturalTem && clothesChange(player, true))
-                PlayerManager.change(player, "tem", 1);
-            if (playerTem > naturalTem && clothesChange(player, false))
-                PlayerManager.change(player, "tem", -1);
+        public static void goNatural(Player player) {
+            final double naturalTem = TemperatureProvider.getBlockTemperature(player.getLocation());
+            final double playerTem = PlayerManager.check(player, PlayerManager.CheckType.TEMPERATURE);
+            double check = naturalTem - playerTem;
+            if (check == 0) return;
+            if (check > 0) {
+                if (!clothesChange(player, true)) return;
+            } else if (!clothesChange(player, false)) return;
+            double abs = Math.abs(check);
+            if (abs < 1) {
+                PlayerManager.change(player, PlayerManager.CheckType.TEMPERATURE, naturalTem, PlayerManager.EditAction.SET);
+                return;
+            }
+            check = Math.max(-0.3, Math.min(0.3, check));
+            if (abs > 10) {
+                check += check * abs / 5;
+            }
+            PlayerManager.change(player, PlayerManager.CheckType.TEMPERATURE, check);
         }
 
-        public boolean clothesChange(Player player, boolean upOrDown) {
+        public static boolean clothesChange(Player player, boolean upOrDown) {
             double upFactor = 0.0;
             double downFactor = 0.0;
             PlayerInventory inv = player.getInventory();
@@ -107,7 +118,7 @@ public class ChangeTasks {
             }
         }
 
-        public String getName(ItemStack item) {
+        public static String getName(ItemStack item) {
             if (item != null)
                 if (item.hasItemMeta())
                     if (item.getItemMeta().hasDisplayName())
