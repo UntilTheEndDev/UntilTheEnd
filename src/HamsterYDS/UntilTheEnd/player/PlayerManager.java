@@ -11,6 +11,7 @@ import java.util.function.*;
 import java.util.logging.Level;
 
 import HamsterYDS.UntilTheEnd.Config;
+import HamsterYDS.UntilTheEnd.internal.DisableManager;
 import HamsterYDS.UntilTheEnd.internal.UTEi18n;
 import org.bukkit.Bukkit;
 import org.bukkit.GameMode;
@@ -44,8 +45,14 @@ public class PlayerManager implements Listener {
     public PlayerManager(UntilTheEnd plugin) {
         new SavingTask();
         plugin.getServer().getPluginManager().registerEvents(this, plugin);
-        for (Player player : Bukkit.getOnlinePlayers())
+        for (Player player : Bukkit.getOnlinePlayers()) {
             load(player);
+            UUID name = player.getUniqueId();
+            HudProvider.sanity.put(name, " ");
+            HudProvider.humidity.put(name, " ");
+            HudProvider.temperature.put(name, " ");
+            HudProvider.tiredness.put(name, " ");
+        }
     }
 
     public static ArrayList<UUID> playerChangedRole = new ArrayList<UUID>();
@@ -53,7 +60,7 @@ public class PlayerManager implements Listener {
     @EventHandler
     public void onJoin(PlayerJoinEvent event) {
         Player player = event.getPlayer();
-        String name = player.getName();
+        UUID name = player.getUniqueId();
         load(player);
         if (checkRole(player) == Roles.DEFAULT)
             player.sendMessage(UTEi18n.cache("role.unchosen"));
@@ -66,7 +73,7 @@ public class PlayerManager implements Listener {
     @EventHandler
     public void onQuit(PlayerQuitEvent event) {
         Player player = event.getPlayer();
-        String name = player.getName();
+        UUID name = player.getUniqueId();
         save(player);
         players.remove(player.getUniqueId());
         HudProvider.sanity.remove(name);
@@ -188,7 +195,8 @@ public class PlayerManager implements Listener {
         if (ip == null || type == null)
             return 0;
         if ((!Config.enableWorlds.contains(player.getWorld()))
-                || (player.getGameMode() == GameMode.CREATIVE || player.getGameMode() == GameMode.SPECTATOR))
+                || (player.getGameMode() == GameMode.CREATIVE || player.getGameMode() == GameMode.SPECTATOR)
+                || DisableManager.CheckTypeChecking.getDisabled(player.getWorld()).contains(type))
             return getDefault(ip, type, player);
         switch (type) {
             case TEMPERATURE:
@@ -240,7 +248,7 @@ public class PlayerManager implements Listener {
         }
     }
 
-    private static BiFunction<String, String, String> buildMarkFunc(String mark) {
+    private static BiFunction<UUID, String, String> buildMarkFunc(String mark) {
         return (k, v) -> {
             if (v.equalsIgnoreCase(mark))
                 return " ";
@@ -309,11 +317,11 @@ public class PlayerManager implements Listener {
         switch (type) {
             case TEMPERATURE:
                 action.update(() -> ip.temperature, v -> ip.temperature = v, counter);
-                HudProvider.temperature.put(player.getName(), mark);
+                HudProvider.temperature.put(player.getUniqueId(), mark);
                 new BukkitRunnable() {
                     @Override
                     public void run() {
-                        HudProvider.temperature.computeIfPresent(player.getName(), buildMarkFunc(mark));
+                        HudProvider.temperature.computeIfPresent(player.getUniqueId(), buildMarkFunc(mark));
                     }
                 }.runTaskLater(plugin, 40L);
                 if (ip.temperature <= 10)
@@ -327,11 +335,11 @@ public class PlayerManager implements Listener {
                 break;
             case HUMIDITY:
                 action.update(() -> ip.humidity, v -> ip.humidity = v, counter);
-                HudProvider.humidity.put(player.getName(), mark);
+                HudProvider.humidity.put(player.getUniqueId(), mark);
                 new BukkitRunnable() {
                     @Override
                     public void run() {
-                        HudProvider.humidity.computeIfPresent(player.getName(), buildMarkFunc(mark));
+                        HudProvider.humidity.computeIfPresent(player.getUniqueId(), buildMarkFunc(mark));
                     }
                 }.runTaskLater(plugin, 40L);
                 if (ip.humidity < 0)
@@ -341,11 +349,11 @@ public class PlayerManager implements Listener {
                 break;
             case SANITY:
                 action.update(() -> ip.sanity, v -> ip.sanity = v, counter);
-                HudProvider.sanity.put(player.getName(), mark);
+                HudProvider.sanity.put(player.getUniqueId(), mark);
                 new BukkitRunnable() {
                     @Override
                     public void run() {
-                        HudProvider.sanity.computeIfPresent(player.getName(), buildMarkFunc(mark));
+                        HudProvider.sanity.computeIfPresent(player.getUniqueId(), buildMarkFunc(mark));
                     }
                 }.runTaskLater(plugin, 40L);
                 if (ip.sanity < 0)
@@ -355,11 +363,11 @@ public class PlayerManager implements Listener {
                 break;
             case TIREDNESS:
                 action.update(() -> ip.tiredness, v -> ip.tiredness = v, counter);
-                HudProvider.tiredness.put(player.getName(), mark);
+                HudProvider.tiredness.put(player.getUniqueId(), mark);
                 new BukkitRunnable() {
                     @Override
                     public void run() {
-                        HudProvider.tiredness.computeIfPresent(player.getName(), buildMarkFunc(mark));
+                        HudProvider.tiredness.computeIfPresent(player.getUniqueId(), buildMarkFunc(mark));
                     }
                 }.runTaskLater(plugin, 40L);
                 if (ip.tiredness < 0)
@@ -393,6 +401,7 @@ public class PlayerManager implements Listener {
             return;
         if (player.isDead())
             return;
+        if (DisableManager.CheckTypeChecking.getDisabled(player.getWorld()).contains(type)) return;
         forgetChange(player, type, changement, action);
     }
 
