@@ -8,8 +8,6 @@
 
 package HamsterYDS.UntilTheEnd.internal;
 
-import HamsterYDS.UntilTheEnd.UntilTheEnd;
-import HamsterYDS.UntilTheEnd.guide.CraftGuide;
 import org.bukkit.Bukkit;
 import org.bukkit.Material;
 import org.bukkit.UnsafeValues;
