@@ -113,8 +113,8 @@ public class ItemManager {
                 itemsNeedLevels.put(id, needLevel);
             }
             if (yaml2.contains(path + ".provideLevel")) {
-                int needLevel = yaml2.getInt(path + ".provideLevel");
-                itemsWithLevels.put(needLevel, id);
+                int provideLevel = yaml2.getInt(path + ".provideLevel");
+                itemsWithLevels.put(provideLevel, id);
             }
         }
         new Brick();
@@ -207,7 +207,8 @@ public class ItemManager {
             }
             recipe.addIngredient(materials.get(material), material.getType());
         }
-        Bukkit.addRecipe(recipe);
+        try {Bukkit.addRecipe(recipe);}
+        catch(Exception exception) {}
         UntilTheEndApi.GuideApi.addCraftToItem(result, inv);
         UntilTheEndApi.GuideApi.addItemToCategory(category, result);
         recipes.put(result, materials);

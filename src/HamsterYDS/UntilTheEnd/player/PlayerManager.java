@@ -98,7 +98,7 @@ public class PlayerManager implements Listener {
         forgetChange(event.getEntity(), CheckType.TIREDNESS, getDefault(ip, CheckType.TIREDNESS, p), EditAction.SET);
         changeRole(event.getEntity(), Roles.DEFAULT);
         save(event.getEntity());
-        // load(event.getEntity());
+        playerChangedRole.remove(p.getUniqueId());
     }
 
     public static void load(OfflinePlayer name) {
@@ -111,6 +111,7 @@ public class PlayerManager implements Listener {
         int sanMax = 200;
         int healthMax = 20;
         double damageLevel = 1;
+        ArrayList<String> unlockedRecipes = new ArrayList<String>();
 
         try {
             final Map<String, Object> load = PlayerDataLoaderImpl.loader.load(playerdata, name);
@@ -125,11 +126,12 @@ public class PlayerManager implements Listener {
                 sanMax = ((Number) load.getOrDefault("sanMax", role.originSanMax)).intValue();
                 healthMax = ((Number) load.getOrDefault("healthMax", role.originHealthMax)).intValue();
                 damageLevel = ((Number) load.getOrDefault("damageLevel", role.originDamageLevel)).intValue();
+                unlockedRecipes = (ArrayList<String>) (load.getOrDefault("unlockedRecipes", unlockedRecipes));
             }
         } catch (Throwable exception) {
             plugin.getLogger().log(Level.WARNING, "Failed to load " + name, exception);
         }
-        IPlayer player = new IPlayer(temperature, humidity, sanity, tiredness);
+        IPlayer player = new IPlayer(temperature, humidity, sanity, tiredness, unlockedRecipes);
 
         player.role = Roles.valueOf(roleName);
         player.roleStats = new IRole(level, sanMax, healthMax, damageLevel);
@@ -149,6 +151,7 @@ public class PlayerManager implements Listener {
         data.put("sanMax", player.roleStats.sanMax);
         data.put("healthMax", player.roleStats.healthMax);
         data.put("damageLevel", player.roleStats.damageLevel);
+        data.put("unlockedRecipes", player.unlockedRecipes);
         try {
             PlayerDataLoaderImpl.loader.save(playerdata, name, data);
         } catch (IOException e) {
@@ -159,11 +162,11 @@ public class PlayerManager implements Listener {
     public static Roles checkRole(Player player) {
         if (!players.containsKey(player.getUniqueId())) return Roles.DEFAULT;
         IPlayer ip = players.get(player.getUniqueId());
-        return ip.role == null ? Roles.DEFAULT : ip.role;
+        return ip.role;
     }
 
     public static void changeRole(Player player, Roles newRole) {
-        IPlayer ip = players.get(player.getUniqueId());
+        IPlayer ip = new IPlayer(37,0,newRole.originSanMax,0,new ArrayList<String>());
         ip.role = newRole;
         ip.roleStats = new IRole(newRole.originLevel, newRole.originSanMax,
                 newRole.originHealthMax, newRole.originDamageLevel);
@@ -171,6 +174,7 @@ public class PlayerManager implements Listener {
         players.put(player.getUniqueId(), ip);
         save(player);
         player.setMaxHealth(ip.roleStats.healthMax);
+        playerChangedRole.add(player.getUniqueId());
     }
 
     static double getDefault(IPlayer ip, CheckType type, Player player) {
@@ -227,6 +231,18 @@ public class PlayerManager implements Listener {
     public static double check(Player name, String type) {
         return check(name, CheckType.search(type));
     }
+    
+    public static ArrayList<String> checkUnLockedRecipes(Player player) {
+        return players.get(player.getUniqueId()).unlockedRecipes;
+    } 
+    
+    public static void addUnLockedRecipes(Player player,String item) {
+        players.get(player.getUniqueId()).unlockedRecipes.add(item); 
+    } 
+    
+    public static void removeUnLockedRecipes(Player player,String item) {
+        players.get(player.getUniqueId()).unlockedRecipes.remove(item); 
+    } 
 
     public enum CheckType {
         SANITY("san"), TEMPERATURE("tem"), HUMIDITY("hum"), TIREDNESS("tir"), SANMAX("sanmax"), HEALTHMAX(
@@ -433,12 +449,14 @@ public class PlayerManager implements Listener {
         public double tiredness;
         public IRole roleStats;
         public Roles role;
+        public ArrayList<String> unlockedRecipes;
 
-        public IPlayer(double temperature, double humidity, double sanity, double tiredness) {
+        public IPlayer(double temperature, double humidity, double sanity, double tiredness, ArrayList<String> unlockedRecipes) {
             this.temperature = temperature;
             this.humidity = humidity;
             this.sanity = sanity;
             this.tiredness = tiredness;
+            this.unlockedRecipes = unlockedRecipes;
         }
     }
 }

@@ -42,11 +42,11 @@ public class UTEExpansion extends PlaceholderExpansion {
         } else if (identifier.equals("role")) {
             return UntilTheEndApi.PlayerApi.getRole(player).name;
         } else if (identifier.equals("sanmax")) {
-        	 return String.valueOf(MathHelper.p2(PlayerManager.check(player, CheckType.SANMAX)));
+        	return String.valueOf(PlayerManager.check(player, CheckType.SANMAX));
         } else if (identifier.equals("healthmax")) {
-        	return String.valueOf(MathHelper.p2(PlayerManager.check(player, CheckType.HEALTHMAX)));
+        	return String.valueOf(PlayerManager.check(player, CheckType.HEALTHMAX));
         } else if (identifier.equals("level")) {
-        	return String.valueOf(MathHelper.p2(PlayerManager.check(player,CheckType.LEVEL)));
+        	return String.valueOf(PlayerManager.check(player,CheckType.LEVEL));
         } else if (identifier.equals("damagelevel")) {
         	return String.valueOf(PlayerManager.check(player,CheckType.DAMAGELEVEL));
         } else if (identifier.equals("day")) {

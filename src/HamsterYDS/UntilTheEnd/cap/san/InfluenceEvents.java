@@ -10,6 +10,7 @@ import org.bukkit.event.player.PlayerMoveEvent;
 
 import HamsterYDS.UntilTheEnd.Config;
 import HamsterYDS.UntilTheEnd.player.PlayerManager;
+import me.clip.placeholderapi.PlaceholderAPI;
 
 /**
  * @author 南外丶仓鼠
@@ -39,7 +40,8 @@ public class InfluenceEvents implements Listener {
     @EventHandler(priority = EventPriority.HIGHEST)
     public void onChat(AsyncPlayerChatEvent event) {
         String newString = "";
-        Player sender = event.getPlayer();
+        Player sender = event.getPlayer(); 
+        event.setMessage(PlaceholderAPI.setPlaceholders(sender,event.getMessage()));
         if (!Config.enableWorlds.contains(sender.getWorld())) return;
         int san = (int) PlayerManager.check(sender, PlayerManager.CheckType.SANITY);
         int chatablessSanityCal=(int) (chatablessSanity*PlayerManager.check(sender, PlayerManager.CheckType.SANMAX));

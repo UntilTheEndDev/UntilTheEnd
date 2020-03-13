@@ -27,8 +27,10 @@ food:
   hunger: 
     speed: 30   #每多少秒固定减少1点饥饿值
   rotten: 
-    enable: true   #是否打开食物腐烂机制
-    speed: 30   #每多少秒计算一次腐烂-1
+    invenable: true   #是否打开背包食物腐烂机制
+    guienable: true   #是否打开箱子GUI内食物腐烂机制
+    invspeed: 30   #背包食物每多少秒计算一次新鲜度-1
+    guispeed: 300   #箱子GUI内食物每多少秒计算一次新鲜度-1
 #物品设置##########################################################
 item:
   sawer: 

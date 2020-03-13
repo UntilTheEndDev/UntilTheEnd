@@ -23,7 +23,7 @@ public class RottenFoodTask {
 		ItemMeta meta=rottenFood.getItemMeta();
 		meta.setDisplayName("§6腐烂食物");
 		rottenFood.setItemMeta(meta);
-		new RottenFood().runTaskTimer(plugin,0L,plugin.getConfig().getInt("food.rotten.speed")*20);
+		new RottenFood().runTaskTimer(plugin,0L,plugin.getConfig().getInt("food.rotten.invspeed")*20);
 	}
 	public class RottenFood extends BukkitRunnable{
 		@Override
@@ -37,6 +37,7 @@ public class RottenFoodTask {
 					for(int slot=0;slot<inv.getSize();slot++) {
 						ItemStack item=inv.getItem(slot);
 						if(item==null) continue;
+						if(item.getType()==Material.ROTTEN_FLESH) continue;
 						if(item.getType().isEdible()) 
 							inv.setItem(slot,setRottenLevel(item,getRottenLevel(item)-1));
 					}
@@ -61,13 +62,17 @@ public class RottenFoodTask {
 	}
 	public static ItemStack setRottenLevel(ItemStack item,int currentLevel) {
 		if(item==null) return item;
-		if(currentLevel<=0) 
-			return rottenFood;
+		if(currentLevel<=0) {
+			ItemStack rotten=rottenFood.clone();
+			rotten.setAmount(item.getAmount());
+			return rotten;
+		}
 		ItemMeta meta=item.getItemMeta();
 		List<String> lores=new ArrayList<String>();
 		if(meta!=null) {
 			if(meta.hasLore()) {
 				lores=meta.getLore();
+				if(hasTag(lores)) return item;
 				for(String str:item.getItemMeta().getLore()) 
 					if(str.contains("§8- §8§l新鲜度 ")) {
 						lores.remove(str);
@@ -75,10 +80,16 @@ public class RottenFoodTask {
 						lores.add(str);
 						break;
 					}
-			}else lores.add("§8- §8§l新鲜度 100");
-		}else lores.add("§8- §8§l新鲜度 100");	
+			}else lores.add("§8- §8§l新鲜度 "+currentLevel);
+		}else lores.add("§8- §8§l新鲜度 "+currentLevel);	
 		meta.setLore(lores);
 		item.setItemMeta(meta);
 		return item;
+	}
+	private static boolean hasTag(List<String> lores) {
+		for(String str:lores)
+			if(str.contains("不可腐烂"))
+				return true;
+		return false;
 	}
 }

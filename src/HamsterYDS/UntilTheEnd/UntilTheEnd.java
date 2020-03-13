@@ -64,14 +64,13 @@ public class UntilTheEnd extends JavaPlugin implements Listener {
         new Sanity(this);
         new Humidity(this);
         new Tiredness(this);
-        //new Tiredness(this);
         new Guide(this);
         new Crops(this);
+        new Block(this);
+        new ItemManager(this);
         new HamsterYDS.UntilTheEnd.player.Player(this);
         new HudProvider(this);
         new Food(this);
-        new Block(this);
-        new ItemManager(this);
         new Commands(this);
         new UTEExpansion().register();
         getLogger().log(Level.INFO, UTEi18n.parse("logging.store.type", PlayerDataLoaderImpl.loader.getClass().getSimpleName(), getConfig().getString("saving")));

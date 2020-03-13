@@ -3,6 +3,8 @@ package HamsterYDS.UntilTheEnd.item.science;
 import java.util.HashMap;
 
 import org.bukkit.inventory.ItemStack;
+
+import HamsterYDS.UntilTheEnd.food.RottenFoodEvents;
 import HamsterYDS.UntilTheEnd.item.ItemManager;
 
 /**
@@ -18,5 +20,6 @@ public class Refridgerator{
 		ItemManager.registerRecipe(materials,ItemManager.namesAndItems.get("§6冰箱"),"§6科学");
 		
 		ItemManager.canPlaceBlocks.put("Refridgerator",ItemManager.namesAndItems.get("§6冰箱"));
+		RottenFoodEvents.titleFactors.put("§6冰箱",10.0);
 	}
 }

@@ -131,7 +131,7 @@ public class UntilTheEndApi {
         }
 
         public static String getSanityColor(Player player) {
-            int san = getValue(player, "san");
+            double san = getValue(player, "san");
             if (san >= 120) return HudProvider.yaml.getString("sanityColor.120");
             if (san >= 90) return HudProvider.yaml.getString("sanityColor.90");
             if (san >= 60) return HudProvider.yaml.getString("sanityColor.60");
@@ -141,7 +141,7 @@ public class UntilTheEndApi {
         }
 
         public static String getHumidityColor(Player player) {
-            int hum = getValue(player, "hum");
+            double hum = getValue(player, "hum");
             if (hum <= 5) return HudProvider.yaml.getString("humidityColor.5");
             if (hum <= 15) return HudProvider.yaml.getString("humidityColor.15");
             if (hum <= 25) return HudProvider.yaml.getString("humidityColor.25");
@@ -149,7 +149,7 @@ public class UntilTheEndApi {
         }
 
         public static String getTemperatureColor(Player player) {
-            int tem = getValue(player, "tem");
+            double tem = getValue(player, "tem");
             if (tem <= 15) return HudProvider.yaml.getString("temperatureColor.15");
             if (tem <= 50) return HudProvider.yaml.getString("temperatureColor.50");
             if (tem <= 75) return HudProvider.yaml.getString("temperatureColor.75");
@@ -157,7 +157,7 @@ public class UntilTheEndApi {
         }
         
         public static String getTirednessColor(Player player) {
-            int tir = getValue(player, "tir");
+            double tir = getValue(player, "tir");
             if (tir <= 25) return HudProvider.yaml.getString("tirednessColor.25");
             if (tir <= 50) return HudProvider.yaml.getString("tirednessColor.50");
             if (tir <= 75) return HudProvider.yaml.getString("tirednessColor.75");
@@ -165,8 +165,8 @@ public class UntilTheEndApi {
             return "";
         }
 
-        public static int getValue(Player player, String type) {
-            return (int) PlayerManager.check(player, type);
+        public static double getValue(Player player, String type) {
+            return PlayerManager.check(player, type);
         }
 
         public static void setValue(Player player, String type, int value) {

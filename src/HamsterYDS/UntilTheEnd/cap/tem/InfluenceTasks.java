@@ -51,7 +51,7 @@ public class InfluenceTasks {
                     int playerTem = (int) PlayerManager.check(player, PlayerManager.CheckType.TEMPERATURE);
                     if (playerTem > hotTem) {
                         if (player.getHealth() <= 0.2 * (playerTem - hotTem))
-                            DeathMessage.causes.put(player.getName(), DeathCause.HOTNESS);
+                            DeathMessage.causes.put(player.getName(), DeathCause .HOTNESS);
                         player.damage(0.2 * (playerTem - hotTem));
                     }
                     if (playerTem < coldTem) {

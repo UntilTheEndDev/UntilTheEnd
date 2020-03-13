@@ -297,6 +297,8 @@ public class Commands implements CommandExecutor, Listener, TabCompleter {
                     }
                     if (!pl.hasPermission("ute.role." + role.name))
                         notPermitted(cs);
+                    if(PlayerManager.playerChangedRole.contains(pl.getUniqueId())) 
+                    	return true;
                     PlayerManager.changeRole(pl, role);
                     PlayerManager.playerChangedRole.add(pl.getUniqueId());
                     pl.sendMessage(UTEi18n.cacheWithPrefix("cmd.role.change"));

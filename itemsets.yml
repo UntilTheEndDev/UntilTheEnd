@@ -602,7 +602,7 @@ ACD试验药:
       - '§8-效用: §d减缓冰箱内的食物腐烂速率'
 科学机器: 
   ==: org.bukkit.inventory.ItemStack
-  type: CHEST
+  type: NETHER_FENCE
   meta:
     ==: ItemMeta
     meta-type: UNSPECIFIC
@@ -622,3 +622,14 @@ ACD试验药:
     lore:
       - '§8-蓄势待发'
       - '§8-效用: §d右击发射包含火的魔法攻击~'
+      
+      
+胡须:
+  ==: org.bukkit.inventory.ItemStack
+  type: STRING
+  meta:
+    ==: ItemMeta
+    meta-type: UNSPECIFIC
+    display-name: §6胡须
+    lore:
+      - '§8-威尔逊的胡须'

@@ -5,6 +5,8 @@ import java.util.HashMap;
 import HamsterYDS.UntilTheEnd.api.UntilTheEndApi.BlockApi;
 import HamsterYDS.UntilTheEnd.internal.EventHelper;
 import HamsterYDS.UntilTheEnd.internal.UTEi18n;
+import HamsterYDS.UntilTheEnd.player.PlayerManager;
+
 import org.bukkit.GameMode;
 import org.bukkit.Location;
 import org.bukkit.World;
@@ -97,8 +99,11 @@ public class ItemListener implements Listener {
                 event.setCancelled(true);
         boolean flag=false;
         Player player=(Player) event.getWhoClicked();
-        if(ItemManager.itemsNeedLevels.containsKey(ItemManager.itemsAndIds.get(item))) {
-        	int level=ItemManager.itemsNeedLevels.get(ItemManager.itemsAndIds.get(item));
+        String id=ItemManager.itemsAndIds.get(item);
+        if(PlayerManager.checkUnLockedRecipes(player).contains(id))
+        	return;
+        if(ItemManager.itemsNeedLevels.containsKey(id)) {
+        	int level=ItemManager.itemsNeedLevels.get(id);
         	String machineId=ItemManager.itemsWithLevels.get(level);
         	for(int i=-5;i<=5;i++)
         		for(int j=-5;j<=5;j++)
@@ -109,10 +114,11 @@ public class ItemListener implements Listener {
         						player.getLocation().getZ()+k);
         				newLoc=newLoc.getBlock().getLocation();
         				if(BlockApi.getSpecialBlock(newLoc).equalsIgnoreCase(machineId)){
+        					PlayerManager.addUnLockedRecipes(player,id);
         					return;
         				}
         			}
-        }
+        }else return;
         if(!flag) {
         	event.getWhoClicked().sendMessage(UTEi18n.cacheWithPrefix("item.system.no-machine"));
         	event.setCancelled(true);

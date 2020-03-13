@@ -6,6 +6,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 
 import org.bukkit.Location;
+import org.bukkit.Particle;
 import org.bukkit.configuration.file.YamlConfiguration;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
@@ -90,8 +91,14 @@ public class BlockManager extends BukkitRunnable implements Listener{
 		Location loc=event.getBlock().getLocation();
 		String toString=BlockApi.locToStr(loc);
 		if(blocks.get(toString)==null) return; 
-		event.setDropItems(false);
-		loc.getWorld().dropItemNaturally(loc,ItemManager.namesAndItems.get(ItemManager.idsAndNames.get(blocks.get(toString))));
+		event.setDropItems(false); 
+		loc.getWorld().spawnParticle(Particle.CRIT,loc.add(0.5,0.5,0.5),3);
+		HashMap<ItemStack, Integer> recipe=ItemManager.recipes.get(ItemManager.namesAndItems.get(ItemManager.idsAndNames.get(blocks.get(toString))));
+		for(ItemStack item:recipe.keySet()) {
+			ItemStack itemClone=item.clone();
+			itemClone.setAmount((int) (Math.random()*recipe.get(item)));
+			loc.getWorld().dropItemNaturally(loc,item);
+		}
 		removeBlockData(blocks.get(toString),toString);
 		blocks.remove(toString);
 	}
