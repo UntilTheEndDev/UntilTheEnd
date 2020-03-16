@@ -20,6 +20,6 @@ public class Refridgerator{
 		ItemManager.registerRecipe(materials,ItemManager.namesAndItems.get("§6冰箱"),"§6科学");
 		
 		ItemManager.canPlaceBlocks.put("Refridgerator",ItemManager.namesAndItems.get("§6冰箱"));
-		RottenFoodEvents.titleFactors.put("§6冰箱",10.0);
+		RottenFoodEvents.titleFactors.put("§6冰箱",10);
 	}
 }

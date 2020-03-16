@@ -1,107 +1,206 @@
 package HamsterYDS.UntilTheEnd.food;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-
-import org.bukkit.Material;
+import HamsterYDS.UntilTheEnd.Config;
+import HamsterYDS.UntilTheEnd.internal.ItemFactory;
+import org.bukkit.*;
+import org.bukkit.block.Block;
+import org.bukkit.block.BlockState;
+import org.bukkit.block.Container;
 import org.bukkit.event.EventHandler;
+import org.bukkit.event.EventPriority;
 import org.bukkit.event.Listener;
-import org.bukkit.event.inventory.InventoryCloseEvent;
+import org.bukkit.event.block.BlockBreakEvent;
 import org.bukkit.event.inventory.InventoryOpenEvent;
-import org.bukkit.event.inventory.InventoryType;
+import org.bukkit.event.world.ChunkLoadEvent;
+import org.bukkit.event.world.ChunkUnloadEvent;
+import org.bukkit.event.world.WorldUnloadEvent;
 import org.bukkit.inventory.Inventory;
+import org.bukkit.inventory.InventoryHolder;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
 
-import HamsterYDS.UntilTheEnd.UntilTheEnd;
+import java.util.*;
+import java.util.concurrent.ConcurrentHashMap;
 
-public class RottenFoodEvents implements Listener{
-	public static HashMap<String,Double> titleFactors=new HashMap<String,Double>();
-	@EventHandler public void onOpen(InventoryOpenEvent event) {
-		Inventory inv=event.getInventory();
-		if(inv.getType()==InventoryType.PLAYER||
-				inv.getType()==InventoryType.CRAFTING||
-				inv.getType()==InventoryType.CREATIVE||
-				inv.getType()==InventoryType.WORKBENCH) return;
-		double factor=1;
-		if(titleFactors.containsKey(inv.getTitle()))
-			factor=titleFactors.get(inv.getTitle());
-		for(int slot=0;slot<inv.getSize();slot++) {
-			ItemStack item=inv.getItem(slot);
-			if(item==null) return;
-			if(item.getType()==Material.ROTTEN_FLESH) {
-				clearTime(item);
-				continue;
-			}
-			if(item.getType().isEdible()) {
-				ItemMeta meta=item.getItemMeta();
-				List<String> lores=new ArrayList<String>();
-				if(meta!=null) {
-					if(meta.hasLore()) {
-						lores=meta.getLore();
-						if(hasTag(lores)) return;
-						long lastCloseTime=getTime(lores);
-						long nowTime=System.currentTimeMillis();
-						long rottenLevel=(long) ((nowTime-lastCloseTime)/1000/factor/UntilTheEnd.getInstance().getConfig().getInt("food.rotten.guispeed"));
-						int currentLevel=RottenFoodTask.getRottenLevel(item);
-						clearTime(item);
-						if(rottenLevel>=currentLevel)  
-							inv.setItem(slot,RottenFoodTask.setRottenLevel(item,-1));
-						else 
-							inv.setItem(slot,RottenFoodTask.setRottenLevel(item,(int) (currentLevel-rottenLevel)));
-					}
-				}
-			}
-		}
-	}
-	@EventHandler public void onClose(InventoryCloseEvent event) {
-		Inventory inv=event.getInventory();
-		if(inv.getType()==InventoryType.PLAYER||
-				inv.getType()==InventoryType.CRAFTING||
-				inv.getType()==InventoryType.CREATIVE||
-				inv.getType()==InventoryType.WORKBENCH) return;
-		for(ItemStack item:inv.getContents()) {
-			if(item==null) return;
-			if(item.getType().isEdible()) {
-				ItemMeta meta=item.getItemMeta();
-				List<String> lores=new ArrayList<String>();
-				if(meta!=null) 
-					if(meta.hasLore()) 
-						lores=meta.getLore();
-				lores.add("上次打开时间："+System.currentTimeMillis());
-				meta.setLore(lores);
-				item.setItemMeta(meta);
-			}
-		}
-	}
-	private static boolean hasTag(List<String> lores) {
-		for(String str:lores)
-			if(str.contains("不可腐烂"))
-				return true;
-		return false;
-	}
-	private static long getTime(List<String> lores) {
-		for(String str:lores)
-			if(str.contains("上次打开时间：")) {
-				String toString=str.replace("上次打开时间：","");
-				return Long.valueOf(toString);
-			}
-		return System.currentTimeMillis();
-	}
-	private static void clearTime(ItemStack item) {
-		ItemMeta meta=item.getItemMeta();
-		List<String> lores=new ArrayList<String>();
-		List<String> newLores=new ArrayList<String>();
-		if(meta!=null) 
-			if(meta.hasLore()) {
-				for(String lore:lores) {
-					if(!lore.contains("上次打开时间")) {
-						newLores.add(lore);
-					}
-				}
-			}
-		meta.setLore(newLores);
-		item.setItemMeta(meta);
-	}
+public class RottenFoodEvents implements Listener, Runnable {
+    private static class WorldB3Loc {
+        int cx;
+        int cz;
+        int x;
+        int y;
+        int z;
+        transient int ticking;
+        UUID world;
+
+        public WorldB3Loc(int cx, int cz, int x, int y, int z, UUID world) {
+            this.cx = cx;
+            this.cz = cz;
+            this.x = x;
+            this.y = y;
+            this.z = z;
+            this.world = world;
+        }
+
+        public static WorldB3Loc from(Block block) {
+            return from(block.getChunk(), block.getX(), block.getY(), block.getZ());
+        }
+
+        @Override
+        public boolean equals(Object o) {
+            if (this == o) return true;
+            if (o == null || getClass() != o.getClass()) return false;
+
+            WorldB3Loc that = (WorldB3Loc) o;
+
+            if (cx != that.cx) return false;
+            if (cz != that.cz) return false;
+            if (x != that.x) return false;
+            if (y != that.y) return false;
+            if (z != that.z) return false;
+            return Objects.equals(world, that.world);
+        }
+
+        @Override
+        public int hashCode() {
+            int result = cx;
+            result = 31 * result + cz;
+            result = 31 * result + x;
+            result = 31 * result + y;
+            result = 31 * result + z;
+            result = 31 * result + (world != null ? world.hashCode() : 0);
+            return result;
+        }
+
+        static WorldB3Loc from(Chunk c, int x, int y, int z) {
+            return new WorldB3Loc(c.getX(), c.getZ(), x & 0xF, y, z & 0xF, c.getWorld().getUID());
+        }
+
+        Block block() {
+            return Bukkit.getWorld(world).getChunkAt(cx, cz).getBlock(x, y, z);
+        }
+
+        Container check() {
+            final Block block = block();
+            final BlockState state = block.getState();
+            if (!(state instanceof Container)) {
+                return null;
+            }
+            return (Container) state;
+        }
+    }
+
+    public static HashMap<String, Integer> titleFactors = new HashMap<>();
+    private static final Integer ONE = 1;
+    public static Map<WorldB3Loc, Integer> checking = new ConcurrentHashMap<>();
+
+    RottenFoodEvents() {
+        for (World w : Config.enableWorlds) {
+            for (Chunk chunk : w.getLoadedChunks()) {
+                for (BlockState bs : chunk.getTileEntities()) {
+                    initialize(bs);
+                }
+            }
+        }
+    }
+
+    @Override
+    public void run() {
+        final Iterator<Map.Entry<WorldB3Loc, Integer>> iterator = checking.entrySet().iterator();
+        while (iterator.hasNext()) {
+            final Map.Entry<WorldB3Loc, Integer> next = iterator.next();
+            final WorldB3Loc key = next.getKey();
+            final Integer value = next.getValue();
+            final Container check = key.check();
+            if (check == null) iterator.remove();
+            else {
+                if (key.ticking++ >= value) {
+                    key.ticking = 0;
+                    final Inventory inventory = check.getInventory();
+                    for (ItemStack item : inventory) {
+                        if (item.getType() == Material.ROTTEN_FLESH) {
+                            continue;
+                        }
+                        if (hasTag(item)) return;
+                        if (ItemFactory.getType(item).isEdible()) {
+                            RottenFoodTask.setRottenLevel(item, RottenFoodTask.getRottenLevel(item) - 1);
+                        }
+                    }
+                }
+            }
+        }
+    }
+
+    @EventHandler
+    public void onChunkLoading(ChunkLoadEvent event) {
+        load(event.getChunk());
+    }
+
+    @EventHandler
+    public void onWorldUnloading(WorldUnloadEvent event) {
+        final World world = event.getWorld();
+        final UUID uid = world.getUID();
+        final Iterator<Map.Entry<WorldB3Loc, Integer>> iterator = checking.entrySet().iterator();
+        while (iterator.hasNext()) {
+            final WorldB3Loc key = iterator.next().getKey();
+            if (key.world.equals(uid)) iterator.remove();
+        }
+    }
+
+    @EventHandler
+    public void onChunkUnloading(ChunkUnloadEvent event) {
+        final Chunk chunk = event.getChunk();
+        int x = chunk.getX();
+        int z = chunk.getZ();
+        final Iterator<Map.Entry<WorldB3Loc, Integer>> iterator = checking.entrySet().iterator();
+        while (iterator.hasNext()) {
+            final WorldB3Loc key = iterator.next().getKey();
+            if (key.cx == x && key.cz == z) iterator.remove();
+        }
+    }
+
+    private void initialize(BlockState tileEntity) {
+        if (Config.enableWorlds.contains(tileEntity.getWorld()))
+            if (tileEntity instanceof Container) {
+                Integer d = ONE;
+                if (tileEntity instanceof Nameable) {
+                    d = titleFactors.getOrDefault(((Nameable) tileEntity).getCustomName(), d);
+                }
+                checking.put(WorldB3Loc.from(tileEntity.getChunk(), tileEntity.getX(), tileEntity.getY(), tileEntity.getZ()), d);
+            }
+    }
+
+    @EventHandler(priority = EventPriority.MONITOR, ignoreCancelled = true)
+    private void onBlockBreak(BlockBreakEvent event) {
+        checking.remove(WorldB3Loc.from(event.getBlock()));
+    }
+
+    private void load(Chunk chunk) {
+        if (Config.enableWorlds.contains(chunk.getWorld()))
+            for (BlockState bs : chunk.getTileEntities()) {
+                initialize(bs);
+            }
+    }
+
+    @EventHandler
+    public void onOpen(InventoryOpenEvent event) {
+        Inventory inv = event.getInventory();
+        final InventoryHolder holder = inv.getHolder();
+        if (holder instanceof BlockState) {
+            initialize((BlockState) holder);
+        }
+    }
+
+    private static boolean hasTag(ItemStack stack) {
+        final ItemMeta meta = stack.getItemMeta();
+        if (meta != null) {
+            final List<String> lore = meta.getLore();
+            if (lore != null) {
+                for (String str : lore)
+                    if (str.contains("不可腐烂"))
+                        return true;
+            }
+        }
+        return false;
+    }
+
 }

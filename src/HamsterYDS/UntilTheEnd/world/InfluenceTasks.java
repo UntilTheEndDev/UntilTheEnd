@@ -112,6 +112,7 @@ public class InfluenceTasks {
                     if (player.hasPotionEffect(PotionEffectType.NIGHT_VISION)) continue;
                     int needToCheck = 0; // TODO: Config setting.
                     final Location location = player.getLocation().add(0, 1, 0); // 卡灵魂沙
+                    if (location.getY() < 1) return;
                     final Block block = location.getBlock();
                     if (location.getY() >= location.getWorld().getHighestBlockYAt(location.getBlockX(), location.getBlockZ())) {
                         needToCheck -= LightingCompensation.getComp(player.getWorld().getUID());
