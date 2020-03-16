@@ -117,6 +117,7 @@ public class RottenFoodEvents implements Listener, Runnable {
                     key.ticking = 0;
                     final Inventory inventory = check.getInventory();
                     for (ItemStack item : inventory) {
+                        if (item == null) continue;
                         if (item.getType() == Material.ROTTEN_FLESH) {
                             continue;
                         }
