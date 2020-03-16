@@ -84,8 +84,9 @@ public class PlayerManager implements Listener {
     @EventHandler
     public void onDeath(PlayerDeathEvent event) {
         event.getDrops().removeIf(item -> {
+            if (item == null) return true;
             if (item.hasItemMeta()) {
-                return item.getItemMeta().getDisplayName().equalsIgnoreCase(UTEi18n.cache("item.locked"));
+                return UTEi18n.cache("item.locked").equalsIgnoreCase(item.getItemMeta().getDisplayName());
             }
             return false;
         });
@@ -166,7 +167,7 @@ public class PlayerManager implements Listener {
     }
 
     public static void changeRole(Player player, Roles newRole) {
-        IPlayer ip = new IPlayer(37,0,newRole.originSanMax,0,new ArrayList<String>());
+        IPlayer ip = new IPlayer(37, 0, newRole.originSanMax, 0, new ArrayList<String>());
         ip.role = newRole;
         ip.roleStats = new IRole(newRole.originLevel, newRole.originSanMax,
                 newRole.originHealthMax, newRole.originDamageLevel);
@@ -231,18 +232,18 @@ public class PlayerManager implements Listener {
     public static double check(Player name, String type) {
         return check(name, CheckType.search(type));
     }
-    
+
     public static ArrayList<String> checkUnLockedRecipes(Player player) {
         return players.get(player.getUniqueId()).unlockedRecipes;
-    } 
-    
-    public static void addUnLockedRecipes(Player player,String item) {
-        players.get(player.getUniqueId()).unlockedRecipes.add(item); 
-    } 
-    
-    public static void removeUnLockedRecipes(Player player,String item) {
-        players.get(player.getUniqueId()).unlockedRecipes.remove(item); 
-    } 
+    }
+
+    public static void addUnLockedRecipes(Player player, String item) {
+        players.get(player.getUniqueId()).unlockedRecipes.add(item);
+    }
+
+    public static void removeUnLockedRecipes(Player player, String item) {
+        players.get(player.getUniqueId()).unlockedRecipes.remove(item);
+    }
 
     public enum CheckType {
         SANITY("san"), TEMPERATURE("tem"), HUMIDITY("hum"), TIREDNESS("tir"), SANMAX("sanmax"), HEALTHMAX(
