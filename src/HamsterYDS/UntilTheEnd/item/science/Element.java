@@ -13,9 +13,9 @@ import HamsterYDS.UntilTheEnd.item.ItemManager;
 public class Element{
 	public Element() {		
 		HashMap<ItemStack,Integer> materials=new HashMap<ItemStack,Integer>();
-		materials.put(ItemManager.namesAndItems.get("§6石砖"),6);
-		materials.put(ItemManager.namesAndItems.get("§6冰雹"),1);
+		materials.put(ItemManager.items.get("Brick"),6);
+		materials.put(ItemManager.items.get("Hail"),1);
 		materials.put(new ItemStack(Material.GOLD_INGOT),2);
-		ItemManager.registerRecipe(materials,ItemManager.namesAndItems.get("§6电器元件"),"§6科学");
+		ItemManager.items.get("").registerRecipe(materials,ItemManager.items.get("电器元件"),"科学");
 	}	
 }

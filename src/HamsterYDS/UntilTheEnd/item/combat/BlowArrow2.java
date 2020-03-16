@@ -16,18 +16,18 @@ import java.util.HashMap;
  * @version V5.1.1
  */
 public class BlowArrow2 implements Listener {
-    public static double damage = ItemManager.yaml2.getDouble("火吹箭.damage");
-    public static double range = ItemManager.yaml2.getDouble("火吹箭.range");
-    public static int maxDist = ItemManager.yaml2.getInt("火吹箭.maxDist");
-    public static int firePeriod = ItemManager.yaml2.getInt("火吹箭.firePeriod");
+    public static double damage = ItemManager.itemAttributes.getDouble("火吹箭.damage");
+    public static double range = ItemManager.itemAttributes.getDouble("火吹箭.range");
+    public static int maxDist = ItemManager.itemAttributes.getInt("火吹箭.maxDist");
+    public static int firePeriod = ItemManager.itemAttributes.getInt("火吹箭.firePeriod");
 
     public BlowArrow2() {
         HashMap<ItemStack, Integer> materials = new HashMap<ItemStack, Integer>();
-        materials.put(ItemManager.namesAndItems.get("§6芦苇"), 3);
-        materials.put(ItemManager.namesAndItems.get("§6狗牙"), 2);
-        materials.put(ItemManager.namesAndItems.get("§6骨片"), 2);
-        materials.put(ItemManager.namesAndItems.get("§6暖石"), 1);
-        ItemManager.registerRecipe(materials, ItemManager.namesAndItems.get("§6火吹箭"), "§6战斗");
+        materials.put(ItemManager.items.get("Reed"), 3);
+        materials.put(ItemManager.items.get("DogTooth"), 2);
+        materials.put(ItemManager.items.get("Sclerite"), 2);
+        materials.put(ItemManager.items.get("暖石"), 1);
+        ItemManager.items.get("").registerRecipe(materials, ItemManager.items.get("火吹箭"), "战斗");
         ItemManager.plugin.getServer().getPluginManager().registerEvents(this, ItemManager.plugin);
         ItemManager.cosumeItems.add("BlowArrow1");
     }
@@ -39,7 +39,7 @@ public class BlowArrow2 implements Listener {
             return;
         if (EventHelper.isRight(event.getAction())) {
             ItemStack item = player.getInventory().getItemInMainHand();
-            if (ItemManager.isSimilar(item, ItemManager.namesAndItems.get("§6火吹箭"))) {
+            if (ItemManager.isSimilar(item, ItemManager.items.get("火吹箭"))) {
                 event.setCancelled(true);
                 ArrowManager.startFire(e -> {
                             e.damage(damage);

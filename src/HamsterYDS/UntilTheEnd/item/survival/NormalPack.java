@@ -14,11 +14,11 @@ import HamsterYDS.UntilTheEnd.player.PlayerInventoryAdapt;
 public class NormalPack{
 	public NormalPack() {	
 		HashMap<ItemStack,Integer> materials=new HashMap<ItemStack,Integer>();
-		materials.put(ItemManager.namesAndItems.get("§6绳子"),4);
+		materials.put(ItemManager.items.get("Rope"),4);
 		materials.put(new ItemStack(Material.LOG),4);
 		materials.put(new ItemStack(Material.CHEST),1);
-		ItemManager.registerRecipe(materials,ItemManager.namesAndItems.get("§6背包"),"§6生存");
+		ItemManager.items.get("").registerRecipe(materials,ItemManager.items.get("背包"),"生存");
 		
-		PlayerInventoryAdapt.containerSizes.put("§6背包",8);
+		PlayerInventoryAdapt.containerSizes.put("背包",8);
 	}
 }

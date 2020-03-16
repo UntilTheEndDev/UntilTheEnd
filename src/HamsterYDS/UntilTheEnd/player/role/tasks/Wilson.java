@@ -14,7 +14,7 @@ import HamsterYDS.UntilTheEnd.player.role.Roles;
 public class Wilson {
 	public ItemStack beard;
 	public Wilson(UntilTheEnd plugin) {
-		beard=ItemManager.yaml1.getItemStack("胡须");
+		beard=ItemManager.loadItem("beard");
 		new Beard().runTaskTimer(plugin,0L,1200L);
 	}
 	public class Beard extends BukkitRunnable{

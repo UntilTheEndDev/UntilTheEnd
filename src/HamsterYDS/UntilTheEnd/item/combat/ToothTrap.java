@@ -29,20 +29,20 @@ import HamsterYDS.UntilTheEnd.player.death.DeathCause;
 import HamsterYDS.UntilTheEnd.player.death.DeathMessage;
 
 public class ToothTrap implements Listener{
-	public static double damage=ItemManager.yaml2.getDouble("狗牙陷阱.damage");
-	public static double brokenPercent=ItemManager.yaml2.getDouble("狗牙陷阱.brokenPercent");
+	public static double damage=ItemManager.itemAttributes.getDouble("DogTooth陷阱.damage");
+	public static double brokenPercent=ItemManager.itemAttributes.getDouble("DogTooth陷阱.brokenPercent");
 	public static ArrayList<String> touched=new ArrayList<String>();
 	public ToothTrap() {
 		loadBlocks();
 		HashMap<ItemStack,Integer> materials=new HashMap<ItemStack,Integer>();
-		materials.put(ItemManager.namesAndItems.get("§6绳子"),2);
-		materials.put(ItemManager.namesAndItems.get("§6狗牙"),5);
+		materials.put(ItemManager.items.get("Rope"),2);
+		materials.put(ItemManager.items.get("DogTooth"),5);
 		materials.put(new ItemStack(Material.LOG),1);
 		materials.put(new ItemStack(Material.GOLD_PLATE),1);
-		ItemManager.registerRecipe(materials,ItemManager.namesAndItems.get("§6狗牙陷阱"),"§6战斗");
+		ItemManager.items.get("").registerRecipe(materials,ItemManager.items.get("DogTooth陷阱"),"战斗");
 		ItemManager.plugin.getServer().getPluginManager().registerEvents(this,ItemManager.plugin);
 		
-		ItemManager.canPlaceBlocks.put("ToothTrap",ItemManager.namesAndItems.get("§6狗牙陷阱"));
+		ItemManager.canPlaceBlocks.put("ToothTrap",ItemManager.items.get("DogTooth陷阱"));
 	}
 	@EventHandler public void onMove(EntityInteractEvent event) {
 		if(event.isCancelled()) return;
@@ -94,7 +94,7 @@ public class ToothTrap implements Listener{
 			if(!touched.contains(BlockApi.locToStr(loc))) return;
 			touched.remove(BlockApi.locToStr(loc));
 			loc.getBlock().setType(Material.IRON_PLATE);
-			player.sendMessage("§6[§cUntilTheEnd§6]§r 陷阱重置成功");
+			player.sendMessage("[§cUntilTheEnd]§r 陷阱重置成功");
 		}
 	}
 	public static void saveBlocks() {

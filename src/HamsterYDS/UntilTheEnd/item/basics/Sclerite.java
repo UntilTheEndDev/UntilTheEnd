@@ -22,13 +22,12 @@ import HamsterYDS.UntilTheEnd.item.ItemManager;
  * @version V5.1.1
  */
 public class Sclerite implements Listener {
-    public static double damage = ItemManager.yaml2.getDouble("骨片.damage");
-    public static double range = ItemManager.yaml2.getDouble("骨片.range");
-    public static double maxDist = ItemManager.yaml2.getDouble("骨片.maxDist");
+    public static double damage = ItemManager.itemAttributes.getDouble("Sclerite.damage");
+    public static double range = ItemManager.itemAttributes.getDouble("Sclerite.range");
+    public static double maxDist = ItemManager.itemAttributes.getDouble("Sclerite.maxDist");
 
     public Sclerite() {
         ItemManager.plugin.getServer().getPluginManager().registerEvents(this, ItemManager.plugin);
-        ItemManager.cosumeItems.add("Sclerite");
     }
 
     @EventHandler
@@ -39,7 +38,7 @@ public class Sclerite implements Listener {
         if (!event.hasItem()) return;
         if (EventHelper.isRight(event.getAction())) {
             ItemStack item = event.getItem();
-            if (ItemManager.isSimilar(item, ItemManager.namesAndItems.get("§6骨片"))) {
+            if (ItemManager.isSimilar(item, ItemManager.items.get("Sclerite").item)) {
                 event.setCancelled(true);
                 Vector vec = player.getEyeLocation().getDirection().multiply(10);
                 Entity entity = player.getWorld().spawnEntity(player.getLocation().add(0, 1, 0),

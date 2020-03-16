@@ -18,16 +18,16 @@ import HamsterYDS.UntilTheEnd.item.ItemManager;
 import HamsterYDS.UntilTheEnd.player.PlayerManager;
 
 public class FireWand implements Listener {
-    public static int firePeriod = ItemManager.yaml2.getInt("旋风.firePeriod");
-    public static int maxDist = ItemManager.yaml2.getInt("旋风.maxDist");
-    public static double range = ItemManager.yaml2.getDouble("旋风.range");
+    public static int firePeriod = ItemManager.itemAttributes.getInt("旋风.firePeriod");
+    public static int maxDist = ItemManager.itemAttributes.getInt("旋风.maxDist");
+    public static double range = ItemManager.itemAttributes.getDouble("旋风.range");
 
     public FireWand() {
         HashMap<ItemStack, Integer> materials = new HashMap<ItemStack, Integer>();
-        materials.put(ItemManager.namesAndItems.get("§6红宝石"), 3);
-        materials.put(ItemManager.namesAndItems.get("§6有生命的木头"), 3);
-        materials.put(ItemManager.namesAndItems.get("§6噩梦燃料"), 1);
-        ItemManager.registerRecipe(materials, ItemManager.namesAndItems.get("§6火魔杖"), "§6魔法");
+        materials.put(ItemManager.items.get("RedGum"), 3);
+        materials.put(ItemManager.items.get("AnimateWood"), 3);
+        materials.put(ItemManager.items.get("NightMare"), 1);
+        ItemManager.items.get("").registerRecipe(materials, ItemManager.items.get("火魔杖"), "魔法");
         ItemManager.plugin.getServer().getPluginManager().registerEvents(this, ItemManager.plugin);
     }
 
@@ -43,11 +43,11 @@ public class FireWand implements Listener {
         if (itemClone == null) return;
         itemClone.setAmount(1);
         itemClone.setDurability((short) 0);
-        if (itemClone.equals(ItemManager.namesAndItems.get("§6火魔杖"))) {
+        if (itemClone.equals(ItemManager.items.get("火魔杖"))) {
             event.setCancelled(true);
             if (cd.containsKey(player.getName()))
                 if (cd.get(player.getName()) > 0) {
-                    player.sendMessage("§6[§cUntilTheEnd§6]§r 您的魔咒未冷却！");
+                    player.sendMessage("[§cUntilTheEnd]§r 您的魔咒未冷却！");
                     return;
                 }
             cd.remove(player.getName());

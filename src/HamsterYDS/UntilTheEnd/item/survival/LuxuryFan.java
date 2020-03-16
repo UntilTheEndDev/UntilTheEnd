@@ -16,10 +16,10 @@ import HamsterYDS.UntilTheEnd.player.PlayerManager;
 public class LuxuryFan implements Listener {
     public LuxuryFan() {
         HashMap<ItemStack, Integer> materials = new HashMap<ItemStack, Integer>();
-        materials.put(ItemManager.namesAndItems.get("§6牛毛"), 5);
-        materials.put(ItemManager.namesAndItems.get("§6芦苇"), 2);
-        materials.put(ItemManager.namesAndItems.get("§6绳子"), 2);
-        ItemManager.registerRecipe(materials, ItemManager.namesAndItems.get("§6豪华风扇"), "§6生存");
+        materials.put(ItemManager.items.get("CowHair"), 5);
+        materials.put(ItemManager.items.get("Reed"), 2);
+        materials.put(ItemManager.items.get("Rope"), 2);
+        ItemManager.items.get("").registerRecipe(materials, ItemManager.items.get("豪华风扇"), "生存");
         ItemManager.plugin.getServer().getPluginManager().registerEvents(this, ItemManager.plugin);
     }
 
@@ -31,7 +31,7 @@ public class LuxuryFan implements Listener {
         ItemStack item = event.getItem().clone();
         if (item == null) return;
         item.setAmount(1);
-        if (item.equals(ItemManager.namesAndItems.get("§6豪华风扇"))) {
+        if (item.equals(ItemManager.items.get("豪华风扇"))) {
             event.setCancelled(true);
             if (!player.isSneaking()) return;
             if (PlayerManager.check(player, PlayerManager.CheckType.TEMPERATURE) >= 45)

@@ -11,7 +11,7 @@ import HamsterYDS.UntilTheEnd.item.ItemManager;
  * @version V5.1.1
  */
 public class Ashes implements Listener {
-	public static double percent = ItemManager.yaml2.getDouble("灰烬.percent");
+	public static double percent = ItemManager.itemAttributes.getDouble("Ashes.percent");
 
 	public Ashes() {
 		ItemManager.plugin.getServer().getPluginManager().registerEvents(this, ItemManager.plugin);
@@ -22,7 +22,7 @@ public class Ashes implements Listener {
 		if (event.isCancelled())
 			return;
 		if (Math.random() <= percent) {
-			event.getBlock().getWorld().dropItem(event.getBlock().getLocation(), ItemManager.namesAndItems.get("§6灰烬"));
+			event.getBlock().getWorld().dropItem(event.getBlock().getLocation(), ItemManager.items.get("Ashes").item);
 		}
 	}
 }

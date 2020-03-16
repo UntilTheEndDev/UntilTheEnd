@@ -18,15 +18,15 @@ import org.bukkit.util.Vector;
 import HamsterYDS.UntilTheEnd.item.ItemManager;
 
 public class WeatherPain implements Listener {
-    public static int dist = ItemManager.yaml2.getInt("旋风.dist");
-    public static double range = ItemManager.yaml2.getDouble("旋风.range");
+    public static int dist = ItemManager.itemAttributes.getInt("旋风.dist");
+    public static double range = ItemManager.itemAttributes.getDouble("旋风.range");
 
     public WeatherPain() {
         HashMap<ItemStack, Integer> materials = new HashMap<ItemStack, Integer>();
-        materials.put(ItemManager.namesAndItems.get("§6齿轮"), 3);
-        materials.put(ItemManager.namesAndItems.get("§6牛角"), 2);
-        materials.put(ItemManager.namesAndItems.get("§6牛毛"), 4);
-        ItemManager.registerRecipe(materials, ItemManager.namesAndItems.get("§6旋风"), "§6战斗");
+        materials.put(ItemManager.items.get("Gear"), 3);
+        materials.put(ItemManager.items.get("Horn"), 2);
+        materials.put(ItemManager.items.get("CowHair"), 4);
+        ItemManager.items.get("").registerRecipe(materials, ItemManager.items.get("旋风"), "战斗");
         ItemManager.plugin.getServer().getPluginManager().registerEvents(this, ItemManager.plugin);
     }
 
@@ -41,10 +41,10 @@ public class WeatherPain implements Listener {
         if (itemClone == null) return;
         itemClone.setAmount(1);
         itemClone.setDurability((short) 0);
-        if (itemClone.equals(ItemManager.namesAndItems.get("§6旋风"))) {
+        if (itemClone.equals(ItemManager.items.get("旋风"))) {
             if (cd.containsKey(player.getName()))
                 if (cd.get(player.getName()) > 0) {
-                    player.sendMessage("§6[§cUntilTheEnd§6]§r 旋风使用冷却时间未到！");
+                    player.sendMessage("[§cUntilTheEnd]§r 旋风使用冷却时间未到！");
                     return;
                 }
             cd.remove(player.getName());

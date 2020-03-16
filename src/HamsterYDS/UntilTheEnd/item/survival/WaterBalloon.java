@@ -18,10 +18,10 @@ import HamsterYDS.UntilTheEnd.player.PlayerManager;
 public class WaterBalloon implements Listener {
     public WaterBalloon() {
         HashMap<ItemStack, Integer> materials = new HashMap<ItemStack, Integer>();
-        materials.put(ItemManager.namesAndItems.get("§6蜘蛛腺体"), 2);
-        materials.put(ItemManager.namesAndItems.get("§6绳子"), 1);
+        materials.put(ItemManager.items.get("SpiderGland"), 2);
+        materials.put(ItemManager.items.get("Rope"), 1);
         materials.put(new ItemStack(Material.WATER_BUCKET), 1);
-        ItemManager.registerRecipe(materials, ItemManager.namesAndItems.get("§6水球"), "§6生存");
+        ItemManager.items.get("").registerRecipe(materials, ItemManager.items.get("水球"), "生存");
         ItemManager.plugin.getServer().getPluginManager().registerEvents(this, ItemManager.plugin);
     }
 
@@ -34,7 +34,7 @@ public class WaterBalloon implements Listener {
         ItemStack item = event.getItem().clone();
         if (item == null) return;
         item.setAmount(1);
-        if (item.equals(ItemManager.namesAndItems.get("§6水球"))) {
+        if (item.equals(ItemManager.items.get("水球"))) {
             event.setCancelled(true);
             ItemStack itemr = event.getItem();
             itemr.setAmount(itemr.getAmount() - 1);

@@ -20,9 +20,9 @@ import HamsterYDS.UntilTheEnd.item.ItemManager;
 public class BushesHat implements Listener {
 	public BushesHat() {
 		HashMap<ItemStack, Integer> materials = new HashMap<ItemStack, Integer>();
-		materials.put(ItemManager.namesAndItems.get("§6绳子"), 2);
+		materials.put(ItemManager.items.get("Rope").item, 2);
 		materials.put(new ItemStack(Material.DEAD_BUSH), 6);
-		ItemManager.registerRecipe(materials, ItemManager.namesAndItems.get("§6灌木丛帽子"), "§6衣物");
+		ItemManager.items.get("BushesHat").registerRecipe(materials,"衣物");
 		ItemManager.plugin.getServer().getPluginManager().registerEvents(this, ItemManager.plugin);
 	}
 
@@ -34,7 +34,7 @@ public class BushesHat implements Listener {
 			ItemStack item = player.getInventory().getHelmet();
 			if (item == null)
 				return;
-			if (ItemManager.isSimilar(item.clone(), ItemManager.namesAndItems.get("§6灌木丛帽子")))
+			if (ItemManager.isSimilar(item.clone(), ItemManager.items.get("BushesHat").item))
 				return;
 			if (entity instanceof Monster)
 				if (event.getReason() == TargetReason.CLOSEST_PLAYER)

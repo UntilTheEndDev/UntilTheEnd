@@ -14,6 +14,6 @@ public class Brick{
 	public Brick() {	
 		HashMap<ItemStack,Integer> materials=new HashMap<ItemStack,Integer>();
 		materials.put(new ItemStack(Material.STONE),9);
-		ItemManager.registerRecipe(materials,ItemManager.namesAndItems.get("§6石砖"),"§6基础");
+		ItemManager.items.get("").registerRecipe(materials,ItemManager.items.get("Brick"),"基础");
 	}
 }

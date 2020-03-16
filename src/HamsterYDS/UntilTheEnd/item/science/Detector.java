@@ -15,13 +15,13 @@ import HamsterYDS.UntilTheEnd.item.ItemManager;
 public class Detector implements Listener{
 	public Detector() {		
 		HashMap<ItemStack,Integer> materials=new HashMap<ItemStack,Integer>();
-		materials.put(ItemManager.namesAndItems.get("§6噩梦燃料"),4);
-		materials.put(ItemManager.namesAndItems.get("§6石砖"),3);
-		materials.put(ItemManager.namesAndItems.get("§6板条"),2);
-		ItemManager.registerRecipe(materials,ItemManager.namesAndItems.get("§6探测器"),"§6科学");
+		materials.put(ItemManager.items.get("NightMare"),4);
+		materials.put(ItemManager.items.get("Brick"),3);
+		materials.put(ItemManager.items.get("Plank"),2);
+		ItemManager.items.get("").registerRecipe(materials,ItemManager.items.get("探测器"),"科学");
 		ItemManager.plugin.getServer().getPluginManager().registerEvents(this,ItemManager.plugin);
 		
-		ChangeTasks.itemsChangeSanity.put("§6探测器",-1);
+		ChangeTasks.itemsChangeSanity.put("探测器",-1);
 	}
 //	
 //	@EventHandler public void onMove(PlayerMoveEvent event) {

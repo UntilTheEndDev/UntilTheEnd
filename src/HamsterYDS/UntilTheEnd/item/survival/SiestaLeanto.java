@@ -23,14 +23,14 @@ import HamsterYDS.UntilTheEnd.player.PlayerManager;
 public class SiestaLeanto implements Listener{
 	public SiestaLeanto() {
 		HashMap<ItemStack,Integer> materials=new HashMap<ItemStack,Integer>();
-		materials.put(ItemManager.namesAndItems.get("§6板条"),4);
-		materials.put(ItemManager.namesAndItems.get("§6绳子"),3);
-		materials.put(ItemManager.namesAndItems.get("§6毛皮卷"),1);
+		materials.put(ItemManager.items.get("Plank"),4);
+		materials.put(ItemManager.items.get("Rope"),3);
+		materials.put(ItemManager.items.get("毛皮卷"),1);
 		materials.put(new ItemStack(Material.BANNER),1);
-		ItemManager.registerRecipe(materials,ItemManager.namesAndItems.get("§6简易小木棚"),"§6生存");
+		ItemManager.items.get("").registerRecipe(materials,ItemManager.items.get("简易小木棚"),"生存");
 		ItemManager.plugin.getServer().getPluginManager().registerEvents(this,ItemManager.plugin);
 		
-		ItemManager.canPlaceBlocks.put("SiestaLeanto",ItemManager.namesAndItems.get("§6简易小木棚"));
+		ItemManager.canPlaceBlocks.put("SiestaLeanto",ItemManager.items.get("简易小木棚"));
 	}
 	@EventHandler public void onClick(PlayerInteractEvent event) {
 		if(event.isCancelled()) return;
@@ -41,7 +41,7 @@ public class SiestaLeanto implements Listener{
 		if(BlockApi.getSpecialBlocks("SiestaLeanto").contains(toString)) {
 			event.setCancelled(true);
 			if(player.getWorld().getTime()<=23000&&player.getWorld().getTime()>=16000) {
-				player.sendMessage("§6[§cUntilTheEnd§6]§r 夜间不可使用此物品！");
+				player.sendMessage("[§cUntilTheEnd]§r 夜间不可使用此物品！");
 				return;
 			}
 			boolean isBroken=Math.random()<=0.1;

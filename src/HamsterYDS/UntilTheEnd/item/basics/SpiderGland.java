@@ -14,11 +14,10 @@ import HamsterYDS.UntilTheEnd.item.ItemManager;
  * @version V5.1.1
  */
 public class SpiderGland implements Listener {
-    public static double heal = ItemManager.yaml2.getDouble("蜘蛛腺体.heal");
+    public static double heal = ItemManager.itemAttributes.getDouble("SpiderGland.heal");
 
     public SpiderGland() {
         ItemManager.plugin.getServer().getPluginManager().registerEvents(this, ItemManager.plugin);
-        ItemManager.cosumeItems.add("SpiderGland");
     }
 
     @EventHandler
@@ -31,7 +30,7 @@ public class SpiderGland implements Listener {
             return;
         if (!event.hasItem()) return;
         ItemStack item = event.getItem();
-        if (ItemManager.isSimilar(item, ItemManager.namesAndItems.get("§6蜘蛛腺体"))) {
+        if (ItemManager.isSimilar(item, ItemManager.items.get("SpiderGland").item)) {
             event.setCancelled(true);
             if (player.getHealth() + heal >= player.getMaxHealth())
                 player.setHealth(player.getMaxHealth());

@@ -13,8 +13,8 @@ public class ScienceMachine {
 		materials.put(new ItemStack(Material.LOG),4);
 		materials.put(new ItemStack(Material.OBSIDIAN),4);
 		materials.put(new ItemStack(Material.GOLD_INGOT),1);
-		ItemManager.registerRecipe(materials,ItemManager.namesAndItems.get("§6科学机器"),"§6科学");
+		ItemManager.items.get("").registerRecipe(materials,ItemManager.items.get("科学机器"),"科学");
 		
-		ItemManager.canPlaceBlocks.put("ScienceMachine",ItemManager.namesAndItems.get("§6科学机器"));
+		ItemManager.canPlaceBlocks.put("ScienceMachine",ItemManager.items.get("科学机器"));
 	}
 }

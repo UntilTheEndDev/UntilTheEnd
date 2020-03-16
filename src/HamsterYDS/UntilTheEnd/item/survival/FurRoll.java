@@ -26,10 +26,10 @@ import HamsterYDS.UntilTheEnd.player.death.DeathMessage;
 public class FurRoll implements Listener {
     public FurRoll() {
         HashMap<ItemStack, Integer> materials = new HashMap<ItemStack, Integer>();
-        materials.put(ItemManager.namesAndItems.get("§6稻草卷"), 1);
-        materials.put(ItemManager.namesAndItems.get("§6兔毛"), 3);
-        materials.put(ItemManager.namesAndItems.get("§6绳子"), 1);
-        ItemManager.registerRecipe(materials, ItemManager.namesAndItems.get("§6毛皮卷"), "§6生存");
+        materials.put(ItemManager.items.get("稻草卷"), 1);
+        materials.put(ItemManager.items.get("RabbitFur"), 3);
+        materials.put(ItemManager.items.get("Rope"), 1);
+        ItemManager.items.get("").registerRecipe(materials, ItemManager.items.get("毛皮卷"), "生存");
         ItemManager.plugin.getServer().getPluginManager().registerEvents(this, ItemManager.plugin);
     }
 
@@ -43,16 +43,16 @@ public class FurRoll implements Listener {
         ItemStack item = event.getItem().clone();
         if (item == null) return;
         item.setAmount(1);
-        if (item.equals(ItemManager.namesAndItems.get("§6毛皮卷"))) {
+        if (item.equals(ItemManager.items.get("毛皮卷"))) {
             event.setCancelled(true);
             if (player.getWorld().getEnvironment() != Environment.NORMAL) {
-                player.sendMessage("§6[§cUntilTheEnd§6]§r 非主世界不可使用此物品！");
+                player.sendMessage("[§cUntilTheEnd]§r 非主世界不可使用此物品！");
                 player.getWorld().createExplosion(player.getLocation(), 3);
                 if (player.isDead()) DeathMessage.causes.put(player.getName(), DeathCause.INVALIDSLEEPNESS);
                 return;
             }
             if (player.getWorld().getTime() >= 23000 || player.getWorld().getTime() <= 16000) {
-                player.sendMessage("§6[§cUntilTheEnd§6]§r 白天不可使用此物品！");
+                player.sendMessage("[§cUntilTheEnd]§r 白天不可使用此物品！");
                 return;
             }
             if (Math.random() <= 0.3) {

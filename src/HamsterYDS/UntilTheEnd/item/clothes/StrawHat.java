@@ -12,14 +12,14 @@ import HamsterYDS.UntilTheEnd.item.ItemManager;
  * @version V5.1.1
  */
 public class StrawHat {
-	public static double percent = ItemManager.yaml2.getDouble("草帽.percent");
+	public static double percent = ItemManager.itemAttributes.getDouble("草帽.percent");
 
 	public StrawHat() {
 		HashMap<ItemStack, Integer> materials = new HashMap<ItemStack, Integer>();
 		materials.put(new ItemStack(Material.LEAVES), 6);
-		materials.put(ItemManager.namesAndItems.get("§6绳子"), 1);
-		ItemManager.registerRecipe(materials, ItemManager.namesAndItems.get("§6草帽"), "§6衣物");
+		materials.put(ItemManager.items.get("Rope"), 1);
+		ItemManager.items.get("").registerRecipe(materials, ItemManager.items.get("草帽"), "衣物");
 
-		ChangeTasks.clothesChangeTemperature.put("§6草帽", percent);
+		ChangeTasks.clothesChangeTemperature.put("草帽", percent);
 	}
 }

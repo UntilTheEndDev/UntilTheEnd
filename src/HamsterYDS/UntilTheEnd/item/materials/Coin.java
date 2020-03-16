@@ -14,6 +14,6 @@ public class Coin{
 	public Coin() {		
 		HashMap<ItemStack,Integer> materials=new HashMap<ItemStack,Integer>();
 		materials.put(new ItemStack(Material.GOLD_NUGGET),8);
-		ItemManager.registerRecipe(materials,ItemManager.namesAndItems.get("§6金币"),"§6基础");
+		ItemManager.items.get("").registerRecipe(materials,ItemManager.items.get("Coin"),"基础");
 	}
 }
