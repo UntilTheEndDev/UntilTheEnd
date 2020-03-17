@@ -14,11 +14,11 @@ import HamsterYDS.UntilTheEnd.player.PlayerInventoryAdapt;
 public class PigPack{
 	public PigPack() {	
 		HashMap<ItemStack,Integer> materials=new HashMap<ItemStack,Integer>();
-		materials.put(ItemManager.namesAndItems.get("§6猪皮"),6);
-		materials.put(ItemManager.namesAndItems.get("§6背包"),1);
+		materials.put(ItemManager.items.get("PigSkin"),6);
+		materials.put(ItemManager.items.get("背包"),1);
 		materials.put(new ItemStack(Material.SHULKER_SHELL),2);
-		ItemManager.registerRecipe(materials,ItemManager.namesAndItems.get("§6皮质背包"),"§6生存");
+		ItemManager.items.get("").registerRecipe(materials,ItemManager.items.get("皮质背包"),"生存");
 		
-		PlayerInventoryAdapt.containerSizes.put("§6皮质背包",12);
+		PlayerInventoryAdapt.containerSizes.put("皮质背包",12);
 	}
 }

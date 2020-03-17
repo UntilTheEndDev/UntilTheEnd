@@ -14,12 +14,12 @@ import HamsterYDS.UntilTheEnd.item.ItemManager;
 public class Refridgerator{
 	public Refridgerator() {		
 		HashMap<ItemStack,Integer> materials=new HashMap<ItemStack,Integer>();
-		materials.put(ItemManager.namesAndItems.get("§6石砖"),4);
-		materials.put(ItemManager.namesAndItems.get("§6电器元件"),3);
-		materials.put(ItemManager.namesAndItems.get("§6齿轮"),2);
-		ItemManager.registerRecipe(materials,ItemManager.namesAndItems.get("§6冰箱"),"§6科学");
+		materials.put(ItemManager.items.get("Brick"),4);
+		materials.put(ItemManager.items.get("电器元件"),3);
+		materials.put(ItemManager.items.get("Gear"),2);
+		ItemManager.items.get("").registerRecipe(materials,ItemManager.items.get("冰箱"),"科学");
 		
-		ItemManager.canPlaceBlocks.put("Refridgerator",ItemManager.namesAndItems.get("§6冰箱"));
-		RottenFoodEvents.titleFactors.put("§6冰箱",10);
+		ItemManager.canPlaceBlocks.put("Refridgerator",ItemManager.items.get("冰箱"));
+		RottenFoodEvents.titleFactors.put("冰箱",10);
 	}
 }

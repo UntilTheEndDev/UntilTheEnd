@@ -10,12 +10,12 @@ import HamsterYDS.UntilTheEnd.item.ItemManager;
 public class ConstantTemperatureClothes {
     public ConstantTemperatureClothes() {
         HashMap<ItemStack, Integer> materials = new HashMap<ItemStack, Integer>();
-        materials.put(ItemManager.namesAndItems.get("§6齿轮"), 2);
-        materials.put(ItemManager.namesAndItems.get("§6电器元件"), 2);
-        materials.put(ItemManager.namesAndItems.get("§6噩梦燃料"), 3);
-        materials.put(ItemManager.namesAndItems.get("§6绳子"), 2);
-        ItemManager.registerRecipe(materials, ItemManager.namesAndItems.get("§6恒温服"), "§6衣物");
+        materials.put(ItemManager.items.get("Gear").item, 2);
+        materials.put(ItemManager.items.get("NightMare").item, 2);
+        materials.put(ItemManager.items.get("NightMare").item, 3);
+        materials.put(ItemManager.items.get("Rope").item, 2);
+        ItemManager.items.get("ConstantTemperatureClothes").registerRecipe(materials, "衣物");
 
-        ChangeTasks.clothesChangeTemperature.put("§6恒温服",2.0);
+        ChangeTasks.clothesChangeTemperature.put(ItemManager.items.get("ConstantTemperatureClothes").displayName,2.0);
     }
 }

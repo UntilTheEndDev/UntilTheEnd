@@ -20,13 +20,13 @@ import HamsterYDS.UntilTheEnd.item.ItemManager;
 public class LightningArrester implements Listener{
 	public LightningArrester() {
 		HashMap<ItemStack,Integer> materials=new HashMap<ItemStack,Integer>();
-		materials.put(ItemManager.namesAndItems.get("§6石砖"),4);
-		materials.put(ItemManager.namesAndItems.get("§6电器元件"),3);
+		materials.put(ItemManager.items.get("Brick"),4);
+		materials.put(ItemManager.items.get("电器元件"),3);
 		materials.put(new ItemStack(Material.IRON_INGOT),2);
-		ItemManager.registerRecipe(materials,ItemManager.namesAndItems.get("§6避雷针"),"§6科学");
+		ItemManager.items.get("").registerRecipe(materials,ItemManager.items.get("避雷针"),"科学");
 		ItemManager.plugin.getServer().getPluginManager().registerEvents(this,ItemManager.plugin);
 		
-		ItemManager.canPlaceBlocks.put("LightningArrester",ItemManager.namesAndItems.get("§6避雷针"));
+		ItemManager.canPlaceBlocks.put("LightningArrester",ItemManager.items.get("避雷针"));
 	}
 	@EventHandler public void onLight(LightningStrikeEvent event) {
 		Location loc=event.getLightning().getLocation();

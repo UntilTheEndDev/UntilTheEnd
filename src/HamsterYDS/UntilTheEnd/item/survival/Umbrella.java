@@ -15,12 +15,12 @@ import HamsterYDS.UntilTheEnd.item.ItemManager;
 public class Umbrella{
 	public Umbrella() {		
 		HashMap<ItemStack,Integer> materials=new HashMap<ItemStack,Integer>();
-		materials.put(ItemManager.namesAndItems.get("§6绳子"),4);
-		materials.put(ItemManager.namesAndItems.get("§6芦苇"),2);
-		materials.put(ItemManager.namesAndItems.get("§6猪皮"),2);
+		materials.put(ItemManager.items.get("Rope"),4);
+		materials.put(ItemManager.items.get("Reed"),2);
+		materials.put(ItemManager.items.get("PigSkin"),2);
 		materials.put(new ItemStack(Material.STRING),1);
-		ItemManager.registerRecipe(materials,ItemManager.namesAndItems.get("§6伞"),"§6生存");
+		ItemManager.items.get("").registerRecipe(materials,ItemManager.items.get("伞"),"生存");
 		
-		ChangeTasks.umbrellas.add("§6伞");
+		ChangeTasks.umbrellas.add("伞");
 	}
 }

@@ -14,6 +14,6 @@ public class Rope{
 	public Rope() {
 		HashMap<ItemStack,Integer> materials=new HashMap<ItemStack,Integer>();
 		materials.put(new ItemStack(Material.STRING),4); 
-		ItemManager.registerRecipe(materials,ItemManager.namesAndItems.get("§6绳子"),"§6基础");
+		ItemManager.items.get("").registerRecipe(materials,ItemManager.items.get("Rope"),"基础");
 	}
 }

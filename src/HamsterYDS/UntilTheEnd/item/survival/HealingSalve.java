@@ -18,10 +18,10 @@ import HamsterYDS.UntilTheEnd.item.ItemManager;
 public class HealingSalve implements Listener {
     public HealingSalve() {
         HashMap<ItemStack, Integer> materials = new HashMap<ItemStack, Integer>();
-        materials.put(ItemManager.namesAndItems.get("§6蜘蛛腺体"), 1);
-        materials.put(ItemManager.namesAndItems.get("§6灰烬"), 7);
+        materials.put(ItemManager.items.get("SpiderGland"), 1);
+        materials.put(ItemManager.items.get("Ashes"), 7);
         materials.put(new ItemStack(Material.BOWL), 1);
-        ItemManager.registerRecipe(materials, ItemManager.namesAndItems.get("§6治疗药膏"), "§6生存");
+        ItemManager.items.get("").registerRecipe(materials, ItemManager.items.get("治疗药膏"), "生存");
         ItemManager.plugin.getServer().getPluginManager().registerEvents(this, ItemManager.plugin);
     }
 
@@ -33,7 +33,7 @@ public class HealingSalve implements Listener {
         ItemStack item = event.getItem().clone();
         if (item == null) return;
         item.setAmount(1);
-        if (item.equals(ItemManager.namesAndItems.get("§6治疗药膏"))) {
+        if (item.equals(ItemManager.items.get("治疗药膏"))) {
             event.setCancelled(true);
             if (!player.isSneaking()) return;
             ItemStack itemr = event.getItem();

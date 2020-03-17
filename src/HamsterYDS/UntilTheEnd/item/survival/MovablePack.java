@@ -13,11 +13,11 @@ import HamsterYDS.UntilTheEnd.player.PlayerInventoryAdapt;
 public class MovablePack{
 	public MovablePack() {	
 		HashMap<ItemStack,Integer> materials=new HashMap<ItemStack,Integer>();
-		materials.put(ItemManager.namesAndItems.get("§6兔毛"),5);
-		materials.put(ItemManager.namesAndItems.get("§6牛毛"),3);
-		materials.put(ItemManager.namesAndItems.get("§6背包"),1);
-		ItemManager.registerRecipe(materials,ItemManager.namesAndItems.get("§6便携包"),"§6生存");
+		materials.put(ItemManager.items.get("RabbitFur"),5);
+		materials.put(ItemManager.items.get("CowHair"),3);
+		materials.put(ItemManager.items.get("背包"),1);
+		ItemManager.items.get("").registerRecipe(materials,ItemManager.items.get("便携包"),"生存");
 		
-		PlayerInventoryAdapt.containerSizes.put("§6便携包",4);
+		PlayerInventoryAdapt.containerSizes.put("便携包",4);
 	}
 }

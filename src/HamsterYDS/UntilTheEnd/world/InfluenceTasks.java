@@ -26,7 +26,7 @@ import HamsterYDS.UntilTheEnd.player.death.DeathCause;
 import HamsterYDS.UntilTheEnd.player.death.DeathMessage;
 
 /**
- * @author 南外丶仓鼠
+ * @author 鍗楀涓朵粨榧�
  * @version V5.1.1
  */
 public class InfluenceTasks {
@@ -39,7 +39,7 @@ public class InfluenceTasks {
     public static int san_warn = HamsterYDS.UntilTheEnd.world.World.plugin.getConfig().getInt("world.darkness.sanWarn");
     public static int san_attack = HamsterYDS.UntilTheEnd.world.World.plugin.getConfig().getInt("world.darkness.sanAttack");
     public static int carrotEffect = HamsterYDS.UntilTheEnd.world.World.plugin.getConfig().getInt("world.darkness.carrotEffect");
-
+ 
     public InfluenceTasks(UntilTheEnd plugin) {
         this.plugin = plugin;
         new Blindness().runTaskTimer(plugin, 0L, 50L);
@@ -114,7 +114,7 @@ public class InfluenceTasks {
                     }
                     if (player.hasPotionEffect(PotionEffectType.NIGHT_VISION)) continue;
                     int needToCheck = 0; // TODO: Config setting.
-                    final Location location = player.getLocation().add(0, 1, 0); // 卡灵魂沙
+                    final Location location = player.getLocation().add(0, 1, 0); // 鍗＄伒榄傛矙
                     if (location.getY() < 1) return;
                     final Block block = location.getBlock();
                     if (location.getY() >= location.getWorld().getHighestBlockYAt(location.getBlockX(), location.getBlockZ())) {

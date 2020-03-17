@@ -14,8 +14,8 @@ public class Plank {
     public Plank() {
         HashMap<ItemStack, Integer> materials = new HashMap<ItemStack, Integer>();
         materials.put(new ItemStack(Material.LOG), 4);
-        ItemManager.registerRecipe(materials,
-				ItemManager.namesAndItems.get("§6板条"),
-				"§6基础");
+        ItemManager.items.get("").registerRecipe(materials,
+				ItemManager.items.get("Plank"),
+				"基础");
     }
 }

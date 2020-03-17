@@ -14,6 +14,6 @@ public class Reed{
 	public Reed() {		
 		HashMap<ItemStack,Integer> materials=new HashMap<ItemStack,Integer>();
 		materials.put(new ItemStack(Material.WHEAT),4);
-		ItemManager.registerRecipe(materials,ItemManager.namesAndItems.get("§6芦苇"),"§6基础");
+		ItemManager.items.get("").registerRecipe(materials,ItemManager.items.get("Reed"),"基础");
 	}
 }

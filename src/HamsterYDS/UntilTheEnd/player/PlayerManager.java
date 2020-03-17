@@ -186,17 +186,17 @@ public class PlayerManager implements Listener {
             case HUMIDITY:
                 return 0;
             case SANITY:
-                return ip.roleStats.sanMax;
+                return ip.roleStats==null?200:ip.roleStats.sanMax;
             case TIREDNESS:
                 return 0;
             case DAMAGELEVEL:
-                return ip.roleStats.damageLevel;
+                return ip.roleStats==null?1.0:ip.roleStats.damageLevel;
             case HEALTHMAX:
                 return player.getMaxHealth();
             case LEVEL:
-                return ip.roleStats.level;
+                return ip.roleStats==null?0:ip.roleStats.level;
             case SANMAX:
-                return ip.roleStats.sanMax;
+                return ip.roleStats==null?200:ip.roleStats.sanMax;
         }
         return 0;
     }

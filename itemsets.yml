@@ -54,190 +54,190 @@
     display-name: §6金币
     lore:
       - §8-合成的基础材料
-蕨类植物:
+Fern:
   ==: org.bukkit.inventory.ItemStack
   type: LONG_GRASS
   meta:
     ==: ItemMeta
     meta-type: UNSPECIFIC
-    display-name: §6蕨类植物
+    display-name: §6Fern
     lore:
       - §8-合成的基础材料
       - '§8-原生态的食物(＾－＾)V'
       - '§8-效用: §d拿它蹲下右击可食用并提升0.5血量'
-冰雹:
+Hail:
   ==: org.bukkit.inventory.ItemStack
   type: ICE
   meta:
     ==: ItemMeta
     meta-type: UNSPECIFIC
-    display-name: §6冰雹
+    display-name: §6Hail
     lore:
       - §8-合成的基础材料
       - '§8-好凉快！'
       - '§8-效用: §d拿它蹲下右击可降低温度'
-芦苇:
+Reed:
   ==: org.bukkit.inventory.ItemStack
   type: EMPTY_MAP
   meta:
     ==: ItemMeta
     meta-type: UNSPECIFIC
-    display-name: §6芦苇
+    display-name: §6Reed
     lore:
       - §8-合成的基础材料
       - '§8-结实不易断'
-猫尾:
+CatTail:
   ==: org.bukkit.inventory.ItemStack
   type: FEATHER
   meta:
     ==: ItemMeta
     meta-type: UNSPECIFIC
-    display-name: §6猫尾
+    display-name: §6CatTail
     lore:
       - §8-好软！
-牛毛:
+CowHair:
   ==: org.bukkit.inventory.ItemStack
   type: QUARTZ
   meta:
     ==: ItemMeta
     meta-type: UNSPECIFIC
-    display-name: §6牛毛
+    display-name: §6CowHair
     lore:
       - §8-把它拔下来，它们一定很生气吧？
-狗牙:
+DogTooth:
   ==: org.bukkit.inventory.ItemStack
   type: IRON_NUGGET
   meta:
     ==: ItemMeta
     meta-type: UNSPECIFIC
-    display-name: §6狗牙
+    display-name: §6DogTooth
     lore:
       - §8-真够锋利的...
-牛角:
+Horn:
   ==: org.bukkit.inventory.ItemStack
   type: HOPPER
   meta:
     ==: ItemMeta
     meta-type: UNSPECIFIC
-    display-name: §6牛角
+    display-name: §6Horn
     lore:
       - §8-多么优美的形状~
-猪皮:
+PigSkin:
   ==: org.bukkit.inventory.ItemStack
   type: LEATHER
   meta:
     ==: ItemMeta
     meta-type: UNSPECIFIC
-    display-name: §6猪皮
+    display-name: §6PigSkin
     lore:
-      - §8-其实不是猪皮啦~只不过跟猪皮一样厚
-兔毛:
+      - §8-其实不是PigSkin啦~只不过跟PigSkin一样厚
+RabbitFur:
   ==: org.bukkit.inventory.ItemStack
   type: LEATHER
   meta:
     ==: ItemMeta
     meta-type: UNSPECIFIC
-    display-name: §6兔毛
+    display-name: §6RabbitFur
     lore:
       - §8-很柔软，可惜太脆弱了！
-鳞片:
+Scale:
   ==: org.bukkit.inventory.ItemStack
   type: PRISMARINE_CRYSTALS
   meta:
     ==: ItemMeta
     meta-type: UNSPECIFIC
-    display-name: §6鳞片
+    display-name: §6Scale
     lore:
       - §8-就像甲壳一样硬
-骨片:
+Sclerite:
   ==: org.bukkit.inventory.ItemStack
   type: BONE
   meta:
     ==: ItemMeta
     meta-type: UNSPECIFIC
-    display-name: §6骨片
+    display-name: §6Sclerite
     lore:
       - §8-很硬，很锋利，差点割破了我的手
-蜘蛛腺体:
+SpiderGland:
   ==: org.bukkit.inventory.ItemStack
   type: FERMENTED_SPIDER_EYE
   meta:
     ==: ItemMeta
     meta-type: UNSPECIFIC
-    display-name: §6蜘蛛腺体
+    display-name: §6SpiderGland
     lore:
       - §8-用它治疗虽然原始了点但很有效！
       - '§8-效用: §d拿它蹲下右击可回复两颗心'
-痰:
+Spit:
   ==: org.bukkit.inventory.ItemStack
   type: SUGAR
   meta:
     ==: ItemMeta
     meta-type: UNSPECIFIC
-    display-name: §6痰
+    display-name: §6Spit
     lore:
       - §8-真恶心！
-齿轮:
+Gear:
   ==: org.bukkit.inventory.ItemStack
   type: DOUBLE_PLANT
   meta:
     ==: ItemMeta
     meta-type: UNSPECIFIC
-    display-name: §6齿轮
+    display-name: §6Gear
     lore:
       - §8-机油味使我作呕，不过他们很有用...
-灰烬:
+Ashes:
   ==: org.bukkit.inventory.ItemStack
   type: CLAY_BALL
   meta:
     ==: ItemMeta
     meta-type: UNSPECIFIC
-    display-name: §6灰烬
+    display-name: §6Ashes
     lore:
       - §8-被燃尽的物品去哪里了呢？
-红宝石:
+RedGum:
   ==: org.bukkit.inventory.ItemStack
   type: NETHER_STAR
   meta:
     ==: ItemMeta
     meta-type: UNSPECIFIC
-    display-name: §6红宝石
+    display-name: §6RedGum
     lore:
       - §8-藏匿着热量……
-蓝宝石:
+BlueGum:
   ==: org.bukkit.inventory.ItemStack
   type: NETHER_STAR
   meta:
     ==: ItemMeta
     meta-type: UNSPECIFIC
-    display-name: §6蓝宝石
+    display-name: §6BlueGum
     lore:
       - §8-冰晶结合体.......
-紫宝石:
+PurpleGum:
   ==: org.bukkit.inventory.ItemStack
   type: NETHER_STAR
   meta:
     ==: ItemMeta
     meta-type: UNSPECIFIC
-    display-name: §6紫宝石
+    display-name: §6PurpleGum
     lore:
       - §8-千年的闪耀之光......
-有生命的木头:
+AnimateWood:
   ==: org.bukkit.inventory.ItemStack
   type: LOG
   meta:
     ==: ItemMeta
     meta-type: UNSPECIFIC
-    display-name: §6有生命的木头
+    display-name: §6AnimateWood
     lore:
       - §8-它是动物吗？
-灌木丛帽子:
+BushesHat:
   ==: org.bukkit.inventory.ItemStack
   type: GOLD_HELMET
   meta:
     ==: ItemMeta
     meta-type: UNSPECIFIC
-    display-name: §6灌木丛帽子
+    display-name: §6BushesHat
     lore:
       - §8-让我悄悄地靠近你...！
       - '§8-效用: §d让敌对生物无法检测到你的存在（对已经锁定你的生物无效）'
@@ -251,13 +251,13 @@
     lore:
       - §8-有了它,我终于不用为冻疮而苦恼了！
       - '§8-效用: §d略微减缓你在小于20度的环境下温度下降的速率'
-花环:
+Garland:
   ==: org.bukkit.inventory.ItemStack
   type: GOLD_HELMET
   meta:
     ==: ItemMeta
     meta-type: UNSPECIFIC
-    display-name: §6花环
+    display-name: §6Garland
     lore:
       - §8-我喜欢它！
       - '§8-效用: §d+12理智/分钟'
@@ -392,7 +392,7 @@
     meta-type: UNSPECIFIC
     display-name: §6治疗药膏
     lore:
-      - §8-相比于蜘蛛腺体，用它体面了许多！
+      - §8-相比于SpiderGland，用它体面了许多！
       - '§8-效用: §d拿它蹲下右击可回复五颗心'
 止血剂:
   ==: org.bukkit.inventory.ItemStack
@@ -514,13 +514,13 @@ ACD试验药:
       - §8-轻拿轻放.
       - '§8-效用: §d将其放在地上即可设置地雷'
       - '§8-效用: §d踩中地雷的生物获得爆炸伤害和中毒效果'
-狗牙陷阱:
+DogTooth陷阱:
   ==: org.bukkit.inventory.ItemStack
   type: IRON_PLATE
   meta:
     ==: ItemMeta
     meta-type: UNSPECIFIC
-    display-name: §6狗牙陷阱
+    display-name: §6DogTooth陷阱
     lore:
       - §8-多次使用.
       - '§8-效用: §d将其放在地上即可设置陷阱'

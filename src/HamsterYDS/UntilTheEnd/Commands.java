@@ -40,7 +40,7 @@ public class Commands implements CommandExecutor, Listener, TabCompleter {
     public static ArrayList<String> roleTab = new ArrayList<String>();
 
     static {
-        itemTab.addAll(ItemManager.idsAndNames.keySet());
+        itemTab.addAll(ItemManager.items.keySet());
         cmdTab.addAll(Arrays.asList("cheat", "give", "guide", "help", "material", "entitytype", "set", "season", "temp",
                 "role", "openguide"));
         for (Season season : Season.values())
@@ -223,12 +223,12 @@ public class Commands implements CommandExecutor, Listener, TabCompleter {
                         cs.sendMessage(UTEi18n.cacheWithPrefix("cmd.not.positive"));
                         return true;
                     }
-                    Player givee = Bukkit.getPlayer(playerName);
-                    ItemStack item = ItemManager.namesAndItems.get(ItemManager.idsAndNames.get(itemName));
-                    if (item == null) {
+                    if (!ItemManager.items.containsKey(itemName)) {
                         cs.sendMessage(UTEi18n.cacheWithPrefix("cmd.not.item"));
                         return true;
                     }
+                    Player givee = Bukkit.getPlayer(playerName);
+                    ItemStack item = ItemManager.items.get(itemName).item;
                     if (givee == null) {
                         cs.sendMessage(UTEi18n.cacheWithPrefix("cmd.not.player"));
                         return true;

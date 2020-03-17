@@ -17,12 +17,12 @@ import HamsterYDS.UntilTheEnd.player.PlayerManager;
  * @version V5.1.1
  */
 public class Hail implements Listener {
-    public static int temperatureReduce = ItemManager.yaml2.getInt("冰雹.temperatureReduce");
+    public static int temperatureReduce = ItemManager.itemAttributes.getInt("Hail.temperatureReduce");
 
     public Hail() {
         HashMap<ItemStack, Integer> materials = new HashMap<ItemStack, Integer>();
         materials.put(new ItemStack(Material.PACKED_ICE), 1);
-        ItemManager.registerRecipe(materials, ItemManager.namesAndItems.get("§6冰雹"), "§6基础");
+        ItemManager.items.get("").registerRecipe(materials, ItemManager.items.get("Hail"), "基础");
         ItemManager.plugin.getServer().getPluginManager().registerEvents(this, ItemManager.plugin);
     }
 
@@ -35,7 +35,7 @@ public class Hail implements Listener {
         ItemStack item = event.getItem().clone();
         if (item == null) return;
         item.setAmount(1);
-        if (item.equals(ItemManager.namesAndItems.get("§6冰雹"))) {
+        if (item.equals(ItemManager.items.get("Hail"))) {
             ItemStack itemr = event.getItem();
             itemr.setAmount(itemr.getAmount() - 1);
             PlayerManager.change(player, PlayerManager.CheckType.TEMPERATURE, temperatureReduce);

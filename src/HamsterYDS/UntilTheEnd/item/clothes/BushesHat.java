@@ -4,7 +4,6 @@ import java.util.HashMap;
 
 import org.bukkit.Material;
 import org.bukkit.entity.Entity;
-import org.bukkit.entity.Monster;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
@@ -20,9 +19,9 @@ import HamsterYDS.UntilTheEnd.item.ItemManager;
 public class BushesHat implements Listener {
 	public BushesHat() {
 		HashMap<ItemStack, Integer> materials = new HashMap<ItemStack, Integer>();
-		materials.put(ItemManager.namesAndItems.get("§6绳子"), 2);
+		materials.put(ItemManager.items.get("Rope").item, 2);
 		materials.put(new ItemStack(Material.DEAD_BUSH), 6);
-		ItemManager.registerRecipe(materials, ItemManager.namesAndItems.get("§6灌木丛帽子"), "§6衣物");
+		ItemManager.items.get("BushesHat").registerRecipe(materials,"衣物");
 		ItemManager.plugin.getServer().getPluginManager().registerEvents(this, ItemManager.plugin);
 	}
 
@@ -32,13 +31,10 @@ public class BushesHat implements Listener {
 			Player player = (Player) event.getTarget();
 			Entity entity = event.getEntity();
 			ItemStack item = player.getInventory().getHelmet();
-			if (item == null)
+			if (ItemManager.isSimilar(item,getClass()))
 				return;
-			if (ItemManager.isSimilar(item.clone(), ItemManager.namesAndItems.get("§6灌木丛帽子")))
-				return;
-			if (entity instanceof Monster)
-				if (event.getReason() == TargetReason.CLOSEST_PLAYER)
-					event.setCancelled(true);
+			if (event.getReason() == TargetReason.CLOSEST_PLAYER)
+				event.setCancelled(true);
 		}
 	}
 }

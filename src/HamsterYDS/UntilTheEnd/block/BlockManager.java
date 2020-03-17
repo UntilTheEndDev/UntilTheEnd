@@ -11,10 +11,8 @@ import org.bukkit.configuration.file.YamlConfiguration;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.block.BlockBreakEvent;
-import org.bukkit.event.block.BlockExplodeEvent;
 import org.bukkit.event.block.BlockPistonExtendEvent;
 import org.bukkit.event.block.BlockPlaceEvent;
-import org.bukkit.event.entity.EntityExplodeEvent;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.scheduler.BukkitRunnable;
 
@@ -46,6 +44,7 @@ public class BlockManager extends BukkitRunnable implements Listener {
     }
 
     public static void addBlockData(String blockName, String toString) {
+    	blocks.put(toString, blockName); 
         ArrayList<String> array;
         if (blockDatas.containsKey(blockName))
             array = blockDatas.get(blockName);
@@ -56,6 +55,7 @@ public class BlockManager extends BukkitRunnable implements Listener {
     }
 
     public static void removeBlockData(String blockName, String toString) {
+    	blocks.remove(toString);
         ArrayList<String> array;
         if (blockDatas.containsKey(blockName))
             array = blockDatas.get(blockName);
@@ -99,39 +99,14 @@ public class BlockManager extends BukkitRunnable implements Listener {
         if (blocks.get(toString) == null) return;
         event.setDropItems(false);
         loc.getWorld().spawnParticle(Particle.CRIT, loc.add(0.5, 0.5, 0.5), 3);
-        HashMap<ItemStack, Integer> recipe = ItemManager.recipes.get(ItemManager.namesAndItems.get(ItemManager.idsAndNames.get(blocks.get(toString))));
-        if (recipe != null)
-            for (ItemStack item : recipe.keySet()) {
+        HashMap<ItemStack, Integer> craft = ItemManager.items.get(blocks.get(toString)).craft;
+        if (craft != null) 
+            for (ItemStack item : craft.keySet()) {
                 ItemStack itemClone = item.clone();
-                itemClone.setAmount((int) (Math.random() * recipe.get(item)));
+                itemClone.setAmount((int) (Math.random() * craft.get(item)));
                 loc.getWorld().dropItemNaturally(loc, item);
             }
         removeBlockData(blocks.get(toString), toString);
-        blocks.remove(toString);
-    }
-
-    @EventHandler
-    public void onBlockExplode(BlockExplodeEvent event) {
-        for (org.bukkit.block.Block block : event.blockList()) {
-            Location loc = block.getLocation();
-            String toString = BlockApi.locToStr(loc);
-            if (blocks.get(toString) == null) return;
-            loc.getWorld().dropItemNaturally(loc, ItemManager.namesAndItems.get(ItemManager.idsAndNames.get(blocks.get(toString))));
-            removeBlockData(blocks.get(toString), toString);
-            blocks.remove(toString);
-        }
-    }
-
-    @EventHandler
-    public void onEntityExplode(EntityExplodeEvent event) {
-        for (org.bukkit.block.Block block : event.blockList()) {
-            Location loc = block.getLocation();
-            String toString = BlockApi.locToStr(loc);
-            if (blocks.get(toString) == null) return;
-            loc.getWorld().dropItemNaturally(loc, ItemManager.namesAndItems.get(ItemManager.idsAndNames.get(blocks.get(toString))));
-            removeBlockData(blocks.get(toString), toString);
-            blocks.remove(toString);
-        }
     }
 
     @EventHandler
@@ -140,12 +115,11 @@ public class BlockManager extends BukkitRunnable implements Listener {
         if (event.getItemInHand() == null) return;
         ItemStack item = event.getItemInHand().clone();
         item.setAmount(1);
-        if (item.getItemMeta() == null) return;
-        if (item.getItemMeta().getDisplayName() == null) return;
+        item.setDurability((short) 0); 
+        if (!ItemManager.ids.containsKey(item)) return;
         Location loc = event.getBlock().getLocation();
         String toString = BlockApi.locToStr(loc);
-        blocks.put(toString, ItemManager.itemsAndIds.get(item));
-        addBlockData(ItemManager.itemsAndIds.get(item), toString);
+        addBlockData(ItemManager.ids.get(item), toString);
     }
 
     @EventHandler

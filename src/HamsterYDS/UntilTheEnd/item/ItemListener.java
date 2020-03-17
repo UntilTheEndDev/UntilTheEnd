@@ -20,7 +20,9 @@ import org.bukkit.event.block.BlockPlaceEvent;
 import org.bukkit.event.entity.EntityDeathEvent;
 import org.bukkit.event.entity.ItemSpawnEvent;
 import org.bukkit.event.inventory.CraftItemEvent;
+import org.bukkit.event.inventory.InventoryClickEvent;
 import org.bukkit.event.player.PlayerInteractEvent;
+import org.bukkit.inventory.AnvilInventory;
 import org.bukkit.inventory.Inventory;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.PlayerInventory;
@@ -31,11 +33,12 @@ public class ItemListener implements Listener {
     public void onPlace(BlockPlaceEvent event) {
         if (event.isCancelled())
             return;
-        ItemStack item = event.getItemInHand().clone();
-        item.setAmount(1);
-        if (ItemManager.itemsAndIds.containsKey(item)) {
-            String id = ItemManager.itemsAndIds.get(item);
-            if (ItemManager.canPlaceBlocks.containsKey(id))
+        ItemStack itemClone = event.getItemInHand().clone();
+        itemClone.setAmount(1);
+        itemClone.setDurability((short) 0); 
+        if (ItemManager.ids.containsKey(itemClone)) {
+            String id = ItemManager.ids.get(itemClone);
+            if (ItemManager.items.get(id).canPlace)
                 return;
             event.setCancelled(true);
             event.getPlayer().sendMessage(UTEi18n.cacheWithPrefix("item.system.no-place"));
@@ -56,12 +59,10 @@ public class ItemListener implements Listener {
             int amount = item.getAmount();
             itemClone.setAmount(1);
             itemClone.setDurability((short) 0);
-
-            if (!ItemManager.itemsAndIds.containsKey(itemClone))
-                return;
-            String id = ItemManager.itemsAndIds.get(itemClone);
-            if (ItemManager.cosumeItems.contains(id)) {
-                item.setAmount(amount - 1);
+            if (ItemManager.ids.containsKey(itemClone)){
+            	 String id = ItemManager.ids.get(itemClone);
+                 if (ItemManager.items.get(id).isConsume) 
+                     item.setAmount(amount - 1);
             }
         }
     }
@@ -69,16 +70,17 @@ public class ItemListener implements Listener {
     @EventHandler
     public void onCraftVanillaRecipes(CraftItemEvent event) {
         Recipe recipe = event.getRecipe();
-        ItemStack result = recipe.getResult().clone();
-        result.setAmount(1);
-        if (ItemManager.itemsAndIds.containsKey(result))
+        ItemStack resultClone = recipe.getResult().clone();
+        resultClone.setAmount(1);
+        if (ItemManager.ids.containsKey(resultClone))
             return;
         for (ItemStack item : event.getClickedInventory().getContents()) {
             if (item == null)
                 return;
             ItemStack itemClone = item.clone();
             itemClone.setAmount(1);
-            if (ItemManager.itemsAndIds.containsKey(itemClone)) {
+            itemClone.setDurability((short) 0); 
+            if (ItemManager.ids.containsKey(itemClone)) {
                 event.setCancelled(true);
                 event.getWhoClicked().sendMessage(UTEi18n.cacheWithPrefix("item.system.no-crafting"));
             }
@@ -88,23 +90,27 @@ public class ItemListener implements Listener {
     @EventHandler
     public void onCraftUTERecipes(CraftItemEvent event) {
         Recipe recipe = event.getRecipe();
-        ItemStack item = recipe.getResult().clone();
-        item.setAmount(1);
-        if (!ItemManager.itemsAndIds.containsKey(item))
+        ItemStack resultClone = recipe.getResult().clone();
+        resultClone.setAmount(1);
+        if (!ItemManager.ids.containsKey(resultClone))
             return;
-        HashMap<ItemStack, Integer> materials = ItemManager.recipes.get(item);
         Inventory inv = event.getInventory();
-        for (ItemStack material : materials.keySet())
-            if (!inv.containsAtLeast(material, materials.get(material)))
-                event.setCancelled(true);
+        String id=ItemManager.ids.get(resultClone);
+        UTEItemStack item=ItemManager.items.get(id);
+        HashMap<ItemStack, Integer> craft = item.craft;
+        for (ItemStack material : craft.keySet()){
+        	if(!ItemManager.ids.containsKey(material)) return;
+        	if (!inv.containsAtLeast(material, craft.get(material)))
+        		 event.setCancelled(true);
+        }
+               
         boolean flag=false;
         Player player=(Player) event.getWhoClicked();
-        String id=ItemManager.itemsAndIds.get(item);
         if(PlayerManager.checkUnLockedRecipes(player).contains(id))
         	return;
-        if(ItemManager.itemsNeedLevels.containsKey(id)) {
-        	int level=ItemManager.itemsNeedLevels.get(id);
-        	String machineId=ItemManager.itemsWithLevels.get(level);
+        int level=item.needLevel;
+        if(level!=0) {
+        	String machineId=ItemManager.machines.get(level);
         	for(int i=-5;i<=5;i++)
         		for(int j=-5;j<=5;j++)
         			for(int k=-5;k<=5;k++){
@@ -130,19 +136,30 @@ public class ItemListener implements Listener {
         EntityType type = event.getEntityType();
         if (!ItemProvider.drops.containsKey(type))
             return;
-        String itemName = ItemProvider.drops.get(type);
-        double percent = ItemProvider.percents.get(type);
-        ItemStack item = ItemManager.namesAndItems.get(ItemManager.idsAndNames.get(itemName));
+        HashMap<String,Double> drop=ItemProvider.drops.get(type);
         World world = event.getEntity().getWorld();
         Location loc = event.getEntity().getLocation();
-        while (percent >= 1.0) {
-            percent -= 1.0;
-            world.dropItemNaturally(loc, item);
+        for(String id:drop.keySet()) {
+        	UTEItemStack item=ItemManager.items.get(id);
+        	double percent=drop.get(id);
+        	while (percent-- >= 1.0) 
+                world.dropItemNaturally(loc, item.item);
+            if (Math.random() <= percent)
+                world.dropItemNaturally(loc, item.item);
         }
-        if (Math.random() <= percent)
-            world.dropItemNaturally(loc, item);
     }
 
+    @EventHandler 
+    public void onUseAnvil(InventoryClickEvent event) {
+    	Inventory inv=event.getInventory();
+    	if(inv==null) return;
+    	ItemStack item=event.getCursor();
+    	if(inv instanceof AnvilInventory) {
+    		if(ItemManager.isUTEItem(item))
+    			event.setCancelled(true);
+    	}
+    }
+    
     @EventHandler
     public void onDrop(ItemSpawnEvent event) {
         if (!ItemManager.plugin.getConfig().getBoolean("item.sawer.enable"))

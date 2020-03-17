@@ -17,7 +17,7 @@ import HamsterYDS.UntilTheEnd.block.BlockManager;
 import HamsterYDS.UntilTheEnd.cap.HudProvider;
 import HamsterYDS.UntilTheEnd.guide.CraftGuide;
 import HamsterYDS.UntilTheEnd.item.ItemManager;
-import HamsterYDS.UntilTheEnd.item.ItemProvider;
+import HamsterYDS.UntilTheEnd.item.UTEItemStack;
 import HamsterYDS.UntilTheEnd.player.PlayerManager;
 import HamsterYDS.UntilTheEnd.player.role.Roles;
 import HamsterYDS.UntilTheEnd.world.WorldProvider;
@@ -108,11 +108,11 @@ public class UntilTheEndApi {
 
     public static class ItemApi {
         public static Set<ItemStack> getItems() {
-            return ItemManager.itemsAndIds.keySet();
+            return ItemManager.ids.keySet();
         }
 
-        public static ItemStack getItem(String key) {
-            return ItemProvider.getItem(key);
+        public static UTEItemStack getItem(String id) {
+            return ItemManager.items.get(id);
         }
     }
 
@@ -206,7 +206,7 @@ public class UntilTheEndApi {
 
     public static class GuideApi {
         public static void addItemToCategory(String category, ItemStack item) {
-            CraftGuide.addItem(category, item);
+            CraftGuide.addItem("§6"+category, item);
         }
 
         public static void addCategory(String categoryName, Material material, short data) {

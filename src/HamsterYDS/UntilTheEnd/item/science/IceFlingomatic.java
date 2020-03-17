@@ -20,13 +20,13 @@ import HamsterYDS.UntilTheEnd.item.ItemManager;
 public class IceFlingomatic implements Listener{
 	public IceFlingomatic() {
 		HashMap<ItemStack,Integer> materials=new HashMap<ItemStack,Integer>();
-		materials.put(ItemManager.namesAndItems.get("§6齿轮"),2);
-		materials.put(ItemManager.namesAndItems.get("§6电器元件"),3);
+		materials.put(ItemManager.items.get("Gear"),2);
+		materials.put(ItemManager.items.get("电器元件"),3);
 		materials.put(new ItemStack(Material.ICE),2);
-		ItemManager.registerRecipe(materials,ItemManager.namesAndItems.get("§6雪球发射机"),"§6科学");
+		ItemManager.items.get("").registerRecipe(materials,ItemManager.items.get("雪球发射机"),"科学");
 		ItemManager.plugin.getServer().getPluginManager().registerEvents(this,ItemManager.plugin);
 		
-		ItemManager.canPlaceBlocks.put("IceFlingomatic",ItemManager.namesAndItems.get("§6雪球发射机"));
+		ItemManager.canPlaceBlocks.put("IceFlingomatic",ItemManager.items.get("雪球发射机"));
 	}
 	@EventHandler public void onBurn(BlockIgniteEvent event) {
 		if(event.isCancelled()) return;

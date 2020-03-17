@@ -36,7 +36,7 @@ item:
   sawer: 
     enable: true   #是否开启内置物品掉落有标识的功能
   blowarrow:
-    autoclear: 20   #吹箭、骨片卡在方块中多少秒自动清除
+    autoclear: 20   #吹箭、Sclerite卡在方块中多少秒自动清除
 #玩家设置##########################################################
 player:
   inventory: 

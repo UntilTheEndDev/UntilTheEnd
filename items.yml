@@ -19,75 +19,75 @@
   enable: true
   id: Coin
   needLevel: 1
-蕨类植物: 
+Fern: 
   enable: true
   id: Fern
   heal: 0.5
   needLevel: 1
-冰雹: 
+Hail: 
   enable: true
   id: Hail
-  temperatureReduce: -1  #每使用一个冰雹温度变化数值
+  temperatureReduce: -1  #每使用一个Hail温度变化数值
   needLevel: 1
-芦苇: 
+Reed: 
   enable: true
   id: Reed
   needLevel: 1
   
-猫尾: 
+CatTail: 
   enable: true
   id: CatTail
-牛毛: 
+CowHair: 
   enable: true
   id: CowHair
-狗牙: 
+DogTooth: 
   enable: true
   id: DogTooth
-牛角: 
+Horn: 
   enable: true
   id: Horn
-猪皮: 
+PigSkin: 
   enable: true
   id: PigSkin
-兔毛: 
+RabbitFur: 
   enable: true
   id: RabbitFur
-鳞片: 
+Scale: 
   enable: true
   id: Scale
-骨片: 
+Sclerite: 
   enable: true
   id: Sclerite
-  damage: 1  #骨片击中生物伤害
-  range: 0.5  #骨片击中生物判定范围
-蜘蛛腺体: 
+  damage: 1  #Sclerite击中生物伤害
+  range: 0.5  #Sclerite击中生物判定范围
+SpiderGland: 
   enable: true
   id: SpiderGland
-  heal: 4  #使用蜘蛛腺体可以回复多少血
-痰: 
+  heal: 4  #使用SpiderGland可以回复多少血
+Spit: 
   enable: true
   id: Spit
-齿轮: 
+Gear: 
   enable: true
   id: Gear
-灰烬: 
+Ashes: 
   enable: true
   id: Ashes
   percent: 0.25
-红宝石: 
+RedGum: 
   enable: true
   id: RedGum
-蓝宝石: 
+BlueGum: 
   enable: true
   id: BlueGum
-紫宝石: 
+PurpleGum: 
   enable: true
   id: PurpleGum
-有生命的木头: 
+AnimateWood: 
   enable: true
   id: AnimateWood
 
-灌木丛帽子: 
+BushesHat: 
   enable: true
   id: BushesHat
   needLevel: 1
@@ -96,10 +96,10 @@
   id: Earmuff
   percent: 0.4  #兔毛耳罩减免温度下降速率的百分数
   needLevel: 1
-花环: 
+Garland: 
   enable: true
   id: Garland
-  sanityImprove: 1  #戴着花环每10秒改变的理智值
+  sanityImprove: 1  #戴着Garland每10秒改变的理智值
 草帽: 
   enable: true
   id: StrawHat
@@ -215,7 +215,7 @@ ACD试验药:
   explosionAmount: 2  #爆炸规模
   poison: 7.5  #踩中地雷有多少秒的中毒效果
   needLevel: 1
-狗牙陷阱:
+DogTooth陷阱:
   enable: true
   id: ToothTrap
   damage: 8  #踩中生物受到的伤害

@@ -29,13 +29,13 @@ import HamsterYDS.UntilTheEnd.item.ItemManager;
 public class Hygrometer implements Listener{
 	public Hygrometer() {		
 		HashMap<ItemStack,Integer> materials=new HashMap<ItemStack,Integer>();
-		materials.put(ItemManager.namesAndItems.get("§6石砖"),4);
-		materials.put(ItemManager.namesAndItems.get("§6电器元件"),3);
+		materials.put(ItemManager.items.get("Brick"),4);
+		materials.put(ItemManager.items.get("电器元件"),3);
 		materials.put(new ItemStack(Material.EMERALD),1);
-		ItemManager.registerRecipe(materials,ItemManager.namesAndItems.get("§6湿度计"),"§6科学");
+		ItemManager.items.get("").registerRecipe(materials,ItemManager.items.get("湿度计"),"科学");
 		ItemManager.plugin.getServer().getPluginManager().registerEvents(this,ItemManager.plugin);
 		
-		ItemManager.canPlaceBlocks.put("Hygrometer",ItemManager.namesAndItems.get("§6湿度计"));
+		ItemManager.canPlaceBlocks.put("Hygrometer",ItemManager.items.get("湿度计"));
 	}
 	ArrayList<String> clicked=new ArrayList<String>();
 	@EventHandler 

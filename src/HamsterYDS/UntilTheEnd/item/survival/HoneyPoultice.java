@@ -17,10 +17,10 @@ import HamsterYDS.UntilTheEnd.item.ItemManager;
 public class HoneyPoultice implements Listener {
     public HoneyPoultice() {
         HashMap<ItemStack, Integer> materials = new HashMap<ItemStack, Integer>();
-        materials.put(ItemManager.namesAndItems.get("§6痰"), 1);
-        materials.put(ItemManager.namesAndItems.get("§6芦苇"), 1);
-        materials.put(ItemManager.namesAndItems.get("§6灰烬"), 7);
-        ItemManager.registerRecipe(materials, ItemManager.namesAndItems.get("§6止血剂"), "§6生存");
+        materials.put(ItemManager.items.get("Spit"), 1);
+        materials.put(ItemManager.items.get("Reed"), 1);
+        materials.put(ItemManager.items.get("Ashes"), 7);
+        ItemManager.items.get("").registerRecipe(materials, ItemManager.items.get("止血剂"), "生存");
         ItemManager.plugin.getServer().getPluginManager().registerEvents(this, ItemManager.plugin);
     }
 
@@ -32,7 +32,7 @@ public class HoneyPoultice implements Listener {
         ItemStack item = event.getItem().clone();
         if (item == null) return;
         item.setAmount(1);
-        if (item.equals(ItemManager.namesAndItems.get("§6止血剂"))) {
+        if (item.equals(ItemManager.items.get("止血剂"))) {
             event.setCancelled(true);
             if (!player.isSneaking()) return;
             ItemStack itemr = event.getItem();
