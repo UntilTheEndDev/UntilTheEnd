@@ -3,6 +3,7 @@ package HamsterYDS.UntilTheEnd.cap.san;
 import java.util.ArrayList;
 import java.util.UUID;
 
+import HamsterYDS.UntilTheEnd.internal.NPCChecker;
 import org.bukkit.Bukkit;
 import org.bukkit.World;
 import org.bukkit.entity.Entity;
@@ -46,11 +47,12 @@ public class InfluenceTasks {
                 DisguiseAPI.undisguiseToAll(entity);
             }
             for (World world : Config.enableWorlds)
-                for (Player player : world.getPlayers()){
-                	int san=(int) PlayerManager.check(player, PlayerManager.CheckType.SANITY);
-                	int disguiseSanityCal=(int) (disguiseSanity*PlayerManager.check(player, PlayerManager.CheckType.SANMAX));
-                	if (san <= disguiseSanityCal)
-                		for (Entity entity : player.getNearbyEntities(disguiseRangeX, disguiseRangeY, disguiseRangeZ)) {
+                for (Player player : world.getPlayers()) {
+                    if (NPCChecker.isNPC(player)) continue;
+                    int san = (int) PlayerManager.check(player, PlayerManager.CheckType.SANITY);
+                    int disguiseSanityCal = (int) (disguiseSanity * PlayerManager.check(player, PlayerManager.CheckType.SANMAX));
+                    if (san <= disguiseSanityCal)
+                        for (Entity entity : player.getNearbyEntities(disguiseRangeX, disguiseRangeY, disguiseRangeZ)) {
                             DisguiseType type = DisguiseType.values()[(int) (DisguiseType.values().length * Math.random() - 1)];
                             MobDisguise disguise = new MobDisguise(type);
                             DisguiseAPI.disguiseToPlayers(entity, disguise, player.getName());
@@ -67,8 +69,9 @@ public class InfluenceTasks {
         public void run() {
             for (World world : Config.enableWorlds)
                 for (Player player : world.getPlayers()) {
-                	int san=(int) PlayerManager.check(player, PlayerManager.CheckType.SANITY);
-                	int confusionSanityCal=(int) (confusionSanity*PlayerManager.check(player, PlayerManager.CheckType.SANMAX));
+                    if (NPCChecker.isNPC(player)) continue;
+                    int san = (int) PlayerManager.check(player, PlayerManager.CheckType.SANITY);
+                    int confusionSanityCal = (int) (confusionSanity * PlayerManager.check(player, PlayerManager.CheckType.SANMAX));
                     if (san <= confusionSanityCal) {
                         player.removePotionEffect(PotionEffectType.CONFUSION);
                         player.addPotionEffect(new PotionEffect(PotionEffectType.CONFUSION, 100, 0));

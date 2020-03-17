@@ -8,6 +8,7 @@ import java.util.concurrent.ConcurrentLinkedDeque;
 
 import HamsterYDS.UntilTheEnd.UntilTheEnd;
 import HamsterYDS.UntilTheEnd.internal.MathHelper;
+import HamsterYDS.UntilTheEnd.internal.NPCChecker;
 import HamsterYDS.UntilTheEnd.internal.UTEi18n;
 import org.bukkit.Bukkit;
 import org.bukkit.World;
@@ -81,10 +82,11 @@ public class HudBossBar extends BukkitRunnable implements Listener {
     public void run() {
         for (World w : Config.enableWorlds) {
             for (Player p : w.getPlayers()) {
+                if (NPCChecker.isNPC(p)) continue;
                 final NdBossBar ndBossBar = create(p.getUniqueId());
                 double san = PlayerManager.check(p, PlayerManager.CheckType.SANITY);
                 double sanMax = PlayerManager.check(p, PlayerManager.CheckType.SANMAX);
-                if(san>=sanMax) san=sanMax;
+                if (san >= sanMax) san = sanMax;
                 double tem = PlayerManager.check(p, PlayerManager.CheckType.TEMPERATURE);
                 double hum = PlayerManager.check(p, PlayerManager.CheckType.HUMIDITY);
                 double tir = PlayerManager.check(p, PlayerManager.CheckType.TIREDNESS);

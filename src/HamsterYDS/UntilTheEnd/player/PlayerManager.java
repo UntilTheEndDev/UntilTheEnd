@@ -11,6 +11,7 @@ import java.util.logging.Level;
 
 import HamsterYDS.UntilTheEnd.Config;
 import HamsterYDS.UntilTheEnd.internal.DisableManager;
+import HamsterYDS.UntilTheEnd.internal.NPCChecker;
 import HamsterYDS.UntilTheEnd.internal.UTEi18n;
 import org.bukkit.Bukkit;
 import org.bukkit.GameMode;
@@ -201,6 +202,7 @@ public class PlayerManager implements Listener {
     }
 
     public static double check(Player player, CheckType type) {
+        if (NPCChecker.isNPC(player)) return 0;
         IPlayer ip = players.get(player.getUniqueId());
         if (ip == null || type == null)
             return 0;
@@ -329,6 +331,11 @@ public class PlayerManager implements Listener {
         if (type == null)
             return;
         IPlayer ip = players.get(player.getUniqueId());
+        if (ip == null) { // NPC? not loaded? should report?
+            UntilTheEnd.getInstance().getLogger().log(Level.SEVERE, "Failed found player data for " + player.getName() + ", " +
+                    "{class=" + player.getClass() + ", uuid=" + player.getUniqueId() + "}", new Throwable("Trace Stack Dump"));
+            return;
+        }
         String mark;
         if (counter > 0)
             mark = "↑";
@@ -419,6 +426,7 @@ public class PlayerManager implements Listener {
     public static void change(Player player, CheckType type, double changement, EditAction action) {
         if (player == null)
             return;
+        if (NPCChecker.isNPC(player)) return;
         if (player.getGameMode() == GameMode.CREATIVE || player.getGameMode() == GameMode.SPECTATOR)
             return;
         if (player.isDead())

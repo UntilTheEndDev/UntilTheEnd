@@ -8,6 +8,7 @@ import java.util.concurrent.atomic.AtomicInteger;
 import java.util.function.BiFunction;
 
 import HamsterYDS.UntilTheEnd.cap.tem.TemperatureProvider;
+import HamsterYDS.UntilTheEnd.internal.NPCChecker;
 import org.bukkit.Location;
 import org.bukkit.Material;
 import org.bukkit.World;
@@ -90,12 +91,13 @@ public class ChangeTasks {
                 if (world.hasStorm()) {
                     player_loop:
                     for (Player player : world.getPlayers()) {
+                        if (NPCChecker.isNPC(player)) continue;
                         // 莫得雨
                         if (player.getLocation().getBlock().getTemperature() > 1.0
-                        		||player.getLocation().getBlock().getBiome()==Biome.SAVANNA
-                        		||player.getLocation().getBlock().getBiome()==Biome.SAVANNA_ROCK
-                        		||player.getLocation().getBlock().getBiome()==Biome.MUTATED_SAVANNA
-                        		||player.getLocation().getBlock().getBiome()==Biome.MUTATED_SAVANNA_ROCK) { 
+                                || player.getLocation().getBlock().getBiome() == Biome.SAVANNA
+                                || player.getLocation().getBlock().getBiome() == Biome.SAVANNA_ROCK
+                                || player.getLocation().getBlock().getBiome() == Biome.MUTATED_SAVANNA
+                                || player.getLocation().getBlock().getBiome() == Biome.MUTATED_SAVANNA_ROCK) {
                             PlayerManager.change(player, PlayerManager.CheckType.HUMIDITY, -1);
                             doTickTem(player);
                             continue;
@@ -121,6 +123,7 @@ public class ChangeTasks {
                     }
                 } else {
                     for (Player player : world.getPlayers()) {
+                        if (NPCChecker.isNPC(player)) continue;
                         doTickTem(player);
                         PlayerManager.change(player, PlayerManager.CheckType.HUMIDITY, -0.3);
                     }
@@ -168,6 +171,7 @@ public class ChangeTasks {
             for (World world : Config.enableWorlds) {
                 playerLoop:
                 for (Player player : world.getPlayers()) {
+                    if (NPCChecker.isNPC(player)) continue;
                     if (player.isInsideVehicle()) {
                         Location loc = player.getLocation().add(0, 1, 0); // 沉了
                         if (world.getBlockAt(loc).getType().equals(Material.WATER) || world.getBlockAt(loc).getType().equals(Material.STATIONARY_WATER))

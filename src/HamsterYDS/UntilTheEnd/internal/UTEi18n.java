@@ -17,12 +17,13 @@ import org.bukkit.configuration.file.YamlConfiguration;
 import java.util.HashMap;
 import java.util.Locale;
 import java.util.Map;
+import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.ConcurrentLinkedQueue;
 import java.util.function.Function;
 
 public class UTEi18n {
     public static final Map<String, FormatTemplate> templates = new HashMap<>();
-    public static final Map<String, String> cache = new HashMap<>();
+    public static final Map<String, String> cache = new ConcurrentHashMap<>();
     private static final Function<String, String> cache_loader = k -> parse(k);
     private static final Function<String, String> cache_loader2 = k -> cache("prefix") + parse(k);
 

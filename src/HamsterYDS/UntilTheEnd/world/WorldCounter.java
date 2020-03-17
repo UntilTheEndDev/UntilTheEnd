@@ -5,6 +5,7 @@ import java.util.Map;
 import java.util.UUID;
 import java.util.concurrent.atomic.AtomicLong;
 
+import HamsterYDS.UntilTheEnd.internal.NPCChecker;
 import HamsterYDS.UntilTheEnd.internal.UTEi18n;
 import org.bukkit.World;
 import org.bukkit.entity.Player;
@@ -60,6 +61,7 @@ public class WorldCounter extends BukkitRunnable {
     public static void tellPlayers(World world) {
         IWorld state = WorldProvider.worldStates.get(world.getName());
         for (Player player : world.getPlayers())
-            player.sendTitle(UTEi18n.parse("mechanism.world.next-day.main", state.season.name), UTEi18n.parse("mechanism.world.next-day.sub", String.valueOf(state.day)), 10, 70, 20);//TODO-lang
+            if (!NPCChecker.isNPC(player))
+                player.sendTitle(UTEi18n.parse("mechanism.world.next-day.main", state.season.name), UTEi18n.parse("mechanism.world.next-day.sub", String.valueOf(state.day)), 10, 70, 20);//TODO-lang
     }
 }

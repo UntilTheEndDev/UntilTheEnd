@@ -21,7 +21,7 @@ public class ItemProvider {
 
     public static void loadDrops() {
         File file = new File(ItemManager.plugin.getDataFolder(), "drops.yml");
-        ItemManager.plugin.saveResource("drops.yml", true);
+        ItemManager.plugin.saveResource("drops.yml", false);
         YamlConfiguration yaml = YamlConfiguration.loadConfiguration(file);
         for (String path : yaml.getKeys(false)) {
             EntityType type = EntityType.valueOf(path);

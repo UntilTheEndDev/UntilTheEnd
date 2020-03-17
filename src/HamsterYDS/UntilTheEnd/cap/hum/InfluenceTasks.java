@@ -1,5 +1,6 @@
 package HamsterYDS.UntilTheEnd.cap.hum;
 
+import HamsterYDS.UntilTheEnd.internal.NPCChecker;
 import HamsterYDS.UntilTheEnd.internal.UTEi18n;
 import HamsterYDS.UntilTheEnd.manager.WetManager;
 import org.bukkit.World;
@@ -36,6 +37,7 @@ public class InfluenceTasks {
         public void run() {
             for (World world : Config.enableWorlds) {
                 for (Player player : world.getPlayers()) {
+                    if(NPCChecker.isNPC(player))continue;
                     int hum = (int) PlayerManager.check(player, PlayerManager.CheckType.HUMIDITY);
                     if (hum <= effectHumidity) continue;
                     if (!player.hasPotionEffect(PotionEffectType.SLOW_DIGGING))
@@ -64,6 +66,7 @@ public class InfluenceTasks {
                         }
                     }
                 for (Player player : world.getPlayers()) {
+                    if (NPCChecker.isNPC(player)) continue;
                     int hum = (int) PlayerManager.check(player, PlayerManager.CheckType.HUMIDITY);
                     if (hum <= dampHumidity) continue;
                     double wetLevel = 0.05 + (hum - 10) * 0.01;
@@ -99,6 +102,7 @@ public class InfluenceTasks {
                         }
                     }
                 for (Player player : world.getPlayers()) {
+                    if(NPCChecker.isNPC(player))continue;
                     int hum = (int) PlayerManager.check(player, PlayerManager.CheckType.HUMIDITY);
                     if (hum > seasonHumidity) continue;
                     PlayerInventory inv = player.getInventory();

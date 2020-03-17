@@ -3,6 +3,7 @@ package HamsterYDS.UntilTheEnd.world;
 import java.util.HashMap;
 
 import HamsterYDS.UntilTheEnd.internal.LightingCompensation;
+import HamsterYDS.UntilTheEnd.internal.NPCChecker;
 import HamsterYDS.UntilTheEnd.internal.UTEi18n;
 import org.bukkit.GameMode;
 import org.bukkit.Location;
@@ -54,6 +55,7 @@ public class InfluenceTasks {
                 long time = world.getTime();
                 if (time >= up && time <= down)
                     for (Player player : world.getPlayers()) {
+                        if (NPCChecker.isNPC(player)) continue;
                         if (player.hasPotionEffect(PotionEffectType.NIGHT_VISION)) continue;
                         player.removePotionEffect(PotionEffectType.BLINDNESS);
                         player.addPotionEffect(new PotionEffect(PotionEffectType.BLINDNESS, 100, 0));
@@ -101,6 +103,7 @@ public class InfluenceTasks {
         public void run() {
             for (World world : Config.enableWorlds) {
                 for (Player player : world.getPlayers()) {
+                    if (NPCChecker.isNPC(player)) continue;
                     if (player.getGameMode() == GameMode.CREATIVE || player.getGameMode() == GameMode.SPECTATOR)
                         continue;
                     if (carrotEffects.containsKey(player.getName())) {

@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
+import HamsterYDS.UntilTheEnd.internal.NPCChecker;
 import org.bukkit.World;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
@@ -34,6 +35,7 @@ public class ChangeTasks {
         public void run() {
             for (World world : Config.enableWorlds)
                 for (Player player : world.getPlayers()) {
+                    if (NPCChecker.isNPC(player)) continue;
                     int hum = (int) PlayerManager.check(player, PlayerManager.CheckType.HUMIDITY);
                     PlayerManager.change(player, PlayerManager.CheckType.TEMPERATURE, -hum / 5);
                 }
@@ -139,15 +141,16 @@ public class ChangeTasks {
                 hasStone = new ArrayList<String>();
                 for (World world : Config.enableWorlds)
                     for (Player player : world.getPlayers())
-                        if (goWarmStone(player))
-                            hasStone.add(player.getName());
+                        if (!NPCChecker.isNPC(player))
+                            if (goWarmStone(player))
+                                hasStone.add(player.getName());
             }
             if (totNatural % temperatureChangeSpeedNatural == 0) {
                 totNatural = 0;
                 for (World world : Config.enableWorlds)
                     for (Player player : world.getPlayers())
-                        if (hasStone.contains(player.getName())) continue;
-                        else goNatural(player);
+                        if (!NPCChecker.isNPC(player))
+                            if (!hasStone.contains(player.getName())) goNatural(player);
             }
         }
     }
