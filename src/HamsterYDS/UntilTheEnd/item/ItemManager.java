@@ -61,130 +61,173 @@ import org.bukkit.inventory.meta.ItemMeta;
  * @version V5.1.1
  */
 public class ItemManager {
-    public static UntilTheEnd plugin = UntilTheEnd.getInstance();
-    public static HashMap<ItemStack, String> ids = new HashMap<ItemStack, String>();
-    public static HashMap<String, UTEItemStack> items = new HashMap<String, UTEItemStack>();
-    public static HashMap<Integer, String> machines = new HashMap<Integer, String>();
-    public static YamlConfiguration itemSets=Config.autoUpdateConfigs("itemsets.yml");;
-    public static YamlConfiguration itemAttributes=Config.autoUpdateConfigs("items.yml");
-    public ItemManager(UntilTheEnd plugin) {
-        for (String path : itemAttributes.getKeys(false)) {
-            if (!itemAttributes.getBoolean(path + ".enable"))
-                continue;
-            
-            ItemStack item=loadItem(path);
-            if(item==null) 
-            	continue;
-            
-            ids.put(item,path);
-            
-            UTEItemStack uteItem=new UTEItemStack(
-            		itemAttributes.getBoolean(path+".canPlace"),
-            		itemAttributes.getBoolean(path+".isConsume"),
-            		path,
-            		item.getItemMeta().getDisplayName(),
-            		itemAttributes.getInt(path+".needLevel"),
-            		item,
-            		new NamespacedKey(plugin,"ute_"+path),
-            		item.getItemMeta().getLore());
-            items.put(path,uteItem);
-            
-            if(itemAttributes.contains(path+".provideLevel")) {
-            	int level=itemAttributes.getInt(path+".provideLevel");
-            	machines.put(level,path);
-            }
-        }
-        new Brick();
-        new Plank();
-        new Rope();
-        new NightMare();
-        new Coin();
-        new Fern();
-        new Hail();
-        new Reed();
+	public static UntilTheEnd plugin = UntilTheEnd.getInstance();
+	public static HashMap<ItemStack, String> ids = new HashMap<ItemStack, String>();
+	public static HashMap<String, UTEItemStack> items = new HashMap<String, UTEItemStack>();
+	public static HashMap<Integer, String> machines = new HashMap<Integer, String>();
+	public static YamlConfiguration itemSets = Config.autoUpdateConfigs("itemSets.yml");;
+	public static YamlConfiguration itemAttributes = Config.autoUpdateConfigs("itemAttributes.yml");
 
-        new Sclerite();
-        new SpiderGland();
-        new Ashes();
-        new PurpleGum();
+	public ItemManager(UntilTheEnd plugin) {
+		for (String path : itemAttributes.getKeys(false)) {
+			ItemStack item = loadItem(path);
+			if (item == null)
+				continue;
+			ids.put(item, path);
 
-        new StrawHat();
-        new Garland();
-        new Earmuff();
-        new BushesHat();
-        new EyeballUmbrella();
-        new ConstantTemperatureClothes();
-        new SwimmingSuit();
+			UTEItemStack uteItem = new UTEItemStack(
+					itemAttributes.getBoolean(path + ".canPlace"),
+					itemAttributes.getBoolean(path + ".isConsume"), 
+					path, 
+					item.getItemMeta().getDisplayName(),
+					itemAttributes.getInt(path + ".needLevel"), 
+					item, new NamespacedKey(plugin, "ute_" + path),
+					item.getItemMeta().getLore());
+			items.put(path, uteItem);
+			
 
-        new MovablePack();
-        new NormalPack();
-        new PigPack();
-        new Reviver();
-        new WarmStone();
-        new Umbrella();
-        new FlowerUmbrella();
-        new HealingSalve();
-        new HoneyPoultice();
-        new ACDDrug();
-        new LuxuryFan();
-        new StrawRoll();
-        new FurRoll();
-        new WaterBalloon();
-        new SiestaLeanto();
+			if (itemAttributes.contains(path + ".provideLevel")) {
+				int level = itemAttributes.getInt(path + ".provideLevel");
+				machines.put(level, path);
+			}
+		}
+		for (String path : itemAttributes.getKeys(false)) {
+			if (!itemSets.getBoolean(path + ".enable"))
+				continue;
+			loadRecipe(path);
+		}
+//		new Brick();
+//		new Plank();
+//		new Rope();
+//		new NightMare();
+//		new Coin();
+//		new Fern();
+//		new Hail();
+//		new Reed();
+//
+//		new Sclerite();
+//		new SpiderGland();
+//		new Ashes();
+//		new PurpleGum();
+//
+//		new StrawHat();
+//		new Garland();
+//		new Earmuff();
+//		new BushesHat();
+//		new EyeballUmbrella();
+//		new ConstantTemperatureClothes();
+//		new SwimmingSuit();
+//
+//		new MovablePack();
+//		new NormalPack();
+//		new PigPack();
+//		new Reviver();
+//		new WarmStone();
+//		new Umbrella();
+//		new FlowerUmbrella();
+//		new HealingSalve();
+//		new HoneyPoultice();
+//		new ACDDrug();
+//		new LuxuryFan();
+//		new StrawRoll();
+//		new FurRoll();
+//		new WaterBalloon();
+//		new SiestaLeanto();
+//
+//		new BlowArrow1();
+//		new BlowArrow2();
+//		new BlowArrow3();
+//		new BeeMine();
+//		new ToothTrap();
+//		new WeatherPain();
+//
+//		new Element();
+//		new Thermometer();
+//		new Hygrometer();
+//		new LightningArrester();
+//		new IceFlingomatic();
+//		new Refridgerator();
+//		new Detector();
+//		new ScienceMachine();
+//
+//		new FireWand();
 
-        new BlowArrow1();
-        new BlowArrow2();
-        new BlowArrow3();
-        new BeeMine();
-        new ToothTrap();
-        new WeatherPain();
+		ItemProvider.loadDrops();
+		plugin.getServer().getPluginManager().registerEvents(new ItemListener(), plugin);
+	}
 
-        new Element();
-        new Thermometer();
-        new Hygrometer();
-        new LightningArrester();
-        new IceFlingomatic();
-        new Refridgerator();
-        new Detector();
-        new ScienceMachine();
+	public static ItemStack loadItem(String path) {
+		try {
+			Material material = Material.valueOf(itemSets.getString(path + ".type"));
+			String name = itemSets.getString(path + ".name");
+			List<String> lores = itemSets.getStringList(path + ".lores");
 
-        new FireWand();
-        
-        ItemProvider.loadDrops();
-        plugin.getServer().getPluginManager().registerEvents(new ItemListener(), plugin);
-    }
-    public static ItemStack loadItem(String path) {
-    	try {
-	    	Material material=Material.valueOf(itemSets.getString(path+".type"));
-	    	String name=itemSets.getString(path+".name");
-	    	List<String> lores=itemSets.getStringList(path+".lores");
-	    	
-	    	ItemStack item=new ItemStack(material);
-	    	ItemMeta meta=item.getItemMeta();
-	    	meta.setDisplayName(name);
-	    	meta.setLore(lores); 
-	    	item.setItemMeta(meta);
-	    	return item;
-    	}catch(Exception exception) {
-    		System.out.println("itemSets.yml下物品"+path+"读取错误，请检查！");
-    	}
-    	return null;
-    }
-    public static boolean isSimilar(ItemStack item, ItemStack uteItem) {
-        if (item == uteItem) return true;
-        if (item == null || uteItem == null) return false;
-        Material m1 = item.getType();
-        Material m2 = uteItem.getType();
-        if (m1 == Material.AIR) m1 = ItemFactory.getType(item);
-        if (m2 == Material.AIR) m2 = ItemFactory.getType(uteItem);
-        if (m1 == Material.AIR || m2 == Material.AIR) return m1 == m2;
-        if (m1 == m2) {
-            ItemMeta meta = item.getItemMeta();
-            ItemMeta meta2 = uteItem.getItemMeta();
-            if (Objects.equals(meta.getDisplayName(), meta2.getDisplayName())) {
-                return Objects.equals(meta.getLore(), meta2.getLore());
-            }
-        }
-        return false;
-    }
+			ItemStack item = new ItemStack(material);
+			ItemMeta meta = item.getItemMeta();
+			meta.setDisplayName(name);
+			meta.setLore(lores);
+			item.setItemMeta(meta);
+			return item;
+		} catch (Exception exception) {
+			System.out.println("itemSets.yml下物品" + path + "读取错误，请检查！");
+		}
+		return null;
+	}
+
+	public static void loadRecipe(String path) {
+		if(!items.containsKey(path)) return;
+		HashMap<ItemStack, Integer> craft = new HashMap<ItemStack, Integer>();
+		if(!itemSets.contains(path+".materials")) return;
+		List<String> materials = itemSets.getStringList(path + ".materials");
+		List<Integer> amounts = itemSets.getIntegerList(path + ".amounts");
+		for (String str : materials) {
+			int amount = amounts.get(materials.indexOf(str));
+			if(Material.getMaterial(str)!=null) {
+				Material material = Material.valueOf(str);
+				craft.put(new ItemStack(material), amount);
+			} else {
+				try {
+					craft.put(items.get(str).item, amount);
+				} catch (Exception exception2) {
+					System.out.println("itemSets.yml下物品" + path + "的合成读取错误，请检查！");
+				}
+			}
+		}
+		items.get(path).registerRecipe(craft,itemSets.getString(path + ".category"));
+	}
+
+	public static boolean isUTEItem(ItemStack item) {
+		if(item==null) return false;
+		ItemStack itemClone=item.clone();
+		itemClone.setAmount(1);
+		itemClone.setDurability((short) 0);
+		return ids.containsKey(itemClone);
+	}
+	
+	public static boolean isSimilar(ItemStack item, Class<?> clazz) {
+		if (item == null)
+			return false;
+		String id = clazz.getSimpleName();
+		ItemStack uteItem = items.get(id).item;
+		if (item == uteItem)
+			return true;
+		if (item == null || uteItem == null)
+			return false;
+		Material m1 = item.getType();
+		Material m2 = uteItem.getType();
+		if (m1 == Material.AIR)
+			m1 = ItemFactory.getType(item);
+		if (m2 == Material.AIR)
+			m2 = ItemFactory.getType(uteItem);
+		if (m1 == Material.AIR || m2 == Material.AIR)
+			return m1 == m2;
+		if (m1 == m2) {
+			ItemMeta meta = item.getItemMeta();
+			ItemMeta meta2 = uteItem.getItemMeta();
+			if (Objects.equals(meta.getDisplayName(), meta2.getDisplayName())) {
+				return Objects.equals(meta.getLore(), meta2.getLore());
+			}
+		}
+		return false;
+	}
 }

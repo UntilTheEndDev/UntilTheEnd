@@ -4,7 +4,6 @@ import java.util.HashMap;
 
 import org.bukkit.Material;
 import org.bukkit.entity.Entity;
-import org.bukkit.entity.Monster;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
@@ -32,13 +31,10 @@ public class BushesHat implements Listener {
 			Player player = (Player) event.getTarget();
 			Entity entity = event.getEntity();
 			ItemStack item = player.getInventory().getHelmet();
-			if (item == null)
+			if (ItemManager.isSimilar(item,getClass()))
 				return;
-			if (ItemManager.isSimilar(item.clone(), ItemManager.items.get("BushesHat").item))
-				return;
-			if (entity instanceof Monster)
-				if (event.getReason() == TargetReason.CLOSEST_PLAYER)
-					event.setCancelled(true);
+			if (event.getReason() == TargetReason.CLOSEST_PLAYER)
+				event.setCancelled(true);
 		}
 	}
 }

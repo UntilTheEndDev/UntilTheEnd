@@ -206,7 +206,7 @@ public class UntilTheEndApi {
 
     public static class GuideApi {
         public static void addItemToCategory(String category, ItemStack item) {
-            CraftGuide.addItem(category, item);
+            CraftGuide.addItem("§6"+category, item);
         }
 
         public static void addCategory(String categoryName, Material material, short data) {

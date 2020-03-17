@@ -30,7 +30,7 @@ public class SpiderGland implements Listener {
             return;
         if (!event.hasItem()) return;
         ItemStack item = event.getItem();
-        if (ItemManager.isSimilar(item, ItemManager.items.get("SpiderGland").item)) {
+        if (ItemManager.isSimilar(item,getClass())) {
             event.setCancelled(true);
             if (player.getHealth() + heal >= player.getMaxHealth())
                 player.setHealth(player.getMaxHealth());

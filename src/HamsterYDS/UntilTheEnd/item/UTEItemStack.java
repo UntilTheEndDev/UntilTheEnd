@@ -40,13 +40,16 @@ public class UTEItemStack {
 		ShapelessRecipe recipe = new ShapelessRecipe(this.nsk, this.item);
 		Inventory guideInv = CraftGuide.getCraftInventory();
 		guideInv.setItem(20, this.item);
+		int index=0;
 		for (ItemStack material:craft.keySet()) {
 			int amount = craft.get(material);
+			System.out.println(material);
+			System.out.println(amount);
 			craft.put(material, amount);
 			recipe.addIngredient(amount, material.getType());
-			int index=0;
-			for (; amount > 0; amount--,index++)
+			for (;amount>0;amount--,index++){
 				guideInv.setItem(slots[index], material);
+			}
 		}
 		this.craft = craft;
 		try {

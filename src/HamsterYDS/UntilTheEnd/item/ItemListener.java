@@ -20,7 +20,9 @@ import org.bukkit.event.block.BlockPlaceEvent;
 import org.bukkit.event.entity.EntityDeathEvent;
 import org.bukkit.event.entity.ItemSpawnEvent;
 import org.bukkit.event.inventory.CraftItemEvent;
+import org.bukkit.event.inventory.InventoryClickEvent;
 import org.bukkit.event.player.PlayerInteractEvent;
+import org.bukkit.inventory.AnvilInventory;
 import org.bukkit.inventory.Inventory;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.PlayerInventory;
@@ -96,9 +98,12 @@ public class ItemListener implements Listener {
         String id=ItemManager.ids.get(resultClone);
         UTEItemStack item=ItemManager.items.get(id);
         HashMap<ItemStack, Integer> craft = item.craft;
-        for (ItemStack material : craft.keySet())
-            if (!inv.containsAtLeast(material, craft.get(material)))
-                event.setCancelled(true);
+        for (ItemStack material : craft.keySet()){
+        	if(!ItemManager.ids.containsKey(material)) return;
+        	if (!inv.containsAtLeast(material, craft.get(material)))
+        		 event.setCancelled(true);
+        }
+               
         boolean flag=false;
         Player player=(Player) event.getWhoClicked();
         if(PlayerManager.checkUnLockedRecipes(player).contains(id))
@@ -144,6 +149,17 @@ public class ItemListener implements Listener {
         }
     }
 
+    @EventHandler 
+    public void onUseAnvil(InventoryClickEvent event) {
+    	Inventory inv=event.getInventory();
+    	if(inv==null) return;
+    	ItemStack item=event.getCursor();
+    	if(inv instanceof AnvilInventory) {
+    		if(ItemManager.isUTEItem(item))
+    			event.setCancelled(true);
+    	}
+    }
+    
     @EventHandler
     public void onDrop(ItemSpawnEvent event) {
         if (!ItemManager.plugin.getConfig().getBoolean("item.sawer.enable"))
