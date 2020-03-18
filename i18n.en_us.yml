@@ -1,3 +1,11 @@
+# 英语目前并不能使用
+# 目前也缺少翻译
+# 或许有一天, 这能翻译完
+# 也许呢?
+# English not supported yet now.
+# Require translator now
+# Maybe it can be translated to en_US?
+# Right?
 prefix: '§6[§cUntilTheEnd§6]§r '
 
 cap.hum.provider.rule: "检测到带有潮湿方块变化 {0} -> {1}"
@@ -22,6 +30,11 @@ item.machine.wet.no-crafting: "潮湿的物品貌似不能用于合成，它们�
 cap.hum.drenched: "我全身都淋湿了！"
 crops.provider.rule: "检测到带有季节性作物{0}, 其数据为：{1}"
 cap.tem.provider.loading: "正在加载温度计算模块......"
+cap.tem.provider.fmb.rule: "检测到随温度变化而变化的方块{0}->{1}变化温度为：{2}"
+cap.tem.provider.block.tem.rule: "检测到带有温度的方块{0}, 温度为：{1}"
+cap.crops.provider.loading: "正在加载农作物计算模块......"
+cap.tem.smoulder.title.main: "§4§l您处理了一个闷烧！"
+cap.tem.smoulder.title.sub: "§d§l它差点就烧起来了！"
 cap.hum.provider.loading: "正在加载湿度计算模块......"
 cap.san.provider.loading: "正在加载理智计算模块......"
 cap.tir.provider.loading: "正在加载疲劳计算模块......"
@@ -33,6 +46,7 @@ cap.tir.influence.place: "你太累了以至于不能放置"
 cap.tir.influence.break: "你太累了以至于不能破坏"
 cap.tir.influence.teleport: "你太累了以至于不能传送"
 item.machine.wet.lore: "§8- §8§l潮湿的"
+item.provider.drops.rule: "检测到{0}生物掉落物品：{1}掉落几率：{2}"
 item.guide.help.crafting.main: "UntilTheEnd:合成帮助"
 item.guide.help.mechanism.main: "UntilTheEnd:机制帮助"
 item.guide.help.main.item: "§6§lUntilTheEnd指导"
@@ -97,6 +111,8 @@ mechanism.darkness.hurt-me.main: "§8ヾ(≧O≦)〃啊~！什么东西？"
 mechanism.darkness.hurt-me.sub: "§8他打了我一下...."
 mechanism.world.next-day.main: "§e§l{0}"
 mechanism.world.next-day.sub: "§c第§d§l{0}§r§c天"
+mechanism.food.rotten.low: "食物貌似变味了~"
+mechanism.food.rotten.high: "口区口区口区口区口区口区口区口区"
 season.spring: "春天"
 season.summer: "夏天"
 season.autumn: "秋天"

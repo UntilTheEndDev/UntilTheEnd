@@ -1,3 +1,8 @@
+# 本语言文件直接由繁简转换工具直接转换
+# 如果有更符合港台地区的表达请提交开发团队
+#
+# 本語言文件直接由繁簡轉換工具直接轉換
+# 如果語言和港台繁體有偏差的話請提交至開發團隊
 prefix: '§6[§cUntilTheEnd§6]§r '
 
 cap.hum.provider.rule: "檢測到帶有潮濕方塊變化 {0} -> {1}"
@@ -38,6 +43,7 @@ cap.tir.influence.place: "你太累了以至於不能放置"
 cap.tir.influence.break: "你太累了以至於不能破壞"
 cap.tir.influence.teleport: "你太累了以至於不能傳送"
 item.machine.wet.lore: "§8- §8§l潮濕的"
+item.provider.drops.rule: "檢測到{0}生物掉落物品：{1}掉落幾率：{2}"
 item.guide.help.crafting.main: "UntilTheEnd:合成幫助"
 item.guide.help.mechanism.main: "UntilTheEnd:機制幫助"
 item.guide.help.main.item: "§6§lUntilTheEnd指導"
