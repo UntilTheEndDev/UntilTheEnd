@@ -24,7 +24,6 @@ public class LuxuryFan implements Listener {
         ItemStack item = event.getItem();
         if (ItemManager.isSimilar(item, getClass())) {
             event.setCancelled(true);
-            if (!player.isSneaking()) return;
             if (PlayerManager.check(player, PlayerManager.CheckType.TEMPERATURE) >= 45)
                 PlayerManager.change(player, PlayerManager.CheckType.TEMPERATURE, -30);
             else

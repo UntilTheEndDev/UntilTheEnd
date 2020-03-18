@@ -25,7 +25,6 @@ public class HealingSalve implements Listener {
         ItemStack item = event.getItem();
         if (ItemManager.isSimilar(item, getClass())) {
             event.setCancelled(true);
-            if (!player.isSneaking()) return;
             if (player.getHealth() + 10.0 >= player.getMaxHealth()) player.setHealth(player.getMaxHealth());
             else player.setHealth(player.getHealth() + 10.0);
         }

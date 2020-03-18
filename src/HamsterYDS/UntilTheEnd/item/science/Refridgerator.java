@@ -10,6 +10,6 @@ import HamsterYDS.UntilTheEnd.item.ItemManager;
 public class Refridgerator{
 	public static int fridgeEffecience=ItemManager.itemAttributes.getInt("Refridgerator.fridgeEffecience");
 	public Refridgerator() {
-		RottenFoodEvents.titleFactors.put("§6冰箱",fridgeEffecience);
+		RottenFoodEvents.titleFactors.put(ItemManager.items.get("Refridgerator").displayName,fridgeEffecience);
 	}
 }

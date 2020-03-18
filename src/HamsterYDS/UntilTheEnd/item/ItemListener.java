@@ -97,34 +97,36 @@ public class ItemListener implements Listener {
         Inventory inv = event.getInventory();
         String id=ItemManager.ids.get(resultClone);
         UTEItemStack item=ItemManager.items.get(id);
+        int level=item.needLevel;
+        System.out.println(level);
         HashMap<ItemStack, Integer> craft = item.craft;
         for (ItemStack material : craft.keySet()){
-        	if(!ItemManager.ids.containsKey(material)) return;
+        	if(!ItemManager.ids.containsKey(material)) continue;
         	if (!inv.containsAtLeast(material, craft.get(material)))
         		 event.setCancelled(true);
         }
-               
         boolean flag=false;
         Player player=(Player) event.getWhoClicked();
-        if(PlayerManager.checkUnLockedRecipes(player).contains(id))
-        	return;
-        int level=item.needLevel;
-        if(level!=0) {
-        	String machineId=ItemManager.machines.get(level);
-        	for(int i=-5;i<=5;i++)
-        		for(int j=-5;j<=5;j++)
-        			for(int k=-5;k<=5;k++){
-        				Location newLoc=new Location(player.getWorld(),
-        						player.getLocation().getX()+i,
-        						player.getLocation().getY()+j,
-        						player.getLocation().getZ()+k);
-        				newLoc=newLoc.getBlock().getLocation();
-        				if(BlockApi.getSpecialBlock(newLoc).equalsIgnoreCase(machineId)){
-        					PlayerManager.addUnLockedRecipes(player,id);
-        					return;
-        				}
+//        if(PlayerManager.checkUnLockedRecipes(player).contains(id))
+//        	return;
+        
+       
+        if(level==0) return;
+        String machineId=ItemManager.machines.get(level);
+        for(int i=-5;i<=5;i++)
+        	for(int j=-5;j<=5;j++)
+        		for(int k=-5;k<=5;k++){
+        			Location newLoc=new Location(player.getWorld(),
+        					player.getLocation().getX()+i,
+        					player.getLocation().getY()+j,
+        					player.getLocation().getZ()+k);
+        			newLoc=newLoc.getBlock().getLocation();
+        			if(BlockApi.getSpecialBlock(newLoc).equalsIgnoreCase(machineId)){
+        				
+        				PlayerManager.addUnLockedRecipes(player,id);
+        				return;
         			}
-        }else return;
+        		}
         if(!flag) {
         	event.getWhoClicked().sendMessage(UTEi18n.cacheWithPrefix("item.system.no-machine"));
         	event.setCancelled(true);

@@ -10,6 +10,6 @@ import HamsterYDS.UntilTheEnd.item.ItemManager;
 public class NightMare{
 	public static int sanityReduce=ItemManager.itemAttributes.getInt("NightMare.sanityReduce");
 	public NightMare() {
-		ChangeTasks.itemsChangeSanity.put("NightMare",sanityReduce);
+		ChangeTasks.itemsChangeSanity.put(ItemManager.items.get("NightMare").displayName,sanityReduce);
 	}
 }

@@ -148,7 +148,7 @@ public class ChangeTasks {
             if (item.hasItemMeta())
                 if (item.getItemMeta().hasDisplayName())
                     if (waterProofSuits.contains(item.getItemMeta().getDisplayName()))
-                        return true;
+                    	return true;
             return false;
         }
 

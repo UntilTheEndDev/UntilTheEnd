@@ -11,6 +11,6 @@ public class Earmuff {
 	public static double percent = ItemManager.itemAttributes.getDouble("Earmuff.percent");
 
 	public Earmuff() {
-		ChangeTasks.clothesChangeTemperature.put("§6兔毛耳罩", -percent);
+		ChangeTasks.clothesChangeTemperature.put(ItemManager.items.get("Earmuff").displayName, -percent);
 	}
 }

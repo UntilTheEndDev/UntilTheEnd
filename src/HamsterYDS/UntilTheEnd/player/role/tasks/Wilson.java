@@ -3,7 +3,6 @@ package HamsterYDS.UntilTheEnd.player.role.tasks;
 import HamsterYDS.UntilTheEnd.internal.NPCChecker;
 import org.bukkit.World;
 import org.bukkit.entity.Player;
-import org.bukkit.inventory.ItemStack;
 import org.bukkit.scheduler.BukkitRunnable;
 
 import HamsterYDS.UntilTheEnd.Config;
@@ -13,9 +12,7 @@ import HamsterYDS.UntilTheEnd.item.ItemManager;
 import HamsterYDS.UntilTheEnd.player.role.Roles;
 
 public class Wilson {
-	public ItemStack beard;
 	public Wilson(UntilTheEnd plugin) {
-		beard=ItemManager.loadItem("beard");
 		new Beard().runTaskTimer(plugin,0L,1200L);
 	}
 	public class Beard extends BukkitRunnable{
@@ -26,7 +23,7 @@ public class Wilson {
                     if (NPCChecker.isNPC(player)) continue;
                     if (UntilTheEndApi.PlayerApi.getRole(player) == Roles.WILSON) {
                         if (Math.random() <= 0.1) {
-                            player.getInventory().addItem(beard);
+                            player.getInventory().addItem(ItemManager.items.get("Beard").item);
                         }
                     }
                 }

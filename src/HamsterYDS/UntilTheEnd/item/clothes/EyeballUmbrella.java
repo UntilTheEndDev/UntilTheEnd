@@ -23,8 +23,8 @@ public class EyeballUmbrella implements Listener {
 	public static int damageIncreasePeriod = ItemManager.itemAttributes.getInt("EyeballUmbrella.sdamageIncreasePeriod");
 
 	public EyeballUmbrella() {
-		ChangeTasks.clothesChangeSanity.put("§6眼球伞", sanityImprove);
-		HamsterYDS.UntilTheEnd.cap.hum.ChangeTasks.umbrellas.add("§6眼球伞");
+		ChangeTasks.clothesChangeSanity.put(ItemManager.items.get("EyeballUmbrella").displayName, sanityImprove);
+		HamsterYDS.UntilTheEnd.cap.hum.ChangeTasks.umbrellas.add(ItemManager.items.get("EyeballUmbrella").displayName);
 	}
 
 	@EventHandler

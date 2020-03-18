@@ -25,7 +25,6 @@ public class ACDDrug implements Listener {
         ItemStack item = event.getItem();
         if (ItemManager.isSimilar(item, getClass())) {
             event.setCancelled(true);
-            if (!player.isSneaking()) return;
             if (player.getMaxHealth() + 6.0 >= 40.0) player.setMaxHealth(40.0);
             else player.setMaxHealth(player.getMaxHealth() + 6.0);
         }

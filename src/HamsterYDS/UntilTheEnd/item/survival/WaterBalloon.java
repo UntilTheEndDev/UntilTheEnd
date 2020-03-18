@@ -21,7 +21,6 @@ public class WaterBalloon implements Listener {
     @EventHandler
     public void onClick(PlayerInteractEvent event) {
         Player player = event.getPlayer();
-        if (!player.isSneaking()) return;
         if (!event.hasItem()) return;
         if (!EventHelper.isRight(event.getAction())) return;
         ItemStack item = event.getItem();

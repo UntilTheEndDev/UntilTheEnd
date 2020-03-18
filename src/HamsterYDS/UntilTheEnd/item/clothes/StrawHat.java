@@ -11,6 +11,6 @@ public class StrawHat {
 	public static double percent = ItemManager.itemAttributes.getDouble("StrawHat.percent");
 
 	public StrawHat() {
-		ChangeTasks.clothesChangeTemperature.put("§6草帽", percent);
+		ChangeTasks.clothesChangeTemperature.put(ItemManager.items.get("StrawHat").displayName, percent);
 	}
 }

@@ -1,5 +1,6 @@
 package HamsterYDS.UntilTheEnd.item.survival;
 
+import HamsterYDS.UntilTheEnd.item.ItemManager;
 import HamsterYDS.UntilTheEnd.player.PlayerInventoryAdapt;
 
 /**
@@ -8,6 +9,6 @@ import HamsterYDS.UntilTheEnd.player.PlayerInventoryAdapt;
  */
 public class NormalPack{
 	public NormalPack() {
-		PlayerInventoryAdapt.containerSizes.put("背包",8);
+		PlayerInventoryAdapt.containerSizes.put(ItemManager.items.get("NormalPack").displayName,8);
 	}
 }
