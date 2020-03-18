@@ -16,6 +16,7 @@ NightMare:
   canPlace: false
   isConsume: false
   needLevel: 1
+  sanityReduce: -1
 Coin:
   canPlace: false
   isConsume: false
@@ -24,10 +25,12 @@ Fern:
   canPlace: false
   isConsume: true
   needLevel: 1
+  heal: 0.5
 Hail:
   canPlace: false
   isConsume: true
   needLevel: 1
+  temperatureReduce: -1
 Reed:
   canPlace: false
   isConsume: false
@@ -65,10 +68,14 @@ Sclerite:
   canPlace: false
   isConsume: true
   needLevel: 0
+  damage: 1.0
+  range: 0.5
+  maxDist: 30.0
 SpiderGland:
   canPlace: false
   isConsume: true
   needLevel: 0
+  heal: 4.0
 Spit:
   canPlace: false
   isConsume: false
@@ -81,6 +88,7 @@ Ashes:
   canPlace: false
   isConsume: false
   needLevel: 0
+  percent: 0.25
 RedGum:
   canPlace: false
   isConsume: false
@@ -106,18 +114,24 @@ Earmuff:
   canPlace: false
   isConsume: false
   needLevel: 1
+  percent: 0.3
 Garland:
   canPlace: false
   isConsume: false
   needLevel: 0
+  sanityImprove: 1
 StrawHat:
   canPlace: false
   isConsume: false
   needLevel: 1
+  percent: 0.3
 EyeballUmbrella:
   canPlace: false
   isConsume: false
   needLevel: 1
+  sanityImprove: 3
+  range: 30
+  damageIncreasePeriod: 60
 ConstantTemperatureClothes:
   canPlace: false
   isConsume: false
@@ -188,26 +202,43 @@ BlowArrow1:
   canPlace: false
   isConsume: true
   needLevel: 1
+  damage: 40.0
+  range: 0.5
+  maxDist: 300
 BlowArrow2:
   canPlace: false
   isConsume: true
   needLevel: 1
+  damage: 20.0
+  range: 0.5
+  maxDist: 300
+  firePeriod: 20
 BlowArrow3:
   canPlace: false
   isConsume: true
   needLevel: 1
+  damage: 20.0
+  range: 0.5
+  maxDist: 300
+  blindPeriod: 60
 BeeMine:
   canPlace: true
   isConsume: false
   needLevel: 1
+  explosionAmount: 3
+  poison: 10
 ToothTrap:
   canPlace: true
   isConsume: false
   needLevel: 1
+  damage: 8.0
+  brokenPercent: 0.2
 WeatherPain:
   canPlace: false
   isConsume: false
   needLevel: 1
+  dist: 50.0
+  range: 5.0
 # 科学类材料####################################################
 Element:
   canPlace: false
@@ -217,10 +248,12 @@ Thermometer:
   canPlace: true
   isConsume: false
   needLevel: 1
+  existPeriod: 10
 Hygrometer:
   canPlace: true
   isConsume: false
   needLevel: 1
+  existPeriod: 10
 LightningArrester:
   canPlace: true
   isConsume: false
@@ -229,18 +262,24 @@ IceFlingomatic:
   canPlace: true
   isConsume: false
   needLevel: 1
+  range: 40
 Refridgerator:
   canPlace: true
   isConsume: false
   needLevel: 1
+  fridgeEffecience: 10
 ScienceMachine:
   canPlace: true
   isConsume: false
   needLevel: 0
+# 魔法类材料####################################################
 FireWand:
   canPlace: false
   isConsume: false
   needLevel: 0
+  firePeriod: 60
+  maxDist: 100.0
+  range: 0.3
 # 人物类材料####################################################
 Beard:
   canPlace: false

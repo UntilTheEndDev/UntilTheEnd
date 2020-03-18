@@ -27,6 +27,7 @@ public class ItemProvider {
             HashMap<String,Double> drop=new HashMap<String,Double>();
             for(int index=0;index<items.size();index++) {
             	drop.put(items.get(index),percents.get(index));
+            	System.out.println("检测到"+path+"生物掉落物品："+items.get(index)+"掉落几率："+percents.get(index));
             }
             try {
             	drops.put(EntityType.valueOf(path),drop);
