@@ -113,13 +113,11 @@ public class BlockManager extends BukkitRunnable implements Listener {
     public void onPlace(BlockPlaceEvent event) {
         if (event.isCancelled()) return;
         if (event.getItemInHand() == null) return;
-        ItemStack item = event.getItemInHand().clone();
-        item.setAmount(1);
-        item.setDurability((short) 0); 
-        if (!ItemManager.ids.containsKey(item)) return;
+        ItemStack item = event.getItemInHand();
+        if (ItemManager.isUTEItem(item).equalsIgnoreCase("")) return;
         Location loc = event.getBlock().getLocation();
         String toString = BlockApi.locToStr(loc);
-        addBlockData(ItemManager.ids.get(item), toString);
+        addBlockData(ItemManager.isUTEItem(item), toString);
     }
 
     @EventHandler

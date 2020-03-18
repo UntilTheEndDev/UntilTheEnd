@@ -33,11 +33,9 @@ public class ItemListener implements Listener {
     public void onPlace(BlockPlaceEvent event) {
         if (event.isCancelled())
             return;
-        ItemStack itemClone = event.getItemInHand().clone();
-        itemClone.setAmount(1);
-        itemClone.setDurability((short) 0); 
-        if (ItemManager.ids.containsKey(itemClone)) {
-            String id = ItemManager.ids.get(itemClone);
+        ItemStack item = event.getItemInHand();
+        String id=ItemManager.isUTEItem(item);
+        if (!id.equalsIgnoreCase("")) {
             if (ItemManager.items.get(id).canPlace)
                 return;
             event.setCancelled(true);
@@ -52,17 +50,17 @@ public class ItemListener implements Listener {
             if (player.getGameMode() == GameMode.CREATIVE)
                 return;
             PlayerInventory inv = player.getInventory();
+            
             if (inv.getItemInMainHand() == null)
                 return;
+            
             ItemStack item = inv.getItemInMainHand();
-            ItemStack itemClone = item.clone();
-            int amount = item.getAmount();
-            itemClone.setAmount(1);
-            itemClone.setDurability((short) 0);
-            if (ItemManager.ids.containsKey(itemClone)){
-            	 String id = ItemManager.ids.get(itemClone);
-                 if (ItemManager.items.get(id).isConsume) 
-                     item.setAmount(amount - 1);
+            String id=ItemManager.isUTEItem(item);
+            if (!id.equalsIgnoreCase("")){
+            	if (ItemManager.items.get(id).isConsume) {
+            		item.setAmount(item.getAmount() - 1);
+            		player.updateInventory();
+            	}
             }
         }
     }
@@ -72,15 +70,12 @@ public class ItemListener implements Listener {
         Recipe recipe = event.getRecipe();
         ItemStack resultClone = recipe.getResult().clone();
         resultClone.setAmount(1);
-        if (ItemManager.ids.containsKey(resultClone))
+        if (!ItemManager.isUTEItem(resultClone).equalsIgnoreCase(""))
             return;
         for (ItemStack item : event.getClickedInventory().getContents()) {
             if (item == null)
                 return;
-            ItemStack itemClone = item.clone();
-            itemClone.setAmount(1);
-            itemClone.setDurability((short) 0); 
-            if (ItemManager.ids.containsKey(itemClone)) {
+            if (!ItemManager.isUTEItem(item).equalsIgnoreCase("")) {
                 event.setCancelled(true);
                 event.getWhoClicked().sendMessage(UTEi18n.cacheWithPrefix("item.system.no-crafting"));
             }
@@ -92,23 +87,24 @@ public class ItemListener implements Listener {
         Recipe recipe = event.getRecipe();
         ItemStack resultClone = recipe.getResult().clone();
         resultClone.setAmount(1);
-        if (!ItemManager.ids.containsKey(resultClone))
+        if (ItemManager.isUTEItem(resultClone).equalsIgnoreCase(""))
             return;
         Inventory inv = event.getInventory();
-        String id=ItemManager.ids.get(resultClone);
+        String id=ItemManager.isUTEItem(resultClone);
         UTEItemStack item=ItemManager.items.get(id);
         int level=item.needLevel;
-        System.out.println(level);
         HashMap<ItemStack, Integer> craft = item.craft;
         for (ItemStack material : craft.keySet()){
-        	if(!ItemManager.ids.containsKey(material)) continue;
-        	if (!inv.containsAtLeast(material, craft.get(material)))
-        		 event.setCancelled(true);
+        	if(ItemManager.isUTEItem(material).equalsIgnoreCase("")) continue;
+        	if (!inv.containsAtLeast(material, craft.get(material))){
+        		event.setCancelled(true);
+        		return;
+        	}
         }
         boolean flag=false;
         Player player=(Player) event.getWhoClicked();
-//        if(PlayerManager.checkUnLockedRecipes(player).contains(id))
-//        	return;
+        if(PlayerManager.checkUnLockedRecipes(player).contains(id))
+        	return;
         
        
         if(level==0) return;
@@ -157,7 +153,7 @@ public class ItemListener implements Listener {
     	if(inv==null) return;
     	ItemStack item=event.getCursor();
     	if(inv instanceof AnvilInventory) {
-    		if(ItemManager.isUTEItem(item))
+    		if(!ItemManager.isUTEItem(item).equalsIgnoreCase(""))
     			event.setCancelled(true);
     	}
     }

@@ -1,9 +1,8 @@
 package HamsterYDS.UntilTheEnd.api;
 
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.HashMap;
-import java.util.Set;
-
 import HamsterYDS.UntilTheEnd.internal.UTEi18n;
 import org.bukkit.Bukkit;
 import org.bukkit.Location;
@@ -108,8 +107,8 @@ public class UntilTheEndApi {
     }
 
     public static class ItemApi {
-        public static Set<ItemStack> getItems() {
-            return ItemManager.ids.keySet();
+        public static Collection<UTEItemStack> getItems() {
+            return ItemManager.items.values();
         }
 
         public static UTEItemStack getItem(String id) {

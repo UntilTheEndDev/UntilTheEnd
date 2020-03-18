@@ -52,7 +52,7 @@ import org.bukkit.inventory.meta.ItemMeta;
  */
 public class ItemManager {
 	public static UntilTheEnd plugin = UntilTheEnd.getInstance();
-	public static HashMap<ItemStack, String> ids = new HashMap<ItemStack, String>();
+	public static HashMap<String, String> ids = new HashMap<String, String>();
 	public static HashMap<String, UTEItemStack> items = new HashMap<String, UTEItemStack>();
 	public static HashMap<Integer, String> machines = new HashMap<Integer, String>();
 	public static YamlConfiguration itemSets = Config.autoUpdateConfigs("itemsets.yml");
@@ -64,7 +64,8 @@ public class ItemManager {
 			ItemStack item = loadItem(path);
 			if (item == null)
 				continue;
-			ids.put(item, path);
+			
+			ids.put(item.getItemMeta().getDisplayName(), path);
 
 			UTEItemStack uteItem = new UTEItemStack(
 					itemAttributes.getBoolean(path + ".canPlace"),
@@ -177,12 +178,13 @@ public class ItemManager {
 		items.get(path).registerRecipe(craft,itemSets.getString(path + ".category"));
 	}
 
-	public static boolean isUTEItem(ItemStack item) {
-		if(item==null) return false;
-		ItemStack itemClone=item.clone();
-		itemClone.setAmount(1);
-		itemClone.setDurability((short) 0);
-		return ids.containsKey(itemClone);
+	public static String isUTEItem(ItemStack item) {
+		if(item==null) return "";
+		if(item.hasItemMeta())
+			if(item.getItemMeta().hasDisplayName())
+				if(ids.containsKey(item.getItemMeta().getDisplayName()))
+					return ids.get(item.getItemMeta().getDisplayName());
+		return "";
 	}
 	
 	public static boolean isSimilar(ItemStack item, Class<?> clazz) {
