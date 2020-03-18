@@ -1,16 +1,38 @@
+########################################
+#例子：
+#Brick:                      #英文ID（这里是砖块Brick）
+#  enable: true              #是否启用
+#  type: STEP                #MC中的物品id
+#  name: §6石砖              #物品名字（不可以更改
+#  lores:                    #物品lores
+#  - §8-合成的基础材料
+#  materials:                #物品合成需要的物品
+#  - STONE                   #石头Material
+#  amounts:                  #对应物品需要的个数
+#  - 9                       #石头需要的个数
+#  category: 基础             #该物品在合成指导中那一个种类
+
+########################################
+
+#注意：
+#materials下只能填写原版Material名或者UTE物品英文ID
+#amounts所有数字加起来不应该大于9（可以等于9）
+#category可以填写：  基础 科学 战斗 魔法 衣物 生存
+
+########################################
 
 # 基础####################################
 Brick:
-  enable: true
-  type: STEP
-  name: §6石砖
-  lores:
+  enable: true   
+  type: STEP        
+  name: §6石砖       
+  lores:               
   - §8-合成的基础材料
-  materials:
-  - STONE
-  amounts:
-  - 9
-  category: 基础
+  materials:           
+  - STONE               
+  amounts:             
+  - 9                  
+  category: 基础        
 Rope:
   enable: true
   type: LEASH

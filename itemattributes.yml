@@ -1,3 +1,9 @@
+########################################
+#例子：
+#Brick:  #UTE物品英文ID
+#  canPlace: false  #是否可以放在地上
+#  isConsume: false  #是否为一次性用品（右击使用一个）
+#  needLevel: 1  #合成需要的科学机器等级（0表示不需要）
 
 # 基础类材料################################################
 Brick:
@@ -16,7 +22,7 @@ NightMare:
   canPlace: false
   isConsume: false
   needLevel: 1
-  sanityReduce: -1
+  sanityReduce: -1  #每个噩梦燃料带来的理智变化值
 Coin:
   canPlace: false
   isConsume: false
@@ -25,12 +31,12 @@ Fern:
   canPlace: false
   isConsume: true
   needLevel: 1
-  heal: 0.5
+  heal: 0.5  #每食用一片蕨类植物提升的血量
 Hail:
   canPlace: false
   isConsume: true
   needLevel: 1
-  temperatureReduce: -1
+  temperatureReduce: -1  #每使用一个冰雹温度变化值
 Reed:
   canPlace: false
   isConsume: false
@@ -68,14 +74,14 @@ Sclerite:
   canPlace: false
   isConsume: true
   needLevel: 0
-  damage: 1.0
-  range: 0.5
-  maxDist: 30.0
+  damage: 1.0  #骨片扔出刺到生物造成的伤害
+  range: 0.5  #骨片刺到判定范围
+  maxDist: 30.0  #骨片飞出最远距离
 SpiderGland:
   canPlace: false
   isConsume: true
   needLevel: 0
-  heal: 4.0
+  heal: 4.0  #每使用一个蜘蛛腺体
 Spit:
   canPlace: false
   isConsume: false
@@ -88,7 +94,7 @@ Ashes:
   canPlace: false
   isConsume: false
   needLevel: 0
-  percent: 0.25
+  percent: 0.25  #烧掉一个东西掉落灰烬的概率
 RedGum:
   canPlace: false
   isConsume: false
@@ -114,7 +120,7 @@ Earmuff:
   canPlace: false
   isConsume: false
   needLevel: 1
-  percent: 0.3
+  percent: 0.3  #延缓温度下降速率的百分之多少
 Garland:
   canPlace: false
   isConsume: false
@@ -124,14 +130,14 @@ StrawHat:
   canPlace: false
   isConsume: false
   needLevel: 1
-  percent: 0.3
+  percent: 0.3  #延缓温度上升速率的百分之多少
 EyeballUmbrella:
   canPlace: false
   isConsume: false
   needLevel: 1
-  sanityImprove: 3
-  range: 30
-  damageIncreasePeriod: 60
+  sanityImprove: 3  #戴上后理智每10秒变化多少
+  range: 30  #吸引多大范围内的雷电
+  damageIncreasePeriod: 60  #吸收雷电力量效果持续多久
 ConstantTemperatureClothes:
   canPlace: false
   isConsume: false
@@ -202,17 +208,17 @@ BlowArrow1:
   canPlace: false
   isConsume: true
   needLevel: 1
-  damage: 40.0
-  range: 0.5
-  maxDist: 300
+  damage: 40.0  #吹箭击中生物伤害
+  range: 0.5  #吹箭击中生物的判定范围
+  maxDist: 300  #吹箭最远距离
 BlowArrow2:
   canPlace: false
   isConsume: true
   needLevel: 1
-  damage: 20.0
+  damage: 20.0  
   range: 0.5
   maxDist: 300
-  firePeriod: 20
+  firePeriod: 20  #火吹箭击中生物着火秒数
 BlowArrow3:
   canPlace: false
   isConsume: true
@@ -220,25 +226,25 @@ BlowArrow3:
   damage: 20.0
   range: 0.5
   maxDist: 300
-  blindPeriod: 60
+  blindPeriod: 60  #麻醉吹箭击中生物黑屏秒数
 BeeMine:
   canPlace: true
   isConsume: false
   needLevel: 1
-  explosionAmount: 3
-  poison: 10
+  explosionAmount: 3  #爆炸规模（不破坏方块）
+  poison: 10  #踩中者中毒效果持续多久
 ToothTrap:
   canPlace: true
   isConsume: false
   needLevel: 1
-  damage: 8.0
-  brokenPercent: 0.2
+  damage: 8.0  #陷阱每次踩中伤害
+  brokenPercent: 0.2  #每次踩中有多大概率陷阱损坏消失
 WeatherPain:
   canPlace: false
   isConsume: false
   needLevel: 1
-  dist: 50.0
-  range: 5.0
+  dist: 50.0   #旋风最远飞距离
+  range: 5.0  #旋风殃及范围
 # 科学类材料####################################################
 Element:
   canPlace: false
@@ -248,12 +254,12 @@ Thermometer:
   canPlace: true
   isConsume: false
   needLevel: 1
-  existPeriod: 10
+  existPeriod: 10  #右击显示的秒数
 Hygrometer:
   canPlace: true
   isConsume: false
   needLevel: 1
-  existPeriod: 10
+  existPeriod: 10  #右击显示的秒数
 LightningArrester:
   canPlace: true
   isConsume: false
@@ -262,24 +268,25 @@ IceFlingomatic:
   canPlace: true
   isConsume: false
   needLevel: 1
-  range: 40
+  range: 40  #监视的范围（此范围内不会闷烧+着火）
 Refridgerator:
   canPlace: true
   isConsume: false
   needLevel: 1
-  fridgeEffecience: 10
+  fridgeEffecience: 10  #冰箱减缓容器内食物腐烂倍率
 ScienceMachine:
   canPlace: true
   isConsume: false
   needLevel: 0
+  provideLevel: 1   #提供一级科学
 # 魔法类材料####################################################
 FireWand:
   canPlace: false
   isConsume: false
   needLevel: 0
-  firePeriod: 60
-  maxDist: 100.0
-  range: 0.3
+  firePeriod: 60  #魔咒击中生物着火秒数
+  maxDist: 100.0  #魔咒最远飞多长
+  range: 0.3  #魔咒击中判定范围
 # 人物类材料####################################################
 Beard:
   canPlace: false
