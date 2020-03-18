@@ -19,6 +19,7 @@ import HamsterYDS.UntilTheEnd.guide.CraftGuide;
 import HamsterYDS.UntilTheEnd.item.ItemManager;
 import HamsterYDS.UntilTheEnd.item.UTEItemStack;
 import HamsterYDS.UntilTheEnd.player.PlayerManager;
+import HamsterYDS.UntilTheEnd.player.PlayerManager.CheckType;
 import HamsterYDS.UntilTheEnd.player.role.Roles;
 import HamsterYDS.UntilTheEnd.world.WorldProvider;
 import HamsterYDS.UntilTheEnd.world.WorldProvider.Season;
@@ -179,6 +180,48 @@ public class UntilTheEndApi {
         
         public static void changeRole(Player player,Roles role) {
         	PlayerManager.changeRole(player,role);
+        }
+        
+        public static String getSanityBar(Player player) {
+        	double san=PlayerManager.check(player,CheckType.SANITY);
+        	double sanMax=PlayerManager.check(player,CheckType.SANMAX);
+        	return getMessageBar(player,san,sanMax,40,"§b","§r","|"); 
+        }
+        
+        public static String getHumidityBar(Player player) {
+        	double hum=PlayerManager.check(player,CheckType.HUMIDITY);
+        	double humMax=100;
+        	return getMessageBar(player,hum,humMax,40,"§a","§r","|"); 
+        }
+        
+        public static String getTemperatureBar(Player player) {
+        	double tem=PlayerManager.check(player,CheckType.TEMPERATURE)+5;
+        	double temMax=80;
+        	return getMessageBar(player,tem,temMax,40,"§c","§r","|"); 
+        }
+        
+        public static String getTirednessBar(Player player) {
+        	double tir=PlayerManager.check(player,CheckType.TIREDNESS);
+        	double tirMax=100;
+        	return getMessageBar(player,tir,tirMax,40,"§d","§r","|"); 
+        }
+        
+        public static String getMessageBar(Player player, double value, double maxValue, int length, String color1, String color2, String unit) {
+        	String bar="";
+        	String newBar=color1;
+        	for(int i=0;i<length;i++) bar+=unit;
+        	boolean flag=true;
+        	if(value==0) newBar+=color2;
+        	for(int i=0;i<bar.length();i++) {
+        		double percent =(double)i/(double)bar.length();
+        		newBar+=bar.charAt(i);
+        		if(percent>=value/maxValue&&flag) {
+        			newBar+=color2;
+        			flag=false;
+        		}
+        	}
+        	newBar+="§r";
+        	return newBar;
         }
     }
 

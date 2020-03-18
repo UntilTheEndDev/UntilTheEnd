@@ -1,7 +1,5 @@
 package HamsterYDS.UntilTheEnd.item.survival;
 
-import java.util.HashMap;
-
 import HamsterYDS.UntilTheEnd.internal.EventHelper;
 import org.bukkit.Location;
 import org.bukkit.Material;
@@ -17,11 +15,6 @@ import HamsterYDS.UntilTheEnd.player.PlayerManager;
 
 public class WaterBalloon implements Listener {
     public WaterBalloon() {
-        HashMap<ItemStack, Integer> materials = new HashMap<ItemStack, Integer>();
-        materials.put(ItemManager.items.get("SpiderGland"), 2);
-        materials.put(ItemManager.items.get("Rope"), 1);
-        materials.put(new ItemStack(Material.WATER_BUCKET), 1);
-        ItemManager.items.get("").registerRecipe(materials, ItemManager.items.get("水球"), "生存");
         ItemManager.plugin.getServer().getPluginManager().registerEvents(this, ItemManager.plugin);
     }
 
@@ -31,13 +24,9 @@ public class WaterBalloon implements Listener {
         if (!player.isSneaking()) return;
         if (!event.hasItem()) return;
         if (!EventHelper.isRight(event.getAction())) return;
-        ItemStack item = event.getItem().clone();
-        if (item == null) return;
-        item.setAmount(1);
-        if (item.equals(ItemManager.items.get("水球"))) {
+        ItemStack item = event.getItem();
+        if (ItemManager.isSimilar(item, getClass())) {
             event.setCancelled(true);
-            ItemStack itemr = event.getItem();
-            itemr.setAmount(itemr.getAmount() - 1);
             PlayerManager.change(player, PlayerManager.CheckType.TEMPERATURE, -10);
             Location loc = player.getLocation();
             for (int x = -3; x <= 3; x++)

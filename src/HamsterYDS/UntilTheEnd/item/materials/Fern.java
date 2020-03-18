@@ -1,9 +1,6 @@
 package HamsterYDS.UntilTheEnd.item.materials;
 
-import java.util.HashMap;
-
 import HamsterYDS.UntilTheEnd.internal.EventHelper;
-import org.bukkit.Material;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
@@ -19,9 +16,6 @@ public class Fern implements Listener {
     public static double heal = ItemManager.itemAttributes.getDouble("Fern.heal");
 
     public Fern() {
-        HashMap<ItemStack, Integer> materials = new HashMap<ItemStack, Integer>();
-        materials.put(new ItemStack(Material.SEEDS), 6);
-        ItemManager.items.get("").registerRecipe(materials, ItemManager.items.get("Fern"), "基础");
         ItemManager.plugin.getServer().getPluginManager().registerEvents(this, ItemManager.plugin);
     }
 
@@ -31,12 +25,8 @@ public class Fern implements Listener {
         if (!player.isSneaking()) return;
         if (!EventHelper.isRight(event.getAction())) return;
         if (!event.hasItem()) return;
-        ItemStack itemClone = event.getItem().clone();
-        if (itemClone == null) return;
-        itemClone.setAmount(1);
-        if (itemClone.equals(ItemManager.items.get("Fern"))) {
-            ItemStack item = event.getItem();
-            item.setAmount(item.getAmount() - 1);
+        ItemStack item = event.getItem();
+        if (ItemManager.isSimilar(item, getClass())) {
             if (player.getHealth() + heal >= player.getMaxHealth()) player.setHealth(player.getMaxHealth());
             else player.setHealth(player.getHealth() + heal);
         }

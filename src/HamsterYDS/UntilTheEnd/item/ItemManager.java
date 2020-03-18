@@ -22,22 +22,13 @@ import HamsterYDS.UntilTheEnd.item.combat.BlowArrow3;
 import HamsterYDS.UntilTheEnd.item.combat.ToothTrap;
 import HamsterYDS.UntilTheEnd.item.combat.WeatherPain;
 import HamsterYDS.UntilTheEnd.item.magic.FireWand;
-import HamsterYDS.UntilTheEnd.item.materials.Brick;
-import HamsterYDS.UntilTheEnd.item.materials.Coin;
 import HamsterYDS.UntilTheEnd.item.materials.Fern;
 import HamsterYDS.UntilTheEnd.item.materials.Hail;
 import HamsterYDS.UntilTheEnd.item.materials.NightMare;
-import HamsterYDS.UntilTheEnd.item.materials.Plank;
-import HamsterYDS.UntilTheEnd.item.materials.PurpleGum;
-import HamsterYDS.UntilTheEnd.item.materials.Reed;
-import HamsterYDS.UntilTheEnd.item.materials.Rope;
-import HamsterYDS.UntilTheEnd.item.science.Detector;
-import HamsterYDS.UntilTheEnd.item.science.Element;
 import HamsterYDS.UntilTheEnd.item.science.Hygrometer;
 import HamsterYDS.UntilTheEnd.item.science.IceFlingomatic;
 import HamsterYDS.UntilTheEnd.item.science.LightningArrester;
 import HamsterYDS.UntilTheEnd.item.science.Refridgerator;
-import HamsterYDS.UntilTheEnd.item.science.ScienceMachine;
 import HamsterYDS.UntilTheEnd.item.science.Thermometer;
 import HamsterYDS.UntilTheEnd.item.survival.ACDDrug;
 import HamsterYDS.UntilTheEnd.item.survival.FlowerUmbrella;
@@ -48,7 +39,6 @@ import HamsterYDS.UntilTheEnd.item.survival.LuxuryFan;
 import HamsterYDS.UntilTheEnd.item.survival.MovablePack;
 import HamsterYDS.UntilTheEnd.item.survival.NormalPack;
 import HamsterYDS.UntilTheEnd.item.survival.PigPack;
-import HamsterYDS.UntilTheEnd.item.survival.Reviver;
 import HamsterYDS.UntilTheEnd.item.survival.SiestaLeanto;
 import HamsterYDS.UntilTheEnd.item.survival.StrawRoll;
 import HamsterYDS.UntilTheEnd.item.survival.Umbrella;
@@ -65,10 +55,11 @@ public class ItemManager {
 	public static HashMap<ItemStack, String> ids = new HashMap<ItemStack, String>();
 	public static HashMap<String, UTEItemStack> items = new HashMap<String, UTEItemStack>();
 	public static HashMap<Integer, String> machines = new HashMap<Integer, String>();
-	public static YamlConfiguration itemSets = Config.autoUpdateConfigs("itemSets.yml");;
-	public static YamlConfiguration itemAttributes = Config.autoUpdateConfigs("itemAttributes.yml");
+	public static YamlConfiguration itemSets = Config.autoUpdateConfigs("itemsets.yml");
+	public static YamlConfiguration itemAttributes = Config.autoUpdateConfigs("itemattributes.yml");
 
 	public ItemManager(UntilTheEnd plugin) {
+		
 		for (String path : itemAttributes.getKeys(false)) {
 			ItemStack item = loadItem(path);
 			if (item == null)
@@ -96,61 +87,51 @@ public class ItemManager {
 				continue;
 			loadRecipe(path);
 		}
-//		new Brick();
-//		new Plank();
-//		new Rope();
-//		new NightMare();
-//		new Coin();
-//		new Fern();
-//		new Hail();
-//		new Reed();
-//
-//		new Sclerite();
-//		new SpiderGland();
-//		new Ashes();
-//		new PurpleGum();
-//
-//		new StrawHat();
-//		new Garland();
-//		new Earmuff();
-//		new BushesHat();
-//		new EyeballUmbrella();
-//		new ConstantTemperatureClothes();
-//		new SwimmingSuit();
-//
-//		new MovablePack();
-//		new NormalPack();
-//		new PigPack();
-//		new Reviver();
-//		new WarmStone();
-//		new Umbrella();
-//		new FlowerUmbrella();
-//		new HealingSalve();
-//		new HoneyPoultice();
-//		new ACDDrug();
-//		new LuxuryFan();
-//		new StrawRoll();
-//		new FurRoll();
-//		new WaterBalloon();
-//		new SiestaLeanto();
-//
-//		new BlowArrow1();
-//		new BlowArrow2();
-//		new BlowArrow3();
-//		new BeeMine();
-//		new ToothTrap();
-//		new WeatherPain();
-//
-//		new Element();
-//		new Thermometer();
-//		new Hygrometer();
-//		new LightningArrester();
-//		new IceFlingomatic();
-//		new Refridgerator();
-//		new Detector();
-//		new ScienceMachine();
-//
-//		new FireWand();
+		new NightMare();
+		new Fern();
+		new Hail();
+
+		new Sclerite();
+		new SpiderGland();
+		new Ashes();
+
+		new StrawHat();
+		new Garland();
+		new Earmuff();
+		new BushesHat();
+		new EyeballUmbrella();
+		new ConstantTemperatureClothes();
+		new SwimmingSuit();
+
+		new MovablePack();
+		new NormalPack();
+		new PigPack();
+		new WarmStone();
+		new Umbrella();
+		new FlowerUmbrella();
+		new HealingSalve();
+		new HoneyPoultice();
+		new ACDDrug();
+		new LuxuryFan();
+		new StrawRoll();
+		new FurRoll();
+		new WaterBalloon();
+		new SiestaLeanto();
+
+		new BlowArrow1();
+		new BlowArrow2();
+		new BlowArrow3();
+		new BeeMine();
+		new ToothTrap();
+		new WeatherPain();
+
+		new Thermometer();
+		new Hygrometer();
+		new LightningArrester();
+		new IceFlingomatic();
+		new Refridgerator();
+
+		new FireWand();
 
 		ItemProvider.loadDrops();
 		plugin.getServer().getPluginManager().registerEvents(new ItemListener(), plugin);
@@ -208,6 +189,7 @@ public class ItemManager {
 		if (item == null)
 			return false;
 		String id = clazz.getSimpleName();
+		if(!items.containsKey(id)) return false;
 		ItemStack uteItem = items.get(id).item;
 		if (item == uteItem)
 			return true;
@@ -226,6 +208,7 @@ public class ItemManager {
 			ItemMeta meta2 = uteItem.getItemMeta();
 			if (Objects.equals(meta.getDisplayName(), meta2.getDisplayName())) {
 				return Objects.equals(meta.getLore(), meta2.getLore());
+				
 			}
 		}
 		return false;

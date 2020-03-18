@@ -43,8 +43,6 @@ public class UTEItemStack {
 		int index=0;
 		for (ItemStack material:craft.keySet()) {
 			int amount = craft.get(material);
-			System.out.println(material);
-			System.out.println(amount);
 			craft.put(material, amount);
 			recipe.addIngredient(amount, material.getType());
 			for (;amount>0;amount--,index++){

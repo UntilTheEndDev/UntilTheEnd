@@ -1,6 +1,5 @@
 package HamsterYDS.UntilTheEnd.item.survival;
 
-import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Set;
 import java.util.UUID;
@@ -25,11 +24,6 @@ import HamsterYDS.UntilTheEnd.player.death.DeathMessage;
 
 public class FurRoll implements Listener {
     public FurRoll() {
-        HashMap<ItemStack, Integer> materials = new HashMap<ItemStack, Integer>();
-        materials.put(ItemManager.items.get("稻草卷"), 1);
-        materials.put(ItemManager.items.get("RabbitFur"), 3);
-        materials.put(ItemManager.items.get("Rope"), 1);
-        ItemManager.items.get("").registerRecipe(materials, ItemManager.items.get("毛皮卷"), "生存");
         ItemManager.plugin.getServer().getPluginManager().registerEvents(this, ItemManager.plugin);
     }
 
@@ -40,10 +34,8 @@ public class FurRoll implements Listener {
         Player player = event.getPlayer();
         if (!EventHelper.isRight(event.getAction())) return;
         if (!event.hasItem()) return;
-        ItemStack item = event.getItem().clone();
-        if (item == null) return;
-        item.setAmount(1);
-        if (item.equals(ItemManager.items.get("毛皮卷"))) {
+        ItemStack item = event.getItem();
+        if (ItemManager.isSimilar(item, getClass())) {
             event.setCancelled(true);
             if (player.getWorld().getEnvironment() != Environment.NORMAL) {
                 player.sendMessage("[§cUntilTheEnd]§r 非主世界不可使用此物品！");

@@ -1,7 +1,5 @@
 package HamsterYDS.UntilTheEnd.item.combat;
 
-import java.util.HashMap;
-
 import HamsterYDS.UntilTheEnd.internal.ArrowManager;
 import HamsterYDS.UntilTheEnd.internal.EventHelper;
 import org.bukkit.Material;
@@ -25,12 +23,6 @@ public class BlowArrow3 implements Listener {
     public static int blindPeriod = ItemManager.itemAttributes.getInt("麻醉吹箭.blindPeriod");
 
     public BlowArrow3() {
-        HashMap<ItemStack, Integer> materials = new HashMap<ItemStack, Integer>();
-        materials.put(ItemManager.items.get("Reed"), 3);
-        materials.put(ItemManager.items.get("DogTooth"), 2);
-        materials.put(ItemManager.items.get("Sclerite"), 2);
-        materials.put(ItemManager.items.get("CatTail"), 1);
-        ItemManager.items.get("").registerRecipe(materials, ItemManager.items.get("麻醉吹箭"), "战斗");
         ItemManager.plugin.getServer().getPluginManager().registerEvents(this, ItemManager.plugin);
     }
 
@@ -42,7 +34,7 @@ public class BlowArrow3 implements Listener {
         if (!event.hasItem()) return;
         if (EventHelper.isRight(event.getAction())) {
             ItemStack item = player.getInventory().getItemInMainHand();
-            if (ItemManager.isSimilar(item, ItemManager.items.get("麻醉吹箭"))) {
+            if (ItemManager.isSimilar(item, getClass())) {
                 event.setCancelled(true);
                 ArrowManager.startFire(le -> {
                             le.damage(damage);

@@ -18,6 +18,7 @@ import HamsterYDS.UntilTheEnd.cap.tem.TemperatureProvider;
 import HamsterYDS.UntilTheEnd.guide.CraftGuide;
 import HamsterYDS.UntilTheEnd.guide.Guide;
 import HamsterYDS.UntilTheEnd.item.ItemManager;
+import HamsterYDS.UntilTheEnd.item.UTEItemStack;
 import HamsterYDS.UntilTheEnd.player.PlayerManager;
 import HamsterYDS.UntilTheEnd.player.role.Roles;
 import HamsterYDS.UntilTheEnd.world.WorldCounter;
@@ -228,17 +229,15 @@ public class Commands implements CommandExecutor, Listener, TabCompleter {
                         return true;
                     }
                     Player givee = Bukkit.getPlayer(playerName);
-                    ItemStack item = ItemManager.items.get(itemName).item;
+                    UTEItemStack uteitem = ItemManager.items.get(itemName);
                     if (givee == null) {
                         cs.sendMessage(UTEi18n.cacheWithPrefix("cmd.not.player"));
                         return true;
                     }
-                    item = item.clone();
+                    ItemStack item = uteitem.item.clone();
                     item.setAmount(amount);
                     givee.getInventory().addItem(item);
-                    String message = UTEi18n.cacheWithPrefix("cmd.give.item");
-                    message = message.replace("{item}", item.getItemMeta().getDisplayName());
-                    message = message.replace("{player}", playerName);
+                    String message = UTEi18n.cacheWithPrefix("cmd.give.item").replace("{item}", uteitem.displayName).replace("{player}", playerName);
                     cs.sendMessage(message);
                 }
                 break;

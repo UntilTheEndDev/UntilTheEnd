@@ -1,7 +1,5 @@
 package HamsterYDS.UntilTheEnd.item.combat;
 
-import java.util.HashMap;
-
 import org.bukkit.GameMode;
 import org.bukkit.Location;
 import org.bukkit.Material;
@@ -23,18 +21,11 @@ import HamsterYDS.UntilTheEnd.player.death.DeathCause;
 import HamsterYDS.UntilTheEnd.player.death.DeathMessage;
 
 public class BeeMine implements Listener {
-	public static float explosionAmount = ItemManager.itemAttributes.getInt("蜜蜂地雷.explosionAmount");
-	public static double poison = ItemManager.itemAttributes.getDouble("蜜蜂地雷.poison");
+	public static float explosionAmount = ItemManager.itemAttributes.getInt("BeeMine.explosionAmount");
+	public static double poison = ItemManager.itemAttributes.getDouble("BeeMine.poison");
 
 	public BeeMine() {
-		HashMap<ItemStack, Integer> materials = new HashMap<ItemStack, Integer>();
-		materials.put(ItemManager.items.get("Plank"), 2);
-		materials.put(new ItemStack(Material.SUGAR), 3);
-		materials.put(new ItemStack(Material.FLINT), 2);
-		materials.put(new ItemStack(Material.GOLD_PLATE), 1);
-		ItemManager.items.get("").registerRecipe(materials, ItemManager.items.get("蜜蜂地雷"), "战斗");
 		ItemManager.plugin.getServer().getPluginManager().registerEvents(this, ItemManager.plugin);
-		ItemManager.canPlaceBlocks.put("BeeMine", ItemManager.items.get("蜜蜂地雷"));
 	}
 
 	@EventHandler

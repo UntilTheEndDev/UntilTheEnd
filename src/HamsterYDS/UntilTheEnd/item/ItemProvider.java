@@ -3,7 +3,7 @@ package HamsterYDS.UntilTheEnd.item;
 import java.io.File;
 import java.util.HashMap;
 import java.util.List;
-a
+
 import org.bukkit.configuration.file.YamlConfiguration;
 import org.bukkit.entity.EntityType;
 

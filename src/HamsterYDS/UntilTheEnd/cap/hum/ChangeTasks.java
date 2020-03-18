@@ -12,7 +12,6 @@ import HamsterYDS.UntilTheEnd.internal.NPCChecker;
 import org.bukkit.Location;
 import org.bukkit.Material;
 import org.bukkit.World;
-import org.bukkit.block.Biome;
 import org.bukkit.block.Block;
 import org.bukkit.entity.Entity;
 import org.bukkit.entity.Player;
@@ -94,10 +93,7 @@ public class ChangeTasks {
                         if (NPCChecker.isNPC(player)) continue;
                         // 莫得雨
                         if (player.getLocation().getBlock().getTemperature() > 1.0
-                                || player.getLocation().getBlock().getBiome() == Biome.SAVANNA
-                                || player.getLocation().getBlock().getBiome() == Biome.SAVANNA_ROCK
-                                || player.getLocation().getBlock().getBiome() == Biome.MUTATED_SAVANNA
-                                || player.getLocation().getBlock().getBiome() == Biome.MUTATED_SAVANNA_ROCK) {
+                                || player.getLocation().getBlock().getBiome().toString().contains("SAVANNA")) {
                             PlayerManager.change(player, PlayerManager.CheckType.HUMIDITY, -1);
                             doTickTem(player);
                             continue;

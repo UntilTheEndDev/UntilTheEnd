@@ -1,8 +1,5 @@
 package HamsterYDS.UntilTheEnd.item.survival;
 
-import java.util.HashMap;
-
-import org.bukkit.Material;
 import org.bukkit.block.Block;
 import org.bukkit.entity.Entity;
 import org.bukkit.entity.EntityType;
@@ -11,7 +8,6 @@ import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.block.Action;
 import org.bukkit.event.player.PlayerInteractEvent;
-import org.bukkit.inventory.ItemStack;
 import org.bukkit.potion.PotionEffect;
 import org.bukkit.potion.PotionEffectType;
 import org.bukkit.scheduler.BukkitRunnable;
@@ -22,15 +18,7 @@ import HamsterYDS.UntilTheEnd.player.PlayerManager;
 
 public class SiestaLeanto implements Listener{
 	public SiestaLeanto() {
-		HashMap<ItemStack,Integer> materials=new HashMap<ItemStack,Integer>();
-		materials.put(ItemManager.items.get("Plank"),4);
-		materials.put(ItemManager.items.get("Rope"),3);
-		materials.put(ItemManager.items.get("毛皮卷"),1);
-		materials.put(new ItemStack(Material.BANNER),1);
-		ItemManager.items.get("").registerRecipe(materials,ItemManager.items.get("简易小木棚"),"生存");
 		ItemManager.plugin.getServer().getPluginManager().registerEvents(this,ItemManager.plugin);
-		
-		ItemManager.canPlaceBlocks.put("SiestaLeanto",ItemManager.items.get("简易小木棚"));
 	}
 	@EventHandler public void onClick(PlayerInteractEvent event) {
 		if(event.isCancelled()) return;

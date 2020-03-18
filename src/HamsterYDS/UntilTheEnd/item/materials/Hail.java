@@ -1,9 +1,6 @@
 package HamsterYDS.UntilTheEnd.item.materials;
 
-import java.util.HashMap;
-
 import HamsterYDS.UntilTheEnd.internal.EventHelper;
-import org.bukkit.Material;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
@@ -20,9 +17,6 @@ public class Hail implements Listener {
     public static int temperatureReduce = ItemManager.itemAttributes.getInt("Hail.temperatureReduce");
 
     public Hail() {
-        HashMap<ItemStack, Integer> materials = new HashMap<ItemStack, Integer>();
-        materials.put(new ItemStack(Material.PACKED_ICE), 1);
-        ItemManager.items.get("").registerRecipe(materials, ItemManager.items.get("Hail"), "基础");
         ItemManager.plugin.getServer().getPluginManager().registerEvents(this, ItemManager.plugin);
     }
 
@@ -32,13 +26,8 @@ public class Hail implements Listener {
         if (!player.isSneaking()) return;
         if (!event.hasItem()) return;
         if (!EventHelper.isRight(event.getAction())) return;
-        ItemStack item = event.getItem().clone();
-        if (item == null) return;
-        item.setAmount(1);
-        if (item.equals(ItemManager.items.get("Hail"))) {
-            ItemStack itemr = event.getItem();
-            itemr.setAmount(itemr.getAmount() - 1);
+        ItemStack item = event.getItem();
+        if (ItemManager.isSimilar(item, getClass())) 
             PlayerManager.change(player, PlayerManager.CheckType.TEMPERATURE, temperatureReduce);
-        }
     }
 }

@@ -1,11 +1,9 @@
 package HamsterYDS.UntilTheEnd.item.survival;
 
-import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Set;
 import java.util.UUID;
 
-import HamsterYDS.UntilTheEnd.internal.EventHelper;
 import org.bukkit.Location;
 import org.bukkit.World.Environment;
 import org.bukkit.entity.Player;
@@ -18,6 +16,7 @@ import org.bukkit.potion.PotionEffectType;
 import org.bukkit.scheduler.BukkitRunnable;
 
 import HamsterYDS.UntilTheEnd.api.UntilTheEndApi.BlockApi;
+import HamsterYDS.UntilTheEnd.internal.EventHelper;
 import HamsterYDS.UntilTheEnd.item.ItemManager;
 import HamsterYDS.UntilTheEnd.player.PlayerManager;
 import HamsterYDS.UntilTheEnd.player.death.DeathCause;
@@ -25,10 +24,6 @@ import HamsterYDS.UntilTheEnd.player.death.DeathMessage;
 
 public class StrawRoll implements Listener {
     public StrawRoll() {
-        HashMap<ItemStack, Integer> materials = new HashMap<ItemStack, Integer>();
-        materials.put(ItemManager.items.get("Reed"), 6);
-        materials.put(ItemManager.items.get("Rope"), 1);
-        ItemManager.items.get("").registerRecipe(materials, ItemManager.items.get("稻草卷"), "生存");
         ItemManager.plugin.getServer().getPluginManager().registerEvents(this, ItemManager.plugin);
     }
 
@@ -39,10 +34,8 @@ public class StrawRoll implements Listener {
         Player player = event.getPlayer();
         if (!EventHelper.isRight(event.getAction())) return;
         if (!event.hasItem()) return;
-        ItemStack item = event.getItem().clone();
-        if (item == null) return;
-        item.setAmount(1);
-        if (item.equals(ItemManager.items.get("稻草卷"))) {
+        ItemStack item = event.getItem();
+        if (ItemManager.isSimilar(item, getClass())) {
             event.setCancelled(true);
             if (player.getWorld().getEnvironment() != Environment.NORMAL) {
                 player.sendMessage("[§cUntilTheEnd]§r 非主世界不可使用此物品！");
@@ -54,8 +47,6 @@ public class StrawRoll implements Listener {
                 player.sendMessage("[§cUntilTheEnd]§r 白天不可使用此物品！");
                 return;
             }
-            ItemStack itemr = event.getItem();
-            itemr.setAmount(itemr.getAmount() - 1);
             Location loc = player.getLocation();
             sleeping.add(player.getUniqueId());
             new BukkitRunnable() {

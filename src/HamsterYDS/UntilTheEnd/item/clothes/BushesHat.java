@@ -1,8 +1,5 @@
 package HamsterYDS.UntilTheEnd.item.clothes;
 
-import java.util.HashMap;
-
-import org.bukkit.Material;
 import org.bukkit.entity.Entity;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
@@ -18,10 +15,6 @@ import HamsterYDS.UntilTheEnd.item.ItemManager;
  */
 public class BushesHat implements Listener {
 	public BushesHat() {
-		HashMap<ItemStack, Integer> materials = new HashMap<ItemStack, Integer>();
-		materials.put(ItemManager.items.get("Rope").item, 2);
-		materials.put(new ItemStack(Material.DEAD_BUSH), 6);
-		ItemManager.items.get("BushesHat").registerRecipe(materials,"衣物");
 		ItemManager.plugin.getServer().getPluginManager().registerEvents(this, ItemManager.plugin);
 	}
 

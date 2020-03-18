@@ -47,6 +47,7 @@ public class UTEi18n {
                         link.appendSlot(Integer.parseInt(s));
                         continue;
                     } catch (Throwable ignore) {
+                    	link.append("{"+s+"}");
                     }
                 }
                 link.addThen(action);

@@ -16,6 +16,7 @@ import org.bukkit.event.inventory.ClickType;
 import org.bukkit.event.inventory.InventoryClickEvent;
 import org.bukkit.event.inventory.InventoryCloseEvent;
 import org.bukkit.event.inventory.InventoryDragEvent;
+import org.bukkit.event.inventory.InventoryMoveItemEvent;
 import org.bukkit.event.inventory.InventoryOpenEvent;
 import org.bukkit.event.player.PlayerJoinEvent;
 import org.bukkit.event.player.PlayerQuitEvent;
@@ -95,6 +96,17 @@ public class CraftGuide implements Listener {
         Inventory inv = event.getInventory();
         if (inv.getHolder() instanceof HolderCraftingHelp) event.setCancelled(true);
     }
+    
+    @EventHandler
+    public void onMove(InventoryMoveItemEvent event) {
+        Inventory inv = event.getDestination();
+        Inventory inv2 = event.getSource();
+        Inventory inv3 = event.getInitiator();
+        if (inv.getHolder() instanceof HolderCraftingHelp) event.setCancelled(true);
+        if (inv2.getHolder() instanceof HolderCraftingHelp) event.setCancelled(true);
+        if (inv3.getHolder() instanceof HolderCraftingHelp) event.setCancelled(true);
+    }
+
 
     @EventHandler
     public void onJoin(PlayerJoinEvent event) {

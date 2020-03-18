@@ -1,635 +1,801 @@
-#举个例子
-#石砖-不可更改：物品内置ID
-石砖:
-  #不可更改
-  ==: org.bukkit.inventory.ItemStack
-  #可以更改：改成你想要的Material的一个，具体Material请看SpigotAPI
+
+# 基础####################################
+Brick:
+  enable: true
   type: STEP
-  #不可更改
-  meta:
-    #不可更改
-    ==: ItemMeta
-    #不可更改
-    meta-type: UNSPECIFIC
-    #不可更改：物品内置ID
-    display-name: §6石砖
-    #可更改：物品lores 可以多行（支持颜色代码）
-    lore:
-      - §8-合成的基础材料
-绳子:
-  ==: org.bukkit.inventory.ItemStack
+  name: §6石砖
+  lores:
+  - §8-合成的基础材料
+  materials:
+  - STONE
+  amounts:
+  - 9
+  category: 基础
+Rope:
+  enable: true
   type: LEASH
-  meta:
-    ==: ItemMeta
-    meta-type: UNSPECIFIC
-    display-name: §6绳子
-    lore:
-      - §8-合成的基础材料
-板条:
-  ==: org.bukkit.inventory.ItemStack
+  name: §6绳子
+  lores:
+  - §8-合成的基础材料
+  materials:
+  - STRING
+  amounts:
+  - 4
+  category: 基础
+Plank:
+  enable: true
   type: WOOD_STEP
-  meta:
-    ==: ItemMeta
-    meta-type: UNSPECIFIC
-    display-name: §6板条
-    lore:
-      - §8-合成的基础材料
-噩梦燃料:
-  ==: org.bukkit.inventory.ItemStack
+  name: §6板条
+  lores:
+  - §8-合成的基础材料
+  materials:
+  - LOG
+  amounts:
+  - 4
+  category: 基础
+NightMare:
+  enable: true
   type: GHAST_TEAR
-  meta:
-    ==: ItemMeta
-    meta-type: UNSPECIFIC
-    display-name: §6噩梦燃料
-    lore:
-      - §8-合成的基础材料
-      - '§8-它.....太疯狂了！'
-      - '§8-影响: §d每分钟玩家理智值减去背包里噩梦燃料的个数'
-金币:
-  ==: org.bukkit.inventory.ItemStack
+  name: §6噩梦燃料
+  lores:
+  - §8-合成的基础材料
+  - §8-它.....太疯狂了！
+  - '§8-影响: §d每分钟玩家理智值减去背包里噩梦燃料的个数'
+  materials:
+  - GHAST_TEAR
+  amounts:
+  - 4
+  category: 基础
+Coin:
+  enable: true
   type: GOLD_NUGGET
-  meta:
-    ==: ItemMeta
-    meta-type: UNSPECIFIC
-    display-name: §6金币
-    lore:
-      - §8-合成的基础材料
+  name: §6金币
+  lores:
+  - §8-合成的基础材料
+  materials:
+  - GOLD_NUGGET
+  amounts:
+  - 8
+  category: 基础
 Fern:
-  ==: org.bukkit.inventory.ItemStack
+  enable: true
   type: LONG_GRASS
-  meta:
-    ==: ItemMeta
-    meta-type: UNSPECIFIC
-    display-name: §6Fern
-    lore:
-      - §8-合成的基础材料
-      - '§8-原生态的食物(＾－＾)V'
-      - '§8-效用: §d拿它蹲下右击可食用并提升0.5血量'
+  name: §6蕨类植物
+  lores:
+  - §8-合成的基础材料
+  - §8-原生态的食物(＾－＾)V
+  - '§8-效用: §d拿它蹲下右击可食用并提升0.5血量'
+  materials:
+  - SEEDS
+  amounts:
+  - 6
+  category: 基础
 Hail:
-  ==: org.bukkit.inventory.ItemStack
+  enable: true
   type: ICE
-  meta:
-    ==: ItemMeta
-    meta-type: UNSPECIFIC
-    display-name: §6Hail
-    lore:
-      - §8-合成的基础材料
-      - '§8-好凉快！'
-      - '§8-效用: §d拿它蹲下右击可降低温度'
+  name: §6冰雹
+  lores:
+  - §8-合成的基础材料
+  - §8-好凉快！
+  - '§8-效用: §d拿它蹲下右击可降低温度'
+  materials:
+  - PACKED_ICE
+  amounts:
+  - 1
+  category: 基础
 Reed:
-  ==: org.bukkit.inventory.ItemStack
+  enable: true
   type: EMPTY_MAP
-  meta:
-    ==: ItemMeta
-    meta-type: UNSPECIFIC
-    display-name: §6Reed
-    lore:
-      - §8-合成的基础材料
-      - '§8-结实不易断'
-CatTail:
-  ==: org.bukkit.inventory.ItemStack
-  type: FEATHER
-  meta:
-    ==: ItemMeta
-    meta-type: UNSPECIFIC
-    display-name: §6CatTail
-    lore:
-      - §8-好软！
-CowHair:
-  ==: org.bukkit.inventory.ItemStack
-  type: QUARTZ
-  meta:
-    ==: ItemMeta
-    meta-type: UNSPECIFIC
-    display-name: §6CowHair
-    lore:
-      - §8-把它拔下来，它们一定很生气吧？
-DogTooth:
-  ==: org.bukkit.inventory.ItemStack
-  type: IRON_NUGGET
-  meta:
-    ==: ItemMeta
-    meta-type: UNSPECIFIC
-    display-name: §6DogTooth
-    lore:
-      - §8-真够锋利的...
-Horn:
-  ==: org.bukkit.inventory.ItemStack
-  type: HOPPER
-  meta:
-    ==: ItemMeta
-    meta-type: UNSPECIFIC
-    display-name: §6Horn
-    lore:
-      - §8-多么优美的形状~
-PigSkin:
-  ==: org.bukkit.inventory.ItemStack
-  type: LEATHER
-  meta:
-    ==: ItemMeta
-    meta-type: UNSPECIFIC
-    display-name: §6PigSkin
-    lore:
-      - §8-其实不是PigSkin啦~只不过跟PigSkin一样厚
-RabbitFur:
-  ==: org.bukkit.inventory.ItemStack
-  type: LEATHER
-  meta:
-    ==: ItemMeta
-    meta-type: UNSPECIFIC
-    display-name: §6RabbitFur
-    lore:
-      - §8-很柔软，可惜太脆弱了！
-Scale:
-  ==: org.bukkit.inventory.ItemStack
-  type: PRISMARINE_CRYSTALS
-  meta:
-    ==: ItemMeta
-    meta-type: UNSPECIFIC
-    display-name: §6Scale
-    lore:
-      - §8-就像甲壳一样硬
-Sclerite:
-  ==: org.bukkit.inventory.ItemStack
-  type: BONE
-  meta:
-    ==: ItemMeta
-    meta-type: UNSPECIFIC
-    display-name: §6Sclerite
-    lore:
-      - §8-很硬，很锋利，差点割破了我的手
-SpiderGland:
-  ==: org.bukkit.inventory.ItemStack
-  type: FERMENTED_SPIDER_EYE
-  meta:
-    ==: ItemMeta
-    meta-type: UNSPECIFIC
-    display-name: §6SpiderGland
-    lore:
-      - §8-用它治疗虽然原始了点但很有效！
-      - '§8-效用: §d拿它蹲下右击可回复两颗心'
-Spit:
-  ==: org.bukkit.inventory.ItemStack
-  type: SUGAR
-  meta:
-    ==: ItemMeta
-    meta-type: UNSPECIFIC
-    display-name: §6Spit
-    lore:
-      - §8-真恶心！
-Gear:
-  ==: org.bukkit.inventory.ItemStack
-  type: DOUBLE_PLANT
-  meta:
-    ==: ItemMeta
-    meta-type: UNSPECIFIC
-    display-name: §6Gear
-    lore:
-      - §8-机油味使我作呕，不过他们很有用...
-Ashes:
-  ==: org.bukkit.inventory.ItemStack
-  type: CLAY_BALL
-  meta:
-    ==: ItemMeta
-    meta-type: UNSPECIFIC
-    display-name: §6Ashes
-    lore:
-      - §8-被燃尽的物品去哪里了呢？
-RedGum:
-  ==: org.bukkit.inventory.ItemStack
-  type: NETHER_STAR
-  meta:
-    ==: ItemMeta
-    meta-type: UNSPECIFIC
-    display-name: §6RedGum
-    lore:
-      - §8-藏匿着热量……
-BlueGum:
-  ==: org.bukkit.inventory.ItemStack
-  type: NETHER_STAR
-  meta:
-    ==: ItemMeta
-    meta-type: UNSPECIFIC
-    display-name: §6BlueGum
-    lore:
-      - §8-冰晶结合体.......
+  name: §6芦苇
+  lores:
+  - §8-合成的基础材料
+  - §8-结实不易断
+  materials:
+  - WHEAT
+  amounts:
+  - 4
+  category: 基础
 PurpleGum:
-  ==: org.bukkit.inventory.ItemStack
+  enable: true
   type: NETHER_STAR
-  meta:
-    ==: ItemMeta
-    meta-type: UNSPECIFIC
-    display-name: §6PurpleGum
-    lore:
-      - §8-千年的闪耀之光......
+  name: §6紫宝石
+  lores:
+  - §8-千年的闪耀之光......
+  materials:
+  - RedGum
+  - BlueGum
+  amounts:
+  - 1
+  - 1
+  category: 基础
+# 简单####################################
+CatTail:
+  enable: true
+  type: FEATHER
+  name: §6猫尾
+  lores:
+  - §8-好软！
+CowHair:
+  enable: true
+  type: QUARTZ
+  name: §6牛毛
+  lores:
+  - §8-把它拔下来，它们一定很生气吧？
+DogTooth:
+  enable: true
+  type: IRON_NUGGET
+  name: §6狗牙
+  lores:
+  - §8-真够锋利的...
+Horn:
+  enable: true
+  type: HOPPER
+  name: §6牛角
+  lores:
+  - §8-多么优美的形状~
+PigSkin:
+  enable: true
+  type: LEATHER
+  name: §6猪皮
+  lores:
+  - §8-其实不是猪皮啦~只不过跟猪皮一样厚
+RabbitFur:
+  enable: true
+  type: LEATHER
+  name: §6兔毛
+  lores:
+  - §8-很柔软，可惜太脆弱了！
+Scale:
+  enable: true
+  type: PRISMARINE_CRYSTALS
+  name: §6鳞片
+  lores:
+  - §8-就像甲壳一样硬
+Sclerite:
+  enable: true
+  type: BONE
+  name: §6骨片
+  lores:
+  - §8-很硬，很锋利，差点割破了我的手
+SpiderGland:
+  enable: true
+  type: FERMENTED_SPIDER_EYE
+  name: §6蜘蛛腺体
+  lores:
+  - §8-用它治疗虽然原始了点但很有效！
+  - '§8-效用: §d拿它蹲下右击可回复两颗心'
+Spit:
+  enable: true
+  type: SUGAR
+  name: §6痰
+  lores:
+  - §8-真恶心！
+Gear:
+  enable: true
+  type: DOUBLE_PLANT
+  name: §6齿轮
+  lores:
+  - §8-机油味使我作呕，不过他们很有用...
+Ashes:
+  enable: true
+  type: CLAY_BALL
+  name: §6灰烬
+  lores:
+  - §8-被燃尽的物品去哪里了呢？
+RedGum:
+  enable: true
+  type: NETHER_STAR
+  name: §6红宝石
+  lores:
+  - §8-藏匿着热量……
+BlueGum:
+  enable: true
+  type: NETHER_STAR
+  name: §6蓝宝石
+  lores:
+  - §8-冰晶结合体.......
 AnimateWood:
-  ==: org.bukkit.inventory.ItemStack
+  enable: true
   type: LOG
-  meta:
-    ==: ItemMeta
-    meta-type: UNSPECIFIC
-    display-name: §6AnimateWood
-    lore:
-      - §8-它是动物吗？
+  name: §6有生命的木头
+  lores:
+  - §8-它是动物吗？
+# 衣物####################################
 BushesHat:
-  ==: org.bukkit.inventory.ItemStack
+  enable: true
   type: GOLD_HELMET
-  meta:
-    ==: ItemMeta
-    meta-type: UNSPECIFIC
-    display-name: §6BushesHat
-    lore:
-      - §8-让我悄悄地靠近你...！
-      - '§8-效用: §d让敌对生物无法检测到你的存在（对已经锁定你的生物无效）'
-兔毛耳罩:
-  ==: org.bukkit.inventory.ItemStack
+  name: §6灌木丛帽子
+  lores:
+  - §8-让我悄悄地靠近你...！
+  - '§8-效用: §d让敌对生物无法检测到你的存在（对已经锁定你的生物无效）'
+  materials:
+  - Rope
+  - DEAD_BUSH
+  amounts:
+  - 2
+  - 6
+  category: 衣物
+Earmuff:
+  enable: true
   type: GOLD_HELMET
-  meta:
-    ==: ItemMeta
-    meta-type: UNSPECIFIC
-    display-name: §6兔毛耳罩
-    lore:
-      - §8-有了它,我终于不用为冻疮而苦恼了！
-      - '§8-效用: §d略微减缓你在小于20度的环境下温度下降的速率'
+  name: §6兔毛耳罩
+  lores:
+  - §8-有了它,我终于不用为冻疮而苦恼了！
+  - '§8-效用: §d略微减缓你在小于20度的环境下温度下降的速率'
+  materials:
+  - RabbitFur
+  - Rope
+  amounts:
+  - 4
+  - 2
+  category: 衣物
 Garland:
-  ==: org.bukkit.inventory.ItemStack
+  enable: true
   type: GOLD_HELMET
-  meta:
-    ==: ItemMeta
-    meta-type: UNSPECIFIC
-    display-name: §6Garland
-    lore:
-      - §8-我喜欢它！
-      - '§8-效用: §d+12理智/分钟'
-草帽:
-  ==: org.bukkit.inventory.ItemStack
+  name: §6花环
+  lores:
+  - §8-我喜欢它！
+  - '§8-效用: §d+12理智/分钟'
+  materials:
+  - YELLOW_FLOWER
+  - CHORUS_FLOWER
+  amounts:
+  - 1
+  - 1
+  category: 衣物
+StrawHat:
+  enable: true
   type: GOLD_HELMET
-  meta:
-    ==: ItemMeta
-    meta-type: UNSPECIFIC
-    display-name: §6草帽
-    lore:
-      - §8-遮挡夏日灼热的阳光！
-      - '§8-效用: §d略微减缓你在大于40度的环境下温度上升的速率'
-眼球伞:
-  ==: org.bukkit.inventory.ItemStack
+  name: §6草帽
+  lores:
+  - §8-遮挡夏日灼热的阳光！
+  - '§8-效用: §d略微减缓你在大于40度的环境下温度上升的速率'
+  materials:
+  - LEAVES
+  - Rope
+  amounts:
+  - 6
+  - 1
+  category: 衣物
+EyeballUmbrella:
+  enable: true
   type: GOLD_HELMET
-  meta:
-    ==: ItemMeta
-    meta-type: UNSPECIFIC
-    display-name: §6眼球伞
-    lore:
-      - §8-可笑的装饰,不过很实用！
-      - '§8-效用: §d下雨天避雨+吸收周围雷电并转化为力量+快速增加理智'
-      - '§8-效用: §d既可以拿在手上也可以戴在头上~'
-恒温服:
-  ==: org.bukkit.inventory.ItemStack
+  name: §6眼球伞
+  lores:
+  - §8-可笑的装饰,不过很实用！
+  - '§8-效用: §d下雨天避雨+吸收周围雷电并转化为力量+快速增加理智'
+  - '§8-效用: §d既可以拿在手上也可以戴在头上~'
+  materials:
+  - Rope
+  - Garland
+  - Spit
+  amounts:
+  - 4
+  - 1
+  - 4
+  category: 衣物
+ConstantTemperatureClothes:
+  enable: true
   type: GOLD_CHESTPLATE
-  meta:
-    ==: ItemMeta
-    meta-type: UNSPECIFIC
-    display-name: §6恒温服
-    lore:
-      - §8-保暖至极
-      - '§8-效用: §d穿上后温度不再随自然环境变化'
-防水服:
-  ==: org.bukkit.inventory.ItemStack
+  name: §6恒温服
+  lores:
+  - §8-保暖至极
+  - '§8-效用: §d穿上后温度不再随自然环境变化'
+  materials:
+  - Rope
+  - Element
+  - Gear
+  - NightMare
+  amounts:
+  - 2
+  - 2
+  - 2
+  - 3
+  category: 衣物
+SwimmingSuit:
+  enable: true
   type: GOLD_CHESTPLATE
-  meta:
-    ==: ItemMeta
-    meta-type: UNSPECIFIC
-    display-name: §6防水服
-    lore:
-      - §8-下水专用
-      - '§8-效用: §d穿上后湿度不再随自然环境变化'
-      
-便携包:
-  ==: org.bukkit.inventory.ItemStack
+  name: §6防水服
+  lores:
+  - §8-下水专用
+  - '§8-效用: §d穿上后湿度不再随自然环境变化'
+  materials:
+  - RabbitFur
+  - Rope
+  - CowHair
+  - Reed
+  amounts:
+  - 1
+  - 3
+  - 2
+  - 3
+  category: 衣物
+# 生存####################################
+MovablePack:
+  enable: true
   type: GOLD_CHESTPLATE
-  meta:
-    ==: ItemMeta
-    meta-type: UNSPECIFIC
-    display-name: §6便携包
-    lore:
-      - §8-保护我的物品！
-      - '§8-效用: §d背包+4格且放置在该格子的物品不会腐烂/被偷走/潮湿'
-背包:
-  ==: org.bukkit.inventory.ItemStack
+  name: §6便携包
+  lores:
+  - §8-保护我的物品！
+  - '§8-效用: §d背包+4格且放置在该格子的物品不会腐烂/被偷走/潮湿'
+  materials:
+  - RabbitFur
+  - NormalPack
+  - CowHair
+  amounts:
+  - 5
+  - 1
+  - 3
+  category: 生存
+NormalPack:
+  enable: true
   type: GOLD_CHESTPLATE
-  meta:
-    ==: ItemMeta
-    meta-type: UNSPECIFIC
-    display-name: §6背包
-    lore:
-      - §8-装更多的东西！
-      - '§8-效用: §d背包+8格但放置在该格子的物品更容易潮湿'
-皮质背包:
-  ==: org.bukkit.inventory.ItemStack
+  name: §6背包
+  lores:
+  - §8-装更多的东西！
+  - '§8-效用: §d背包+8格但放置在该格子的物品更容易潮湿'
+  materials:
+  - CHEST
+  - LOG
+  - Rope
+  amounts:
+  - 1
+  - 4
+  - 4
+  category: 生存
+PigPack:
+  enable: true
   type: GOLD_CHESTPLATE
-  meta:
-    ==: ItemMeta
-    meta-type: UNSPECIFIC
-    display-name: §6皮质背包
-    lore:
-      - §8-空间更大但是更重了！
-      - '§8-效用: §d背包+12格但穿着时减速'
-救赎之心:
-  ==: org.bukkit.inventory.ItemStack
-  type: SKULL_ITEM
-  meta:
-    ==: ItemMeta
-    meta-type: UNSPECIFIC
-    display-name: §6救赎之心
-    lore:
-      - §8-它就像真的一样，跳动着>..
-      - '§8-效用: §d拿它蹲下右击可拯救随机一名已死亡但未自动重生的玩家'
-暖石:
-  ==: org.bukkit.inventory.ItemStack
+  name: §6皮质背包
+  lores:
+  - §8-空间更大但是更重了！
+  - '§8-效用: §d背包+12格但穿着时减速'
+  materials:
+  - PigSkin
+  - SHULKER_SHELL
+  - NormalPack
+  amounts:
+  - 6
+  - 2
+  - 1
+  category: 生存
+WarmStone:
+  enable: true
   type: FLINT
-  meta:
-    ==: ItemMeta
-    meta-type: UNSPECIFIC
-    display-name: §6暖石
-    lore:
-      - §8-便携式空调！
-      - '§8-效果: §d把暖石放入背包,玩家的体表温度将会向着暖石的温度而非环境温度靠近'
-      - '§8-用法: §d发暖石丢到地上一段时间,暖石将会带着该方块的余温'
-探测器:
-  ==: org.bukkit.inventory.ItemStack
-  type: BLAZE_ROD
-  meta:
-    ==: ItemMeta
-    meta-type: UNSPECIFIC
-    display-name: §6探测器
-    lore:
-      - §8-我觉得....我受"他"控制了！
-      - '§8-效用: §d拿着它可以探测自然建筑，同时可能找到改变世界的恶魔零件'
-伞:
-  ==: org.bukkit.inventory.ItemStack
+  name: §6暖石
+  lores:
+  - §8-便携式空调！
+  - '§8-效果: §d把暖石放入背包,玩家的体表温度将会向着暖石的温度而非环境温度靠近'
+  - '§8-用法: §d发暖石丢到地上一段时间,暖石将会带着该方块的余温'
+  materials:
+  - Rope
+  - Brick
+  - FURNACE
+  amounts:
+  - 4
+  - 4
+  - 1
+  category: 生存
+Umbrella:
+  enable: true
   type: SHIELD
-  meta:
-    ==: ItemMeta
-    meta-type: UNSPECIFIC
-    display-name: §6伞
-    lore:
-      - §8-朴素的必要装备，出门的不二之选！
-      - '§8-效用: §d拿在手上可以在下雨天避雨'
-花伞:
-  ==: org.bukkit.inventory.ItemStack
+  name: §6伞
+  lores:
+  - §8-朴素的必要装备，出门的不二之选！
+  - '§8-效用: §d拿在手上可以在下雨天避雨'
+  materials:
+  - PigSkin
+  - Rope
+  - Reed
+  - STRING
+  amounts:
+  - 2
+  - 4
+  - 2
+  - 1
+  category: 生存
+FlowerUmbrella:
+  enable: true
   type: SHIELD
-  meta:
-    ==: ItemMeta
-    meta-type: UNSPECIFIC
-    display-name: §6花伞
-    lore:
-      - §8-真好看！
-      - '§8-效用: §d拿在手上可以在下雨天避雨+增加理智'
-治疗药膏:
-  ==: org.bukkit.inventory.ItemStack
+  name: §6花伞
+  lores:
+  - §8-真好看！
+  - '§8-效用: §d拿在手上可以在下雨天避雨+增加理智'
+  materials:
+  - CatTail
+  - Umbrella
+  - YELLOW_FLOWER
+  - CHORUS_FLOWER
+  amounts:
+  - 1
+  - 1
+  - 2
+  - 2
+  category: 生存
+HealingSalve:
+  enable: true
   type: MILK_BUCKET
-  meta:
-    ==: ItemMeta
-    meta-type: UNSPECIFIC
-    display-name: §6治疗药膏
-    lore:
-      - §8-相比于SpiderGland，用它体面了许多！
-      - '§8-效用: §d拿它蹲下右击可回复五颗心'
-止血剂:
-  ==: org.bukkit.inventory.ItemStack
+  name: §6治疗药膏
+  lores:
+  - §8-相比于蜘蛛腺体，用它体面了许多！
+  - '§8-效用: §d拿它蹲下右击可回复五颗心'
+  materials:
+  - Ashes
+  - BOWL
+  - SpiderGland
+  amounts:
+  - 7
+  - 1
+  - 1
+  category: 生存
+HoneyPoultice:
+  enable: true
   type: DRAGONS_BREATH
-  meta:
-    ==: ItemMeta
-    meta-type: UNSPECIFIC
-    display-name: §6止血剂
-    lore:
-      - §8-我想知道它的原理...
-      - '§8-效用: §d拿它蹲下右击可回复六颗心'
-ACD试验药:
-  ==: org.bukkit.inventory.ItemStack
+  name: §6止血剂
+  lores:
+  - §8-我想知道它的原理...
+  - '§8-效用: §d拿它蹲下右击可回复六颗心'
+  materials:
+  - Ashes
+  - Spit
+  - Reed
+  amounts:
+  - 7
+  - 1
+  - 1
+  category: 生存
+ACDDrug:
+  enable: true
   type: MAGMA_CREAM
-  meta:
-    ==: ItemMeta
-    meta-type: UNSPECIFIC
-    display-name: §6ACD试验药
-    lore:
-      - §8-“该药品为处方药，请在医师指导下使用...”
-      - '§8-效用: §d拿它蹲下右击可增加3颗血量上限(最多20颗)'
-豪华风扇:
-  ==: org.bukkit.inventory.ItemStack
+  name: §6ACD试验药
+  lores:
+  - §8-“该药品为处方药，请在医师指导下使用...”
+  - '§8-效用: §d拿它蹲下右击可增加3颗血量上限(最多20颗)'
+  materials:
+  - BOWL
+  - HealingSalve
+  - HoneyPoultice
+  amounts:
+  - 1
+  - 4
+  - 4
+  category: 生存
+LuxuryFan:
+  enable: true
   type: WOOD_HOE
-  meta:
-    ==: ItemMeta
-    meta-type: UNSPECIFIC
-    display-name: §6豪华风扇
-    lore:
-      - §8-凉快~
-      - '§8-效用: §d拿它蹲下右击可使得周围5*5*5区域的温度降低30度'
-稻草卷:
-  ==: org.bukkit.inventory.ItemStack
-  type: BED
-  meta:
-    ==: ItemMeta
-    meta-type: UNSPECIFIC
-    display-name: §6稻草卷
-    lore:
-      - §8-睡个安稳觉
-      - '§8-效用: §d拿它蹲下右击可进入小憩模式，增加理智、生命'
-      - '§8-效用: §d移动或饱食度为0时结束小憩'
-毛皮卷:
-  ==: org.bukkit.inventory.ItemStack
-  type: BED
-  meta:
-    ==: ItemMeta
-    meta-type: UNSPECIFIC
-    display-name: §6毛皮卷
-    lore:
-      - §8-多睡几个安稳觉
-      - '§8-效用: §d拿它蹲下右击可进入小憩模式，更快增加理智、生命'
-      - '§8-效用: §d移动或饱食度为0时结束小憩，该物品有几率在使用时不消耗'
-水球:
-  ==: org.bukkit.inventory.ItemStack
+  name: §6豪华风扇
+  lores:
+  - §8-凉快~
+  - '§8-效用: §d拿它蹲下右击可使得周围5*5*5区域的温度降低30度'
+  materials:
+  - Rope
+  - CowHair
+  - Reed
+  amounts:
+  - 2
+  - 5
+  - 2
+  category: 生存
+StrawRoll:
+  enable: true
+  type: BED_BLOCK
+  name: §6稻草卷
+  lores:
+  - §8-睡个安稳觉
+  - '§8-效用: §d拿它蹲下右击可进入小憩模式，增加理智、生命'
+  - '§8-效用: §d移动或饱食度为0时结束小憩'
+  materials:
+  - Rope
+  - Reed
+  amounts:
+  - 1
+  - 6
+  category: 生存
+FurRoll:
+  enable: true
+  type: BED_BLOCK
+  name: §6毛皮卷
+  lores:
+  - §8-多睡几个安稳觉
+  - '§8-效用: §d拿它蹲下右击可进入小憩模式，更快增加理智、生命'
+  - '§8-效用: §d移动或饱食度为0时结束小憩，该物品有几率在使用时不消耗'
+  materials:
+  - RabbitFur
+  - Rope
+  - StrawRoll
+  amounts:
+  - 3
+  - 1
+  - 1
+  category: 生存
+WaterBalloon:
+  enable: true
   type: SPLASH_POTION
-  meta:
-    ==: ItemMeta
-    meta-type: UNSPECIFIC
-    display-name: §6水球
-    lore:
-      - §8-妈妈再也不怕我掉岩浆了！
-      - '§8-效用: §d拿它蹲下右击可引爆水球'
-      - '§8-效用: §d大幅度降低温度并熄灭周围的热源，还能吸水~'
-简易小木棚:
-  ==: org.bukkit.inventory.ItemStack
+  name: §6水球
+  lores:
+  - §8-妈妈再也不怕我掉岩浆了！
+  - '§8-效用: §d拿它蹲下右击可引爆水球'
+  - '§8-效用: §d大幅度降低温度并熄灭周围的热源，还能吸水~'
+  materials:
+  - WATER_BUCKET
+  - Rope
+  - SpiderGland
+  amounts:
+  - 1
+  - 1
+  - 2
+  category: 生存
+SiestaLeanto:
+  enable: true
   type: CARPET
-  meta:
-    ==: ItemMeta
-    meta-type: UNSPECIFIC
-    display-name: §6简易小木棚
-    lore:
-      - §8-睡个午觉
-      - '§8-效用: §d将其放置与地面，右击即可小睡一会~'
-      - '§8-效用: §d按Shift即可结束睡眠'
-      - '§8-效用: §d可以使用多次，每次使用有10%消耗掉'
-      - '§8-效用: §d极快增加理智、生命，饥饿掉的较慢'
-
-吹箭:
-  ==: org.bukkit.inventory.ItemStack
+  name: §6简易小木棚
+  lores:
+  - §8-睡个午觉
+  - '§8-效用: §d将其放置与地面，右击即可小睡一会~'
+  - '§8-效用: §d按Shift即可结束睡眠'
+  - '§8-效用: §d可以使用多次，每次使用有10%消耗掉'
+  - '§8-效用: §d极快增加理智、生命，饥饿掉的较慢'
+  materials:
+  - Rope
+  - Plank
+  - BANNER
+  - FurRoll
+  amounts:
+  - 3
+  - 4
+  - 1
+  - 1
+  category: 生存
+# 战斗####################################
+BlowArrow1:
+  enable: true
   type: MAP
-  meta:
-    ==: ItemMeta
-    meta-type: UNSPECIFIC
-    display-name: §6吹箭
-    lore:
-      - §8-看起来好危险哟，里面的?已经蓄势待发了！
-      - '§8-效用: §d拿它蹲下右击可射出一发超高伤害的剑'
-火吹箭:
-  ==: org.bukkit.inventory.ItemStack
+  name: §6吹箭
+  lores:
+  - §8-看起来好危险哟，里面的?已经蓄势待发了！
+  - '§8-效用: §d拿它蹲下右击可射出一发超高伤害的剑'
+  materials:
+  - Scale
+  - Sclerite
+  - Reed
+  - DogTooth
+  amounts:
+  - 1
+  - 2
+  - 3
+  - 2
+  category: 战斗
+BlowArrow2:
+  enable: true
   type: MAP
-  meta:
-    ==: ItemMeta
-    meta-type: UNSPECIFIC
-    display-name: §6火吹箭
-    lore:
-      - §8-浓浓的火药味.
-      - '§8-效用: §d拿它蹲下右击可射出一发较高伤害的剑'
-      - '§8-效用: §d被射中的生物着火很长时间'
-麻醉吹箭:
-  ==: org.bukkit.inventory.ItemStack
+  name: §6火吹箭
+  lores:
+  - §8-浓浓的火药味.
+  - '§8-效用: §d拿它蹲下右击可射出一发较高伤害的剑'
+  - '§8-效用: §d被射中的生物着火很长时间'
+  materials:
+  - Sclerite
+  - Reed
+  - DogTooth
+  - WarmStone
+  amounts:
+  - 2
+  - 3
+  - 2
+  - 1
+  category: 战斗
+BlowArrow3:
+  enable: true
   type: MAP
-  meta:
-    ==: ItemMeta
-    meta-type: UNSPECIFIC
-    display-name: §6麻醉吹箭
-    lore:
-      - §8-这味道让我昏昏欲睡.
-      - '§8-效用: §d拿它蹲下右击可射出一发中等伤害的剑'
-      - '§8-效用: §d被射中的玩家无法看见任何东西很长时间'
-蜜蜂地雷:
-  ==: org.bukkit.inventory.ItemStack
+  name: §6麻醉吹箭
+  lores:
+  - §8-这味道让我昏昏欲睡.
+  - '§8-效用: §d拿它蹲下右击可射出一发中等伤害的剑'
+  - '§8-效用: §d被射中的玩家无法看见任何东西很长时间'
+  materials:
+  - Sclerite
+  - CatTail
+  - Reed
+  - DogTooth
+  amounts:
+  - 2
+  - 1
+  - 3
+  - 2
+  category: 战斗
+BeeMine:
+  enable: true
   type: GOLD_PLATE
-  meta:
-    ==: ItemMeta
-    meta-type: UNSPECIFIC
-    display-name: §6蜜蜂地雷
-    lore:
-      - §8-轻拿轻放.
-      - '§8-效用: §d将其放在地上即可设置地雷'
-      - '§8-效用: §d踩中地雷的生物获得爆炸伤害和中毒效果'
-DogTooth陷阱:
-  ==: org.bukkit.inventory.ItemStack
+  name: §6蜜蜂地雷
+  lores:
+  - §8-轻拿轻放.
+  - '§8-效用: §d将其放在地上即可设置地雷'
+  - '§8-效用: §d踩中地雷的生物获得爆炸伤害和中毒效果'
+  materials:
+  - GOLD_PLATE
+  - FLINT
+  - SUGAR
+  - Plank
+  amounts:
+  - 1
+  - 2
+  - 3
+  - 2
+  category: 战斗
+ToothTrap:
+  enable: true
   type: IRON_PLATE
-  meta:
-    ==: ItemMeta
-    meta-type: UNSPECIFIC
-    display-name: §6DogTooth陷阱
-    lore:
-      - §8-多次使用.
-      - '§8-效用: §d将其放在地上即可设置陷阱'
-      - '§8-效用: §d踩中陷阱的生物获得8点伤害'
-      - '§8-效用: §d陷阱被踩中后会失效，可以右击使其重新布置'
-旋风:
-  ==: org.bukkit.inventory.ItemStack
+  name: §6狗牙陷阱
+  lores:
+  - §8-多次使用.
+  - '§8-效用: §d将其放在地上即可设置陷阱'
+  - '§8-效用: §d踩中陷阱的生物获得8点伤害'
+  - '§8-效用: §d陷阱被踩中后会失效，可以右击使其重新布置'
+  materials:
+  - GOLD_PLATE
+  - LOG
+  - Rope
+  - DogTooth
+  amounts:
+  - 1
+  - 1
+  - 2
+  - 5
+  category: 战斗
+WeatherPain:
+  enable: true
   type: IRON_HOE
-  meta:
-    ==: ItemMeta
-    meta-type: UNSPECIFIC
-    display-name: §6旋风
-    lore:
-      - §8-给爷爪巴.
-      - '§8-效用: §d右击刮出一阵风吹走你视线上的生物'
-
-电器元件:
-  ==: org.bukkit.inventory.ItemStack
+  name: §6旋风
+  lores:
+  - §8-给爷爪巴.
+  - '§8-效用: §d右击刮出一阵风吹走你视线上的生物'
+  materials:
+  - CowHair
+  - Gear
+  - Horn
+  amounts:
+  - 4
+  - 3
+  - 2
+  category: 战斗
+# 科学####################################
+Element:
+  enable: true
   type: GOLD_INGOT
-  meta:
-    ==: ItemMeta
-    meta-type: UNSPECIFIC
-    display-name: §6电器元件
-    lore:
-      - §8-基础的科学类材料
-      - '§8-幸亏我学过物理！'
-温度计:
-  ==: org.bukkit.inventory.ItemStack
+  name: §6电器元件
+  lores:
+  - §8-基础的科学类材料
+  - §8-幸亏我学过物理！
+  materials:
+  - Hail
+  - GOLD_INGOT
+  - Brick
+  amounts:
+  - 1
+  - 2
+  - 6
+  category: 科学
+Thermometer:
+  enable: true
   type: END_ROD
-  meta:
-    ==: ItemMeta
-    meta-type: UNSPECIFIC
-    display-name: §6温度计
-    lore:
-      - §8-尔辈不能究物理
-      - '§8-里面貌似不是汞，不过将就着用吧~'
-湿度计:
-  ==: org.bukkit.inventory.ItemStack
+  name: §6温度计
+  lores:
+  - §8-尔辈不能究物理
+  - §8-里面貌似不是汞，不过将就着用吧~
+  materials:
+  - Element
+  - DIAMOND
+  - Brick
+  amounts:
+  - 3
+  - 2
+  - 4
+  category: 科学
+Hygrometer:
+  enable: true
   type: STAINED_GLASS_PANE
-  meta:
-    ==: ItemMeta
-    meta-type: UNSPECIFIC
-    display-name: §6湿度计
-    lore:
-      - §8-我就来水个经验好上6级-草五叶
-      - '§8-自制天气预报~嘟嘟！'
-避雷针:
-  ==: org.bukkit.inventory.ItemStack
+  name: §6湿度计
+  lores:
+  - §8-我就来水个经验好上6级-草五叶
+  - §8-自制天气预报~嘟嘟！
+  materials:
+  - EMERALD
+  - Element
+  - Brick
+  amounts:
+  - 1
+  - 3
+  - 4
+  category: 科学
+LightningArrester:
+  enable: true
   type: IRON_FENCE
-  meta:
-    ==: ItemMeta
-    meta-type: UNSPECIFIC
-    display-name: §6避雷针
-    lore:
-      - §8-比加速火把还……
-      - '§8-再也不怕雷劈坏家里的东西了！'
-      - '§8-效用: §d自动接受周围20格的雷'
-雪球发射机:
-  ==: org.bukkit.inventory.ItemStack
+  name: §6避雷针
+  lores:
+  - §8-比加速火把还……
+  - §8-再也不怕雷劈坏家里的东西了！
+  - '§8-效用: §d自动接受周围20格的雷'
+  materials:
+  - Element
+  - IRON_INGOT
+  - Brick
+  amounts:
+  - 3
+  - 2
+  - 4
+  category: 科学
+IceFlingomatic:
+  enable: true
   type: REDSTONE_LAMP_OFF
-  meta:
-    ==: ItemMeta
-    meta-type: UNSPECIFIC
-    display-name: §6雪球发射机
-    lore:
-      - §8-AI打雪仗排行榜第一名
-      - '§8-闷烧？没听说过！'
-      - '§8-效用: §d自动熄灭周围20格的闷烧'
-冰箱:
-  ==: org.bukkit.inventory.ItemStack
+  name: §6雪球发射机
+  lores:
+  - §8-AI打雪仗排行榜第一名
+  - §8-闷烧？没听说过！
+  - '§8-效用: §d自动熄灭周围20格的闷烧'
+  materials:
+  - ICE
+  - Element
+  - Gear
+  amounts:
+  - 2
+  - 3
+  - 2
+  category: 科学
+Refridgerator:
+  enable: true
   type: CHEST
-  meta:
-    ==: ItemMeta
-    meta-type: UNSPECIFIC
-    display-name: §6冰箱
-    lore:
-      - §8-好奇心冷死猫
-      - '§8-我自己的食物工厂！'
-      - '§8-效用: §d减缓冰箱内的食物腐烂速率'
-科学机器: 
-  ==: org.bukkit.inventory.ItemStack
+  name: §6冰箱
+  lores:
+  - §8-好奇心冷死猫
+  - §8-我自己的食物工厂！
+  - '§8-效用: §d减缓冰箱内的食物腐烂速率'
+  materials:
+  - Element
+  - Brick
+  - Gear
+  amounts:
+  - 3
+  - 4
+  - 2
+  category: 科学
+ScienceMachine:
+  enable: true
   type: NETHER_FENCE
-  meta:
-    ==: ItemMeta
-    meta-type: UNSPECIFIC
-    display-name: §6科学机器
-    lore:
-      - §8-科技起源
-      - '§8-从这里开始，我想我知道他是怎么运行的'
-      - '§8-效用: §d提供配方与合成'
-
-火魔杖:
-  ==: org.bukkit.inventory.ItemStack
+  name: §6科学机器
+  lores:
+  - §8-科技起源
+  - §8-从这里开始，我想我知道他是怎么运行的
+  - '§8-效用: §d提供配方与合成'
+  materials:
+  - LOG
+  - GOLD_INGOT
+  - OBSIDIAN
+  amounts:
+  - 4
+  - 1
+  - 4
+  category: 科学
+# 魔法####################################
+FireWand:
+  enable: true
   type: WOOD_SPADE
-  meta:
-    ==: ItemMeta
-    meta-type: UNSPECIFIC
-    display-name: §6火魔杖
-    lore:
-      - '§8-蓄势待发'
-      - '§8-效用: §d右击发射包含火的魔法攻击~'
-      
-      
-胡须:
-  ==: org.bukkit.inventory.ItemStack
+  name: §6火魔杖
+  lores:
+  - §8-蓄势待发
+  - '§8-效用: §d右击发射包含火的魔法攻击~'
+  materials:
+  - RedGum
+  - AnimateWood
+  - NightMare
+  amounts:
+  - 3
+  - 3
+  - 1
+  category: 魔法
+# 人物####################################
+Beard:
+  enable: false
   type: STRING
-  meta:
-    ==: ItemMeta
-    meta-type: UNSPECIFIC
-    display-name: §6胡须
-    lore:
-      - '§8-威尔逊的胡须'
+  name: §6胡须
+  lores:
+  - §8-威尔逊的胡须

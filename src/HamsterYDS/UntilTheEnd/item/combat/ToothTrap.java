@@ -3,7 +3,6 @@ package HamsterYDS.UntilTheEnd.item.combat;
 import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.HashMap;
 
 import org.bukkit.GameMode;
 import org.bukkit.Location;
@@ -34,15 +33,7 @@ public class ToothTrap implements Listener{
 	public static ArrayList<String> touched=new ArrayList<String>();
 	public ToothTrap() {
 		loadBlocks();
-		HashMap<ItemStack,Integer> materials=new HashMap<ItemStack,Integer>();
-		materials.put(ItemManager.items.get("Rope"),2);
-		materials.put(ItemManager.items.get("DogTooth"),5);
-		materials.put(new ItemStack(Material.LOG),1);
-		materials.put(new ItemStack(Material.GOLD_PLATE),1);
-		ItemManager.items.get("").registerRecipe(materials,ItemManager.items.get("DogTooth陷阱"),"战斗");
 		ItemManager.plugin.getServer().getPluginManager().registerEvents(this,ItemManager.plugin);
-		
-		ItemManager.canPlaceBlocks.put("ToothTrap",ItemManager.items.get("DogTooth陷阱"));
 	}
 	@EventHandler public void onMove(EntityInteractEvent event) {
 		if(event.isCancelled()) return;

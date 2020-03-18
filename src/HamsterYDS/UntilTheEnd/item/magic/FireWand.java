@@ -23,11 +23,6 @@ public class FireWand implements Listener {
     public static double range = ItemManager.itemAttributes.getDouble("旋风.range");
 
     public FireWand() {
-        HashMap<ItemStack, Integer> materials = new HashMap<ItemStack, Integer>();
-        materials.put(ItemManager.items.get("RedGum"), 3);
-        materials.put(ItemManager.items.get("AnimateWood"), 3);
-        materials.put(ItemManager.items.get("NightMare"), 1);
-        ItemManager.items.get("").registerRecipe(materials, ItemManager.items.get("火魔杖"), "魔法");
         ItemManager.plugin.getServer().getPluginManager().registerEvents(this, ItemManager.plugin);
     }
 
@@ -39,11 +34,8 @@ public class FireWand implements Listener {
         if (!player.isSneaking()) return;
         if (!event.hasItem()) return;
         if (!EventHelper.isRight(event.getAction())) return;
-        ItemStack itemClone = event.getItem().clone();
-        if (itemClone == null) return;
-        itemClone.setAmount(1);
-        itemClone.setDurability((short) 0);
-        if (itemClone.equals(ItemManager.items.get("火魔杖"))) {
+        ItemStack item = event.getItem();
+        if (ItemManager.isSimilar(item, getClass())) {
             event.setCancelled(true);
             if (cd.containsKey(player.getName()))
                 if (cd.get(player.getName()) > 0) {

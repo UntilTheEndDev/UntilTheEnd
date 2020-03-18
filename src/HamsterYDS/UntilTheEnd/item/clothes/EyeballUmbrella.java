@@ -1,7 +1,5 @@
 package HamsterYDS.UntilTheEnd.item.clothes;
 
-import java.util.HashMap;
-
 import org.bukkit.Location;
 import org.bukkit.entity.Entity;
 import org.bukkit.entity.Player;
@@ -20,20 +18,13 @@ import HamsterYDS.UntilTheEnd.item.ItemManager;
  * @version V5.1.1
  */
 public class EyeballUmbrella implements Listener {
-	public static int sanityImprove = ItemManager.itemAttributes.getInt("眼球伞.sanityImprove");
-	public static double range = ItemManager.itemAttributes.getDouble("眼球伞.range");
-	public static int damageIncreasePeriod = ItemManager.itemAttributes.getInt("眼球伞.sdamageIncreasePeriod");
+	public static int sanityImprove = ItemManager.itemAttributes.getInt("EyeballUmbrella.sanityImprove");
+	public static double range = ItemManager.itemAttributes.getDouble("EyeballUmbrella.range");
+	public static int damageIncreasePeriod = ItemManager.itemAttributes.getInt("EyeballUmbrella.sdamageIncreasePeriod");
 
 	public EyeballUmbrella() {
-		HashMap<ItemStack, Integer> materials = new HashMap<ItemStack, Integer>();
-		materials.put(ItemManager.items.get("Rope"), 4);
-		materials.put(ItemManager.items.get("Garland"), 1);
-		materials.put(ItemManager.items.get("Spit"), 4);
-		ItemManager.items.get("").registerRecipe(materials, ItemManager.items.get("眼球伞"), "衣物");
-		ItemManager.plugin.getServer().getPluginManager().registerEvents(this, ItemManager.plugin);
-
-		ChangeTasks.clothesChangeSanity.put("眼球伞", sanityImprove);
-		HamsterYDS.UntilTheEnd.cap.hum.ChangeTasks.umbrellas.add("眼球伞");
+		ChangeTasks.clothesChangeSanity.put("§眼球伞", sanityImprove);
+		HamsterYDS.UntilTheEnd.cap.hum.ChangeTasks.umbrellas.add("§6眼球伞");
 	}
 
 	@EventHandler
@@ -44,9 +35,7 @@ public class EyeballUmbrella implements Listener {
 				continue;
 			Player player = (Player) entity;
 			ItemStack helmet = player.getInventory().getHelmet();
-			if (helmet == null)
-				continue;
-			if (ItemManager.isSimilar(helmet.clone(), ItemManager.items.get("眼球伞"))) {
+			if (ItemManager.isSimilar(helmet,getClass())) {
 				event.setCancelled(true);
 				player.sendMessage("[§cUntilTheEnd]§r 您的眼球伞成功吸引雷电一束！");
 				player.removePotionEffect(PotionEffectType.INCREASE_DAMAGE);

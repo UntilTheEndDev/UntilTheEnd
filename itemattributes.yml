@@ -1,0 +1,248 @@
+
+# 基础类材料################################################
+Brick:
+  canPlace: false
+  isConsume: false
+  needLevel: 1
+Rope:
+  canPlace: false
+  isConsume: false
+  needLevel: 1
+Plank:
+  canPlace: false
+  isConsume: false
+  needLevel: 1
+NightMare:
+  canPlace: false
+  isConsume: false
+  needLevel: 1
+Coin:
+  canPlace: false
+  isConsume: false
+  needLevel: 1
+Fern:
+  canPlace: false
+  isConsume: true
+  needLevel: 1
+Hail:
+  canPlace: false
+  isConsume: true
+  needLevel: 1
+Reed:
+  canPlace: false
+  isConsume: false
+  needLevel: 1
+# 简单类材料####################################################
+CatTail:
+  canPlace: false
+  isConsume: false
+  needLevel: 0
+CowHair:
+  canPlace: false
+  isConsume: false
+  needLevel: 0
+DogTooth:
+  canPlace: false
+  isConsume: false
+  needLevel: 0
+Horn:
+  canPlace: false
+  isConsume: false
+  needLevel: 0
+PigSkin:
+  canPlace: false
+  isConsume: false
+  needLevel: 0
+RabbitFur:
+  canPlace: false
+  isConsume: false
+  needLevel: 0
+Scale:
+  canPlace: false
+  isConsume: false
+  needLevel: 0
+Sclerite:
+  canPlace: false
+  isConsume: true
+  needLevel: 0
+SpiderGland:
+  canPlace: false
+  isConsume: true
+  needLevel: 0
+Spit:
+  canPlace: false
+  isConsume: false
+  needLevel: 0
+Gear:
+  canPlace: false
+  isConsume: false
+  needLevel: 0
+Ashes:
+  canPlace: false
+  isConsume: false
+  needLevel: 0
+RedGum:
+  canPlace: false
+  isConsume: false
+  needLevel: 0
+BlueGum:
+  canPlace: false
+  isConsume: false
+  needLevel: 0
+PurpleGum:
+  canPlace: false
+  isConsume: false
+  needLevel: 0
+AnimateWood:
+  canPlace: false
+  isConsume: false
+  needLevel: 0
+# 衣帽类材料####################################################
+BushesHat:
+  canPlace: false
+  isConsume: false
+  needLevel: 1
+Earmuff:
+  canPlace: false
+  isConsume: false
+  needLevel: 1
+Garland:
+  canPlace: false
+  isConsume: false
+  needLevel: 0
+StrawHat:
+  canPlace: false
+  isConsume: false
+  needLevel: 1
+EyeballUmbrella:
+  canPlace: false
+  isConsume: false
+  needLevel: 1
+ConstantTemperatureClothes:
+  canPlace: false
+  isConsume: false
+  needLevel: 1
+SwimmingSuit:
+  canPlace: false
+  isConsume: false
+  needLevel: 1
+# 生存类材料####################################################
+MovablePack:
+  canPlace: false
+  isConsume: false
+  needLevel: 1
+NormalPack:
+  canPlace: false
+  isConsume: false
+  needLevel: 1
+PigPack:
+  canPlace: false
+  isConsume: false
+  needLevel: 1
+WarmStone:
+  canPlace: false
+  isConsume: false
+  needLevel: 1
+Umbrella:
+  canPlace: false
+  isConsume: false
+  needLevel: 1
+FlowerUmbrella:
+  canPlace: false
+  isConsume: false
+  needLevel: 1
+HealingSalve:
+  canPlace: false
+  isConsume: true
+  needLevel: 1
+HoneyPoultice:
+  canPlace: false
+  isConsume: true
+  needLevel: 1
+ACDDrug:
+  canPlace: false
+  isConsume: true
+  needLevel: 1
+LuxuryFan:
+  canPlace: false
+  isConsume: true
+  needLevel: 1
+StrawRoll:
+  canPlace: false
+  isConsume: false
+  needLevel: 1
+FurRoll:
+  canPlace: false
+  isConsume: false
+  needLevel: 1
+WaterBalloon:
+  canPlace: false
+  isConsume: true
+  needLevel: 1
+SiestaLeanto:
+  canPlace: true
+  isConsume: false
+  needLevel: 1
+# 战斗类材料####################################################
+BlowArrow1:
+  canPlace: false
+  isConsume: true
+  needLevel: 1
+BlowArrow2:
+  canPlace: false
+  isConsume: true
+  needLevel: 1
+BlowArrow3:
+  canPlace: false
+  isConsume: true
+  needLevel: 1
+BeeMine:
+  canPlace: true
+  isConsume: false
+  needLevel: 1
+ToothTrap:
+  canPlace: true
+  isConsume: false
+  needLevel: 1
+WeatherPain:
+  canPlace: false
+  isConsume: false
+  needLevel: 1
+# 科学类材料####################################################
+Element:
+  canPlace: false
+  isConsume: false
+  needLevel: 1
+Thermometer:
+  canPlace: true
+  isConsume: false
+  needLevel: 1
+Hygrometer:
+  canPlace: true
+  isConsume: false
+  needLevel: 1
+LightningArrester:
+  canPlace: true
+  isConsume: false
+  needLevel: 1
+IceFlingomatic:
+  canPlace: true
+  isConsume: false
+  needLevel: 1
+Refridgerator:
+  canPlace: true
+  isConsume: false
+  needLevel: 1
+ScienceMachine:
+  canPlace: true
+  isConsume: false
+  needLevel: 0
+FireWand:
+  canPlace: false
+  isConsume: false
+  needLevel: 0
+# 人物类材料####################################################
+Beard:
+  canPlace: false
+  isConsume: false
+  needLevel: 0

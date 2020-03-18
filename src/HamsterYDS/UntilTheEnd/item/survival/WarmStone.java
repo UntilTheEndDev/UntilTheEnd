@@ -1,9 +1,7 @@
 package HamsterYDS.UntilTheEnd.item.survival;
 
-import java.util.HashMap;
 import java.util.List;
 
-import org.bukkit.Material;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.player.PlayerDropItemEvent;
@@ -20,18 +18,12 @@ import HamsterYDS.UntilTheEnd.item.ItemManager;
  */
 public class WarmStone implements Listener{
 	public WarmStone() {
-		HashMap<ItemStack,Integer> materials=new HashMap<ItemStack,Integer>();
-		materials.put(ItemManager.items.get("Rope"),4);
-		materials.put(ItemManager.items.get("Brick"),4);
-		materials.put(new ItemStack(Material.FURNACE),1);
-		ItemManager.items.get("").registerRecipe(materials,ItemManager.items.get("暖石"),"生存");
 		ItemManager.plugin.getServer().getPluginManager().registerEvents(this,ItemManager.plugin);
 	}
 	@EventHandler public void onThrow(PlayerDropItemEvent event) {
 		ItemStack ritem=event.getItemDrop().getItemStack();
-		ItemStack item=event.getItemDrop().getItemStack().clone();
-		item.setAmount(1);
-		if(item.equals(ItemManager.items.get("暖石"))) {
+		ItemStack item=event.getItemDrop().getItemStack();
+		if (ItemManager.isSimilar(item, getClass())) {
 			ItemMeta meta=item.getItemMeta();
 			List<String> lores=meta.getLore();
 			for(String str:lores) {

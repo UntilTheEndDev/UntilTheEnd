@@ -69,6 +69,14 @@ public class UTEExpansion extends PlaceholderExpansion {
             return String.valueOf(UntilTheEndApi.PlayerApi.getChangingTend(player, "hum"));
         } else if (identifier.equals("tirednesstend")) {
             return String.valueOf(UntilTheEndApi.PlayerApi.getChangingTend(player, "tir"));
+        } else if (identifier.equals("sanitybar")) {
+            return UntilTheEndApi.PlayerApi.getSanityBar(player);
+        } else if (identifier.equals("humiditybar")) {
+            return UntilTheEndApi.PlayerApi.getHumidityBar(player);
+        } else if (identifier.equals("temperaturebar")) {
+            return UntilTheEndApi.PlayerApi.getTemperatureBar(player);
+        } else if (identifier.equals("tirednessbar")) {
+            return UntilTheEndApi.PlayerApi.getTirednessBar(player);
         } else {
         	return identifier;
         }
