@@ -1,57 +1,57 @@
 PIG:
-  dropitem: 
+  dropitems: 
   - PigSkin
-  percent: 
+  percents: 
   - 1.5
 OCELOT:
-  dropitem: 
+  dropitems: 
   - CatTail
-  percent: 
+  percents: 
   - 0.3
 COW:
-  dropitem: 
+  dropitems: 
   - Horn
   - CowHair
-  percent: 
+  percents: 
   - 1.0
   - 1.5
 WOLF:
-  dropitem: 
+  dropitems: 
   - DogTooth
-  percent: 
+  percents: 
   - 2.5
 RABBIT:
-  dropitem: 
+  dropitems: 
   - RabbitFur
-  percent: 
+  percents: 
   - 0.3
 ENDER_DRAGON:
-  dropitem: 
+  dropitems: 
   - Scale
-  percent: 
+  percents: 
   - 15.0
 SKELETON:
-  dropitem: 
+  dropitems: 
   - Sclerite
-  percent: 
+  percents: 
   - 1.2
 SPIDER:
-  dropitem: 
+  dropitems: 
   - SpiderGland
-  percent: 
+  percents: 
   - 0.3
 CAVE_SPIDER:
-  dropitem: 
+  dropitems: 
   - SpiderGland
-  percent: 
+  percents: 
   - 0.3
 LLAMA:
-  dropitem: 
+  dropitems: 
   - Spit
-  percent: 
+  percents: 
   - 0.2
 WITHER_SKELETON:
-  dropitem: 
+  dropitems: 
   - Gear
-  percent: 
+  percents: 
   - 0.2

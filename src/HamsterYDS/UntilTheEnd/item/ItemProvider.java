@@ -22,7 +22,7 @@ public class ItemProvider {
         yaml = YamlConfiguration.loadConfiguration(file);
 
         for (String path : yaml.getKeys(false)) {
-            List<String> items=yaml.getStringList(path+".items");
+            List<String> items=yaml.getStringList(path+".dropitems");
             List<Double> percents=yaml.getDoubleList(path+".percents");
             HashMap<String,Double> drop=new HashMap<String,Double>();
             for(int index=0;index<items.size();index++) {
