@@ -18,9 +18,9 @@ import HamsterYDS.UntilTheEnd.item.ItemManager;
 import HamsterYDS.UntilTheEnd.player.PlayerManager;
 
 public class FireWand implements Listener {
-    public static int firePeriod = ItemManager.itemAttributes.getInt("旋风.firePeriod");
-    public static int maxDist = ItemManager.itemAttributes.getInt("旋风.maxDist");
-    public static double range = ItemManager.itemAttributes.getDouble("旋风.range");
+    public static int firePeriod = ItemManager.itemAttributes.getInt("FireWand.firePeriod");
+    public static int maxDist = ItemManager.itemAttributes.getInt("FireWand.maxDist");
+    public static double range = ItemManager.itemAttributes.getDouble("FireWand.range");
 
     public FireWand() {
         ItemManager.plugin.getServer().getPluginManager().registerEvents(this, ItemManager.plugin);

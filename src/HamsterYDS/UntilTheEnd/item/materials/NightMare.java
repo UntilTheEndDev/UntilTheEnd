@@ -8,7 +8,7 @@ import HamsterYDS.UntilTheEnd.item.ItemManager;
  * @version V5.1.1
  */
 public class NightMare{
-	public static int sanityReduce=ItemManager.itemAttributes.getInt("Hail.sanityReduce");
+	public static int sanityReduce=ItemManager.itemAttributes.getInt("NightMare.sanityReduce");
 	public NightMare() {
 		ChangeTasks.itemsChangeSanity.put("NightMare",sanityReduce);
 	}

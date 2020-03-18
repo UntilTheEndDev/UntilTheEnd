@@ -17,10 +17,10 @@ import HamsterYDS.UntilTheEnd.item.ItemManager;
  * @version V5.1.1
  */
 public class BlowArrow3 implements Listener {
-    public static double damage = ItemManager.itemAttributes.getDouble("麻醉吹箭.damage");
-    public static double range = ItemManager.itemAttributes.getDouble("麻醉吹箭.range");
-    public static int maxDist = ItemManager.itemAttributes.getInt("麻醉吹箭.maxDist");
-    public static int blindPeriod = ItemManager.itemAttributes.getInt("麻醉吹箭.blindPeriod");
+    public static double damage = ItemManager.itemAttributes.getDouble("BlowArrow3.damage");
+    public static double range = ItemManager.itemAttributes.getDouble("BlowArrow3.range");
+    public static int maxDist = ItemManager.itemAttributes.getInt("BlowArrow3.maxDist");
+    public static int blindPeriod = ItemManager.itemAttributes.getInt("BlowArrow3.blindPeriod");
 
     public BlowArrow3() {
         ItemManager.plugin.getServer().getPluginManager().registerEvents(this, ItemManager.plugin);

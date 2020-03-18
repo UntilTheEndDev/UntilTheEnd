@@ -18,8 +18,8 @@ import org.bukkit.util.Vector;
 import HamsterYDS.UntilTheEnd.item.ItemManager;
 
 public class WeatherPain implements Listener {
-    public static int dist = ItemManager.itemAttributes.getInt("旋风.dist");
-    public static double range = ItemManager.itemAttributes.getDouble("旋风.range");
+    public static int dist = ItemManager.itemAttributes.getInt("WeatherPain.dist");
+    public static double range = ItemManager.itemAttributes.getDouble("WeatherPain.range");
 
     public WeatherPain() {
         ItemManager.plugin.getServer().getPluginManager().registerEvents(this, ItemManager.plugin);

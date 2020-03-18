@@ -185,30 +185,33 @@ public class UntilTheEndApi {
         public static String getSanityBar(Player player) {
         	double san=PlayerManager.check(player,CheckType.SANITY);
         	double sanMax=PlayerManager.check(player,CheckType.SANMAX);
-        	return getMessageBar(player,san,sanMax,40,"§b","§r","|"); 
+        	return getMessageBar(player,san,sanMax,HudProvider.yaml.getString("messageBar.sancolor")); 
         }
         
         public static String getHumidityBar(Player player) {
         	double hum=PlayerManager.check(player,CheckType.HUMIDITY);
         	double humMax=100;
-        	return getMessageBar(player,hum,humMax,40,"§a","§r","|"); 
+        	return getMessageBar(player,hum,humMax,HudProvider.yaml.getString("messageBar.humcolor")); 
         }
         
         public static String getTemperatureBar(Player player) {
         	double tem=PlayerManager.check(player,CheckType.TEMPERATURE)+5;
         	double temMax=80;
-        	return getMessageBar(player,tem,temMax,40,"§c","§r","|"); 
+        	return getMessageBar(player,tem,temMax,HudProvider.yaml.getString("messageBar.temcolor")); 
         }
         
         public static String getTirednessBar(Player player) {
         	double tir=PlayerManager.check(player,CheckType.TIREDNESS);
         	double tirMax=100;
-        	return getMessageBar(player,tir,tirMax,40,"§d","§r","|"); 
+        	return getMessageBar(player,tir,tirMax,HudProvider.yaml.getString("messageBar.tircolor")); 
         }
         
-        public static String getMessageBar(Player player, double value, double maxValue, int length, String color1, String color2, String unit) {
+        public static String getMessageBar(Player player, double value, double maxValue, String color1) {
         	String bar="";
         	String newBar=color1;
+        	int length=HudProvider.yaml.getInt("messageBar.length");
+        	String color2=HudProvider.yaml.getString("messageBar.nocolor");
+        	String unit=HudProvider.yaml.getString("messageBar.unit");
         	for(int i=0;i<length;i++) bar+=unit;
         	boolean flag=true;
         	if(value==0) newBar+=color2;

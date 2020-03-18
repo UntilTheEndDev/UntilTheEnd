@@ -26,20 +26,21 @@ seasonColor:
   SUMMER: "§e§l"
   AUTUMN: "§6§l"
   WINTER: "§7§l"
-# 已过时 @Deprecation
-scoreboard:
-  enable: true  #是否开启计分板显示固有属性，支持PAPI其他变量（所有变量都支持））
-  list: #计分板的内容（支持任何PAPI变量）
-    - "§7§l理智值：%ute_sanitycolor%%ute_san%%ute_sanitytend%"
-    - "§7§l温度：%ute_temperaturecolor%%ute_tem%%ute_temperaturetend%"
-    - "§7§l湿度：%ute_humiditycolor%%ute_hum%%ute_humiditytend%"
-    - "§7§l季节：%ute_seasoncolor%%ute_season%"
-    - "§7§l季节天数：%ute_day%"
-  title: "§9§k  §7§lUntilTheEnd§9§k  " #支持PAPI变量
-
+  
 bar:
   #是否开启Boss血量条显示固有属性
   enable: true
+  
+#字符属性条设置
+messageBar:
+  length: 40  #血量条长度
+  sancolor: '§b'  #理智条有颜色的颜色代码
+  humcolor: '§a'  #湿度条有颜色的颜色代码
+  temcolor: '§c'  #温度条有颜色的颜色代码
+  tircolor: '§d'  #疲劳条有颜色的颜色代码
+  
+  nocolor: '§r'  #条没有颜色处的颜色代码
+  unit: '|'  #条中每个字符单位
 
 #HUD多少刻刷新一次
 fresh: 10
