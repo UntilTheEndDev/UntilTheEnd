@@ -40,11 +40,11 @@ public class BlockManager extends BukkitRunnable implements Listener {
             blocks.put(path, yaml.getString(path));
             addBlockData(yaml.getString(path), path);
         }
-        System.out.println(blockDatas);
+        plugin.getLogger().info(String.valueOf(blockDatas));
     }
 
     public static void addBlockData(String blockName, String toString) {
-    	blocks.put(toString, blockName); 
+        blocks.put(toString, blockName);
         ArrayList<String> array;
         if (blockDatas.containsKey(blockName))
             array = blockDatas.get(blockName);
@@ -55,7 +55,7 @@ public class BlockManager extends BukkitRunnable implements Listener {
     }
 
     public static void removeBlockData(String blockName, String toString) {
-    	blocks.remove(toString);
+        blocks.remove(toString);
         ArrayList<String> array;
         if (blockDatas.containsKey(blockName))
             array = blockDatas.get(blockName);
@@ -100,7 +100,7 @@ public class BlockManager extends BukkitRunnable implements Listener {
         event.setDropItems(false);
         loc.getWorld().spawnParticle(Particle.CRIT, loc.add(0.5, 0.5, 0.5), 3);
         HashMap<ItemStack, Integer> craft = ItemManager.items.get(blocks.get(toString)).craft;
-        if (craft != null) 
+        if (craft != null)
             for (ItemStack item : craft.keySet()) {
                 ItemStack itemClone = item.clone();
                 itemClone.setAmount((int) (Math.random() * craft.get(item)));

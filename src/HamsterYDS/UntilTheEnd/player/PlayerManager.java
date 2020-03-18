@@ -2,10 +2,7 @@ package HamsterYDS.UntilTheEnd.player;
 
 import java.io.File;
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.Map;
-import java.util.UUID;
+import java.util.*;
 import java.util.function.*;
 import java.util.logging.Level;
 
@@ -36,13 +33,25 @@ import HamsterYDS.UntilTheEnd.player.role.Roles;
  */
 public class PlayerManager implements Listener {
     public static UntilTheEnd plugin = UntilTheEnd.getInstance();
-    private static HashMap<UUID, IPlayer> players = new HashMap<>();
+    private static HashMap<UUID, IPlayer> players = new HashMap<UUID, IPlayer>() {
+        @Override
+        public IPlayer remove(Object key) {
+            if (UntilTheEnd.DEBUG)
+                plugin.getLogger().log(Level.FINER, null, new Throwable("Player Data Removing! " + key));
+            return super.remove(key);
+        }
+
+        @Override
+        public IPlayer put(UUID key, IPlayer value) {
+            if (UntilTheEnd.DEBUG)
+                plugin.getLogger().log(Level.FINER, null, new Throwable("Player Data Overriding! " + key + " = " + value));
+            return super.put(key, value);
+        }
+    };
     public static final File playerdata = new File(plugin.getDataFolder(), "playerdata");
 
-    public PlayerManager() {
-    }
-
     public PlayerManager(UntilTheEnd plugin) {
+        plugin.getLogger().log(Level.FINER, "Initializing Player Manager.....");
         new SavingTask();
         plugin.getServer().getPluginManager().registerEvents(this, plugin);
         for (Player player : Bukkit.getOnlinePlayers()) {
@@ -104,6 +113,7 @@ public class PlayerManager implements Listener {
     }
 
     public static void load(OfflinePlayer name) {
+        plugin.getLogger().log(Level.FINER, "Loading save for " + name);
         double humidity = 0;
         double temperature = 37;
         double sanity = 200;
@@ -113,7 +123,7 @@ public class PlayerManager implements Listener {
         int sanMax = 200;
         int healthMax = 20;
         double damageLevel = 1;
-        ArrayList<String> unlockedRecipes = new ArrayList<String>();
+        List<String> unlockedRecipes = new ArrayList<>();
 
         try {
             final Map<String, Object> load = PlayerDataLoaderImpl.loader.load(playerdata, name);
@@ -128,7 +138,8 @@ public class PlayerManager implements Listener {
                 sanMax = ((Number) load.getOrDefault("sanMax", role.originSanMax)).intValue();
                 healthMax = ((Number) load.getOrDefault("healthMax", role.originHealthMax)).intValue();
                 damageLevel = ((Number) load.getOrDefault("damageLevel", role.originDamageLevel)).intValue();
-                unlockedRecipes = (ArrayList<String>) (load.getOrDefault("unlockedRecipes", unlockedRecipes));
+                //noinspection unchecked
+                unlockedRecipes = (List<String>) (load.getOrDefault("unlockedRecipes", unlockedRecipes));
             }
         } catch (Throwable exception) {
             plugin.getLogger().log(Level.WARNING, "Failed to load " + name, exception);
@@ -142,6 +153,7 @@ public class PlayerManager implements Listener {
     }
 
     public static void save(OfflinePlayer name) {
+        plugin.getLogger().log(Level.FINER, "Saving save for " + name);
         Map<String, Object> data = new HashMap<>();
         IPlayer player = players.get(name.getUniqueId());
         data.put("humidity", player.humidity);
@@ -172,7 +184,6 @@ public class PlayerManager implements Listener {
         ip.role = newRole;
         ip.roleStats = new IRole(newRole.originLevel, newRole.originSanMax,
                 newRole.originHealthMax, newRole.originDamageLevel);
-        players.remove(player.getUniqueId());
         players.put(player.getUniqueId(), ip);
         save(player);
         player.setMaxHealth(ip.roleStats.healthMax);
@@ -186,17 +197,17 @@ public class PlayerManager implements Listener {
             case HUMIDITY:
                 return 0;
             case SANITY:
-                return ip.roleStats==null?200:ip.roleStats.sanMax;
+                return ip.roleStats == null ? 200 : ip.roleStats.sanMax;
             case TIREDNESS:
                 return 0;
             case DAMAGELEVEL:
-                return ip.roleStats==null?1.0:ip.roleStats.damageLevel;
+                return ip.roleStats == null ? 1.0 : ip.roleStats.damageLevel;
             case HEALTHMAX:
                 return player.getMaxHealth();
             case LEVEL:
-                return ip.roleStats==null?0:ip.roleStats.level;
+                return ip.roleStats == null ? 0 : ip.roleStats.level;
             case SANMAX:
-                return ip.roleStats==null?200:ip.roleStats.sanMax;
+                return ip.roleStats == null ? 200 : ip.roleStats.sanMax;
         }
         return 0;
     }
@@ -235,7 +246,7 @@ public class PlayerManager implements Listener {
         return check(name, CheckType.search(type));
     }
 
-    public static ArrayList<String> checkUnLockedRecipes(Player player) {
+    public static List<String> checkUnLockedRecipes(Player player) {
         return players.get(player.getUniqueId()).unlockedRecipes;
     }
 
@@ -458,9 +469,9 @@ public class PlayerManager implements Listener {
         public double tiredness;
         public IRole roleStats;
         public Roles role;
-        public ArrayList<String> unlockedRecipes;
+        public List<String> unlockedRecipes;
 
-        public IPlayer(double temperature, double humidity, double sanity, double tiredness, ArrayList<String> unlockedRecipes) {
+        public IPlayer(double temperature, double humidity, double sanity, double tiredness, List<String> unlockedRecipes) {
             this.temperature = temperature;
             this.humidity = humidity;
             this.sanity = sanity;

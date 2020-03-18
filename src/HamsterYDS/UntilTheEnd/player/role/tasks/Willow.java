@@ -32,7 +32,7 @@ public class Willow {
                                     Location newLoc = loc.clone().add(x, y, z);
                                     switch (newLoc.getBlock().getType()) {
                                         case FIRE:
-                                            System.out.println("awa");
+                                            UntilTheEnd.getInstance().getLogger().finer("awa");
                                             PlayerManager.change(player, CheckType.SANITY, 1);
                                             break;
                                         case LAVA:

@@ -14,12 +14,14 @@ import HamsterYDS.UntilTheEnd.internal.karlatemp.mxlib.formatter.*;
 import org.bukkit.configuration.ConfigurationSection;
 import org.bukkit.configuration.file.YamlConfiguration;
 
+import java.io.File;
 import java.util.HashMap;
 import java.util.Locale;
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.ConcurrentLinkedQueue;
 import java.util.function.Function;
+import java.util.logging.Level;
 
 public class UTEi18n {
     public static final Map<String, FormatTemplate> templates = new HashMap<>();
@@ -29,7 +31,30 @@ public class UTEi18n {
 
     static {
         PunctuateFormatter pf = new PunctuateFormatter("{", "}");
-        final YamlConfiguration configuration = Config.autoUpdateConfigs(UntilTheEnd.getInstance().getConfig().getString("language"));
+        final YamlConfiguration configuration;
+        {
+            YamlConfiguration temp;
+            String selected = UntilTheEnd.getInstance().getConfig().getString("language", "i18n.zh_cn.yml");
+            UntilTheEnd.getInstance().getLogger().log(Level.INFO, "loading i18n with [" + selected + "]");
+            try {
+                temp = Config.autoUpdateConfigs(selected);
+            } catch (Throwable exception) {
+                UntilTheEnd.getInstance().getLogger().log(Level.WARNING, "Failed to load i18n configuration[" + selected + "], try to load it from default language [i18n.zh_cn.yml].", exception);
+                try {
+                    temp = Config.autoUpdateConfigs("i18n.zh_cn.yml");
+                } catch (Throwable throwable) {
+                    UntilTheEnd.getInstance().getLogger().log(Level.SEVERE, "Failed to load default configuration. Try to override it and reload!");
+                    try {
+                        UntilTheEnd.getInstance().saveResource("i18n.zh_cn.yml", true);
+                        temp = YamlConfiguration.loadConfiguration(new File(UntilTheEnd.getInstance().getDataFolder(), "i18n.zh_cn.yml"));
+                    } catch (Throwable step) {
+                        UntilTheEnd.getInstance().getLogger().log(Level.SEVERE, "FAILED TO LOAD I18N FROM PLUGIN RESOURCE. WAS IT EDITED? NO LANGUAGE SUPPORT!");
+                        temp = new YamlConfiguration();
+                    }
+                }
+            }
+            configuration = temp;
+        }
         for (Map.Entry<String, Object> val : configuration.getValues(true).entrySet()) {
             final Object value = val.getValue();
             if (value instanceof ConfigurationSection) continue;
@@ -47,7 +72,7 @@ public class UTEi18n {
                         link.appendSlot(Integer.parseInt(s));
                         continue;
                     } catch (Throwable ignore) {
-                    	link.append("{"+s+"}");
+                        link.append("{" + s + "}");
                     }
                 }
                 link.addThen(action);

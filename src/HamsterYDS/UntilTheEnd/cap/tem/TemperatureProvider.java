@@ -37,7 +37,7 @@ public class TemperatureProvider {
                 boolean isIncrease = Temperature.yaml.getBoolean(path + ".increase");
                 int temperature = Temperature.yaml.getInt(path + ".temperature");
                 fmBlocks.put(currentMaterial, new FMBlock(newMaterial, temperature, isIncrease));
-                System.out.println(UTEi18n.parse("cap.tem.provider.fmb.rule", path.replace("fmBlocks.", ""), String.valueOf(newMaterial), String.valueOf(temperature)));
+                UntilTheEnd.getInstance().getLogger().info(UTEi18n.parse("cap.tem.provider.fmb.rule", path.replace("fmBlocks.", ""), String.valueOf(newMaterial), String.valueOf(temperature)));
             }
         }
     }
@@ -62,7 +62,7 @@ public class TemperatureProvider {
                 int tem = Temperature.yaml.getInt(path);
                 path = path.replace("blockTemperature.", "");
                 Material material = ItemFactory.valueOf(path);
-                System.out.println(UTEi18n.parse("cap.tem.provider.block.tem.rule", String.valueOf(material), String.valueOf(tem)));
+                UntilTheEnd.getInstance().getLogger().info(UTEi18n.parse("cap.tem.provider.block.tem.rule", String.valueOf(material), String.valueOf(tem)));
                 blockTemperatures.put(material, tem);
             }
         }

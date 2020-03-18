@@ -14,20 +14,19 @@ import HamsterYDS.UntilTheEnd.item.ItemManager;
  * @version V5.1.1
  */
 public class BushesHat implements Listener {
-	public BushesHat() {
-		ItemManager.plugin.getServer().getPluginManager().registerEvents(this, ItemManager.plugin);
-	}
+    public BushesHat() {
+        ItemManager.plugin.getServer().getPluginManager().registerEvents(this, ItemManager.plugin);
+    }
 
-	@EventHandler
-	public void onTarget(EntityTargetEvent event) {
-		if (event.getTarget() instanceof Player) {
-			Player player = (Player) event.getTarget();
-			Entity entity = event.getEntity();
-			ItemStack item = player.getInventory().getHelmet();
-			if (ItemManager.isSimilar(item,getClass()))
-				return;
-			if (event.getReason() == TargetReason.CLOSEST_PLAYER)
-				event.setCancelled(true);
-		}
-	}
+    @EventHandler
+    public void onTarget(EntityTargetEvent event) {
+        if (event.getTarget() instanceof Player) {
+            Player player = (Player) event.getTarget();
+            // Entity entity = event.getEntity();
+            ItemStack item = player.getInventory().getHelmet();
+            if (ItemManager.isSimilar(item, getClass()))
+                if (event.getReason() == TargetReason.CLOSEST_PLAYER)
+                    event.setCancelled(true);
+        }
+    }
 }

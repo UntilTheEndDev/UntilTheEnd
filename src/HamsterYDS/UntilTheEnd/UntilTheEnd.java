@@ -42,6 +42,7 @@ public class UntilTheEnd extends JavaPlugin implements Listener {
     String latestVersion;
     boolean isLatest = true;
     private static UntilTheEnd INSTANCE;
+    public static boolean DEBUG;
 
     public static UntilTheEnd getInstance() {
         return INSTANCE;
@@ -51,33 +52,71 @@ public class UntilTheEnd extends JavaPlugin implements Listener {
         INSTANCE = this;
     }
 
+    private boolean failedLoading;
+
     @Override
     public void onEnable() {
-        int pluginId = 6586;
-        Metrics metrics = new Metrics(this);
-        metrics.addCustomChart(new Metrics.SimplePie("chart_id", () -> "My value"));
-        checkUpdate();
-        loadConfig();
-        new Config(this);
-        new World(this);
-        new Temperature(this);
-        new Sanity(this);
-        new Humidity(this);
-        new Tiredness(this);
-        new Guide(this);
-        new Crops(this);
-        new Block(this);
-        new ItemManager(this);
-        new HamsterYDS.UntilTheEnd.player.Player(this);
-        new HudProvider(this);
-        new Food(this);
-        new Commands(this);
-        new UTEExpansion().register();
-        getLogger().log(Level.INFO, UTEi18n.parse("logging.store.type", PlayerDataLoaderImpl.loader.getClass().getSimpleName(), getConfig().getString("saving")));
+        getLogger().setLevel((DEBUG = getConfig().getBoolean("debug", false)) ? Level.ALL : Level.INFO);
+        if (DEBUG) {
+            String warn = "" +
+                    "#\n" +
+                    "# WARNING     WARNING  #\n" +
+                    "# You are enter the DEBUG mode. UntilTheEnd will output a lot of internal running logs.\n" +
+                    "#\n" +
+                    "# If you do not disable the file system output in Log4j configuration,\n" +
+                    "# it will cause a lot of unnecessary content in the log files.\n" +
+                    "#\n" +
+                    "# If you are not a developer / required to enable DEBUG mode,\n" +
+                    "# disable it in UTE config.\n" +
+                    "#\n" +
+                    "# Copyright (c) 2018-2020 Karlatemp, 2020 南外丶仓鼠, All rights reserved.\n" +
+                    "#\n" +
+                    "#          UTE Developer Team";
+            int start = 0;
+            do {
+                int next = warn.indexOf('\n', start);
+                if (next == -1) {
+                    getLogger().warning(warn.substring(start));
+                    break;
+                } else {
+                    getLogger().warning(warn.substring(start, next));
+                    start = next + 1;
+                }
+            } while (true);
+        }
+        failedLoading = false;
+        try {
+            int pluginId = 6586;
+            Metrics metrics = new Metrics(this);
+            metrics.addCustomChart(new Metrics.SimplePie("chart_id", () -> "My value"));
+            checkUpdate();
+            loadConfig();
+            new Config(this);
+            new World(this);
+            new Temperature(this);
+            new Sanity(this);
+            new Humidity(this);
+            new Tiredness(this);
+            new Guide(this);
+            new Crops(this);
+            new Block(this);
+            new ItemManager(this);
+            new HamsterYDS.UntilTheEnd.player.Player(this);
+            new HudProvider(this);
+            new Food(this);
+            new Commands(this);
+            new UTEExpansion().register();
+            getLogger().log(Level.INFO, UTEi18n.parse("logging.store.type", PlayerDataLoaderImpl.loader.getClass().getSimpleName(), getConfig().getString("saving")));
+        } catch (Throwable throwable) {
+            failedLoading = true;
+            getLogger().log(Level.SEVERE, "Failed to initialize UntilTheEnd!", throwable);
+            getServer().getPluginManager().disablePlugin(this);
+        }
     }
 
     @Override
     public void onDisable() {
+        if (failedLoading) return;
         for (Player player : Bukkit.getOnlinePlayers()) {
             PlayerManager.save(player);
             HudBossBar.release(player.getUniqueId());

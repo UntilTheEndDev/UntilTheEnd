@@ -3,6 +3,7 @@ package HamsterYDS.UntilTheEnd.item;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Objects;
+import java.util.logging.Level;
 
 import HamsterYDS.UntilTheEnd.internal.ItemFactory;
 import HamsterYDS.UntilTheEnd.item.clothes.*;
@@ -51,168 +52,169 @@ import org.bukkit.inventory.meta.ItemMeta;
  * @version V5.1.1
  */
 public class ItemManager {
-	public static UntilTheEnd plugin = UntilTheEnd.getInstance();
-	public static HashMap<String, String> ids = new HashMap<String, String>();
-	public static HashMap<String, UTEItemStack> items = new HashMap<String, UTEItemStack>();
-	public static HashMap<Integer, String> machines = new HashMap<Integer, String>();
-	public static YamlConfiguration itemSets = Config.autoUpdateConfigs("itemsets.yml");
-	public static YamlConfiguration itemAttributes = Config.autoUpdateConfigs("itemattributes.yml");
+    public static UntilTheEnd plugin = UntilTheEnd.getInstance();
+    public static HashMap<String, String> ids = new HashMap<String, String>();
+    public static HashMap<String, UTEItemStack> items = new HashMap<String, UTEItemStack>();
+    public static HashMap<Integer, String> machines = new HashMap<Integer, String>();
+    public static YamlConfiguration itemSets = Config.autoUpdateConfigs("itemsets.yml");
+    public static YamlConfiguration itemAttributes = Config.autoUpdateConfigs("itemattributes.yml");
 
-	public ItemManager(UntilTheEnd plugin) {
-		
-		for (String path : itemAttributes.getKeys(false)) {
-			ItemStack item = loadItem(path);
-			if (item == null)
-				continue;
-			
-			ids.put(item.getItemMeta().getDisplayName(), path);
+    static {
+        plugin.getLogger().log(Level.FINER, "[ItemManager] Pre Initializing ItemManager.");
+        plugin.getLogger().log(Level.FINER, "[ItemManager] Loading Trace Stack: ", new Throwable("Loading Trace Stack"));
+    }
 
-			UTEItemStack uteItem = new UTEItemStack(
-					itemAttributes.getBoolean(path + ".canPlace"),
-					itemAttributes.getBoolean(path + ".isConsume"), 
-					path, 
-					item.getItemMeta().getDisplayName(),
-					itemAttributes.getInt(path + ".needLevel"), 
-					item, new NamespacedKey(plugin, "ute_" + path),
-					item.getItemMeta().getLore());
-			items.put(path, uteItem);
-			
+    public ItemManager(UntilTheEnd plugin) {
 
-			if (itemAttributes.contains(path + ".provideLevel")) {
-				int level = itemAttributes.getInt(path + ".provideLevel");
-				machines.put(level, path);
-			}
-		}
-		for (String path : itemAttributes.getKeys(false)) {
-			if (!itemSets.getBoolean(path + ".enable"))
-				continue;
-			loadRecipe(path);
-		}
-		new NightMare();
-		new Fern();
-		new Hail();
+        for (String path : itemAttributes.getKeys(false)) {
+            ItemStack item = loadItem(path);
+            plugin.getLogger().log(Level.FINER, () -> "Loading PItem[" + path + "] [" + item + "]");
+            if (item == null)
+                continue;
 
-		new Sclerite();
-		new SpiderGland();
-		new Ashes();
+            ids.put(item.getItemMeta().getDisplayName(), path);
 
-		new StrawHat();
-		new Garland();
-		new Earmuff();
-		new BushesHat();
-		new EyeballUmbrella();
-		new ConstantTemperatureClothes();
-		new SwimmingSuit();
+            UTEItemStack uteItem = new UTEItemStack(
+                    itemAttributes.getBoolean(path + ".canPlace"),
+                    itemAttributes.getBoolean(path + ".isConsume"),
+                    path,
+                    item.getItemMeta().getDisplayName(),
+                    itemAttributes.getInt(path + ".needLevel"),
+                    item, new NamespacedKey(plugin, "ute_" + path),
+                    item.getItemMeta().getLore());
+            items.put(path, uteItem);
 
-		new MovablePack();
-		new NormalPack();
-		new PigPack();
-		new WarmStone();
-		new Umbrella();
-		new FlowerUmbrella();
-		new HealingSalve();
-		new HoneyPoultice();
-		new ACDDrug();
-		new LuxuryFan();
-		new StrawRoll();
-		new FurRoll();
-		new WaterBalloon();
-		new SiestaLeanto();
 
-		new BlowArrow1();
-		new BlowArrow2();
-		new BlowArrow3();
-		new BeeMine();
-		new ToothTrap();
-		new WeatherPain();
+            if (itemAttributes.contains(path + ".provideLevel")) {
+                int level = itemAttributes.getInt(path + ".provideLevel");
+                machines.put(level, path);
+            }
+        }
+        for (String path : itemAttributes.getKeys(false)) {
+            if (!itemSets.getBoolean(path + ".enable"))
+                continue;
+            loadRecipe(path);
+        }
+        new NightMare();
+        new Fern();
+        new Hail();
 
-		new Thermometer();
-		new Hygrometer();
-		new LightningArrester();
-		new IceFlingomatic();
-		new Refridgerator();
+        new Sclerite();
+        new SpiderGland();
+        new Ashes();
 
-		new FireWand();
+        new StrawHat();
+        new Garland();
+        new Earmuff();
+        new BushesHat();
+        new EyeballUmbrella();
+        new ConstantTemperatureClothes();
+        new SwimmingSuit();
 
-		ItemProvider.loadDrops();
-		plugin.getServer().getPluginManager().registerEvents(new ItemListener(), plugin);
-	}
+        new MovablePack();
+        new NormalPack();
+        new PigPack();
+        new WarmStone();
+        new Umbrella();
+        new FlowerUmbrella();
+        new HealingSalve();
+        new HoneyPoultice();
+        new ACDDrug();
+        new LuxuryFan();
+        new StrawRoll();
+        new FurRoll();
+        new WaterBalloon();
+        new SiestaLeanto();
 
-	public static ItemStack loadItem(String path) {
-		try {
-			Material material = Material.valueOf(itemSets.getString(path + ".type"));
-			String name = itemSets.getString(path + ".name");
-			List<String> lores = itemSets.getStringList(path + ".lores");
+        new BlowArrow1();
+        new BlowArrow2();
+        new BlowArrow3();
+        new BeeMine();
+        new ToothTrap();
+        new WeatherPain();
 
-			ItemStack item = new ItemStack(material);
-			ItemMeta meta = item.getItemMeta();
-			meta.setDisplayName(name);
-			meta.setLore(lores);
-			item.setItemMeta(meta);
-			return item;
-		} catch (Exception exception) {
-			System.out.println("itemSets.yml下物品" + path + "读取错误，请检查！");
-		}
-		return null;
-	}
+        new Thermometer();
+        new Hygrometer();
+        new LightningArrester();
+        new IceFlingomatic();
+        new Refridgerator();
 
-	public static void loadRecipe(String path) {
-		if(!items.containsKey(path)) return;
-		HashMap<ItemStack, Integer> craft = new HashMap<ItemStack, Integer>();
-		if(!itemSets.contains(path+".materials")) return;
-		List<String> materials = itemSets.getStringList(path + ".materials");
-		List<Integer> amounts = itemSets.getIntegerList(path + ".amounts");
-		for (String str : materials) {
-			int amount = amounts.get(materials.indexOf(str));
-			if(Material.getMaterial(str)!=null) {
-				Material material = Material.valueOf(str);
-				craft.put(new ItemStack(material), amount);
-			} else {
-				try {
-					craft.put(items.get(str).item, amount);
-				} catch (Exception exception2) {
-					System.out.println("itemSets.yml下物品" + path + "的合成读取错误，请检查！");
-				}
-			}
-		}
-		items.get(path).registerRecipe(craft,itemSets.getString(path + ".category"));
-	}
+        new FireWand();
 
-	public static String isUTEItem(ItemStack item) {
-		if(item==null) return "";
-		if(item.hasItemMeta())
-			if(item.getItemMeta().hasDisplayName())
-				if(ids.containsKey(item.getItemMeta().getDisplayName()))
-					return ids.get(item.getItemMeta().getDisplayName());
-		return "";
-	}
-	
-	public static boolean isSimilar(ItemStack item, Class<?> clazz) {
-		if (item == null)
-			return false;
-		String id = clazz.getSimpleName();
-		if(!items.containsKey(id)) return false;
-		ItemStack uteItem = items.get(id).item;
-		if (item == uteItem)
-			return true;
-		if (item == null || uteItem == null)
-			return false;
-		Material m1 = item.getType();
-		Material m2 = uteItem.getType();
-		if (m1 == Material.AIR)
-			m1 = ItemFactory.getType(item);
-		if (m2 == Material.AIR)
-			m2 = ItemFactory.getType(uteItem);
-		if (m1 == Material.AIR || m2 == Material.AIR)
-			return m1 == m2;
-		if (m1 == m2) {
-			ItemMeta meta = item.getItemMeta();
-			ItemMeta meta2 = uteItem.getItemMeta();
-			if (Objects.equals(meta.getDisplayName(), meta2.getDisplayName())) {
-				return Objects.equals(meta.getLore(), meta2.getLore());
-				
-			}
-		}
-		return false;
-	}
+        ItemProvider.loadDrops();
+        plugin.getServer().getPluginManager().registerEvents(new ItemListener(), plugin);
+    }
+
+    public static ItemStack loadItem(String path) {
+        plugin.getLogger().log(Level.FINER, () -> "[ItemManager] Loading item stack [" + path + "]");
+        try {
+            Material material = ItemFactory.valueOf(itemSets.getString(path + ".type"));
+            String name = itemSets.getString(path + ".name");
+            List<String> lores = itemSets.getStringList(path + ".lores");
+
+            ItemStack item = new ItemStack(material);
+            ItemMeta meta = item.getItemMeta();
+            meta.setDisplayName(name);
+            meta.setLore(lores);
+            item.setItemMeta(meta);
+            return item;
+        } catch (Exception exception) {
+            plugin.getLogger().log(Level.SEVERE, "Failed to load [" + path + "] from itemset.yml", exception);
+        }
+        return null;
+    }
+
+    public static void loadRecipe(String path) {
+        if (!items.containsKey(path)) return;
+        HashMap<ItemStack, Integer> craft = new HashMap<ItemStack, Integer>();
+        if (!itemSets.contains(path + ".materials")) return;
+        List<String> materials = itemSets.getStringList(path + ".materials");
+        List<Integer> amounts = itemSets.getIntegerList(path + ".amounts");
+        for (String str : materials) {
+            int amount = amounts.get(materials.indexOf(str));
+            if (Material.getMaterial(str) != null) {
+                Material material = Material.valueOf(str);
+                craft.put(new ItemStack(material), amount);
+            } else {
+                try {
+                    craft.put(items.get(str).item, amount);
+                } catch (Exception exception2) {
+                    plugin.getLogger().log(Level.SEVERE, "Failed to load recipe [" + path + "] from itemsets.yml", exception2);
+                }
+            }
+        }
+        items.get(path).registerRecipe(craft, itemSets.getString(path + ".category"));
+    }
+
+    public static String isUTEItem(ItemStack item) {
+        if (item == null) return "";
+        if (item.hasItemMeta())
+            if (item.getItemMeta().hasDisplayName())
+                if (ids.containsKey(item.getItemMeta().getDisplayName()))
+                    return ids.get(item.getItemMeta().getDisplayName());
+        return "";
+    }
+
+    public static boolean isSimilar(ItemStack item, Class<?> clazz) {
+        if (item == null)
+            return false;
+        String id = clazz.getSimpleName();
+        if (!items.containsKey(id)) return false;
+        ItemStack uteItem = items.get(id).item;
+        if (item == uteItem)
+            return true;
+        if (item == null || uteItem == null)
+            return false;
+        Material m1 = ItemFactory.fromLegacy(ItemFactory.getType(item));
+        Material m2 = ItemFactory.fromLegacy(ItemFactory.getType(uteItem));
+        if (m1 == m2) {
+            ItemMeta meta = item.getItemMeta();
+            ItemMeta meta2 = uteItem.getItemMeta();
+            if (Objects.equals(meta.getDisplayName(), meta2.getDisplayName())) {
+                return Objects.equals(meta.getLore(), meta2.getLore());
+
+            }
+        }
+        return false;
+    }
 }
