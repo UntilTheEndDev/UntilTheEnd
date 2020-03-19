@@ -28,6 +28,7 @@ import HamsterYDS.UntilTheEnd.food.Food;
 import HamsterYDS.UntilTheEnd.guide.Guide;
 import HamsterYDS.UntilTheEnd.internal.pdl.PlayerDataLoaderImpl;
 import HamsterYDS.UntilTheEnd.item.ItemManager;
+import HamsterYDS.UntilTheEnd.nms.NMSManager;
 import HamsterYDS.UntilTheEnd.papi.UTEExpansion;
 import HamsterYDS.UntilTheEnd.player.PlayerManager;
 import HamsterYDS.UntilTheEnd.world.World;
@@ -91,6 +92,7 @@ public class UntilTheEnd extends JavaPlugin implements Listener {
             metrics.addCustomChart(new Metrics.SimplePie("chart_id", () -> "My value"));
             checkUpdate();
             loadConfig();
+            new NMSManager();
             new Config(this);
             new World(this);
             new Temperature(this);
