@@ -3,6 +3,8 @@ package HamsterYDS.UntilTheEnd.cap.san;
 import java.util.HashMap;
 
 import HamsterYDS.UntilTheEnd.internal.NPCChecker;
+
+import org.bukkit.Bukkit;
 import org.bukkit.World;
 import org.bukkit.entity.Entity;
 import org.bukkit.entity.EntityType;
@@ -14,6 +16,8 @@ import org.bukkit.scheduler.BukkitRunnable;
 
 import HamsterYDS.UntilTheEnd.Config;
 import HamsterYDS.UntilTheEnd.UntilTheEnd;
+import HamsterYDS.UntilTheEnd.event.hud.SanityChangeEvent;
+import HamsterYDS.UntilTheEnd.event.hud.SanityChangeEvent.ChangeCause;
 import HamsterYDS.UntilTheEnd.player.PlayerManager;
 
 public class ChangeTasks {
@@ -52,14 +56,23 @@ public class ChangeTasks {
                     String chestplate = getName(inv.getChestplate());
                     String leggings = getName(inv.getLeggings());
                     String boots = getName(inv.getBoots());
-                    if (clothesChangeSanity.containsKey(helmet))
-                        PlayerManager.change(player, PlayerManager.CheckType.SANITY, clothesChangeSanity.get(helmet));
-                    if (clothesChangeSanity.containsKey(chestplate))
-                        PlayerManager.change(player, PlayerManager.CheckType.SANITY, clothesChangeSanity.get(chestplate));
-                    if (clothesChangeSanity.containsKey(leggings))
-                        PlayerManager.change(player, PlayerManager.CheckType.SANITY, clothesChangeSanity.get(leggings));
-                    if (clothesChangeSanity.containsKey(boots))
-                        PlayerManager.change(player, PlayerManager.CheckType.SANITY, clothesChangeSanity.get(boots));
+                    double change=0.0;
+                    if (clothesChangeSanity.containsKey(helmet)){
+                    	change+=clothesChangeSanity.get(helmet);
+                    }
+                    if (clothesChangeSanity.containsKey(chestplate)){
+                    	change+=clothesChangeSanity.get(chestplate);
+                    }
+                    if (clothesChangeSanity.containsKey(leggings)){
+                    	change+=clothesChangeSanity.get(leggings);
+                    }
+                    if (clothesChangeSanity.containsKey(boots)){
+                    	change+=clothesChangeSanity.get(boots);
+                    }
+                    SanityChangeEvent event=new SanityChangeEvent(player,ChangeCause.INVENTORYCLOTHES,change);
+                    Bukkit.getPluginManager().callEvent(event);
+                    if(!event.isCancelled())
+                    	PlayerManager.change(player, PlayerManager.CheckType.SANITY, change);
                 }
             }
         }
@@ -83,8 +96,12 @@ public class ChangeTasks {
                     for (int slot = 0; slot < inv.getSize(); slot++) {
                         ItemStack item = inv.getItem(slot);
                         String itemName = getName(item);
-                        if (itemsChangeSanity.containsKey(itemName))
-                            PlayerManager.change(player, PlayerManager.CheckType.SANITY, item.getAmount() * itemsChangeSanity.get(itemName));
+                        if (itemsChangeSanity.containsKey(itemName)){
+                        	SanityChangeEvent event=new SanityChangeEvent(player,ChangeCause.INVENTORYITEM,item.getAmount() * itemsChangeSanity.get(itemName));
+                            Bukkit.getPluginManager().callEvent(event);
+                            if(!event.isCancelled())
+                            	PlayerManager.change(player, PlayerManager.CheckType.SANITY, item.getAmount() * itemsChangeSanity.get(itemName));
+                        }
                     }
                 }
             }
@@ -107,12 +124,24 @@ public class ChangeTasks {
                     if (!NPCChecker.isNPC(player))
                         for (Entity entity : player.getNearbyEntities(auraRangeX, auraRangeY, auraRangeZ)) {
                             EntityType type = entity.getType();
-                            if (SanityProvider.creatureAura.containsKey(type))
-                                PlayerManager.change(player, PlayerManager.CheckType.SANITY, SanityProvider.creatureAura.get(type));
-                            if (entity instanceof Player)
-                                PlayerManager.change(player, PlayerManager.CheckType.SANITY, playerChangeSanity);
-                            if (entity instanceof Monster)
-                                PlayerManager.change(player, PlayerManager.CheckType.SANITY, monsterChangeSanity);
+                            if (SanityProvider.creatureAura.containsKey(type)){
+                            	SanityChangeEvent event=new SanityChangeEvent(player,ChangeCause.CREATUREAURA,SanityProvider.creatureAura.get(type));
+                                Bukkit.getPluginManager().callEvent(event);
+                                if(!event.isCancelled())
+                                	PlayerManager.change(player, PlayerManager.CheckType.SANITY, SanityProvider.creatureAura.get(type));
+                            }
+                            if (entity instanceof Player){
+                            	SanityChangeEvent event=new SanityChangeEvent(player,ChangeCause.PLAYER,playerChangeSanity);
+                                Bukkit.getPluginManager().callEvent(event);
+                                if(!event.isCancelled())
+                                	PlayerManager.change(player, PlayerManager.CheckType.SANITY, playerChangeSanity);
+                            }
+                            if (entity instanceof Monster){
+                            	SanityChangeEvent event=new SanityChangeEvent(player,ChangeCause.MONSTER,monsterChangeSanity);
+                                Bukkit.getPluginManager().callEvent(event);
+                                if(!event.isCancelled())
+                                	PlayerManager.change(player, PlayerManager.CheckType.SANITY, monsterChangeSanity);
+                            }
                         }
         }
     }

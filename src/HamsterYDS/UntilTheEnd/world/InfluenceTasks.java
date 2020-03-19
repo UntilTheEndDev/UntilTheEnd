@@ -5,6 +5,8 @@ import java.util.HashMap;
 import HamsterYDS.UntilTheEnd.internal.LightingCompensation;
 import HamsterYDS.UntilTheEnd.internal.NPCChecker;
 import HamsterYDS.UntilTheEnd.internal.UTEi18n;
+
+import org.bukkit.Bukkit;
 import org.bukkit.GameMode;
 import org.bukkit.Location;
 import org.bukkit.Material;
@@ -21,6 +23,8 @@ import org.bukkit.scheduler.BukkitRunnable;
 
 import HamsterYDS.UntilTheEnd.Config;
 import HamsterYDS.UntilTheEnd.UntilTheEnd;
+import HamsterYDS.UntilTheEnd.event.hud.SanityChangeEvent;
+import HamsterYDS.UntilTheEnd.event.hud.SanityChangeEvent.ChangeCause;
 import HamsterYDS.UntilTheEnd.player.PlayerManager;
 import HamsterYDS.UntilTheEnd.player.death.DeathCause;
 import HamsterYDS.UntilTheEnd.player.death.DeathMessage;
@@ -135,14 +139,20 @@ public class InfluenceTasks {
                     if (darkness.containsKey(player.getName())) {
                         if (darkness.get(player.getName()) == warn) {
                             player.sendTitle(UTEi18n.cache("mechanism.darkness.who-is-there.main"), UTEi18n.cache("mechanism.darkness.who-is-there.sub"));
-                            PlayerManager.change(player, PlayerManager.CheckType.SANITY, san_warn);
+                            SanityChangeEvent event=new SanityChangeEvent(player,ChangeCause.DARKWARN,san_warn);
+                            Bukkit.getPluginManager().callEvent(event);
+                            if(!event.isCancelled())
+                            	 PlayerManager.change(player, PlayerManager.CheckType.SANITY, san_warn);
                         }
                         if (darkness.get(player.getName()) >= attack) {
                             player.sendTitle(UTEi18n.cache("mechanism.darkness.hurt-me.main"), UTEi18n.cache("mechanism.darkness.hurt-me.sub"));
                             player.damage(damage);
                             if (player.getHealth() <= san_attack)
                                 DeathMessage.causes.put(player.getName(), DeathCause.DARKNESS);
-                            PlayerManager.change(player, PlayerManager.CheckType.SANITY, san_attack);
+                            SanityChangeEvent event=new SanityChangeEvent(player,ChangeCause.DARKATTACK,san_attack);
+                            Bukkit.getPluginManager().callEvent(event);
+                            if(!event.isCancelled())
+                            	 PlayerManager.change(player, PlayerManager.CheckType.SANITY, san_attack);
                         }
                     }
                 }

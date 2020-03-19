@@ -4,6 +4,7 @@ import java.util.HashSet;
 import java.util.Set;
 import java.util.UUID;
 
+import org.bukkit.Bukkit;
 import org.bukkit.Location;
 import org.bukkit.World.Environment;
 import org.bukkit.entity.Player;
@@ -16,6 +17,8 @@ import org.bukkit.potion.PotionEffectType;
 import org.bukkit.scheduler.BukkitRunnable;
 
 import HamsterYDS.UntilTheEnd.api.BlockApi;
+import HamsterYDS.UntilTheEnd.event.hud.SanityChangeEvent;
+import HamsterYDS.UntilTheEnd.event.hud.SanityChangeEvent.ChangeCause;
 import HamsterYDS.UntilTheEnd.internal.EventHelper;
 import HamsterYDS.UntilTheEnd.item.ItemManager;
 import HamsterYDS.UntilTheEnd.player.PlayerManager;
@@ -59,7 +62,10 @@ public class StrawRoll implements Listener {
                     if (Math.random() <= 0.05) {
                         if (player.getHealth() + 1 < player.getMaxHealth())
                             player.setHealth(player.getHealth() + 1);
-                        PlayerManager.change(player, PlayerManager.CheckType.SANITY, 1);
+                        SanityChangeEvent event=new SanityChangeEvent(player,ChangeCause.STRAWROLL,1);
+                        Bukkit.getPluginManager().callEvent(event);
+                        if(!event.isCancelled())
+                        	PlayerManager.change(player, PlayerManager.CheckType.SANITY, 1);
                     }
                     if (Math.random() <= 0.07) {
                         if (player.getFoodLevel() >= 1) player.setFoodLevel(player.getFoodLevel() - 1);

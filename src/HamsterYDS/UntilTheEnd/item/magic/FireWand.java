@@ -2,7 +2,11 @@ package HamsterYDS.UntilTheEnd.item.magic;
 
 import java.util.HashMap;
 
+import HamsterYDS.UntilTheEnd.event.hud.SanityChangeEvent;
+import HamsterYDS.UntilTheEnd.event.hud.SanityChangeEvent.ChangeCause;
 import HamsterYDS.UntilTheEnd.internal.EventHelper;
+
+import org.bukkit.Bukkit;
 import org.bukkit.Location;
 import org.bukkit.Particle;
 import org.bukkit.entity.Entity;
@@ -49,7 +53,10 @@ public class FireWand implements Listener {
                 player.setItemInHand(null);
             Location loc = player.getLocation().add(0.0, 1.0, 0.0);
             Vector vec = player.getEyeLocation().getDirection().multiply(0.5);
-            PlayerManager.change(player, PlayerManager.CheckType.SANITY, -5);
+            SanityChangeEvent event2=new SanityChangeEvent(player,ChangeCause.USEWAND,-5);
+            Bukkit.getPluginManager().callEvent(event2);
+            if(!event2.isCancelled()) 
+            	PlayerManager.change(player, PlayerManager.CheckType.SANITY, -5);
             new BukkitRunnable() {
                 int range = maxDist;
 

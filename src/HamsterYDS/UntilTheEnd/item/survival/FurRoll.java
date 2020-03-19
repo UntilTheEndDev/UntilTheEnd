@@ -5,6 +5,8 @@ import java.util.Set;
 import java.util.UUID;
 
 import HamsterYDS.UntilTheEnd.internal.EventHelper;
+
+import org.bukkit.Bukkit;
 import org.bukkit.Location;
 import org.bukkit.World.Environment;
 import org.bukkit.entity.Player;
@@ -17,6 +19,8 @@ import org.bukkit.potion.PotionEffectType;
 import org.bukkit.scheduler.BukkitRunnable;
 
 import HamsterYDS.UntilTheEnd.api.BlockApi;
+import HamsterYDS.UntilTheEnd.event.hud.SanityChangeEvent;
+import HamsterYDS.UntilTheEnd.event.hud.SanityChangeEvent.ChangeCause;
 import HamsterYDS.UntilTheEnd.item.ItemManager;
 import HamsterYDS.UntilTheEnd.player.PlayerManager;
 import HamsterYDS.UntilTheEnd.player.death.DeathCause;
@@ -63,7 +67,10 @@ public class FurRoll implements Listener {
                     if (Math.random() <= 0.1) {
                         if (player.getHealth() + 1 < player.getMaxHealth())
                             player.setHealth(player.getHealth() + 1);
-                        PlayerManager.change(player, PlayerManager.CheckType.SANITY, 1);
+                        SanityChangeEvent event=new SanityChangeEvent(player,ChangeCause.FURROLL,1);
+                        Bukkit.getPluginManager().callEvent(event);
+                        if(!event.isCancelled())
+                        	PlayerManager.change(player, PlayerManager.CheckType.SANITY, 1);
                     }
                     if (Math.random() <= 0.07) {
                         if (player.getFoodLevel() >= 1) player.setFoodLevel(player.getFoodLevel() - 1);
