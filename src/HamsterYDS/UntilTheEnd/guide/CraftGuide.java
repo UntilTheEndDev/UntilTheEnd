@@ -13,6 +13,7 @@ import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.inventory.ClickType;
+import org.bukkit.event.inventory.InventoryAction;
 import org.bukkit.event.inventory.InventoryClickEvent;
 import org.bukkit.event.inventory.InventoryCloseEvent;
 import org.bukkit.event.inventory.InventoryDragEvent;
@@ -75,7 +76,8 @@ public class CraftGuide implements Listener {
     @EventHandler
     public void onOpen(InventoryOpenEvent event) {
         Inventory inv = event.getInventory();
-        if (inv instanceof HolderCraftingHelp) openers.add(event.getPlayer().getName());
+        if (inv.getHolder() instanceof HolderCraftingHelp) 
+        	openers.add(event.getPlayer().getName());
     }
 
     @EventHandler
@@ -84,8 +86,6 @@ public class CraftGuide implements Listener {
         if (inv.getHolder() instanceof HolderCraftingHelp) {
             ArrayList<Inventory> invs = playerInvs.get(event.getPlayer().getName());
             invs.add(inv);
-            playerInvs.remove(event.getPlayer().getName());
-            playerInvs.put(event.getPlayer().getName(), invs);
             openers.remove(event.getPlayer().getName());
         }
     }
@@ -114,9 +114,13 @@ public class CraftGuide implements Listener {
         Player player = (Player) event.getWhoClicked();
         Inventory inv = event.getClickedInventory();
         if (inv == null) return;
-        if(openers.contains(player.getName())) event.setCancelled(true);
+        if(openers.contains(player.getName())){
+        	if (event.getAction() == InventoryAction.MOVE_TO_OTHER_INVENTORY){
+        		event.setCancelled(true);
+	        	return;
+	        }
+        }
         if (!(inv.getHolder() instanceof HolderCraftingHelp)) return;
-        //TODO
         event.setCancelled(true);
         if (event.getCurrentItem() == null) return;
         ItemStack item = event.getCurrentItem().clone();

@@ -8,7 +8,6 @@ import java.util.logging.Level;
 import HamsterYDS.UntilTheEnd.internal.ItemFactory;
 import HamsterYDS.UntilTheEnd.item.clothes.*;
 import org.bukkit.Material;
-import org.bukkit.NamespacedKey;
 import org.bukkit.configuration.file.YamlConfiguration;
 import org.bukkit.inventory.ItemStack;
 import HamsterYDS.UntilTheEnd.Config;
@@ -80,7 +79,7 @@ public class ItemManager {
                     path,
                     item.getItemMeta().getDisplayName(),
                     itemAttributes.getInt(path + ".needLevel"),
-                    item, new NamespacedKey(plugin, "ute_" + path),
+                    item,
                     item.getItemMeta().getLore());
             items.put(path, uteItem);
 
