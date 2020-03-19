@@ -1,3 +1,7 @@
+enable:
+  smoulder: false #是否开启闷烧
+  fmChange: false #是否开启温度改变方块
+
 #闷烧的几率(大于0小于1)
 smoulderPercent: 0.05
 #闷烧计算的数量(数值越小，闷烧出现越频繁)

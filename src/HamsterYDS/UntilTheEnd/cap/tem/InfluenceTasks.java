@@ -39,9 +39,13 @@ public class InfluenceTasks {
 
     public InfluenceTasks(UntilTheEnd plugin) {
         this.plugin = plugin;
-        new Smoulder().runTaskTimer(plugin, 0L, smoulderSpeed);
+        if(Temperature.yaml.getBoolean("enable.smoulder")){
+        	new Smoulder().runTaskTimer(plugin, 0L, smoulderSpeed);
+        	plugin.getServer().getPluginManager().registerEvents(new Smoulder(),plugin);
+        }
         new Damager().runTaskTimer(plugin, 0L, 20L);
-        new FMChange().runTaskTimer(plugin, 0L, fmChangeSpeed);
+        if(Temperature.yaml.getBoolean("enable.fmChange"))
+        	new FMChange().runTaskTimer(plugin, 0L, fmChangeSpeed);
     }
 
     public class Damager extends BukkitRunnable {
@@ -87,6 +91,7 @@ public class InfluenceTasks {
                                                     TemperatureProvider.getBlockTemperature(loc.add(0, 0, 1)) +
                                                     TemperatureProvider.getBlockTemperature(loc.add(0, 0, -1))
                                     ) / 6.0);
+                                    if(Math.random()<=0.8) continue;
                                     if (fmBlock.upOrDown)
                                         if (tem >= fmBlock.temperature)
                                             loc.getBlock().setType(fmBlock.newMaterial);
@@ -141,7 +146,8 @@ public class InfluenceTasks {
                     int y = (int) (Math.random() * 17 - Math.random() * 17);
                     int z = (int) (Math.random() * 17 - Math.random() * 17);
                     Location loc = playerLoc.add(x, y, z);
-                    if (loc.getBlock() == null) continue;
+                    if (loc.getBlock().getType()==Material.AIR) continue;
+                    if (!loc.getBlock().getType().isFlammable()) continue;
                     int blockTem = (int) TemperatureProvider.getBlockTemperature(loc);
                     if (blockTem >= hotTem && Math.random() <= smoulderPercent) {
                         boolean isPrevented = false;
@@ -172,7 +178,7 @@ public class InfluenceTasks {
                                     smoulderingBlocks.remove(locStr);
                                 }
                             }
-                        }.runTaskTimerAsynchronously(plugin, 0L, 20L);
+                        }.runTaskTimer(plugin, 0L, 20L);
                     }
                 }
             }

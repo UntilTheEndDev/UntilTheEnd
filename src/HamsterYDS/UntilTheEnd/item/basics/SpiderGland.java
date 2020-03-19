@@ -24,8 +24,6 @@ public class SpiderGland implements Listener {
     public void onRight(PlayerInteractEvent event) {
         if (event.isCancelled()) return;
         Player player = event.getPlayer();
-        if (!player.isSneaking())
-            return;
         if (!EventHelper.isRight(event.getAction()))
             return;
         if (!event.hasItem()) return;

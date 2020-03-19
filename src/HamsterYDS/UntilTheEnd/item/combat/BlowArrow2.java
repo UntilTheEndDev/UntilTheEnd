@@ -27,8 +27,6 @@ public class BlowArrow2 implements Listener {
     @EventHandler
     public void onRight(PlayerInteractEvent event) {
         Player player = event.getPlayer();
-        if (!player.isSneaking())
-            return;
         if (EventHelper.isRight(event.getAction())) {
             ItemStack item = player.getInventory().getItemInMainHand();
             if (ItemManager.isSimilar(item, getClass())) {
