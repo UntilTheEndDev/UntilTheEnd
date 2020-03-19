@@ -12,7 +12,7 @@ import org.bukkit.block.Block;
 
 import HamsterYDS.UntilTheEnd.Config;
 import HamsterYDS.UntilTheEnd.UntilTheEnd;
-import HamsterYDS.UntilTheEnd.api.UntilTheEndApi;
+import HamsterYDS.UntilTheEnd.api.WorldApi;
 import HamsterYDS.UntilTheEnd.world.WorldProvider.Season;
 
 public class TemperatureProvider {
@@ -69,8 +69,8 @@ public class TemperatureProvider {
     }
 
     public static int getWorldTemperature(World world) {
-        Season season = UntilTheEndApi.WorldApi.getSeason(world);
-        int day = UntilTheEndApi.WorldApi.getDay(world);
+        Season season = WorldApi.getSeason(world);
+        int day = WorldApi.getDay(world);
         switch (season) {
             case SPRING: {
                 return (int) (Math.random() * (-5) + Math.random() * 5 + 1.5 * day - Math.sqrt(Math.sqrt(Math.sqrt(world.getTime()))));

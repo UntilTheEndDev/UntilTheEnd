@@ -15,7 +15,7 @@ import org.bukkit.potion.PotionEffect;
 import org.bukkit.potion.PotionEffectType;
 import org.bukkit.scheduler.BukkitRunnable;
 
-import HamsterYDS.UntilTheEnd.api.UntilTheEndApi.BlockApi;
+import HamsterYDS.UntilTheEnd.api.BlockApi;
 import HamsterYDS.UntilTheEnd.internal.EventHelper;
 import HamsterYDS.UntilTheEnd.item.ItemManager;
 import HamsterYDS.UntilTheEnd.player.PlayerManager;

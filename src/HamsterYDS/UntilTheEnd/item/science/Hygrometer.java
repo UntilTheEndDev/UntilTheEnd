@@ -12,8 +12,7 @@ import org.bukkit.event.block.Action;
 import org.bukkit.event.player.PlayerInteractEvent;
 import org.bukkit.scheduler.BukkitRunnable;
 
-import HamsterYDS.UntilTheEnd.api.UntilTheEndApi;
-import HamsterYDS.UntilTheEnd.api.UntilTheEndApi.BlockApi;
+import HamsterYDS.UntilTheEnd.api.BlockApi;
 import HamsterYDS.UntilTheEnd.item.ItemManager;
 
 /**
@@ -33,7 +32,7 @@ public class Hygrometer implements Listener{
 		Block block=event.getClickedBlock();
 		Location loc=block.getLocation();
 		String toString=BlockApi.locToStr(loc);
-		if(UntilTheEndApi.BlockApi.getSpecialBlocks("Hygrometer").contains(toString)) {
+		if(BlockApi.getSpecialBlocks("Hygrometer").contains(toString)) {
 			if(clicked.contains(toString)) return;
 			clicked.add(toString);
 			String text="§e§l天气-§d§l"+(loc.getWorld().hasStorm()?"雨雪":"晴天");

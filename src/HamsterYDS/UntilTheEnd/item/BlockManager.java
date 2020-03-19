@@ -1,4 +1,4 @@
-package HamsterYDS.UntilTheEnd.block;
+package HamsterYDS.UntilTheEnd.item;
 
 import java.io.File;
 import java.io.IOException;
@@ -17,8 +17,7 @@ import org.bukkit.inventory.ItemStack;
 import org.bukkit.scheduler.BukkitRunnable;
 
 import HamsterYDS.UntilTheEnd.UntilTheEnd;
-import HamsterYDS.UntilTheEnd.api.UntilTheEndApi.BlockApi;
-import HamsterYDS.UntilTheEnd.item.ItemManager;
+import HamsterYDS.UntilTheEnd.api.BlockApi;
 import HamsterYDS.UntilTheEnd.item.combat.ToothTrap;
 
 /**

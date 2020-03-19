@@ -5,8 +5,7 @@ import org.bukkit.Particle;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.block.BlockIgniteEvent;
-import HamsterYDS.UntilTheEnd.api.UntilTheEndApi;
-import HamsterYDS.UntilTheEnd.api.UntilTheEndApi.BlockApi;
+import HamsterYDS.UntilTheEnd.api.BlockApi;
 import HamsterYDS.UntilTheEnd.item.ItemManager;
 
 /**
@@ -20,7 +19,7 @@ public class IceFlingomatic implements Listener{
 	}
 	@EventHandler public void onBurn(BlockIgniteEvent event) {
 		if(event.isCancelled()) return;
-		for(String str:UntilTheEndApi.BlockApi.getSpecialBlocks("IceFlingomatic")) {
+		for(String str:BlockApi.getSpecialBlocks("IceFlingomatic")) {
 			Location loc=BlockApi.strToLoc(str);
 			Location loc2=event.getBlock().getLocation();
 			if(loc.distance(loc2)<=range) {

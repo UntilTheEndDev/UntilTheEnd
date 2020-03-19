@@ -5,8 +5,7 @@ import org.bukkit.Particle;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.weather.LightningStrikeEvent;
-import HamsterYDS.UntilTheEnd.api.UntilTheEndApi;
-import HamsterYDS.UntilTheEnd.api.UntilTheEndApi.BlockApi;
+import HamsterYDS.UntilTheEnd.api.BlockApi;
 import HamsterYDS.UntilTheEnd.item.ItemManager;
 
 /**
@@ -19,7 +18,7 @@ public class LightningArrester implements Listener{
 	}
 	@EventHandler public void onLight(LightningStrikeEvent event) {
 		Location loc=event.getLightning().getLocation();
-		for(String str:UntilTheEndApi.BlockApi.getSpecialBlocks("LightningArrester")) {
+		for(String str:BlockApi.getSpecialBlocks("LightningArrester")) {
 			Location loc2=BlockApi.strToLoc(str);
 			if(loc.distance(loc2)<=20) {
 				event.setCancelled(true);

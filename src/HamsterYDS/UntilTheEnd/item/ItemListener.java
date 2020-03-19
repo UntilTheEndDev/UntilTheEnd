@@ -4,7 +4,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
-import HamsterYDS.UntilTheEnd.api.UntilTheEndApi.BlockApi;
+import HamsterYDS.UntilTheEnd.api.BlockApi;
 import HamsterYDS.UntilTheEnd.internal.EventHelper;
 import HamsterYDS.UntilTheEnd.internal.UTEi18n;
 import HamsterYDS.UntilTheEnd.player.PlayerManager;

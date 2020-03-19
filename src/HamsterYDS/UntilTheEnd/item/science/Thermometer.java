@@ -1,6 +1,7 @@
 package HamsterYDS.UntilTheEnd.item.science;
 
 import java.util.ArrayList;
+
 import org.bukkit.Location;
 import org.bukkit.block.Block;
 import org.bukkit.entity.ArmorStand;
@@ -12,8 +13,7 @@ import org.bukkit.event.block.Action;
 import org.bukkit.event.player.PlayerInteractEvent;
 import org.bukkit.scheduler.BukkitRunnable;
 
-import HamsterYDS.UntilTheEnd.api.UntilTheEndApi;
-import HamsterYDS.UntilTheEnd.api.UntilTheEndApi.BlockApi;
+import HamsterYDS.UntilTheEnd.api.BlockApi;
 import HamsterYDS.UntilTheEnd.cap.tem.TemperatureProvider;
 import HamsterYDS.UntilTheEnd.item.ItemManager;
 
@@ -34,7 +34,7 @@ public class Thermometer implements Listener{
 		Block block=event.getClickedBlock();
 		Location loc=block.getLocation();
 		String toString=BlockApi.locToStr(loc);
-		if(UntilTheEndApi.BlockApi.getSpecialBlocks("Thermometer").contains(toString)) {
+		if(BlockApi.getSpecialBlocks("Thermometer").contains(toString)) {
 			if(clicked.contains(toString)) return;
 			clicked.add(toString);
 			int tem=(int)TemperatureProvider.getBlockTemperature(loc);

@@ -1,6 +1,5 @@
-package HamsterYDS.UntilTheEnd.papi;
+package HamsterYDS.UntilTheEnd.api;
 
-import HamsterYDS.UntilTheEnd.api.UntilTheEndApi;
 import HamsterYDS.UntilTheEnd.internal.MathHelper;
 import HamsterYDS.UntilTheEnd.player.PlayerManager;
 import HamsterYDS.UntilTheEnd.player.PlayerManager.CheckType;
@@ -12,7 +11,7 @@ import org.bukkit.entity.Player;
  * Copyright Karlatemp
  * UntilTheEnd $ HamsterYDS.UntilTheEnd.papi
  */
-public class UTEExpansion extends PlaceholderExpansion {
+public class UTEPapiExpansion extends PlaceholderExpansion {
 
     public String getAuthor() {
         return "[南外丶仓鼠,瑞瑞瑞瑞阿,Karlatemp]";
@@ -38,9 +37,9 @@ public class UTEExpansion extends PlaceholderExpansion {
         } else if (identifier.equals("tir")) {
             return String.valueOf(MathHelper.p2(PlayerManager.check(player, CheckType.TIREDNESS)));
         } else if (identifier.equals("season")) {
-            return UntilTheEndApi.WorldApi.getName(UntilTheEndApi.WorldApi.getSeason(player.getWorld()));
+            return WorldApi.getName(WorldApi.getSeason(player.getWorld()));
         } else if (identifier.equals("role")) {
-            return UntilTheEndApi.PlayerApi.getRole(player).name;
+            return PlayerApi.getRole(player).name;
         } else if (identifier.equals("sanmax")) {
         	return String.valueOf(PlayerManager.check(player, CheckType.SANMAX));
         } else if (identifier.equals("healthmax")) {
@@ -50,33 +49,33 @@ public class UTEExpansion extends PlaceholderExpansion {
         } else if (identifier.equals("damagelevel")) {
         	return String.valueOf(PlayerManager.check(player,CheckType.DAMAGELEVEL));
         } else if (identifier.equals("day")) {
-            return String.valueOf(UntilTheEndApi.WorldApi.getDay(player.getWorld()));
+            return String.valueOf(WorldApi.getDay(player.getWorld()));
         } else if (identifier.equals("sanitycolor")) {
-            return String.valueOf(UntilTheEndApi.PlayerApi.getSanityColor(player));
+            return String.valueOf(PlayerApi.getSanityColor(player));
         } else if (identifier.equals("temperaturecolor")) {
-            return String.valueOf(UntilTheEndApi.PlayerApi.getTemperatureColor(player));
+            return String.valueOf(PlayerApi.getTemperatureColor(player));
         } else if (identifier.equals("humiditycolor")) {
-            return String.valueOf(UntilTheEndApi.PlayerApi.getHumidityColor(player));
+            return String.valueOf(PlayerApi.getHumidityColor(player));
         } else if (identifier.equals("tirednesscolor")) {
-            return String.valueOf(UntilTheEndApi.PlayerApi.getTirednessColor(player));
+            return String.valueOf(PlayerApi.getTirednessColor(player));
         } else if (identifier.equals("seasoncolor")) {
-            return String.valueOf(UntilTheEndApi.WorldApi.getSeasonColor(player.getWorld()));
+            return String.valueOf(WorldApi.getSeasonColor(player.getWorld()));
         } else if (identifier.equals("sanitytend")) {
-            return String.valueOf(UntilTheEndApi.PlayerApi.getChangingTend(player, "san"));
+            return String.valueOf(PlayerApi.getChangingTend(player, "san"));
         } else if (identifier.equals("temperaturetend")) {
-            return String.valueOf(UntilTheEndApi.PlayerApi.getChangingTend(player, "tem"));
+            return String.valueOf(PlayerApi.getChangingTend(player, "tem"));
         } else if (identifier.equals("humiditytend")) {
-            return String.valueOf(UntilTheEndApi.PlayerApi.getChangingTend(player, "hum"));
+            return String.valueOf(PlayerApi.getChangingTend(player, "hum"));
         } else if (identifier.equals("tirednesstend")) {
-            return String.valueOf(UntilTheEndApi.PlayerApi.getChangingTend(player, "tir"));
+            return String.valueOf(PlayerApi.getChangingTend(player, "tir"));
         } else if (identifier.equals("sanitybar")) {
-            return UntilTheEndApi.PlayerApi.getSanityBar(player);
+            return PlayerApi.getSanityBar(player);
         } else if (identifier.equals("humiditybar")) {
-            return UntilTheEndApi.PlayerApi.getHumidityBar(player);
+            return PlayerApi.getHumidityBar(player);
         } else if (identifier.equals("temperaturebar")) {
-            return UntilTheEndApi.PlayerApi.getTemperatureBar(player);
+            return PlayerApi.getTemperatureBar(player);
         } else if (identifier.equals("tirednessbar")) {
-            return UntilTheEndApi.PlayerApi.getTirednessBar(player);
+            return PlayerApi.getTirednessBar(player);
         } else {
         	return identifier;
         }

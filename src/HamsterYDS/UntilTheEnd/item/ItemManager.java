@@ -140,6 +140,7 @@ public class ItemManager {
 
         new FireWand();
 
+        new BlockManager(plugin);
         ItemProvider.loadDrops();
         plugin.getServer().getPluginManager().registerEvents(new ItemListener(), plugin);
     }

@@ -5,7 +5,8 @@ import java.util.List;
 
 import org.bukkit.inventory.Inventory;
 import org.bukkit.inventory.ItemStack;
-import HamsterYDS.UntilTheEnd.api.UntilTheEndApi;
+
+import HamsterYDS.UntilTheEnd.api.GuideApi;
 import HamsterYDS.UntilTheEnd.guide.CraftGuide;
 
 public class UTEItemStack {
@@ -42,7 +43,7 @@ public class UTEItemStack {
 			}
 		}
 		this.craft = craft;
-		UntilTheEndApi.GuideApi.addCraftToItem(this.item, guideInv);
-		UntilTheEndApi.GuideApi.addItemToCategory(category, this.item);
+		GuideApi.addCraftToItem(this.item, guideInv);
+		GuideApi.addItemToCategory(category, this.item);
 	}
 }

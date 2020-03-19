@@ -25,7 +25,7 @@ import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
 
 import HamsterYDS.UntilTheEnd.UntilTheEnd;
-import HamsterYDS.UntilTheEnd.api.UntilTheEndApi;
+import HamsterYDS.UntilTheEnd.api.GuideApi;
 
 /**
  * @author 南外丶仓鼠
@@ -63,12 +63,12 @@ public class CraftGuide implements Listener {
         inv.setItem(27, frame);
         inv.setItem(35, frame);
         for (int i = 36; i < 45; i++) inv.setItem(i, frame);
-        UntilTheEndApi.GuideApi.addCategory("§6基础", Material.LEASH, (short) 0);
-        UntilTheEndApi.GuideApi.addCategory("§6衣物", Material.GOLD_HELMET, (short) 0);
-        UntilTheEndApi.GuideApi.addCategory("§6生存", Material.IRON_PICKAXE, (short) 0);
-        UntilTheEndApi.GuideApi.addCategory("§6战斗", Material.GOLD_SWORD, (short) 0);
-        UntilTheEndApi.GuideApi.addCategory("§6魔法", Material.SPLASH_POTION, (short) 0);
-        UntilTheEndApi.GuideApi.addCategory("§6科学", Material.REDSTONE_COMPARATOR, (short) 0);
+        GuideApi.addCategory("§6基础", Material.LEASH, (short) 0);
+        GuideApi.addCategory("§6衣物", Material.GOLD_HELMET, (short) 0);
+        GuideApi.addCategory("§6生存", Material.IRON_PICKAXE, (short) 0);
+        GuideApi.addCategory("§6战斗", Material.GOLD_SWORD, (short) 0);
+        GuideApi.addCategory("§6魔法", Material.SPLASH_POTION, (short) 0);
+        GuideApi.addCategory("§6科学", Material.REDSTONE_COMPARATOR, (short) 0);
     }
 
     public static ArrayList<String> openers = new ArrayList<String>();

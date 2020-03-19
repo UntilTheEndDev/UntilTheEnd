@@ -6,6 +6,7 @@ import java.net.HttpURLConnection;
 import java.net.URL;
 import java.util.logging.Level;
 
+import HamsterYDS.UntilTheEnd.api.UTEPapiExpansion;
 import HamsterYDS.UntilTheEnd.cap.HudBossBar;
 import HamsterYDS.UntilTheEnd.internal.UTEi18n;
 import org.bukkit.Bukkit;
@@ -16,8 +17,6 @@ import org.bukkit.event.player.PlayerJoinEvent;
 import org.bukkit.plugin.java.JavaPlugin;
 import org.bukkit.scheduler.BukkitRunnable;
 
-import HamsterYDS.UntilTheEnd.block.Block;
-import HamsterYDS.UntilTheEnd.block.BlockManager;
 import HamsterYDS.UntilTheEnd.cap.HudProvider;
 import HamsterYDS.UntilTheEnd.cap.hum.Humidity;
 import HamsterYDS.UntilTheEnd.cap.san.Sanity;
@@ -27,9 +26,9 @@ import HamsterYDS.UntilTheEnd.crops.Crops;
 import HamsterYDS.UntilTheEnd.food.Food;
 import HamsterYDS.UntilTheEnd.guide.Guide;
 import HamsterYDS.UntilTheEnd.internal.pdl.PlayerDataLoaderImpl;
+import HamsterYDS.UntilTheEnd.item.BlockManager;
 import HamsterYDS.UntilTheEnd.item.ItemManager;
 import HamsterYDS.UntilTheEnd.nms.NMSManager;
-import HamsterYDS.UntilTheEnd.papi.UTEExpansion;
 import HamsterYDS.UntilTheEnd.player.PlayerManager;
 import HamsterYDS.UntilTheEnd.world.World;
 import HamsterYDS.UntilTheEnd.world.WorldProvider;
@@ -101,13 +100,12 @@ public class UntilTheEnd extends JavaPlugin implements Listener {
             new Tiredness(this);
             new Guide(this);
             new Crops(this);
-            new Block(this);
             new ItemManager(this);
             new HamsterYDS.UntilTheEnd.player.Player(this);
             new HudProvider(this);
             new Food(this);
             new Commands(this);
-            new UTEExpansion().register();
+            new UTEPapiExpansion().register();
             getLogger().log(Level.INFO, UTEi18n.parse("logging.store.type", PlayerDataLoaderImpl.loader.getClass().getSimpleName(), getConfig().getString("saving")));
         } catch (Throwable throwable) {
             failedLoading = true;

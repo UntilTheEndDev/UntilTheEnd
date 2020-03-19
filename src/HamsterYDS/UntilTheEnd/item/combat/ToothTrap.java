@@ -21,8 +21,8 @@ import org.bukkit.event.player.PlayerInteractEvent;
 import org.bukkit.event.player.PlayerMoveEvent;
 import org.bukkit.inventory.ItemStack;
 
-import HamsterYDS.UntilTheEnd.api.UntilTheEndApi.BlockApi;
-import HamsterYDS.UntilTheEnd.block.BlockManager;
+import HamsterYDS.UntilTheEnd.api.BlockApi;
+import HamsterYDS.UntilTheEnd.item.BlockManager;
 import HamsterYDS.UntilTheEnd.item.ItemManager;
 import HamsterYDS.UntilTheEnd.player.death.DeathCause;
 import HamsterYDS.UntilTheEnd.player.death.DeathMessage;
