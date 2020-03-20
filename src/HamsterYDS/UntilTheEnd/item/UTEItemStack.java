@@ -38,9 +38,10 @@ public class UTEItemStack {
 		for (ItemStack material:craft.keySet()) {
 			int amount = craft.get(material);
 			craft.put(material, amount);
-			for (;amount>0;amount--,index++){
-				guideInv.setItem(slots[index], material);
-			}
+			ItemStack materialClone=material.clone();
+			materialClone.setAmount(amount);
+			guideInv.setItem(slots[index], materialClone);
+			index++;
 		}
 		this.craft = craft;
 		GuideApi.addCraftToItem(this.item, guideInv);

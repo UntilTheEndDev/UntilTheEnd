@@ -497,7 +497,7 @@ LuxuryFan:
   category: 生存
 StrawRoll:
   enable: true
-  type: BED_BLOCK
+  type: BED
   name: §6稻草卷
   lores:
   - §8-睡个安稳觉
@@ -512,7 +512,7 @@ StrawRoll:
   category: 生存
 FurRoll:
   enable: true
-  type: BED_BLOCK
+  type: BED
   name: §6毛皮卷
   lores:
   - §8-多睡几个安稳觉
