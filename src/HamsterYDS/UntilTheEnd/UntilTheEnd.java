@@ -91,7 +91,11 @@ public class UntilTheEnd extends JavaPlugin implements Listener {
             metrics.addCustomChart(new Metrics.SimplePie("chart_id", () -> "My value"));
             checkUpdate();
             loadConfig();
-            new NMSManager();
+            try{
+            	new NMSManager();
+            }catch(ExceptionInInitializerError e) {
+            	
+            }
             new Config(this);
             new World(this);
             new Temperature(this);
@@ -120,6 +124,7 @@ public class UntilTheEnd extends JavaPlugin implements Listener {
         for (Player player : Bukkit.getOnlinePlayers()) {
             PlayerManager.save(player);
             HudBossBar.release(player.getUniqueId());
+            player.kickPlayer("[UTE] 插件重载");
         }
         WorldProvider.saveWorlds();
         BlockManager.saveBlocks();

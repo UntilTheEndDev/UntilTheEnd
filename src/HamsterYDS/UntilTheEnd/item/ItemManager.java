@@ -25,6 +25,7 @@ import HamsterYDS.UntilTheEnd.item.magic.FireWand;
 import HamsterYDS.UntilTheEnd.item.materials.Fern;
 import HamsterYDS.UntilTheEnd.item.materials.Hail;
 import HamsterYDS.UntilTheEnd.item.materials.NightMare;
+import HamsterYDS.UntilTheEnd.item.other.ClothesContainer;
 import HamsterYDS.UntilTheEnd.item.science.Hygrometer;
 import HamsterYDS.UntilTheEnd.item.science.IceFlingomatic;
 import HamsterYDS.UntilTheEnd.item.science.LightningArrester;
@@ -139,6 +140,8 @@ public class ItemManager {
         new Refridgerator();
 
         new FireWand();
+        
+        new ClothesContainer();
 
         new BlockManager(plugin);
         ItemProvider.loadDrops();
@@ -201,6 +204,24 @@ public class ItemManager {
         String id = clazz.getSimpleName();
         if (!items.containsKey(id)) return false;
         ItemStack uteItem = items.get(id).item;
+        if (item == uteItem)
+            return true;
+        if (item == null || uteItem == null)
+            return false;
+        Material m1 = ItemFactory.fromLegacy(ItemFactory.getType(item));
+        Material m2 = ItemFactory.fromLegacy(ItemFactory.getType(uteItem));
+        if (m1 == m2) {
+            ItemMeta meta = item.getItemMeta();
+            ItemMeta meta2 = uteItem.getItemMeta();
+            if (Objects.equals(meta.getDisplayName(), meta2.getDisplayName())) {
+                return Objects.equals(meta.getLore(), meta2.getLore());
+
+            }
+        }
+        return false;
+    }
+    
+    public static boolean isSimilar(ItemStack item, ItemStack uteItem) {
         if (item == uteItem)
             return true;
         if (item == null || uteItem == null)

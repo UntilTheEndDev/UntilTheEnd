@@ -292,3 +292,8 @@ Beard:
   canPlace: false
   isConsume: false
   needLevel: 0
+# 其它材料####################################################
+ClothesContainer:
+  canPlace: false
+  isConsume: false
+  needLevel: 1

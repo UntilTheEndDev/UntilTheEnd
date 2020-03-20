@@ -39,7 +39,7 @@ Rope:
   materials:
   - STRING
   amounts:
-  - 4
+  - 5
   category: 基础
 Plank:
   enable: true
@@ -50,7 +50,7 @@ Plank:
   materials:
   - LOG
   amounts:
-  - 4
+  - 3
   category: 基础
 NightMare:
   enable: true
@@ -813,8 +813,26 @@ FireWand:
   category: 魔法
 # 人物####################################
 Beard:
-  enable: false
+  enable: true
   type: STRING
   name: §6胡须
   lores:
   - §8-威尔逊的胡须
+# 其它####################################
+ClothesContainer:
+  enable: true
+  type: ENDER_CHEST
+  name: §3§l衣物管理器
+  lores:
+  - §8-衣服套衣服
+  materials:
+  - Plank
+  - ENDER_CHEST
+  - EMERALD
+  amounts:
+  - 3
+  - 1
+  - 5
+  category: 衣物
+  
+  
