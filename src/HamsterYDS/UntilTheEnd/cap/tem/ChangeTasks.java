@@ -5,7 +5,9 @@ import java.util.HashMap;
 import java.util.List;
 
 import HamsterYDS.UntilTheEnd.internal.NPCChecker;
+import HamsterYDS.UntilTheEnd.item.ItemManager;
 import HamsterYDS.UntilTheEnd.item.other.ClothesContainer;
+import HamsterYDS.UntilTheEnd.item.survival.WarmStone;
 
 import org.bukkit.World;
 import org.bukkit.entity.Player;
@@ -50,10 +52,8 @@ public class ChangeTasks {
             for (int slot = 0; slot < inv.getSize(); slot++) {
                 ItemStack item = inv.getItem(slot);
                 if (item == null) continue;
-                ItemMeta meta = item.getItemMeta();
-                if (meta == null) continue;
-                if (meta.getDisplayName() == null) continue;
-                if (meta.getDisplayName().equalsIgnoreCase("§6暖石")) {
+                if (WarmStone.hasTemperature(item)) {
+                	ItemMeta meta = item.getItemMeta();
                     List<String> lores = meta.getLore();
                     int line_line = -1;
                     for (String line : lores) {
@@ -61,10 +61,12 @@ public class ChangeTasks {
                         if (!line.contains("§8- §8§l温度 ")) continue;
                         line = line.replace("§8- §8§l温度 ", "");
                         int naturalTem = (int) TemperatureProvider.getBlockTemperature(player.getLocation());
-                        int stoneTem = Integer.parseInt(line);
+                        int stoneTem=0;
+                        stoneTem = Integer.parseInt(line);
                         double playerTem = PlayerManager.check(player, "tem");
                         if (playerTem < stoneTem) PlayerManager.change(player, "tem", 1);
                         if (playerTem > stoneTem) PlayerManager.change(player, "tem", -1);
+                        if(!getName(item).equalsIgnoreCase(ItemManager.items.get("WarmStone").displayName)) return true;
                         if (Math.random() <= stoneChangePercent) {
                             if (stoneTem > naturalTem)
                                 line = "§8- §8§l温度 " + (stoneTem - 1);
@@ -160,7 +162,8 @@ public class ChangeTasks {
                 for (World world : Config.enableWorlds)
                     for (Player player : world.getPlayers())
                         if (!NPCChecker.isNPC(player))
-                            if (!hasStone.contains(player.getName())) goNatural(player);
+                            if (!hasStone.contains(player.getName())) 
+                            	goNatural(player);
             }
         }
     }

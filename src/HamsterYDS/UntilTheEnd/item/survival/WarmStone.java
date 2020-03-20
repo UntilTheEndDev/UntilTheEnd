@@ -23,7 +23,9 @@ public class WarmStone implements Listener{
 	@EventHandler public void onThrow(PlayerDropItemEvent event) {
 		ItemStack ritem=event.getItemDrop().getItemStack();
 		ItemStack item=event.getItemDrop().getItemStack();
-		if (ItemManager.isSimilar(item, getClass())) {
+		if(!item.hasItemMeta()) return;
+		if(!item.getItemMeta().hasDisplayName()) return;
+		if (item.getItemMeta().getDisplayName().equalsIgnoreCase(ItemManager.items.get("WarmStone").displayName)) { 
 			ItemMeta meta=item.getItemMeta();
 			List<String> lores=meta.getLore();
 			for(String str:lores) {
@@ -42,5 +44,17 @@ public class WarmStone implements Listener{
 				}
 			}.runTaskLater(ItemManager.plugin,20);
 		}
+	}
+	
+	public static boolean hasTemperature(ItemStack item) {
+		if(!item.hasItemMeta()) return false;
+		if(!item.getItemMeta().hasLore()) return false;
+		ItemMeta meta=item.getItemMeta();
+		List<String> lores=meta.getLore();
+		for(String str:lores) 
+			if(str.contains("§8- §8§l温度 ")) 
+				if(!str.replace("§8- §8§l温度 ","").equalsIgnoreCase(""))
+					return true;
+		return false;
 	}
 }

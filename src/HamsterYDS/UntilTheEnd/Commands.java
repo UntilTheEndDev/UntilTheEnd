@@ -13,6 +13,7 @@ import org.bukkit.entity.Entity;
 import org.bukkit.entity.Player;
 import org.bukkit.event.Listener;
 import org.bukkit.inventory.ItemStack;
+import org.bukkit.inventory.meta.ItemMeta;
 
 import HamsterYDS.UntilTheEnd.cap.tem.TemperatureProvider;
 import HamsterYDS.UntilTheEnd.guide.CraftGuide;
@@ -302,6 +303,24 @@ public class Commands implements CommandExecutor, Listener, TabCompleter {
                     PlayerManager.playerChangedRole.add(pl.getUniqueId());
                     pl.sendMessage(UTEi18n.cacheWithPrefix("cmd.role.change"));
                 }
+            }
+            case "lore": {
+            	if(ct.length==3) {
+            		if(ct[1].equalsIgnoreCase("addtem")) {
+            			int temperature=0;
+            			try{temperature=Integer.valueOf(ct[2]);}
+            			catch(Exception e) {cs.sendMessage(UTEi18n.cacheWithPrefix("cmd.not.number"));return true;}
+            			ItemStack item=pl.getInventory().getItemInMainHand();
+            			ItemMeta meta=item.getItemMeta();
+            			List<String> lores=new ArrayList<String>();
+            			if(meta.hasLore()) lores=meta.getLore();
+            			lores.add("§8- §8§l温度 "+temperature);
+            			meta.setLore(lores);
+            			item.setItemMeta(meta);
+            			pl.getInventory().setItemInMainHand(item);
+            			pl.updateInventory();
+            		}
+            	}
             }
         }
         return true;
