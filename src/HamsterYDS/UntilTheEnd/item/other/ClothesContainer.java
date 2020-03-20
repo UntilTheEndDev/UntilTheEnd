@@ -30,6 +30,9 @@ public class ClothesContainer implements Listener {
 	public static ArrayList<UUID> openers = new ArrayList<UUID>();
 
 	public ClothesContainer() {
+		for(Player player:Bukkit.getOnlinePlayers()) {
+			onJoin(new PlayerJoinEvent(player,null));
+		}
 		ItemManager.plugin.getServer().getPluginManager().registerEvents(this, ItemManager.plugin);
 	}
 
@@ -49,21 +52,19 @@ public class ClothesContainer implements Listener {
 	}
 
 	@EventHandler
-	public void onClone(InventoryCloseEvent event) {
+	public void onClose(InventoryCloseEvent event) {
 		Player player = (Player) event.getPlayer();
 		if (openers.contains(player.getUniqueId())) {
-			invs.remove(player.getUniqueId());
-			invs.put(player.getUniqueId(), event.getInventory());
 			openers.remove(player.getUniqueId());
+			onQuit(new PlayerQuitEvent(player,null));
 		}
 	}
 
 	@EventHandler
 	public void onQuit(PlayerQuitEvent event) {
 		Player player = (Player) event.getPlayer();
-		File file = new File(ItemManager.plugin.getDataFolder() + "/clothes", player.getUniqueId().toString());
-		if (!file.exists())
-			file.mkdir();
+		File file = new File(ItemManager.plugin.getDataFolder() + "/clothes", player.getUniqueId().toString()+".yml");
+		file.delete();
 		YamlConfiguration yaml = YamlConfiguration.loadConfiguration(file);
 		Inventory inv = invs.get(player.getUniqueId());
 		for (int slot = 0; slot < inv.getSize(); slot++) {
@@ -82,9 +83,7 @@ public class ClothesContainer implements Listener {
 	@EventHandler
 	public void onJoin(PlayerJoinEvent event) {
 		Player player = (Player) event.getPlayer();
-		File file = new File(ItemManager.plugin.getDataFolder() + "/clothes", player.getUniqueId().toString());
-		if (!file.exists())
-			file.mkdir();
+		File file = new File(ItemManager.plugin.getDataFolder() + "/clothes", player.getUniqueId().toString()+".yml");
 		YamlConfiguration yaml = YamlConfiguration.loadConfiguration(file);
 		Inventory inv = Bukkit.createInventory(player, 9, ItemManager.items.get("ClothesContainer").displayName);
 		for (String path : yaml.getKeys(false)) {
@@ -100,6 +99,7 @@ public class ClothesContainer implements Listener {
 		if (openers.contains(player.getUniqueId())) {
 			if (event.getAction() == InventoryAction.MOVE_TO_OTHER_INVENTORY)
 				event.setCancelled(true);
+			if(event.getClickedInventory()==null) return;
 			if (event.getClickedInventory().getSize() != 9)
 				return;
 			ItemStack cursor = event.getCursor();

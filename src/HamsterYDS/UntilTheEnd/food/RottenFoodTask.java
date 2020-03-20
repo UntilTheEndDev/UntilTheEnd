@@ -4,6 +4,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 import HamsterYDS.UntilTheEnd.internal.NPCChecker;
+import HamsterYDS.UntilTheEnd.item.other.ClothesContainer;
+
 import org.bukkit.GameMode;
 import org.bukkit.Material;
 import org.bukkit.World;
@@ -32,12 +34,18 @@ public class RottenFoodTask {
         @Override
         public void run() {
             for (World world : Config.enableWorlds)
+            	next_player: 
                 for (Player player : world.getPlayers()) {
                     if (NPCChecker.isNPC(player)) continue;
                     if (player.getGameMode() == GameMode.CREATIVE || player.getGameMode() == GameMode.SPECTATOR)
                         continue;
                     PlayerInventory inv = player.getInventory();
                     if (getName(inv.getChestplate()).equalsIgnoreCase("§6便携包")) continue;
+                    ItemStack[] clothes = ClothesContainer.getInventory(player).getStorageContents();
+                    for (ItemStack cloth : clothes) 
+                    	if (getName(cloth).equalsIgnoreCase("§6便携包")) 
+                    		continue next_player;
+                    
                     for (int slot = 0; slot < inv.getSize(); slot++) {
                         ItemStack item = inv.getItem(slot);
                         if (item == null) continue;
@@ -45,6 +53,7 @@ public class RottenFoodTask {
                         if (item.getType().isEdible())
                             inv.setItem(slot, setRottenLevel(item, getRottenLevel(item) - 1));
                     }
+                    
                 }
         }
     }

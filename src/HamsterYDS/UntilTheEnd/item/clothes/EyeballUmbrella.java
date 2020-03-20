@@ -12,6 +12,7 @@ import org.bukkit.potion.PotionEffectType;
 
 import HamsterYDS.UntilTheEnd.cap.san.ChangeTasks;
 import HamsterYDS.UntilTheEnd.item.ItemManager;
+import HamsterYDS.UntilTheEnd.item.other.ClothesContainer;
 
 /**
  * @author 南外丶仓鼠
@@ -41,6 +42,14 @@ public class EyeballUmbrella implements Listener {
 				player.removePotionEffect(PotionEffectType.INCREASE_DAMAGE);
 				player.addPotionEffect(new PotionEffect(PotionEffectType.INCREASE_DAMAGE, damageIncreasePeriod*20, 2));
 			}
+			ItemStack[] clothes = ClothesContainer.getInventory(player).getStorageContents();
+            for (ItemStack cloth : clothes) 
+            	if (ItemManager.isSimilar(cloth,getClass())) {
+    				event.setCancelled(true);
+    				player.sendMessage("[§cUntilTheEnd]§r 您的眼球伞成功吸引雷电一束！");
+    				player.removePotionEffect(PotionEffectType.INCREASE_DAMAGE);
+    				player.addPotionEffect(new PotionEffect(PotionEffectType.INCREASE_DAMAGE, damageIncreasePeriod*20, 2));
+    			}
 			break;
 		}
 	}

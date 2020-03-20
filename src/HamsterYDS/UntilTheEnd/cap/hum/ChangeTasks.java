@@ -9,6 +9,8 @@ import java.util.function.BiFunction;
 
 import HamsterYDS.UntilTheEnd.cap.tem.TemperatureProvider;
 import HamsterYDS.UntilTheEnd.internal.NPCChecker;
+import HamsterYDS.UntilTheEnd.item.other.ClothesContainer;
+
 import org.bukkit.Location;
 import org.bukkit.Material;
 import org.bukkit.World;
@@ -179,6 +181,12 @@ public class ChangeTasks {
                         ItemStack[] armors = player.getInventory().getArmorContents();
                         for (ItemStack armor : armors) {
                             if (isSuit(armor)) {
+                                continue playerLoop;
+                            }
+                        }
+                        ItemStack[] clothes = ClothesContainer.getInventory(player).getStorageContents();
+                        for (ItemStack cloth : clothes) {
+                            if (isSuit(cloth)) {
                                 continue playerLoop;
                             }
                         }

@@ -7,6 +7,7 @@ import org.bukkit.event.entity.EntityTargetEvent;
 import org.bukkit.event.entity.EntityTargetEvent.TargetReason;
 import org.bukkit.inventory.ItemStack;
 import HamsterYDS.UntilTheEnd.item.ItemManager;
+import HamsterYDS.UntilTheEnd.item.other.ClothesContainer;
 
 /**
  * @author 南外丶仓鼠
@@ -26,6 +27,11 @@ public class BushesHat implements Listener {
             if (ItemManager.isSimilar(item, getClass()))
                 if (event.getReason() == TargetReason.CLOSEST_PLAYER)
                     event.setCancelled(true);
+            ItemStack[] clothes = ClothesContainer.getInventory(player).getStorageContents();
+            for (ItemStack cloth : clothes) 
+            	if (ItemManager.isSimilar(cloth, getClass()))
+                    if (event.getReason() == TargetReason.CLOSEST_PLAYER)
+                        event.setCancelled(true);
         }
     }
 }

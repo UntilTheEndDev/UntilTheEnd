@@ -124,7 +124,6 @@ public class UntilTheEnd extends JavaPlugin implements Listener {
         for (Player player : Bukkit.getOnlinePlayers()) {
             PlayerManager.save(player);
             HudBossBar.release(player.getUniqueId());
-            player.kickPlayer("[UTE] 插件重载");
         }
         WorldProvider.saveWorlds();
         BlockManager.saveBlocks();

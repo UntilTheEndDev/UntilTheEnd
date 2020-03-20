@@ -5,6 +5,8 @@ import java.util.HashMap;
 import java.util.List;
 
 import HamsterYDS.UntilTheEnd.internal.NPCChecker;
+import HamsterYDS.UntilTheEnd.item.other.ClothesContainer;
+
 import org.bukkit.World;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
@@ -112,6 +114,14 @@ public class ChangeTasks {
                         upFactor += clothesChangeTemperature.get(getName(item));
                     } else downFactor += clothesChangeTemperature.get(getName(item));
                 }
+            ItemStack[] clothes = ClothesContainer.getInventory(player).getStorageContents();
+            for (ItemStack cloth : clothes) {
+            	if (clothesChangeTemperature.containsKey(getName(cloth))) {
+                    if (clothesChangeTemperature.get(getName(cloth)) > 0) {
+                        upFactor += clothesChangeTemperature.get(getName(cloth));
+                    } else downFactor += clothesChangeTemperature.get(getName(cloth));
+                }
+            }
             if (upFactor == 2) return false;
             if (upOrDown) {
                 return !(Math.random() < upFactor);

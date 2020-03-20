@@ -3,6 +3,7 @@ package HamsterYDS.UntilTheEnd.cap.san;
 import java.util.HashMap;
 
 import HamsterYDS.UntilTheEnd.internal.NPCChecker;
+import HamsterYDS.UntilTheEnd.item.other.ClothesContainer;
 
 import org.bukkit.Bukkit;
 import org.bukkit.World;
@@ -68,6 +69,12 @@ public class ChangeTasks {
                     }
                     if (clothesChangeSanity.containsKey(boots)){
                     	change+=clothesChangeSanity.get(boots);
+                    }
+                    ItemStack[] clothes = ClothesContainer.getInventory(player).getStorageContents();
+                    for (ItemStack cloth : clothes) {
+                    	if (clothesChangeSanity.containsKey(getName(cloth))){
+                        	change+=clothesChangeSanity.get(getName(cloth));
+                        }
                     }
                     SanityChangeEvent event=new SanityChangeEvent(player,ChangeCause.INVENTORYCLOTHES,change);
                     Bukkit.getPluginManager().callEvent(event);

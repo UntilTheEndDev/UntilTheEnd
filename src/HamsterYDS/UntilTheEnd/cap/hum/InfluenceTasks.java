@@ -105,7 +105,7 @@ public class InfluenceTasks {
                     if(NPCChecker.isNPC(player))continue;
                     int hum = (int) PlayerManager.check(player, PlayerManager.CheckType.HUMIDITY);
                     if (hum > seasonHumidity) continue;
-                    PlayerInventory inv = player.getInventory();
+                    PlayerInventory inv = player.getInventory(); 
                     for (int slot = 0; slot < inv.getSize(); slot++) {
                         ItemStack item = inv.getItem(slot);
                         if (item == null) continue;
