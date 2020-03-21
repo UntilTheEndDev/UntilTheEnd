@@ -31,6 +31,10 @@ public class Guide implements Listener {
     public static ItemStack mechanismItem = new ItemStack(Material.ENCHANTED_BOOK);
     public static Inventory inv = Bukkit.createInventory(HolderMainGuide.INSTANCE, 27, UTEi18n.cache("item.guide.help.main.main"));
 
+    static {
+        HolderMainGuide.INSTANCE.setCustomName(UTEi18n.cache("item.guide.help.main.main"));
+    }
+
     public Guide(UntilTheEnd plugin) {
         plugin.getServer().getPluginManager().registerEvents(this, plugin);
         new CraftGuide(plugin);
@@ -69,7 +73,7 @@ public class Guide implements Listener {
         if (item.equals(craftItem)) {
             if (CraftGuide.playerInvs.get(player.getName()).size() == 0) player.openInventory(CraftGuide.inv);
             else {
-                player.openInventory(CraftGuide.adaptInventory(CraftGuide.playerInvs.get(player.getName()).get(CraftGuide.playerInvs.get(player.getName()).size() - 1),player));
+                player.openInventory(CraftGuide.adaptInventory(CraftGuide.playerInvs.get(player.getName()).get(CraftGuide.playerInvs.get(player.getName()).size() - 1), player));
                 CraftGuide.playerInvs.get(player.getName()).remove(CraftGuide.playerInvs.get(player.getName()).size() - 1);
             }
         }

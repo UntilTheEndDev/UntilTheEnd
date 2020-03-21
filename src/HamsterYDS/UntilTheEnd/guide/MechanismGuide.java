@@ -27,6 +27,10 @@ import HamsterYDS.UntilTheEnd.UntilTheEnd;
 public class MechanismGuide implements Listener {
     public static Inventory inv = Bukkit.createInventory(HolderMechanismGuide.INSTANCE, 45, UTEi18n.cache("item.guide.help.mechanism.main"));
 
+    static {
+        HolderMechanismGuide.INSTANCE.setCustomName(UTEi18n.cache("item.guide.help.mechanism.main"));
+    }
+
     public MechanismGuide(UntilTheEnd plugin) {
         plugin.getServer().getPluginManager().registerEvents(this, plugin);
         new MechanismGuide();
@@ -91,8 +95,7 @@ public class MechanismGuide implements Listener {
     }
 
     private static ItemStack getItem1(String name, Material material, int data) {
-        ItemStack item = new ItemStack(material);
-        item.setDurability((short) data);
+        ItemStack item = new ItemStack(material, 1, (short) data);
         ItemMeta meta = item.getItemMeta();
         meta.setDisplayName(name);
         item.setItemMeta(meta);
