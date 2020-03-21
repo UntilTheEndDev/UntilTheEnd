@@ -2,16 +2,17 @@ package HamsterYDS.UntilTheEnd.guide;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 import java.util.Objects;
 
-import HamsterYDS.UntilTheEnd.internal.ItemFactory;
 import HamsterYDS.UntilTheEnd.internal.UTEi18n;
 import HamsterYDS.UntilTheEnd.item.ItemManager;
 import HamsterYDS.UntilTheEnd.item.UTEItemStack;
 import HamsterYDS.UntilTheEnd.player.PlayerManager;
 
 import org.bukkit.Bukkit;
+import org.bukkit.GameMode;
 import org.bukkit.Location;
 import org.bukkit.Material;
 import org.bukkit.entity.Player;
@@ -150,7 +151,7 @@ public class CraftGuide implements Listener {
 		if (event.getSlot() == 0) {
 			ArrayList<Inventory> invs = playerInvs.get(player.getName());
 			if (invs.size() != 0) {
-				player.openInventory(invs.get(invs.size() - 1));
+				player.openInventory(adaptInventory(invs.get(invs.size() - 1),player));
 				invs.remove(invs.get(invs.size() - 1));
 				playerInvs.remove(player.getName());
 				playerInvs.put(player.getName(), invs);
@@ -171,6 +172,10 @@ public class CraftGuide implements Listener {
 		// if(event.getSlot()==45) {
 		// //下一页
 		// }
+		if(item.getDurability()==14||item.getDurability()==7) {
+			player.sendMessage(UTEi18n.cacheWithPrefix("item.system.no-machine"));
+			return;
+		}
 		Inventory find = find(item);
 		if (find != null) {
 			if (cheating.contains(player.getName()))
@@ -183,19 +188,21 @@ public class CraftGuide implements Listener {
 			invs.add(inv);
 			playerInvs.remove(player.getName());
 			playerInvs.put(player.getName(), invs);
-			player.openInventory(find);
+			player.openInventory(adaptInventory(find,player));
 		}
 	}
 
 	public void goCraft(Player player, String id) {
-		if (!hasMachine(player, id)) {
-			player.sendMessage(UTEi18n.cacheWithPrefix("item.system.no-machine"));
-			return;
-		}
 		if (!hasCraftItems(player, id)) {
 			player.sendMessage(UTEi18n.cacheWithPrefix("item.system.no-craft-items"));
 			return;
 		}
+		if (!hasMachine(player, id)) {
+			player.sendMessage(UTEi18n.cacheWithPrefix("item.system.no-machine"));
+			return;
+		}
+		if(!PlayerManager.checkUnLockedRecipes(player).contains(id))
+			PlayerManager.addUnLockedRecipes(player,id);
 		UTEItemStack uteitem = ItemManager.items.get(id);
 		PlayerInventory inv = player.getInventory();
 		for (ItemStack material : uteitem.craft.keySet()) {
@@ -233,6 +240,7 @@ public class CraftGuide implements Listener {
 	}
 
 	private boolean hasCraftItems(Player player, String id) {
+		if(player.getGameMode()==GameMode.CREATIVE) return true;
 		UTEItemStack item = ItemManager.items.get(id);
 		PlayerInventory inv = player.getInventory();
 		for (ItemStack material : item.craft.keySet()) {
@@ -253,38 +261,42 @@ public class CraftGuide implements Listener {
 			return true;
 		if (PlayerManager.checkUnLockedRecipes(player).contains(id))
 			return true;
-		String machineId = ItemManager.machines.get(level);
+		int playerLevel=getNearbyMachine(player);
+		if(playerLevel>=level) return true;
+		return false;
+	}
+	
+	private static int getNearbyMachine(Player player) {
+		int maxLevel=0;
 		for (int i = -5; i <= 5; i++)
 			for (int j = -5; j <= 5; j++)
 				for (int k = -5; k <= 5; k++) {
 					Location newLoc = new Location(player.getWorld(), player.getLocation().getX() + i,
 							player.getLocation().getY() + j, player.getLocation().getZ() + k);
 					newLoc = newLoc.getBlock().getLocation();
-					if (BlockApi.getSpecialBlock(newLoc).equalsIgnoreCase(machineId)) {
-						// 旁边有机器
-						PlayerManager.addUnLockedRecipes(player, id);
-						return true;
-					}
+					for(int level:ItemManager.machines.keySet()) {
+						String machineId=ItemManager.machines.get(level);
+						if(machineId.equalsIgnoreCase(BlockApi.getSpecialBlock(newLoc))) {
+							maxLevel=Math.max(maxLevel,level);
+						}
+					} 
 				}
-		return false;
+		return maxLevel;
 	}
 
 	private Inventory find(ItemStack stack) {
-		final Material type = ItemFactory.fromLegacy(ItemFactory.getType(stack));
 		final ItemMeta meta = stack.getItemMeta();
 		for (Map.Entry<ItemStack, Inventory> ivs : crafts.entrySet()) {
 			final ItemStack key = ivs.getKey();
-			if (ItemFactory.fromLegacy(ItemFactory.getType(key)) == type) {
-				if (meta != null) {
-					if (key.hasItemMeta()) {
-						final ItemMeta meta0 = key.getItemMeta();
-						if (Objects.equals(meta0.getDisplayName(), meta.getDisplayName())) {
-							return ivs.getValue();
-						}
+			if (meta != null) {
+				if (key.hasItemMeta()) {
+					final ItemMeta meta0 = key.getItemMeta();
+					if (Objects.equals(meta0.getDisplayName(), meta.getDisplayName())) {
+						return ivs.getValue();
 					}
-				} else {
-					return ivs.getValue();
 				}
+			} else {
+				return ivs.getValue();
 			}
 		}
 		return null;
@@ -368,5 +380,52 @@ public class CraftGuide implements Listener {
 		ItemStack craft = getItem("点我合成", Material.STAINED_GLASS_PANE, 9);
 		craftInv.setItem(40, craft);
 		return craftInv;
+	}
+	
+	public static Inventory adaptInventory(Inventory oldInv,Player player) {
+		Inventory inv=Bukkit.createInventory(oldInv.getHolder(),oldInv.getSize(),oldInv.getTitle());
+		for(int slot=0;slot<oldInv.getSize();slot++) {
+			if(oldInv.getItem(slot)==null) continue;
+			ItemStack item=oldInv.getItem(slot).clone();
+			String id=ItemManager.isUTEItem(item);
+			if(id.equalsIgnoreCase("")){
+				inv.setItem(slot,item);
+				continue;
+			}
+			UTEItemStack uteitem=ItemManager.items.get(id);
+			boolean unlocked=PlayerManager.checkUnLockedRecipes(player).contains(id);
+			if(!unlocked) {
+				int level=uteitem.needLevel;
+				int playerLevel=getNearbyMachine(player);
+				item.setType(Material.STAINED_GLASS_PANE);
+				if(playerLevel>=level) 
+					item.setDurability((short) 13);
+				else {
+					ItemMeta meta=item.getItemMeta();
+					List<String> lores=new ArrayList<String>();
+					if(meta.hasLore()) lores=meta.getLore();
+					
+					boolean flag=true;
+					for(String line:lores)
+						if(line.contains("缺少机器")) 
+							lores.remove(line);
+					
+					if(playerLevel+1==level) {
+						item.setDurability((short) 14);
+						if(flag)
+							lores.add("§4缺少机器: §d§l"+ItemManager.items.get(ItemManager.machines.get(level)).displayName);
+					}
+					if(playerLevel+1<level) {
+						item.setDurability((short) 7);
+						if(flag)
+							lores.add("§4缺少机器: §c§l未知");
+					}
+					meta.setLore(lores);
+					item.setItemMeta(meta);
+				}
+			}
+			inv.setItem(slot,item);
+		}
+		return inv;
 	}
 }

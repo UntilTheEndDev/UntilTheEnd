@@ -794,6 +794,23 @@ ScienceMachine:
   - 1
   - 4
   category: 科学
+AlchemyEngine:
+  enable: true
+  type: ENCHANTMENT_TABLE
+  name: §6炼金术引擎
+  lores:
+  - §8-古代的魔术
+  - §8-它可以自己动耶！
+  - '§8-效用: §d提供配方与合成'
+  materials:
+  - Plank
+  - Brick
+  - Element
+  amounts:
+  - 4
+  - 2
+  - 2
+  category: 科学
 # 魔法####################################
 FireWand:
   enable: true
@@ -810,6 +827,26 @@ FireWand:
   - 3
   - 3
   - 1
+  category: 魔法
+Prestihatitator:
+  enable: true
+  type: CHORUS_FLOWER
+  name: §6灵子分解机
+  lores:
+  - §8-会有兔子蹦出来吗？
+  - '§8-效用: §d提供配方与合成'
+  materials:
+  - CHORUS_FLOWER
+  - Brick
+  - Element
+  - Plank
+  - NightMare
+  amounts:
+  - 5
+  - 9
+  - 3
+  - 9
+  - 5
   category: 魔法
 # 人物####################################
 Beard:

@@ -69,7 +69,7 @@ public class Guide implements Listener {
         if (item.equals(craftItem)) {
             if (CraftGuide.playerInvs.get(player.getName()).size() == 0) player.openInventory(CraftGuide.inv);
             else {
-                player.openInventory(CraftGuide.playerInvs.get(player.getName()).get(CraftGuide.playerInvs.get(player.getName()).size() - 1));
+                player.openInventory(CraftGuide.adaptInventory(CraftGuide.playerInvs.get(player.getName()).get(CraftGuide.playerInvs.get(player.getName()).size() - 1),player));
                 CraftGuide.playerInvs.get(player.getName()).remove(CraftGuide.playerInvs.get(player.getName()).size() - 1);
             }
         }

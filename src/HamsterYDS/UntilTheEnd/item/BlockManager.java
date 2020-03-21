@@ -102,8 +102,9 @@ public class BlockManager extends BukkitRunnable implements Listener {
         if (craft != null)
             for (ItemStack item : craft.keySet()) {
                 ItemStack itemClone = item.clone();
-                itemClone.setAmount((int) (Math.random() * craft.get(item)));
-                loc.getWorld().dropItemNaturally(loc, item);
+                int amount=(int) (craft.get(item)*(1.0-Math.random()));
+                itemClone.setAmount(amount);
+                loc.getWorld().dropItemNaturally(loc, itemClone);
             }
         removeBlockData(blocks.get(toString), toString);
     }

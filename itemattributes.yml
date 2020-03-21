@@ -21,7 +21,7 @@ Plank:
 NightMare:
   canPlace: false
   isConsume: false
-  needLevel: 1
+  needLevel: 2
   sanityReduce: -1  #每个噩梦燃料带来的理智变化值
 Coin:
   canPlace: false
@@ -30,12 +30,12 @@ Coin:
 Fern:
   canPlace: false
   isConsume: true
-  needLevel: 1
+  needLevel: 0
   heal: 0.5  #每食用一片蕨类植物提升的血量
 Hail:
   canPlace: false
   isConsume: true
-  needLevel: 1
+  needLevel: 0
   temperatureReduce: -1  #每使用一个冰雹温度变化值
 Reed:
   canPlace: false
@@ -106,7 +106,7 @@ BlueGum:
 PurpleGum:
   canPlace: false
   isConsume: false
-  needLevel: 0
+  needLevel: 2
 AnimateWood:
   canPlace: false
   isConsume: false
@@ -134,23 +134,23 @@ StrawHat:
 EyeballUmbrella:
   canPlace: false
   isConsume: false
-  needLevel: 1
+  needLevel: 2
   sanityImprove: 3  #戴上后理智每10秒变化多少
   range: 30  #吸引多大范围内的雷电
   damageIncreasePeriod: 60  #吸收雷电力量效果持续多久
 ConstantTemperatureClothes:
   canPlace: false
   isConsume: false
-  needLevel: 1
+  needLevel: 3
 SwimmingSuit:
   canPlace: false
   isConsume: false
-  needLevel: 1
+  needLevel: 3
 # 生存类材料####################################################
 MovablePack:
   canPlace: false
   isConsume: false
-  needLevel: 1
+  needLevel: 2
 NormalPack:
   canPlace: false
   isConsume: false
@@ -158,7 +158,7 @@ NormalPack:
 PigPack:
   canPlace: false
   isConsume: false
-  needLevel: 1
+  needLevel: 2
 WarmStone:
   canPlace: false
   isConsume: false
@@ -170,7 +170,7 @@ Umbrella:
 FlowerUmbrella:
   canPlace: false
   isConsume: false
-  needLevel: 1
+  needLevel: 2
 HealingSalve:
   canPlace: false
   isConsume: true
@@ -182,11 +182,11 @@ HoneyPoultice:
 ACDDrug:
   canPlace: false
   isConsume: true
-  needLevel: 1
+  needLevel: 3
 LuxuryFan:
   canPlace: false
   isConsume: true
-  needLevel: 1
+  needLevel: 2
 StrawRoll:
   canPlace: false
   isConsume: false
@@ -202,19 +202,19 @@ WaterBalloon:
 SiestaLeanto:
   canPlace: true
   isConsume: false
-  needLevel: 1
+  needLevel: 2
 # 战斗类材料####################################################
 BlowArrow1:
   canPlace: false
   isConsume: true
-  needLevel: 1
+  needLevel: 2
   damage: 40.0  #吹箭击中生物伤害
   range: 0.5  #吹箭击中生物的判定范围
   maxDist: 300  #吹箭最远距离
 BlowArrow2:
   canPlace: false
   isConsume: true
-  needLevel: 1
+  needLevel: 2
   damage: 20.0  
   range: 0.5
   maxDist: 300
@@ -222,7 +222,7 @@ BlowArrow2:
 BlowArrow3:
   canPlace: false
   isConsume: true
-  needLevel: 1
+  needLevel: 2
   damage: 20.0
   range: 0.5
   maxDist: 300
@@ -230,13 +230,13 @@ BlowArrow3:
 BeeMine:
   canPlace: true
   isConsume: false
-  needLevel: 1
+  needLevel: 2
   explosionAmount: 3  #爆炸规模（不破坏方块）
   poison: 10  #踩中者中毒效果持续多久
 ToothTrap:
   canPlace: true
   isConsume: false
-  needLevel: 1
+  needLevel: 2
   damage: 8.0  #陷阱每次踩中伤害
   brokenPercent: 0.2  #每次踩中有多大概率陷阱损坏消失
 WeatherPain:
@@ -267,18 +267,23 @@ LightningArrester:
 IceFlingomatic:
   canPlace: true
   isConsume: false
-  needLevel: 1
+  needLevel: 2
   range: 40  #监视的范围（此范围内不会闷烧+着火）
 Refridgerator:
   canPlace: true
   isConsume: false
-  needLevel: 1
+  needLevel: 2
   fridgeEffecience: 10  #冰箱减缓容器内食物腐烂倍率
 ScienceMachine:
   canPlace: true
   isConsume: false
   needLevel: 0
   provideLevel: 1   #提供一级科学
+AlchemyEngine:
+  canPlace: true
+  isConsume: false
+  needLevel: 1
+  provideLevel: 2   #提供2级科学
 # 魔法类材料####################################################
 FireWand:
   canPlace: false
@@ -287,6 +292,11 @@ FireWand:
   firePeriod: 60  #魔咒击中生物着火秒数
   maxDist: 100.0  #魔咒最远飞多长
   range: 0.3  #魔咒击中判定范围
+Prestihatitator:
+  canPlace: true
+  isConsume: false
+  needLevel: 2
+  provideLevel: 3   #提供3级科学
 # 人物类材料####################################################
 Beard:
   canPlace: false
@@ -296,4 +306,4 @@ Beard:
 ClothesContainer:
   canPlace: false
   isConsume: false
-  needLevel: 1
+  needLevel: 2
