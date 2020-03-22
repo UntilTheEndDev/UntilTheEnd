@@ -6,6 +6,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.Objects;
 
+import HamsterYDS.UntilTheEnd.internal.ItemFactory;
 import HamsterYDS.UntilTheEnd.internal.UTEi18n;
 import HamsterYDS.UntilTheEnd.item.ItemManager;
 import HamsterYDS.UntilTheEnd.item.UTEItemStack;
@@ -382,11 +383,17 @@ public class CraftGuide implements Listener {
 		return craftInv;
 	}
 	
+	static boolean isHighVersion=Bukkit.getServer().getVersion().contains("13")
+			||Bukkit.getServer().getVersion().contains("14")
+			||Bukkit.getServer().getVersion().contains("15");
+	
 	public static Inventory adaptInventory(Inventory oldInv,Player player) {
-		Inventory inv=Bukkit.createInventory(oldInv.getHolder(),oldInv.getSize(),oldInv.getTitle());
+//		return oldInv;
+		Inventory inv=Bukkit.createInventory(oldInv.getHolder(),oldInv.getSize(),"UntilTheEnd:合成帮助");
 		for(int slot=0;slot<oldInv.getSize();slot++) {
 			if(oldInv.getItem(slot)==null) continue;
 			ItemStack item=oldInv.getItem(slot).clone();
+			
 			String id=ItemManager.isUTEItem(item);
 			if(id.equalsIgnoreCase("")){
 				inv.setItem(slot,item);
@@ -397,18 +404,27 @@ public class CraftGuide implements Listener {
 			if(!unlocked) {
 				int level=uteitem.needLevel;
 				int playerLevel=getNearbyMachine(player);
-				item.setType(Material.STAINED_GLASS_PANE);
-				if(playerLevel>=level) 
+				item.setType(ItemFactory.fromLegacy(Material.STAINED_GLASS_PANE));
+				
+				if(playerLevel>=level) {
 					item.setDurability((short) 13);
+				}
 				else {
 					ItemMeta meta=item.getItemMeta();
 					List<String> lores=new ArrayList<String>();
-					if(meta.hasLore()) lores=meta.getLore();
+					if(meta!=null)
+						if(meta.hasLore()) 
+							lores=meta.getLore();
 					
 					boolean flag=true;
-					for(String line:lores)
-						if(line.contains("缺少机器")) 
+					for(int length=0;length<lores.size();length++){
+						String line=lores.get(length);
+						if(line.contains("缺少机器")) {
 							lores.remove(line);
+							length++;
+						}
+					}
+							
 					
 					if(playerLevel+1==level) {
 						item.setDurability((short) 14);
@@ -420,7 +436,7 @@ public class CraftGuide implements Listener {
 						if(flag)
 							lores.add("§4缺少机器: §c§l未知");
 					}
-					meta.setLore(lores);
+					try{meta.setLore(lores);}catch(Exception e) {}
 					item.setItemMeta(meta);
 				}
 			}
