@@ -6,6 +6,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.UUID;
 
+import HamsterYDS.UntilTheEnd.internal.ItemFactory;
 import org.bukkit.Bukkit;
 import org.bukkit.Material;
 import org.bukkit.configuration.file.YamlConfiguration;
@@ -105,9 +106,9 @@ public class ClothesContainer implements Listener {
 			ItemStack cursor = event.getCursor();
 			if (cursor == null)
 				return;
-			if (cursor.getType() == Material.AIR)
+			if (ItemFactory.getType(cursor) == ItemFactory.fromLegacy(Material.AIR))
 				return;
-			String type = cursor.getType().toString();
+			String type = String.valueOf(ItemFactory.getType(cursor));
 			if (type.contains("HELMET") || type.contains("CHESTPLATE") || type.contains("LEGGINGS")
 					|| type.contains("BOOTS"))
 				if (!ItemManager.isUTEItem(cursor).equalsIgnoreCase(""))

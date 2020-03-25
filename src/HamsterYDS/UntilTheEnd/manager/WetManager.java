@@ -11,6 +11,7 @@ package HamsterYDS.UntilTheEnd.manager;
 import java.util.ArrayList;
 import java.util.List;
 
+import HamsterYDS.UntilTheEnd.internal.ItemFactory;
 import HamsterYDS.UntilTheEnd.internal.UTEi18n;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
@@ -24,11 +25,11 @@ public class WetManager {
         if (stack == null) return;
         if (getName(stack).equalsIgnoreCase(UTEi18n.cache("item.locked"))) return;
         if (state) {
-            if (HumidityProvider.moistness.containsKey(stack.getType()))
-                stack.setType(HumidityProvider.moistness.get(stack.getType()));
+            if (HumidityProvider.moistness.containsKey(ItemFactory.getType(stack)))
+                stack.setType(HumidityProvider.moistness.get(ItemFactory.getType(stack)));
         } else {
-            if (HumidityProvider.driness.containsKey(stack.getType()))
-                stack.setType(HumidityProvider.driness.get(stack.getType()));
+            if (HumidityProvider.driness.containsKey(ItemFactory.getType(stack)))
+                stack.setType(HumidityProvider.driness.get(ItemFactory.getType(stack)));
         }
         final ItemMeta meta = stack.getItemMeta();
         if (meta == null) return;

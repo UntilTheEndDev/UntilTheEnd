@@ -2,6 +2,7 @@ package HamsterYDS.UntilTheEnd.food;
 
 import java.util.HashMap;
 
+import HamsterYDS.UntilTheEnd.internal.ItemFactory;
 import HamsterYDS.UntilTheEnd.internal.UTEi18n;
 import org.bukkit.Material;
 import org.bukkit.entity.LivingEntity;
@@ -35,7 +36,7 @@ public class RottenFoodInfluence implements Listener {
     @EventHandler
     public void onUse(PlayerItemConsumeEvent event) {
         ItemStack item = event.getItem();
-        if (!item.getType().isEdible()) return;
+        if (!ItemFactory.getType(item).isEdible()) return;
         eatenFoodRottens.remove(event.getPlayer().getName());
         eatenFoodLevels.put(event.getPlayer().getName(), event.getPlayer().getFoodLevel());
         if (item.getType() == Material.ROTTEN_FLESH) eatenFoodRottens.put(event.getPlayer().getName(), -100);

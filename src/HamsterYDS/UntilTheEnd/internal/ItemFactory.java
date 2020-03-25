@@ -25,6 +25,7 @@ import java.util.function.Predicate;
 @SuppressWarnings({"unchecked", "JavaLangInvokeHandleSignature"})
 public class ItemFactory {
     private static final Function<String, Material> valueOf;
+    private static final Function<String, Material> getMaterial;
     private static final Function<ItemStack, Material> getType;
     private static final Function<Block, Material> getTypeBlock;
     private static final Function<Material, Material> fromLegacy;
@@ -38,6 +39,10 @@ public class ItemFactory {
             valueOf = (Function<String, Material>) LambdaMetafactory.metafactory(lk, "apply", MethodType.methodType(Function.class),
                     MethodType.methodType(Object.class, Object.class),
                     lk.findStatic(Material.class, "valueOf", MethodType.methodType(Material.class, String.class)),
+                    MethodType.methodType(Material.class, String.class)).getTarget().invoke();
+            getMaterial = (Function<String, Material>) LambdaMetafactory.metafactory(lk, "apply", MethodType.methodType(Function.class),
+                    MethodType.methodType(Object.class, Object.class),
+                    lk.findStatic(Material.class, "getMaterial", MethodType.methodType(Material.class, String.class)),
                     MethodType.methodType(Material.class, String.class)).getTarget().invoke();
             getType = (Function<ItemStack, Material>) LambdaMetafactory.metafactory(lk, "apply", MethodType.methodType(Function.class),
                     MethodType.methodType(Object.class, Object.class),
@@ -78,6 +83,10 @@ public class ItemFactory {
 
     public static Material getType(ItemStack stack) {
         return getType.apply(stack);
+    }
+
+    public static Material getMaterial(String material) {
+        return getMaterial.apply(material);
     }
 
     public static Material getType(Block block) {

@@ -3,6 +3,7 @@ package HamsterYDS.UntilTheEnd.cap.hum;
 import java.util.HashMap;
 import java.util.UUID;
 
+import HamsterYDS.UntilTheEnd.internal.ItemFactory;
 import HamsterYDS.UntilTheEnd.internal.UTEi18n;
 import HamsterYDS.UntilTheEnd.manager.WetManager;
 import org.bukkit.entity.Entity;
@@ -35,7 +36,7 @@ public class InfluenceEvents implements Listener {
     public void onUse(PlayerItemConsumeEvent event) {
         if (!Config.enableWorlds.contains(event.getPlayer().getWorld())) return;
         ItemStack item = event.getItem();
-        if (!item.getType().isEdible()) return;
+        if (!ItemFactory.getType(item).isEdible()) return;
         if (WetManager.isWet(item))
             wetFoodLevels.put(event.getPlayer().getUniqueId(), event.getPlayer().getFoodLevel());
     }

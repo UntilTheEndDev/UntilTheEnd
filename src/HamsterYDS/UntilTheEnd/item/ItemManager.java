@@ -140,7 +140,7 @@ public class ItemManager {
         new Refridgerator();
 
         new FireWand();
-        
+
         new ClothesContainer();
 
         new BlockManager(plugin);
@@ -168,6 +168,7 @@ public class ItemManager {
     }
 
     public static void loadRecipe(String path) {
+        plugin.getLogger().fine("[ItemManager] Loading Recipe for " + path);
         if (!items.containsKey(path)) return;
         HashMap<ItemStack, Integer> craft = new HashMap<ItemStack, Integer>();
         if (!itemSets.contains(path + ".materials")) return;
@@ -175,11 +176,15 @@ public class ItemManager {
         List<Integer> amounts = itemSets.getIntegerList(path + ".amounts");
         for (String str : materials) {
             int amount = amounts.get(materials.indexOf(str));
-            if (Material.getMaterial(str) != null) {
-                Material material = Material.valueOf(str);
-                craft.put(new ItemStack(material), amount);
+            Material m0 = ItemFactory.getMaterial(str);
+            if (m0 != null) {
+                m0 = ItemFactory.fromLegacy(m0);
+                Material m1 = m0;
+                plugin.getLogger().fine(() -> "[ItemManager] Found Vanilla Material " + str + ": " + m1);
+                craft.put(new ItemStack(m0), amount);
             } else {
                 try {
+                    plugin.getLogger().fine(() -> "[ItemManager] Vanilla Material not found. Load " + str + " with " + items.get(str).item);
                     craft.put(items.get(str).item, amount);
                 } catch (Exception exception2) {
                     plugin.getLogger().log(Level.SEVERE, "Failed to load recipe [" + path + "] from itemsets.yml", exception2);
@@ -220,7 +225,7 @@ public class ItemManager {
         }
         return false;
     }
-    
+
     public static boolean isSimilar(ItemStack item, ItemStack uteItem) {
         if (item == uteItem)
             return true;

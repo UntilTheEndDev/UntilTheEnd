@@ -6,6 +6,7 @@ import HamsterYDS.UntilTheEnd.event.hud.SanityChangeEvent;
 import HamsterYDS.UntilTheEnd.event.hud.SanityChangeEvent.ChangeCause;
 import HamsterYDS.UntilTheEnd.internal.EventHelper;
 
+import HamsterYDS.UntilTheEnd.internal.ItemFactory;
 import org.bukkit.Bukkit;
 import org.bukkit.Location;
 import org.bukkit.Particle;
@@ -49,7 +50,7 @@ public class FireWand implements Listener {
             cd.put(player.getName(), 10);
             ItemStack itemr = player.getItemInHand();
             itemr.setDurability((short) (itemr.getDurability() + 3));
-            if (itemr.getDurability() > itemr.getType().getMaxDurability())
+            if (itemr.getDurability() > ItemFactory.getType(itemr).getMaxDurability())
                 player.setItemInHand(null);
             Location loc = player.getLocation().add(0.0, 1.0, 0.0);
             Vector vec = player.getEyeLocation().getDirection().multiply(0.5);

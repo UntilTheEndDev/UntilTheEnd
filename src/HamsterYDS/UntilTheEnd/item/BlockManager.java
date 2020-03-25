@@ -97,13 +97,16 @@ public class BlockManager extends BukkitRunnable implements Listener {
         String toString = BlockApi.locToStr(loc);
         if (blocks.get(toString) == null) return;
         event.setDropItems(false);
+        plugin.getLogger().fine(() -> "[BlockManager] Breaking with " + toString + " is " + blocks.get(toString));
         loc.getWorld().spawnParticle(Particle.CRIT, loc.add(0.5, 0.5, 0.5), 3);
         HashMap<ItemStack, Integer> craft = ItemManager.items.get(blocks.get(toString)).craft;
         if (craft != null)
             for (ItemStack item : craft.keySet()) {
                 ItemStack itemClone = item.clone();
-                int amount=(int) (craft.get(item)*(1.0-Math.random()));
+                int amount = (int) (craft.get(item) * (1.0 - Math.random()));
+                if (amount < 1) continue;
                 itemClone.setAmount(amount);
+                plugin.getLogger().fine(() -> "[BlockManager] Try drop " + itemClone + " at " + loc);
                 loc.getWorld().dropItemNaturally(loc, itemClone);
             }
         removeBlockData(blocks.get(toString), toString);

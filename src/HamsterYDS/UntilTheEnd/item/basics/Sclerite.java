@@ -1,6 +1,7 @@
 package HamsterYDS.UntilTheEnd.item.basics;
 
 import HamsterYDS.UntilTheEnd.internal.EventHelper;
+import HamsterYDS.UntilTheEnd.internal.ItemFactory;
 import org.bukkit.Material;
 import org.bukkit.Particle;
 import org.bukkit.entity.ArmorStand;
@@ -65,7 +66,7 @@ public class Sclerite implements Listener {
 							clear();
 						}
 
-						if (!armor.getLocation().add(0, 0.2, 0).getBlock().getType().isTransparent()) {
+						if (!ItemFactory.getType(armor.getLocation().add(0, 0.2, 0).getBlock()).isTransparent()) {
 							armor.setGravity(false);
 							armor.setVelocity(vec);
 							armor.getWorld().spawnParticle(Particle.CRIT, armor.getLocation().add(0, 0.2, 0), 1);

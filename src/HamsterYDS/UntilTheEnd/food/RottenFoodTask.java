@@ -3,6 +3,7 @@ package HamsterYDS.UntilTheEnd.food;
 import java.util.ArrayList;
 import java.util.List;
 
+import HamsterYDS.UntilTheEnd.internal.ItemFactory;
 import HamsterYDS.UntilTheEnd.internal.NPCChecker;
 import HamsterYDS.UntilTheEnd.item.other.ClothesContainer;
 
@@ -50,7 +51,7 @@ public class RottenFoodTask {
                         ItemStack item = inv.getItem(slot);
                         if (item == null) continue;
                         if (item.getType() == Material.ROTTEN_FLESH) continue;
-                        if (item.getType().isEdible())
+                        if (ItemFactory.getType(item).isEdible())
                             inv.setItem(slot, setRottenLevel(item, getRottenLevel(item) - 1));
                     }
                     

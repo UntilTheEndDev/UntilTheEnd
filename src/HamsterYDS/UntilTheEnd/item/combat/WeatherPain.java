@@ -3,6 +3,7 @@ package HamsterYDS.UntilTheEnd.item.combat;
 import java.util.HashMap;
 
 import HamsterYDS.UntilTheEnd.internal.EventHelper;
+import HamsterYDS.UntilTheEnd.internal.ItemFactory;
 import org.bukkit.Location;
 import org.bukkit.Material;
 import org.bukkit.Particle;
@@ -43,7 +44,7 @@ public class WeatherPain implements Listener {
             cd.put(player.getName(), 10);
             ItemStack itemr = event.getItem();
             itemr.setDurability((short) (itemr.getDurability() + 25));
-            if (itemr.getDurability() > itemr.getType().getMaxDurability())
+            if (itemr.getDurability() > ItemFactory.getType(itemr).getMaxDurability())
                 itemr.setType(Material.AIR);
             Location loc = player.getLocation().add(0.0, 1.0, 0.0);
             Vector vec = player.getEyeLocation().getDirection().multiply(0.5);
