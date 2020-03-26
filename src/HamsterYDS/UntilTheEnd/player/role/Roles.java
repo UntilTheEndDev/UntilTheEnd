@@ -42,7 +42,7 @@ public enum Roles {
     static {
         final UntilTheEnd instance = UntilTheEnd.getInstance();
         instance.getLogger().fine("[Role] Loading rule configuration......");
-        final YamlConfiguration configs = Config.autoUpdateConfigs("rotes.yml");
+        final YamlConfiguration configs = Config.autoUpdateConfigs("roles.yml");
         isEnable = configs.getBoolean("enabled", true);
         instance.getLogger().fine("[Role] Was Role enabled? > " + isEnable);
         final Set<String> roles = DisableManager.root.getStringList("roles").stream().map(String::toLowerCase).collect(Collectors.toSet());
@@ -59,7 +59,7 @@ public enum Roles {
                 r.name = section.getString("name", r.name);
                 r.originLevel = section.getInt("originLevel", r.originLevel);
                 r.originSanMax = section.getInt("originSanMax", r.originSanMax);
-                r.originHealthMax = section.getInt("originSanMax", r.originHealthMax);
+                r.originHealthMax = section.getInt("originHealthMax", r.originHealthMax);
                 r.originDamageLevel = section.getDouble("originDamageLevel", r.originDamageLevel);
                 instance.getLogger().fine("[Role] \t\tName     : " + r.name);
                 instance.getLogger().fine("[Role] \t\tLevel    : " + r.originLevel);
