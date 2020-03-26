@@ -14,6 +14,7 @@ public class EventHelper {
     public static boolean isRight(Action action) {
         return action == Action.RIGHT_CLICK_AIR || action == Action.RIGHT_CLICK_BLOCK;
     }
+
     public static boolean isLeft(Action action) {
         return action == Action.LEFT_CLICK_AIR || action == Action.LEFT_CLICK_BLOCK;
     }

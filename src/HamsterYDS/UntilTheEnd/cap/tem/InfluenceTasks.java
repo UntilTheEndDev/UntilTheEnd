@@ -12,6 +12,7 @@ import org.bukkit.World;
 import org.bukkit.block.Block;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
+import org.bukkit.event.EventPriority;
 import org.bukkit.event.Listener;
 import org.bukkit.event.block.Action;
 import org.bukkit.event.player.PlayerInteractEvent;
@@ -107,7 +108,7 @@ public class InfluenceTasks {
     public static class Smoulder extends BukkitRunnable implements Listener {
         public ArrayList<String> smoulderingBlocks = new ArrayList<String>();
 
-        @EventHandler
+        @EventHandler(priority = EventPriority.MONITOR, ignoreCancelled = true)
         public void onRight(PlayerInteractEvent event) {
             if (event.getAction() != Action.RIGHT_CLICK_BLOCK) return;
             Player player = event.getPlayer();

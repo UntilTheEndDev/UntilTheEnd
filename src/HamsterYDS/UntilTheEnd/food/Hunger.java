@@ -23,12 +23,12 @@ public class Hunger implements Listener {
         new AutoHunger().runTaskTimer(plugin, 0L, 20 * plugin.getConfig().getLong("food.hunger.speed"));
     }
 
-    @EventHandler
+    @EventHandler()
     public void onJoin(PlayerJoinEvent event) {
         event.getPlayer().setFoodLevel(10);
     }
 
-    public class AutoHunger extends BukkitRunnable {
+    public static class AutoHunger extends BukkitRunnable {
         @Override
         public void run() {
             for (World world : Config.enableWorlds)

@@ -1,0 +1,75 @@
+enabled: true
+
+default:
+  name: "未选择"
+  originLevel: 0
+  originSanMax: 200
+  originHealthMax: 20
+  originDamageLevel: 1.0
+wilson:
+  name: "威尔逊"
+  originLevel: 0
+  originSanMax: 200
+  originHealthMax: 20
+  originDamageLevel: 1.0
+willpw:
+  name: "薇洛"
+  originLevel: 0
+  originSanMax: 120
+  originHealthMax: 20
+  originDamageLevel: 1.0
+wolfgang:
+  name: "沃尔夫冈"
+  originLevel: 0
+  originSanMax: 200
+  originHealthMax: 30
+  originDamageLevel: 1.0
+wendy:
+  name: "温蒂"
+  originLevel: 0
+  originSanMax: 250
+  originHealthMax: 20
+  originDamageLevel: 0.75
+wx78:
+  name: "AI->WX-78"
+  originLevel: 0
+  originSanMax: 100
+  originHealthMax: 10
+  originDamageLevel: 1.0
+wickerbottom:
+  name: "维克波顿"
+  originLevel: 0
+  originSanMax: 250
+  originHealthMax: 20
+  originDamageLevel: 1.0
+woodie:
+  name: "伍迪"
+  originLevel: 0
+  originSanMax: 200
+  originHealthMax: 20
+  originDamageLevel: 1.0
+wes:
+  name: "维斯"
+  originLevel: 0
+  originSanMax: 150
+  originHealthMax: 15
+  originDamageLevel: 0.75
+wigfrid:
+  name: "威戈芙瑞德"
+  originLevel: 0
+  originSanMax: 120
+  originHealthMax: 25
+  originDamageLevel: 1.25
+webber:
+  name: "韦伯"
+  originLevel: 0
+  originSanMax: 100
+  originHealthMax: 22
+  originDamageLevel: 1.0
+maxwell:
+  name: "麦克斯韦"
+  originLevel: 0
+  originSanMax: 200
+  originHealthMax: 10
+  originDamageLevel: 1.0
+

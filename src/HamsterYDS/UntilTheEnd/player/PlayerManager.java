@@ -34,12 +34,7 @@ import HamsterYDS.UntilTheEnd.player.role.Roles;
 public class PlayerManager implements Listener {
     public static UntilTheEnd plugin = UntilTheEnd.getInstance();
     private static HashMap<UUID, IPlayer> players = new HashMap<UUID, IPlayer>() {
-        /**
-		 * 
-		 */
-		private static final long serialVersionUID = 1L; 
-
-		@Override
+        @Override
         public IPlayer remove(Object key) {
             if (UntilTheEnd.DEBUG)
                 plugin.getLogger().log(Level.FINER, null, new Throwable("Player Data Removing! " + key));
@@ -71,20 +66,21 @@ public class PlayerManager implements Listener {
 
     public static ArrayList<UUID> playerChangedRole = new ArrayList<UUID>();
 
-    @EventHandler
+    @EventHandler()
     public void onJoin(PlayerJoinEvent event) {
         Player player = event.getPlayer();
         UUID name = player.getUniqueId();
         load(player);
-        if (checkRole(player) == Roles.DEFAULT)
-            player.sendMessage(UTEi18n.cache("role.unchosen"));
+        if (Roles.isEnable)
+            if (checkRole(player) == Roles.DEFAULT)
+                player.sendMessage(UTEi18n.cache("role.unchosen"));
         HudProvider.sanity.put(name, " ");
         HudProvider.humidity.put(name, " ");
         HudProvider.temperature.put(name, " ");
         HudProvider.tiredness.put(name, " ");
     }
 
-    @EventHandler
+    @EventHandler()
     public void onQuit(PlayerQuitEvent event) {
         Player player = event.getPlayer();
         UUID name = player.getUniqueId();
@@ -96,7 +92,7 @@ public class PlayerManager implements Listener {
         HudProvider.tiredness.remove(name);
     }
 
-    @EventHandler
+    @EventHandler()
     public void onDeath(PlayerDeathEvent event) {
         event.getDrops().removeIf(item -> {
             if (item == null) return true;
@@ -179,12 +175,16 @@ public class PlayerManager implements Listener {
     }
 
     public static Roles checkRole(Player player) {
+        if (!Roles.isEnable) return Roles.DEFAULT;
         if (!players.containsKey(player.getUniqueId())) return Roles.DEFAULT;
         IPlayer ip = players.get(player.getUniqueId());
         return ip.role;
     }
 
     public static void changeRole(Player player, Roles newRole) {
+        if (!Roles.isEnable) {
+            return;
+        }
         IPlayer ip = new IPlayer(37, 0, newRole.originSanMax, 0, new ArrayList<String>());
         ip.role = newRole;
         ip.roleStats = new IRole(newRole.originLevel, newRole.originSanMax,

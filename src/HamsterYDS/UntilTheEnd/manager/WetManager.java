@@ -41,14 +41,16 @@ public class WetManager {
         } else lore.remove(LORE);
         meta.setLore(lore);
         stack.setItemMeta(meta);
-    } 
+    }
+
     public static String getName(ItemStack item) {
-		if(item==null) return "";
-		if(item.hasItemMeta())
-			if(item.getItemMeta().hasDisplayName())
-				return item.getItemMeta().getDisplayName();
-		return "";
-	}
+        if (item == null) return "";
+        if (item.hasItemMeta())
+            if (item.getItemMeta().hasDisplayName())
+                return item.getItemMeta().getDisplayName();
+        return "";
+    }
+
     public static boolean isWet(ItemStack item) {
         if (item == null) return true;
         if (!item.hasItemMeta()) return false;

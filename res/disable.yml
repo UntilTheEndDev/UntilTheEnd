@@ -6,3 +6,6 @@ check-type:
     list: [tir]
     # 映射
     mirror: [world_the_end, "$default"]
+
+#禁用的职业
+roles: []

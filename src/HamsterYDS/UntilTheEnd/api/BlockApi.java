@@ -12,7 +12,7 @@ import HamsterYDS.UntilTheEnd.item.BlockManager;
 public class BlockApi {
     public static String getSpecialBlock(Location loc) {
         String toString = locToStr(loc);
-        return BlockManager.blocks.containsKey(toString)?BlockManager.blocks.get(toString):" ";
+        return BlockManager.blocks.containsKey(toString) ? BlockManager.blocks.get(toString) : " ";
     }
 
     public static HashMap<String, String> getSpecialBlocks(World world) {

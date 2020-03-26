@@ -41,13 +41,13 @@ public class UTEPapiExpansion extends PlaceholderExpansion {
         } else if (identifier.equals("role")) {
             return PlayerApi.getRole(player).name;
         } else if (identifier.equals("sanmax")) {
-        	return String.valueOf(PlayerManager.check(player, CheckType.SANMAX));
+            return String.valueOf(PlayerManager.check(player, CheckType.SANMAX));
         } else if (identifier.equals("healthmax")) {
-        	return String.valueOf(PlayerManager.check(player, CheckType.HEALTHMAX));
+            return String.valueOf(PlayerManager.check(player, CheckType.HEALTHMAX));
         } else if (identifier.equals("level")) {
-        	return String.valueOf(PlayerManager.check(player,CheckType.LEVEL));
+            return String.valueOf(PlayerManager.check(player, CheckType.LEVEL));
         } else if (identifier.equals("damagelevel")) {
-        	return String.valueOf(PlayerManager.check(player,CheckType.DAMAGELEVEL));
+            return String.valueOf(PlayerManager.check(player, CheckType.DAMAGELEVEL));
         } else if (identifier.equals("day")) {
             return String.valueOf(WorldApi.getDay(player.getWorld()));
         } else if (identifier.equals("sanitycolor")) {
@@ -77,7 +77,7 @@ public class UTEPapiExpansion extends PlaceholderExpansion {
         } else if (identifier.equals("tirednessbar")) {
             return PlayerApi.getTirednessBar(player);
         } else {
-        	return identifier;
+            return identifier;
         }
     }
 }

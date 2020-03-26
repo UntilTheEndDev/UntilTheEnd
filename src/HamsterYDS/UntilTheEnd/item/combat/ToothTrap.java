@@ -27,83 +27,92 @@ import HamsterYDS.UntilTheEnd.item.ItemManager;
 import HamsterYDS.UntilTheEnd.player.death.DeathCause;
 import HamsterYDS.UntilTheEnd.player.death.DeathMessage;
 
-public class ToothTrap implements Listener{
-	public static double damage=ItemManager.itemAttributes.getDouble("ToothTrap.damage");
-	public static double brokenPercent=ItemManager.itemAttributes.getDouble("ToothTrap.brokenPercent");
-	public static ArrayList<String> touched=new ArrayList<String>();
-	public ToothTrap() {
-		loadBlocks();
-		ItemManager.plugin.getServer().getPluginManager().registerEvents(this,ItemManager.plugin);
-	}
-	@EventHandler public void onMove(EntityInteractEvent event) {
-		if(event.isCancelled()) return;
-		Entity entity=event.getEntity();
-		if(!(entity instanceof LivingEntity)) return;
-		if(entity instanceof Player) return;
-		Location loc=event.getBlock().getLocation();
-		if(BlockApi.getSpecialBlocks("ToothTrap").contains(BlockApi.locToStr(loc))) {
-			if(touched.contains(BlockApi.locToStr(loc))) return;
-			if(Math.random()<=brokenPercent) {
-				loc.getBlock().breakNaturally(new ItemStack(Material.AIR));
-				BlockManager.blocks.remove(BlockApi.locToStr(loc));
-				BlockManager.removeBlockData("ToothTrap",BlockApi.locToStr(loc));
-			}else{
-				touched.add(BlockApi.locToStr(loc));
-				loc.getBlock().setType(Material.CARPET);
-			}
-			entity.getWorld().spawnParticle(Particle.CRIT,loc.add(0.5,0.5,0.5),5);
-			((LivingEntity)entity).damage(damage);
-		}
-	}
-	@EventHandler public void onMove(PlayerMoveEvent event) {
-		if(event.isCancelled()) return;
-		Player player=event.getPlayer();
-		if(player.getGameMode()==GameMode.CREATIVE||player.getGameMode()==GameMode.SPECTATOR) return;
-		Location loc=event.getFrom();
-		if(BlockApi.getSpecialBlocks("ToothTrap").contains(BlockApi.locToStr(loc))) {
-			if(touched.contains(BlockApi.locToStr(loc))) return;
-			if(Math.random()<=brokenPercent) {
-				loc.getBlock().breakNaturally(new ItemStack(Material.AIR));
-				BlockManager.blocks.remove(BlockApi.locToStr(loc));
-				BlockManager.removeBlockData("ToothTrap",BlockApi.locToStr(loc));
-			}else{
-				touched.add(BlockApi.locToStr(loc));
-				loc.getBlock().setType(Material.CARPET);
-			}
-			player.getWorld().spawnParticle(Particle.CRIT,loc.add(0.5,0.5,0.5),5);
-			if(player.getHealth()<=damage) DeathMessage.causes.put(player.getName(),DeathCause.TOOTHTRAP);
-			player.damage(damage);
-		}
-	}
-	@EventHandler public void onClick(PlayerInteractEvent event) {
-		if(event.isCancelled()) return;
-		Player player=event.getPlayer();
-		if(event.getAction()!=Action.RIGHT_CLICK_BLOCK) return;
-		Block block=event.getClickedBlock();
-		Location loc=block.getLocation();
-		if(BlockApi.getSpecialBlocks("ToothTrap").contains(BlockApi.locToStr(loc))) {
-			if(!touched.contains(BlockApi.locToStr(loc))) return;
-			touched.remove(BlockApi.locToStr(loc));
-			loc.getBlock().setType(Material.IRON_PLATE);
-			player.sendMessage("[§cUntilTheEnd]§r 陷阱重置成功");
-		}
-	}
-	public static void saveBlocks() {
-		File file=new File(ItemManager.plugin.getDataFolder()+"/data/","traps.yml");
-		file.delete();
-		YamlConfiguration yaml=YamlConfiguration.loadConfiguration(file);
-		for(String loc:touched) 
-			yaml.set(loc,"");
-		try {
-			yaml.save(file);
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
-	}
-	public static void loadBlocks() {
-		File file=new File(ItemManager.plugin.getDataFolder()+"/data/","traps.yml");
-		YamlConfiguration yaml=YamlConfiguration.loadConfiguration(file);
-		for(String path:yaml.getKeys(false)) 
-			touched.add(path);
-	}
+public class ToothTrap implements Listener {
+    public static double damage = ItemManager.itemAttributes.getDouble("ToothTrap.damage");
+    public static double brokenPercent = ItemManager.itemAttributes.getDouble("ToothTrap.brokenPercent");
+    public static ArrayList<String> touched = new ArrayList<String>();
+
+    public ToothTrap() {
+        loadBlocks();
+        ItemManager.plugin.getServer().getPluginManager().registerEvents(this, ItemManager.plugin);
+    }
+
+    @EventHandler
+    public void onMove(EntityInteractEvent event) {
+        if (event.isCancelled()) return;
+        Entity entity = event.getEntity();
+        if (!(entity instanceof LivingEntity)) return;
+        if (entity instanceof Player) return;
+        Location loc = event.getBlock().getLocation();
+        if (BlockApi.getSpecialBlocks("ToothTrap").contains(BlockApi.locToStr(loc))) {
+            if (touched.contains(BlockApi.locToStr(loc))) return;
+            if (Math.random() <= brokenPercent) {
+                loc.getBlock().breakNaturally(new ItemStack(Material.AIR));
+                BlockManager.blocks.remove(BlockApi.locToStr(loc));
+                BlockManager.removeBlockData("ToothTrap", BlockApi.locToStr(loc));
+            } else {
+                touched.add(BlockApi.locToStr(loc));
+                loc.getBlock().setType(Material.CARPET);
+            }
+            entity.getWorld().spawnParticle(Particle.CRIT, loc.add(0.5, 0.5, 0.5), 5);
+            ((LivingEntity) entity).damage(damage);
+        }
+    }
+
+    @EventHandler
+    public void onMove(PlayerMoveEvent event) {
+        if (event.isCancelled()) return;
+        Player player = event.getPlayer();
+        if (player.getGameMode() == GameMode.CREATIVE || player.getGameMode() == GameMode.SPECTATOR) return;
+        Location loc = event.getFrom();
+        if (BlockApi.getSpecialBlocks("ToothTrap").contains(BlockApi.locToStr(loc))) {
+            if (touched.contains(BlockApi.locToStr(loc))) return;
+            if (Math.random() <= brokenPercent) {
+                loc.getBlock().breakNaturally(new ItemStack(Material.AIR));
+                BlockManager.blocks.remove(BlockApi.locToStr(loc));
+                BlockManager.removeBlockData("ToothTrap", BlockApi.locToStr(loc));
+            } else {
+                touched.add(BlockApi.locToStr(loc));
+                loc.getBlock().setType(Material.CARPET);
+            }
+            player.getWorld().spawnParticle(Particle.CRIT, loc.add(0.5, 0.5, 0.5), 5);
+            if (player.getHealth() <= damage) DeathMessage.causes.put(player.getName(), DeathCause.TOOTHTRAP);
+            player.damage(damage);
+        }
+    }
+
+    @EventHandler
+    public void onClick(PlayerInteractEvent event) {
+        if (event.isCancelled()) return;
+        Player player = event.getPlayer();
+        if (event.getAction() != Action.RIGHT_CLICK_BLOCK) return;
+        Block block = event.getClickedBlock();
+        Location loc = block.getLocation();
+        if (BlockApi.getSpecialBlocks("ToothTrap").contains(BlockApi.locToStr(loc))) {
+            if (!touched.contains(BlockApi.locToStr(loc))) return;
+            touched.remove(BlockApi.locToStr(loc));
+            loc.getBlock().setType(Material.IRON_PLATE);
+            player.sendMessage("[§cUntilTheEnd]§r 陷阱重置成功");
+        }
+    }
+
+    public static void saveBlocks() {
+        File file = new File(ItemManager.plugin.getDataFolder() + "/data/", "traps.yml");
+        file.delete();
+        YamlConfiguration yaml = YamlConfiguration.loadConfiguration(file);
+        for (String loc : touched)
+            yaml.set(loc, "");
+        try {
+            yaml.save(file);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    public static void loadBlocks() {
+        File file = new File(ItemManager.plugin.getDataFolder() + "/data/", "traps.yml");
+        YamlConfiguration yaml = YamlConfiguration.loadConfiguration(file);
+        for (String path : yaml.getKeys(false))
+            touched.add(path);
+    }
 }

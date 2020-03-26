@@ -9,6 +9,7 @@ import org.bukkit.Location;
 import org.bukkit.World.Environment;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
+import org.bukkit.event.EventPriority;
 import org.bukkit.event.Listener;
 import org.bukkit.event.player.PlayerInteractEvent;
 import org.bukkit.inventory.ItemStack;
@@ -32,7 +33,7 @@ public class StrawRoll implements Listener {
 
     public static Set<UUID> sleeping = new HashSet<UUID>();
 
-    @EventHandler
+    @EventHandler(priority = EventPriority.MONITOR, ignoreCancelled = true)
     public void onClick(PlayerInteractEvent event) {
         Player player = event.getPlayer();
         if (!EventHelper.isRight(event.getAction())) return;
@@ -62,10 +63,10 @@ public class StrawRoll implements Listener {
                     if (Math.random() <= 0.05) {
                         if (player.getHealth() + 1 < player.getMaxHealth())
                             player.setHealth(player.getHealth() + 1);
-                        SanityChangeEvent event=new SanityChangeEvent(player,ChangeCause.STRAWROLL,1);
+                        SanityChangeEvent event = new SanityChangeEvent(player, ChangeCause.STRAWROLL, 1);
                         Bukkit.getPluginManager().callEvent(event);
-                        if(!event.isCancelled())
-                        	PlayerManager.change(player, PlayerManager.CheckType.SANITY, 1);
+                        if (!event.isCancelled())
+                            PlayerManager.change(player, PlayerManager.CheckType.SANITY, 1);
                     }
                     if (Math.random() <= 0.07) {
                         if (player.getFoodLevel() >= 1) player.setFoodLevel(player.getFoodLevel() - 1);

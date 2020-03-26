@@ -9,6 +9,7 @@
 package HamsterYDS.UntilTheEnd.internal;
 
 import HamsterYDS.UntilTheEnd.Config;
+import HamsterYDS.UntilTheEnd.UntilTheEnd;
 import HamsterYDS.UntilTheEnd.player.PlayerManager;
 import org.bukkit.World;
 import org.bukkit.configuration.ConfigurationSection;
@@ -17,7 +18,11 @@ import org.bukkit.configuration.file.YamlConfiguration;
 import java.util.*;
 
 public class DisableManager {
-    private static final YamlConfiguration root = Config.autoUpdateConfigs("disable.yml");
+    public static final YamlConfiguration root = Config.autoUpdateConfigs("disable.yml");
+
+    static {
+        UntilTheEnd.getInstance().getLogger().fine("[DisableManager] Loading disable manager's data....");
+    }
 
     public static class CheckTypeChecking {
         private static final ConfigurationSection section = root.getConfigurationSection("check-type");

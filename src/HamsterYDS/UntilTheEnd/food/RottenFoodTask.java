@@ -35,27 +35,27 @@ public class RottenFoodTask {
         @Override
         public void run() {
             for (World world : Config.enableWorlds)
-            	next_player: 
-                for (Player player : world.getPlayers()) {
-                    if (NPCChecker.isNPC(player)) continue;
-                    if (player.getGameMode() == GameMode.CREATIVE || player.getGameMode() == GameMode.SPECTATOR)
-                        continue;
-                    PlayerInventory inv = player.getInventory();
-                    if (getName(inv.getChestplate()).equalsIgnoreCase("§6便携包")) continue;
-                    ItemStack[] clothes = ClothesContainer.getInventory(player).getStorageContents();
-                    for (ItemStack cloth : clothes) 
-                    	if (getName(cloth).equalsIgnoreCase("§6便携包")) 
-                    		continue next_player;
-                    
-                    for (int slot = 0; slot < inv.getSize(); slot++) {
-                        ItemStack item = inv.getItem(slot);
-                        if (item == null) continue;
-                        if (item.getType() == Material.ROTTEN_FLESH) continue;
-                        if (ItemFactory.getType(item).isEdible())
-                            inv.setItem(slot, setRottenLevel(item, getRottenLevel(item) - 1));
-                    }
-                    
-                }
+                next_player:
+                        for (Player player : world.getPlayers()) {
+                            if (NPCChecker.isNPC(player)) continue;
+                            if (player.getGameMode() == GameMode.CREATIVE || player.getGameMode() == GameMode.SPECTATOR)
+                                continue;
+                            PlayerInventory inv = player.getInventory();
+                            if (getName(inv.getChestplate()).equalsIgnoreCase("§6便携包")) continue;
+                            ItemStack[] clothes = ClothesContainer.getInventory(player).getStorageContents();
+                            for (ItemStack cloth : clothes)
+                                if (getName(cloth).equalsIgnoreCase("§6便携包"))
+                                    continue next_player;
+
+                            for (int slot = 0; slot < inv.getSize(); slot++) {
+                                ItemStack item = inv.getItem(slot);
+                                if (item == null) continue;
+                                if (item.getType() == Material.ROTTEN_FLESH) continue;
+                                if (ItemFactory.getType(item).isEdible())
+                                    inv.setItem(slot, setRottenLevel(item, getRottenLevel(item) - 1));
+                            }
+
+                        }
         }
     }
 

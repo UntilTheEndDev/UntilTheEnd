@@ -12,16 +12,17 @@ import HamsterYDS.UntilTheEnd.UntilTheEnd;
  * @version V5.1.1
  */
 public class World {
-	public static UntilTheEnd plugin;
-	public static File file;
-	public static YamlConfiguration yaml;
-	public World(UntilTheEnd plugin) {
-		this.plugin=plugin;
-		file=new File(plugin.getDataFolder(),"worlds.yml");
-		yaml=YamlConfiguration.loadConfiguration(file);
-		WorldProvider.loadWorlds();
-		new WorldCounter().runTaskTimer(plugin,0L,20L);
-		new InfluenceTasks(plugin);
+    public static UntilTheEnd plugin;
+    public static File file;
+    public static YamlConfiguration yaml;
+
+    public World(UntilTheEnd plugin) {
+        this.plugin = plugin;
+        file = new File(plugin.getDataFolder(), "worlds.yml");
+        yaml = YamlConfiguration.loadConfiguration(file);
+        WorldProvider.loadWorlds();
+        new WorldCounter().runTaskTimer(plugin, 0L, 20L);
+        new InfluenceTasks(plugin);
 //		new DarkNight().runTaskTimer(plugin,0L,50L);
-	} 
+    }
 }

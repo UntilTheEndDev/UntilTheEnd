@@ -8,6 +8,7 @@ import org.bukkit.Material;
 import org.bukkit.entity.LivingEntity;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
+import org.bukkit.event.EventPriority;
 import org.bukkit.event.Listener;
 import org.bukkit.event.entity.FoodLevelChangeEvent;
 import org.bukkit.event.player.PlayerItemConsumeEvent;
@@ -33,7 +34,7 @@ public class RottenFoodInfluence implements Listener {
     private HashMap<String, Integer> eatenFoodRottens = new HashMap<String, Integer>();
     private HashMap<String, Integer> eatenFoodLevels = new HashMap<String, Integer>();
 
-    @EventHandler
+    @EventHandler(priority = EventPriority.MONITOR, ignoreCancelled = true)
     public void onUse(PlayerItemConsumeEvent event) {
         ItemStack item = event.getItem();
         if (!ItemFactory.getType(item).isEdible()) return;
@@ -43,7 +44,7 @@ public class RottenFoodInfluence implements Listener {
         else eatenFoodRottens.put(event.getPlayer().getName(), RottenFoodTask.getRottenLevel(item));
     }
 
-    @EventHandler
+    @EventHandler(priority = EventPriority.MONITOR, ignoreCancelled = true)
     public void onEat(FoodLevelChangeEvent event) {
         LivingEntity entity = event.getEntity();
         if (!(entity instanceof Player)) return;

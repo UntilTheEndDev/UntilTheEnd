@@ -37,7 +37,7 @@ public class InfluenceTasks {
         public void run() {
             for (World world : Config.enableWorlds) {
                 for (Player player : world.getPlayers()) {
-                    if(NPCChecker.isNPC(player))continue;
+                    if (NPCChecker.isNPC(player)) continue;
                     int hum = (int) PlayerManager.check(player, PlayerManager.CheckType.HUMIDITY);
                     if (hum <= effectHumidity) continue;
                     if (!player.hasPotionEffect(PotionEffectType.SLOW_DIGGING))
@@ -102,10 +102,10 @@ public class InfluenceTasks {
                         }
                     }
                 for (Player player : world.getPlayers()) {
-                    if(NPCChecker.isNPC(player))continue;
+                    if (NPCChecker.isNPC(player)) continue;
                     int hum = (int) PlayerManager.check(player, PlayerManager.CheckType.HUMIDITY);
                     if (hum > seasonHumidity) continue;
-                    PlayerInventory inv = player.getInventory(); 
+                    PlayerInventory inv = player.getInventory();
                     for (int slot = 0; slot < inv.getSize(); slot++) {
                         ItemStack item = inv.getItem(slot);
                         if (item == null) continue;

@@ -8,6 +8,7 @@ import HamsterYDS.UntilTheEnd.internal.UTEi18n;
 import HamsterYDS.UntilTheEnd.manager.WetManager;
 import org.bukkit.entity.Entity;
 import org.bukkit.event.EventHandler;
+import org.bukkit.event.EventPriority;
 import org.bukkit.event.Listener;
 import org.bukkit.event.entity.FoodLevelChangeEvent;
 import org.bukkit.event.inventory.InventoryClickEvent;
@@ -32,7 +33,7 @@ public class InfluenceEvents implements Listener {
 
     private HashMap<UUID, Integer> wetFoodLevels = new HashMap<>();
 
-    @EventHandler
+    @EventHandler(priority = EventPriority.MONITOR, ignoreCancelled = true)
     public void onUse(PlayerItemConsumeEvent event) {
         if (!Config.enableWorlds.contains(event.getPlayer().getWorld())) return;
         ItemStack item = event.getItem();
@@ -41,7 +42,7 @@ public class InfluenceEvents implements Listener {
             wetFoodLevels.put(event.getPlayer().getUniqueId(), event.getPlayer().getFoodLevel());
     }
 
-    @EventHandler
+    @EventHandler(priority = EventPriority.MONITOR, ignoreCancelled = true)
     public void onEat(FoodLevelChangeEvent event) {
         Entity entity = event.getEntity();
         if (!Config.enableWorlds.contains(event.getEntity().getWorld())) return;
@@ -53,7 +54,7 @@ public class InfluenceEvents implements Listener {
         }
     }
 
-    @EventHandler
+    @EventHandler(priority = EventPriority.MONITOR, ignoreCancelled = true)
     public void onDrag(InventoryDragEvent event) {
         if (!Config.enableWorlds.contains(event.getWhoClicked().getWorld())) return;
         ItemStack item = event.getCursor();
@@ -64,7 +65,7 @@ public class InfluenceEvents implements Listener {
         }
     }
 
-    @EventHandler
+    @EventHandler(priority = EventPriority.MONITOR, ignoreCancelled = true)
     public void onClick(InventoryClickEvent event) {
         if (!Config.enableWorlds.contains(event.getWhoClicked().getWorld())) return;
         Inventory inv = event.getClickedInventory();

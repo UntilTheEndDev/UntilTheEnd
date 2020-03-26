@@ -12,7 +12,7 @@ import HamsterYDS.UntilTheEnd.internal.UTEi18n;
 public class DeathMessage implements Listener {
     public static HashMap<String, DeathCause> causes = new HashMap<String, DeathCause>();
 
-    @EventHandler
+    @EventHandler()
     public void onDeath(PlayerDeathEvent event) {
         Player player = event.getEntity();
         if (causes.containsKey(player.getName())) {

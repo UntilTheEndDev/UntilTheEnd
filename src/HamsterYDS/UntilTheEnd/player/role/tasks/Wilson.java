@@ -12,13 +12,14 @@ import HamsterYDS.UntilTheEnd.item.ItemManager;
 import HamsterYDS.UntilTheEnd.player.role.Roles;
 
 public class Wilson {
-	public Wilson(UntilTheEnd plugin) {
-		new Beard().runTaskTimer(plugin,0L,1200L);
-	}
-	public class Beard extends BukkitRunnable{
-		@Override
-		public void run() {
-			for (World world : Config.enableWorlds)
+    public Wilson(UntilTheEnd plugin) {
+        new Beard().runTaskTimer(plugin, 0L, 1200L);
+    }
+
+    public class Beard extends BukkitRunnable {
+        @Override
+        public void run() {
+            for (World world : Config.enableWorlds)
                 for (Player player : world.getPlayers()) {
                     if (NPCChecker.isNPC(player)) continue;
                     if (PlayerApi.getRole(player) == Roles.WILSON) {

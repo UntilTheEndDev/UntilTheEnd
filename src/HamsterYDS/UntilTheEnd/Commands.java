@@ -45,12 +45,14 @@ public class Commands implements CommandExecutor, Listener, TabCompleter {
         itemTab.addAll(ItemManager.items.keySet());
         cmdTab.addAll(Arrays.asList("cheat", "give", "guide", "help", "material", "entitytype", "set", "season", "temp",
                 "role", "openguide"));
+        if (!Roles.isEnable) cmdTab.remove("role");
         for (Season season : Season.values())
             seasonTab.add(season.name().toLowerCase());
         for (PlayerManager.CheckType type : PlayerManager.CheckType.values())
             capTab.add(type.getShortName());
         for (Roles role : Roles.values())
-            roleTab.add(role.toString());
+            if (role.allow)
+                roleTab.add(role.toString());
         Collections.sort(itemTab);
         Collections.sort(cmdTab);
     }
@@ -285,42 +287,55 @@ public class Commands implements CommandExecutor, Listener, TabCompleter {
                     notPlayer(cs);
                     break;
                 }
+                if (!Roles.isEnable) {
+                    notPermitted(cs);
+                    break;
+                }
                 if (ct.length == 1)
                     pl.sendMessage(UTEi18n.cacheWithPrefix("cmd.role.check").replace("{role}", PlayerManager.checkRole(pl).name)); // TODO
                 if (ct.length == 2) {
-                    Roles role = Roles.DEFAULT;
+                    Roles role;
                     try {
                         role = Roles.valueOf(ct[1]);
                     } catch (Exception e) {
-                        pl.sendMessage(UTEi18n.cacheWithPrefix("cmd.role.invalid")); // TODO
+                        pl.sendMessage(UTEi18n.cacheWithPrefix("cmd.role.invalid"));
                         return true;
                     }
-                    if (!pl.hasPermission("ute.role." + role.name))
+                    if (!role.allow || !pl.hasPermission("ute.role." + role.name))
                         notPermitted(cs);
-                    if(PlayerManager.playerChangedRole.contains(pl.getUniqueId())) 
-                    	return true;
+                    if (PlayerManager.playerChangedRole.contains(pl.getUniqueId()))
+                        return true;
                     PlayerManager.changeRole(pl, role);
                     PlayerManager.playerChangedRole.add(pl.getUniqueId());
                     pl.sendMessage(UTEi18n.cacheWithPrefix("cmd.role.change"));
                 }
             }
             case "lore": {
-            	if(ct.length==3) {
-            		if(ct[1].equalsIgnoreCase("addtem")) {
-            			int temperature=0;
-            			try{temperature=Integer.valueOf(ct[2]);}
-            			catch(Exception e) {cs.sendMessage(UTEi18n.cacheWithPrefix("cmd.not.number"));return true;}
-            			ItemStack item=pl.getInventory().getItemInMainHand();
-            			ItemMeta meta=item.getItemMeta();
-            			List<String> lores=new ArrayList<String>();
-            			if(meta.hasLore()) lores=meta.getLore();
-            			lores.add("§8- §8§l温度 "+temperature);
-            			meta.setLore(lores);
-            			item.setItemMeta(meta);
-            			pl.getInventory().setItemInMainHand(item);
-            			pl.updateInventory();
-            		}
-            	}
+                if (pl == null) {
+                    notPlayer(cs);
+                    break;
+                }
+                if (ct.length == 3) {
+                    if (ct[1].equalsIgnoreCase("addtem")) {
+                        int temperature;
+                        try {
+                            temperature = Integer.parseInt(ct[2]);
+                        } catch (Exception e) {
+                            cs.sendMessage(UTEi18n.cacheWithPrefix("cmd.not.number"));
+                            return true;
+                        }
+                        ItemStack item = pl.getInventory().getItemInMainHand();
+                        ItemMeta meta = item.getItemMeta();
+                        List<String> lores = new ArrayList<String>();
+                        if (meta.hasLore()) lores = meta.getLore();
+                        lores.add("§8- §8§l温度 " + temperature);
+                        meta.setLore(lores);
+                        item.setItemMeta(meta);
+                        pl.getInventory().setItemInMainHand(item);
+                        pl.updateInventory();
+                    }
+                }
+                break;
             }
         }
         return true;
@@ -413,9 +428,10 @@ public class Commands implements CommandExecutor, Listener, TabCompleter {
                         break;
                     }
                     case "role": {
-                        if (sender.hasPermission("ute.role")) {
-                            list.addAll(roleTab);
-                        }
+                        if (Roles.isEnable)
+                            if (sender.hasPermission("ute.role")) {
+                                list.addAll(roleTab);
+                            }
                         break;
                     }
                     case "guide": {

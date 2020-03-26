@@ -2,6 +2,7 @@ package HamsterYDS.UntilTheEnd.item.clothes;
 
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
+import org.bukkit.event.EventPriority;
 import org.bukkit.event.Listener;
 import org.bukkit.event.entity.EntityTargetEvent;
 import org.bukkit.event.entity.EntityTargetEvent.TargetReason;
@@ -18,7 +19,7 @@ public class BushesHat implements Listener {
         ItemManager.plugin.getServer().getPluginManager().registerEvents(this, ItemManager.plugin);
     }
 
-    @EventHandler
+    @EventHandler(priority = EventPriority.MONITOR, ignoreCancelled = true)
     public void onTarget(EntityTargetEvent event) {
         if (event.getTarget() instanceof Player) {
             Player player = (Player) event.getTarget();
@@ -28,8 +29,8 @@ public class BushesHat implements Listener {
                 if (event.getReason() == TargetReason.CLOSEST_PLAYER)
                     event.setCancelled(true);
             ItemStack[] clothes = ClothesContainer.getInventory(player).getStorageContents();
-            for (ItemStack cloth : clothes) 
-            	if (ItemManager.isSimilar(cloth, getClass()))
+            for (ItemStack cloth : clothes)
+                if (ItemManager.isSimilar(cloth, getClass()))
                     if (event.getReason() == TargetReason.CLOSEST_PLAYER)
                         event.setCancelled(true);
         }

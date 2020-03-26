@@ -86,14 +86,14 @@ public class CraftGuide implements Listener {
 
     public static ArrayList<String> openers = new ArrayList<String>();
 
-    @EventHandler
+    @EventHandler()
     public void onOpen(InventoryOpenEvent event) {
         Inventory inv = event.getInventory();
         if (inv.getHolder() instanceof HolderCraftingHelp)
             openers.add(event.getPlayer().getName());
     }
 
-    @EventHandler
+    @EventHandler()
     public void onClose(InventoryCloseEvent event) {
         Inventory inv = event.getInventory();
         if (inv.getHolder() instanceof HolderCraftingHelp) {
@@ -103,26 +103,26 @@ public class CraftGuide implements Listener {
         }
     }
 
-    @EventHandler
+    @EventHandler()
     public void onDrag(InventoryDragEvent event) {
         Inventory inv = event.getInventory();
         if (inv.getHolder() instanceof HolderCraftingHelp)
             event.setCancelled(true);
     }
 
-    @EventHandler
+    @EventHandler()
     public void onJoin(PlayerJoinEvent event) {
         Player player = event.getPlayer();
         playerInvs.put(player.getName(), new ArrayList<Inventory>());
     }
 
-    @EventHandler
+    @EventHandler()
     public void onQuit(PlayerQuitEvent event) {
         Player player = event.getPlayer();
         playerInvs.remove(player.getName());
     }
 
-    @EventHandler
+    @EventHandler()
     public void onClick(InventoryClickEvent event) {
         Player player = (Player) event.getWhoClicked();
         Inventory inv = event.getClickedInventory();

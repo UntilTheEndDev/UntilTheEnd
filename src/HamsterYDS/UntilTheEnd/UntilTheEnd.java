@@ -8,6 +8,7 @@ import java.util.logging.Level;
 
 import HamsterYDS.UntilTheEnd.api.UTEPapiExpansion;
 import HamsterYDS.UntilTheEnd.cap.HudBossBar;
+import HamsterYDS.UntilTheEnd.internal.Metrics;
 import HamsterYDS.UntilTheEnd.internal.UTEi18n;
 import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
@@ -32,7 +33,6 @@ import HamsterYDS.UntilTheEnd.nms.NMSManager;
 import HamsterYDS.UntilTheEnd.player.PlayerManager;
 import HamsterYDS.UntilTheEnd.world.World;
 import HamsterYDS.UntilTheEnd.world.WorldProvider;
-import me.clip.placeholderapi.metrics.bukkit.Metrics;
 
 /**
  * @author 南外丶仓鼠
@@ -87,14 +87,14 @@ public class UntilTheEnd extends JavaPlugin implements Listener {
         failedLoading = false;
         try {
             int pluginId = 6586;
-            Metrics metrics = new Metrics(this);
+            Metrics metrics = new Metrics(this, pluginId);
             metrics.addCustomChart(new Metrics.SimplePie("chart_id", () -> "My value"));
             checkUpdate();
             loadConfig();
-            try{
-            	new NMSManager();
-            }catch(ExceptionInInitializerError e) {
-            	
+            try {
+                new NMSManager();
+            } catch (ExceptionInInitializerError e) {
+
             }
             new Config(this);
             new World(this);
@@ -155,7 +155,7 @@ public class UntilTheEnd extends JavaPlugin implements Listener {
                     isLatest = false;
                     Bukkit.getOnlinePlayers().forEach(this::sendUpdate);
                     Bukkit.getPluginManager().registerEvents(new Listener() {
-                        @EventHandler
+                        @EventHandler()
                         public void onPlayerJoin(PlayerJoinEvent event) {
                             sendUpdate(event.getPlayer());
                         }

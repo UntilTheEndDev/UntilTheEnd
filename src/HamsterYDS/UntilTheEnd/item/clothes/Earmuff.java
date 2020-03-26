@@ -8,9 +8,9 @@ import HamsterYDS.UntilTheEnd.item.ItemManager;
  * @version V5.1.1
  */
 public class Earmuff {
-	public static double percent = ItemManager.itemAttributes.getDouble("Earmuff.percent");
+    public static double percent = ItemManager.itemAttributes.getDouble("Earmuff.percent");
 
-	public Earmuff() {
-		ChangeTasks.clothesChangeTemperature.put(ItemManager.items.get("Earmuff").displayName, -percent);
-	}
+    public Earmuff() {
+        ChangeTasks.clothesChangeTemperature.put(ItemManager.items.get("Earmuff").displayName, -percent);
+    }
 }

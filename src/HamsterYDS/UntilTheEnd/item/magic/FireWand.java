@@ -13,6 +13,7 @@ import org.bukkit.Particle;
 import org.bukkit.entity.Entity;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
+import org.bukkit.event.EventPriority;
 import org.bukkit.event.Listener;
 import org.bukkit.event.player.PlayerInteractEvent;
 import org.bukkit.inventory.ItemStack;
@@ -33,7 +34,7 @@ public class FireWand implements Listener {
 
     private static HashMap<String, Integer> cd = new HashMap<String, Integer>();
 
-    @EventHandler
+    @EventHandler(priority = EventPriority.MONITOR, ignoreCancelled = true)
     public void onRight(PlayerInteractEvent event) {
         Player player = event.getPlayer();
         if (!event.hasItem()) return;
@@ -54,10 +55,10 @@ public class FireWand implements Listener {
                 player.setItemInHand(null);
             Location loc = player.getLocation().add(0.0, 1.0, 0.0);
             Vector vec = player.getEyeLocation().getDirection().multiply(0.5);
-            SanityChangeEvent event2=new SanityChangeEvent(player,ChangeCause.USEWAND,-5);
+            SanityChangeEvent event2 = new SanityChangeEvent(player, ChangeCause.USEWAND, -5);
             Bukkit.getPluginManager().callEvent(event2);
-            if(!event2.isCancelled()) 
-            	PlayerManager.change(player, PlayerManager.CheckType.SANITY, -5);
+            if (!event2.isCancelled())
+                PlayerManager.change(player, PlayerManager.CheckType.SANITY, -5);
             new BukkitRunnable() {
                 int range = maxDist;
 

@@ -14,6 +14,7 @@ import org.bukkit.World;
 import org.bukkit.block.Block;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
+import org.bukkit.event.EventPriority;
 import org.bukkit.event.Listener;
 import org.bukkit.event.entity.PlayerDeathEvent;
 import org.bukkit.event.player.PlayerItemConsumeEvent;
@@ -43,7 +44,7 @@ public class InfluenceTasks {
     public static int san_warn = HamsterYDS.UntilTheEnd.world.World.plugin.getConfig().getInt("world.darkness.sanWarn");
     public static int san_attack = HamsterYDS.UntilTheEnd.world.World.plugin.getConfig().getInt("world.darkness.sanAttack");
     public static int carrotEffect = HamsterYDS.UntilTheEnd.world.World.plugin.getConfig().getInt("world.darkness.carrotEffect");
- 
+
     public InfluenceTasks(UntilTheEnd plugin) {
         this.plugin = plugin;
         new Blindness().runTaskTimer(plugin, 0L, 50L);
@@ -72,7 +73,7 @@ public class InfluenceTasks {
         private HashMap<String, Integer> darkness = new HashMap<String, Integer>();
         private HashMap<String, Integer> carrotEffects = new HashMap<String, Integer>();
 
-        @EventHandler
+        @EventHandler(priority = EventPriority.MONITOR, ignoreCancelled = true)
         public void onUse(PlayerItemConsumeEvent event) {
             Player player = event.getPlayer();
             if (event.getItem().getType() == Material.CARROT) {
@@ -91,7 +92,7 @@ public class InfluenceTasks {
             }
         }
 
-        @EventHandler
+        @EventHandler()
         public void onDeath(PlayerDeathEvent event) {
             if (darkness.containsKey(event.getEntity().getName())) {
                 if (carrotEffects.containsKey(event.getEntity().getName())) {
@@ -139,20 +140,20 @@ public class InfluenceTasks {
                     if (darkness.containsKey(player.getName())) {
                         if (darkness.get(player.getName()) == warn) {
                             player.sendTitle(UTEi18n.cache("mechanism.darkness.who-is-there.main"), UTEi18n.cache("mechanism.darkness.who-is-there.sub"));
-                            SanityChangeEvent event=new SanityChangeEvent(player,ChangeCause.DARKWARN,san_warn);
+                            SanityChangeEvent event = new SanityChangeEvent(player, ChangeCause.DARKWARN, san_warn);
                             Bukkit.getPluginManager().callEvent(event);
-                            if(!event.isCancelled())
-                            	 PlayerManager.change(player, PlayerManager.CheckType.SANITY, san_warn);
+                            if (!event.isCancelled())
+                                PlayerManager.change(player, PlayerManager.CheckType.SANITY, san_warn);
                         }
                         if (darkness.get(player.getName()) >= attack) {
                             player.sendTitle(UTEi18n.cache("mechanism.darkness.hurt-me.main"), UTEi18n.cache("mechanism.darkness.hurt-me.sub"));
                             player.damage(damage);
                             if (player.getHealth() <= san_attack)
                                 DeathMessage.causes.put(player.getName(), DeathCause.DARKNESS);
-                            SanityChangeEvent event=new SanityChangeEvent(player,ChangeCause.DARKATTACK,san_attack);
+                            SanityChangeEvent event = new SanityChangeEvent(player, ChangeCause.DARKATTACK, san_attack);
                             Bukkit.getPluginManager().callEvent(event);
-                            if(!event.isCancelled())
-                            	 PlayerManager.change(player, PlayerManager.CheckType.SANITY, san_attack);
+                            if (!event.isCancelled())
+                                PlayerManager.change(player, PlayerManager.CheckType.SANITY, san_attack);
                         }
                     }
                 }

@@ -40,7 +40,7 @@ public class PlayerInventoryAdapt extends BukkitRunnable implements Listener {
         this.runTaskTimer(plugin, 0L, 20L);
     }
 
-    @EventHandler
+    @EventHandler(ignoreCancelled = true)
     public void onClick(InventoryClickEvent event) {
         if (!Config.enableWorlds.contains(event.getWhoClicked().getWorld())) return;
         Inventory inv = event.getClickedInventory();
@@ -69,8 +69,8 @@ public class PlayerInventoryAdapt extends BukkitRunnable implements Listener {
                     int extraSize = 0;
                     PlayerInventory inv = player.getInventory();
                     ItemStack[] clothes = ClothesContainer.getInventory(player).getStorageContents();
-                    for (ItemStack cloth : clothes) 
-                    	extraSize += getSize(cloth); 
+                    for (ItemStack cloth : clothes)
+                        extraSize += getSize(cloth);
                     for (ItemStack item : inv.getArmorContents())
                         extraSize += getSize(item);
                     for (int i = 35; i > 35 - lockingSlot + extraSize; i--) {
@@ -89,7 +89,7 @@ public class PlayerInventoryAdapt extends BukkitRunnable implements Listener {
                 }
         for (Player player : Bukkit.getOnlinePlayers()) {
             if (lockingPlayers.contains(player.getName())) continue;
-            PlayerInventory inv = player.getInventory(); 
+            PlayerInventory inv = player.getInventory();
             for (int slot = 0; slot < inv.getSize(); slot++) {
                 ItemStack item = inv.getItem(slot);
                 if (getName(item).equalsIgnoreCase(UTEi18n.cache("item.locked")))

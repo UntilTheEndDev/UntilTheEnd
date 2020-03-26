@@ -8,9 +8,9 @@ import HamsterYDS.UntilTheEnd.item.ItemManager;
  * @version V5.1.1
  */
 public class StrawHat {
-	public static double percent = ItemManager.itemAttributes.getDouble("StrawHat.percent");
+    public static double percent = ItemManager.itemAttributes.getDouble("StrawHat.percent");
 
-	public StrawHat() {
-		ChangeTasks.clothesChangeTemperature.put(ItemManager.items.get("StrawHat").displayName, percent);
-	}
+    public StrawHat() {
+        ChangeTasks.clothesChangeTemperature.put(ItemManager.items.get("StrawHat").displayName, percent);
+    }
 }

@@ -12,14 +12,15 @@ import HamsterYDS.UntilTheEnd.player.role.tasks.TaskLoader;
  * @version V5.1.1
  */
 public class Player {
-	public static UntilTheEnd plugin;
-	public Player(UntilTheEnd plugin) {
-		new PlayerManager(plugin);
-		for(org.bukkit.entity.Player player:Bukkit.getOnlinePlayers()) 
-			PlayerManager.load(player);
-		new PlayerInventoryAdapt(plugin);
-		plugin.getServer().getPluginManager().registerEvents(new DeathMessage(),plugin);
-		new EventLoader(plugin);
-		new TaskLoader(plugin);
-	}
+    public static UntilTheEnd plugin;
+
+    public Player(UntilTheEnd plugin) {
+        new PlayerManager(plugin);
+        for (org.bukkit.entity.Player player : Bukkit.getOnlinePlayers())
+            PlayerManager.load(player);
+        new PlayerInventoryAdapt(plugin);
+        plugin.getServer().getPluginManager().registerEvents(new DeathMessage(), plugin);
+        new EventLoader(plugin);
+        new TaskLoader(plugin);
+    }
 }

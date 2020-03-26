@@ -17,7 +17,7 @@ public class HudProvider {
     public static HashMap<UUID, String> tiredness = new HashMap<>();
 
     public HudProvider(UntilTheEnd plugin) {
-        yaml =Config.autoUpdateConfigs("hud.yml");
+        yaml = Config.autoUpdateConfigs("hud.yml");
         if (yaml.getBoolean("bar.enable"))
             new HudBossBar().runTaskTimer(plugin, 0L, yaml.getLong("fresh"));
     }

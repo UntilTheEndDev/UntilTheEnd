@@ -9,6 +9,7 @@ import org.bukkit.Location;
 import org.bukkit.Particle;
 import org.bukkit.configuration.file.YamlConfiguration;
 import org.bukkit.event.EventHandler;
+import org.bukkit.event.EventPriority;
 import org.bukkit.event.Listener;
 import org.bukkit.event.block.BlockBreakEvent;
 import org.bukkit.event.block.BlockPistonExtendEvent;
@@ -33,12 +34,7 @@ public class BlockManager extends BukkitRunnable implements Listener {
         this.plugin = plugin;
         plugin.getServer().getPluginManager().registerEvents(this, plugin);
         runTaskTimer(plugin, 0L, plugin.getConfig().getLong("block.fresh") * 20);
-        File file = new File(plugin.getDataFolder() + "/data/", "blocks.yml");
-        YamlConfiguration yaml = YamlConfiguration.loadConfiguration(file);
-        for (String path : yaml.getKeys(false)) {
-            blocks.put(path, yaml.getString(path));
-            addBlockData(yaml.getString(path), path);
-        }
+        loadBlocks();
         plugin.getLogger().info(String.valueOf(blockDatas));
     }
 
@@ -81,16 +77,15 @@ public class BlockManager extends BukkitRunnable implements Listener {
     }
 
     public static void loadBlocks() {
-        File file = new File(plugin.getDataFolder() + "/data/", "blocks.yml");
+        File file = new File(plugin.getDataFolder(), "data/blocks.yml");
         YamlConfiguration yaml = YamlConfiguration.loadConfiguration(file);
         for (String path : yaml.getKeys(false)) {
-            blocks.remove(path);
             blocks.put(path, yaml.getString(path));
             addBlockData(yaml.getString(path), path);
         }
     }
 
-    @EventHandler
+    @EventHandler(priority = EventPriority.MONITOR, ignoreCancelled = true)
     public void onBreak(BlockBreakEvent event) {
         if (event.isCancelled()) return;
         Location loc = event.getBlock().getLocation();
@@ -112,7 +107,7 @@ public class BlockManager extends BukkitRunnable implements Listener {
         removeBlockData(blocks.get(toString), toString);
     }
 
-    @EventHandler
+    @EventHandler(priority = EventPriority.MONITOR, ignoreCancelled = true)
     public void onPlace(BlockPlaceEvent event) {
         if (event.isCancelled()) return;
         if (event.getItemInHand() == null) return;
@@ -123,7 +118,7 @@ public class BlockManager extends BukkitRunnable implements Listener {
         addBlockData(ItemManager.isUTEItem(item), toString);
     }
 
-    @EventHandler
+    @EventHandler(priority = EventPriority.MONITOR, ignoreCancelled = true)
     public void onExtend(BlockPistonExtendEvent event) {
         if (event.isCancelled()) return;
         for (org.bukkit.block.Block block : event.getBlocks()) {

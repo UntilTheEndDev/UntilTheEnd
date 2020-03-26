@@ -52,7 +52,7 @@ public class LightingCompensation {
             return;
         }
         Bukkit.getPluginManager().registerEvents(new Listener() {
-            @EventHandler
+            @EventHandler()
             void onWorldLoad(WorldLoadEvent event) {
                 update(event.getWorld());
             }

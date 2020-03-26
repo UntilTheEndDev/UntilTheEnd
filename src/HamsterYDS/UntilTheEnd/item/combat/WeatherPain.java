@@ -10,6 +10,7 @@ import org.bukkit.Particle;
 import org.bukkit.entity.Entity;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
+import org.bukkit.event.EventPriority;
 import org.bukkit.event.Listener;
 import org.bukkit.event.player.PlayerInteractEvent;
 import org.bukkit.inventory.ItemStack;
@@ -28,7 +29,7 @@ public class WeatherPain implements Listener {
 
     private static HashMap<String, Integer> cd = new HashMap<String, Integer>();
 
-    @EventHandler
+    @EventHandler(priority = EventPriority.MONITOR, ignoreCancelled = true)
     public void onRight(PlayerInteractEvent event) {
         Player player = event.getPlayer();
         if (!event.hasItem()) return;

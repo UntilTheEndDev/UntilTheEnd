@@ -32,12 +32,12 @@ public class Config {
         disables.addAll(plugin.getConfig().getStringList("disableWorlds"));
         Bukkit.getWorlds().forEach(Config::registerWorld);
         Bukkit.getPluginManager().registerEvents(new Listener() {
-            @EventHandler
+            @EventHandler()
             void onWorldLoad(WorldLoadEvent event) {
                 registerWorld(event.getWorld());
             }
 
-            @EventHandler
+            @EventHandler()
             void onWorldUnload(WorldUnloadEvent event) {
                 enableWorlds.remove(event.getWorld());
             }

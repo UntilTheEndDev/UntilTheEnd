@@ -3,6 +3,7 @@ package HamsterYDS.UntilTheEnd.item.basics;
 import HamsterYDS.UntilTheEnd.internal.EventHelper;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
+import org.bukkit.event.EventPriority;
 import org.bukkit.event.Listener;
 import org.bukkit.event.player.PlayerInteractEvent;
 import org.bukkit.inventory.ItemStack;
@@ -20,7 +21,7 @@ public class SpiderGland implements Listener {
         ItemManager.plugin.getServer().getPluginManager().registerEvents(this, ItemManager.plugin);
     }
 
-    @EventHandler
+    @EventHandler(priority = EventPriority.MONITOR, ignoreCancelled = true)
     public void onRight(PlayerInteractEvent event) {
         if (event.isCancelled()) return;
         Player player = event.getPlayer();
@@ -28,7 +29,7 @@ public class SpiderGland implements Listener {
             return;
         if (!event.hasItem()) return;
         ItemStack item = event.getItem();
-        if (ItemManager.isSimilar(item,getClass())) {
+        if (ItemManager.isSimilar(item, getClass())) {
             event.setCancelled(true);
             if (player.getHealth() + heal >= player.getMaxHealth())
                 player.setHealth(player.getMaxHealth());

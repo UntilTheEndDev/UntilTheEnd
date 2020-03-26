@@ -8,9 +8,9 @@ import HamsterYDS.UntilTheEnd.item.ItemManager;
  * @version V5.1.1
  */
 public class Garland {
-	public static int sanityImprove = ItemManager.itemAttributes.getInt("Garland.sanityImprove");
+    public static int sanityImprove = ItemManager.itemAttributes.getInt("Garland.sanityImprove");
 
-	public Garland() {
-		ChangeTasks.clothesChangeSanity.put("Garland", sanityImprove);
-	}
+    public Garland() {
+        ChangeTasks.clothesChangeSanity.put("Garland", sanityImprove);
+    }
 }

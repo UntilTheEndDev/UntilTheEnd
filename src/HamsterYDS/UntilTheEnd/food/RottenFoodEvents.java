@@ -131,12 +131,12 @@ public class RottenFoodEvents implements Listener, Runnable {
         }
     }
 
-    @EventHandler
+    @EventHandler()
     public void onChunkLoading(ChunkLoadEvent event) {
         load(event.getChunk());
     }
 
-    @EventHandler
+    @EventHandler()
     public void onWorldUnloading(WorldUnloadEvent event) {
         final World world = event.getWorld();
         final UUID uid = world.getUID();
@@ -147,7 +147,7 @@ public class RottenFoodEvents implements Listener, Runnable {
         }
     }
 
-    @EventHandler
+    @EventHandler()
     public void onChunkUnloading(ChunkUnloadEvent event) {
         final Chunk chunk = event.getChunk();
         int x = chunk.getX();
@@ -182,7 +182,7 @@ public class RottenFoodEvents implements Listener, Runnable {
             }
     }
 
-    @EventHandler
+    @EventHandler()
     public void onOpen(InventoryOpenEvent event) {
         Inventory inv = event.getInventory();
         final InventoryHolder holder = inv.getHolder();

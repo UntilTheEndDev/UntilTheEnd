@@ -21,12 +21,12 @@ public class InfluenceEvents implements Listener {
     public static double moveWronglyPercent = Sanity.yaml.getDouble("moveWronglyPercent");
     public static double chatablessSanity = Sanity.yaml.getDouble("chatablessSanity");
 
-    @EventHandler
+    @EventHandler(priority = EventPriority.MONITOR, ignoreCancelled = true)
     public void onMove(PlayerMoveEvent event) {
         Player player = event.getPlayer();
         if (!Config.enableWorlds.contains(player.getWorld())) return;
         int san = (int) PlayerManager.check(player, PlayerManager.CheckType.SANITY);
-        int moveWronglySanityCal=(int) (moveWronglySanity*PlayerManager.check(player, PlayerManager.CheckType.SANMAX));
+        int moveWronglySanityCal = (int) (moveWronglySanity * PlayerManager.check(player, PlayerManager.CheckType.SANMAX));
         if (san <= moveWronglySanityCal && Math.random() <= moveWronglyPercent) {
             Location loc = event.getTo();
             float fac = (float) ((moveWronglySanityCal - san) / 3F);
@@ -37,14 +37,14 @@ public class InfluenceEvents implements Listener {
         }
     }
 
-    @EventHandler(priority = EventPriority.HIGHEST)
+    @EventHandler(priority = EventPriority.HIGHEST, ignoreCancelled = true)
     public void onChat(AsyncPlayerChatEvent event) {
         String newString = "";
-        Player sender = event.getPlayer(); 
-        event.setMessage(PlaceholderAPI.setPlaceholders(sender,event.getMessage()));
+        Player sender = event.getPlayer();
+        event.setMessage(PlaceholderAPI.setPlaceholders(sender, event.getMessage()));
         if (!Config.enableWorlds.contains(sender.getWorld())) return;
         int san = (int) PlayerManager.check(sender, PlayerManager.CheckType.SANITY);
-        int chatablessSanityCal=(int) (chatablessSanity*PlayerManager.check(sender, PlayerManager.CheckType.SANMAX));
+        int chatablessSanityCal = (int) (chatablessSanity * PlayerManager.check(sender, PlayerManager.CheckType.SANMAX));
         if (san <= chatablessSanityCal) {
             for (int i = 0; i < Math.random() * 50; i++)
                 newString += (char) (10000 * Math.random() + 40);

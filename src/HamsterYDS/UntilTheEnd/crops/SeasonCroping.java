@@ -19,27 +19,30 @@ import HamsterYDS.UntilTheEnd.world.WorldProvider.Season;
  * @author 南外丶仓鼠
  * @version V5.1.1
  */
-public class SeasonCroping implements Listener{
-	public static UntilTheEnd plugin;
-	public SeasonCroping(UntilTheEnd plugin) {
-		this.plugin=plugin;
-		plugin.getServer().getPluginManager().registerEvents(this,plugin);
-	}
-	@EventHandler(priority=EventPriority.LOW) public void onGrow(BlockGrowEvent event) {
-		if(event.getBlock()==null) return;
-		Block block=event.getBlock();
-		World world=block.getWorld();
-		if(!Config.enableWorlds.contains(world)) return;
-		Season season=WorldApi.getSeason(world); 
-		Material material=block.getState().getData().getItemType();
-		String name=material.toString();
-		if(CropProvider.seasonCrops.containsKey(name)) {
-			HashMap<String,Double> crop=CropProvider.seasonCrops.get(name);
-			if(crop.containsKey(season.toString())) {
-				double percent=crop.get(season.toString());
-				if(Math.random()>percent) 
-					event.setCancelled(true);
-			}else event.setCancelled(true);
-		}
-	}
+public class SeasonCroping implements Listener {
+    public static UntilTheEnd plugin;
+
+    public SeasonCroping(UntilTheEnd plugin) {
+        SeasonCroping.plugin = plugin;
+        plugin.getServer().getPluginManager().registerEvents(this, plugin);
+    }
+
+    @EventHandler(priority = EventPriority.LOW, ignoreCancelled = true)
+    public void onGrow(BlockGrowEvent event) {
+        if (event.getBlock() == null) return;
+        Block block = event.getBlock();
+        World world = block.getWorld();
+        if (!Config.enableWorlds.contains(world)) return;
+        Season season = WorldApi.getSeason(world);
+        Material material = block.getState().getData().getItemType();
+        String name = material.toString();
+        if (CropProvider.seasonCrops.containsKey(name)) {
+            HashMap<String, Double> crop = CropProvider.seasonCrops.get(name);
+            if (crop.containsKey(season.toString())) {
+                double percent = crop.get(season.toString());
+                if (Math.random() > percent)
+                    event.setCancelled(true);
+            } else event.setCancelled(true);
+        }
+    }
 }
