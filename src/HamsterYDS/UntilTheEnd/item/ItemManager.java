@@ -177,6 +177,16 @@ public class ItemManager {
         for (String str : materials) {
             int amount = amounts.get(materials.indexOf(str));
             Material m0 = ItemFactory.getMaterial(str);
+            if (m0 == null) {
+                try {
+                    m0 = ItemFactory.fromLegacy(Material.valueOf(str));
+                } catch (Throwable ignore) {
+                    try {
+                        m0 = ItemFactory.valueOf(str);
+                    } catch (Throwable ignored) {
+                    }
+                }
+            }
             if (m0 != null) {
                 m0 = ItemFactory.fromLegacy(m0);
                 Material m1 = m0;
