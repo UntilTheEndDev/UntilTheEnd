@@ -84,6 +84,15 @@ public class HudBossBar extends BukkitRunnable implements Listener {
             for (Player p : w.getPlayers()) {
                 if (NPCChecker.isNPC(p)) continue;
                 final NdBossBar ndBossBar = create(p.getUniqueId());
+                switch (p.getGameMode()) {
+                    case CREATIVE:
+                    case SPECTATOR:
+                        ndBossBar.hum.removeAll();
+                        ndBossBar.tem.removeAll();
+                        ndBossBar.san.removeAll();
+                        ndBossBar.tir.removeAll();
+                        continue;
+                }
                 double san = PlayerManager.check(p, PlayerManager.CheckType.SANITY);
                 double sanMax = PlayerManager.check(p, PlayerManager.CheckType.SANMAX);
                 if (san >= sanMax) san = sanMax;
@@ -102,18 +111,10 @@ public class HudBossBar extends BukkitRunnable implements Listener {
                 ndBossBar.tir.setProgress(tir / 100.0);
                 ndBossBar.tir.addPlayer(p);
                 boolean hiddenHum;
-                switch (p.getGameMode()) {
-                    case CREATIVE:
-                    case SPECTATOR:
-                        hiddenHum = true;
-                        break;
-                    default:
-                        if (w.hasStorm()) {
-                            hiddenHum = false;
-                        } else {
-                            hiddenHum = hum == 0;
-                        }
-                        break;
+                if (w.hasStorm()) {
+                    hiddenHum = false;
+                } else {
+                    hiddenHum = hum == 0;
                 }
                 if (hiddenHum) {
                     ndBossBar.hum.removeAll();

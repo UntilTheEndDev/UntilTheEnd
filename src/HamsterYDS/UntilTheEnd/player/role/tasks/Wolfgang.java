@@ -25,10 +25,12 @@ public class Wolfgang {
                 for (Player player : world.getPlayers()) {
                     if (NPCChecker.isNPC(player)) continue;
                     if (PlayerApi.getRole(player) == Roles.WOLFGANG) {
+                        /*
                         if (world.getTime() >= InfluenceTasks.up &&
                                 world.getTime() >= InfluenceTasks.down) {
                             PlayerManager.change(player, CheckType.SANITY, -2);
                         }
+                        */
                         double hungerPercent = (double) (player.getFoodLevel()) / 20.0;
                         player.setMaxHealth(hungerPercent * 30);
                         PlayerManager.change(player, CheckType.HEALTHMAX,

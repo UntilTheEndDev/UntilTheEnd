@@ -36,8 +36,6 @@ import HamsterYDS.UntilTheEnd.player.death.DeathMessage;
  */
 public class InfluenceTasks {
     public static UntilTheEnd plugin;
-    public static long up = HamsterYDS.UntilTheEnd.world.World.plugin.getConfig().getLong("world.blind.up");
-    public static long down = HamsterYDS.UntilTheEnd.world.World.plugin.getConfig().getLong("world.blind.downTime");
     public static int warn = HamsterYDS.UntilTheEnd.world.World.plugin.getConfig().getInt("world.darkness.warnTime");
     public static int attack = HamsterYDS.UntilTheEnd.world.World.plugin.getConfig().getInt("world.darkness.attackTime");
     public static int damage = HamsterYDS.UntilTheEnd.world.World.plugin.getConfig().getInt("world.darkness.darkDamage");
@@ -47,29 +45,12 @@ public class InfluenceTasks {
 
     public InfluenceTasks(UntilTheEnd plugin) {
         this.plugin = plugin;
-        new Blindness().runTaskTimer(plugin, 0L, 50L);
         Darkness dark = new Darkness();
         dark.runTaskTimer(plugin, 0L, 20L);
         plugin.getServer().getPluginManager().registerEvents(dark, plugin);
     }
 
-    public class Blindness extends BukkitRunnable {
-        @Override
-        public void run() {
-            for (World world : Config.enableWorlds) {
-                long time = world.getTime();
-                if (time >= up && time <= down)
-                    for (Player player : world.getPlayers()) {
-                        if (NPCChecker.isNPC(player)) continue;
-                        if (player.hasPotionEffect(PotionEffectType.NIGHT_VISION)) continue;
-                        player.removePotionEffect(PotionEffectType.BLINDNESS);
-                        player.addPotionEffect(new PotionEffect(PotionEffectType.BLINDNESS, 100, 0));
-                    }
-            }
-        }
-    }
-
-    public class Darkness extends BukkitRunnable implements Listener {
+    public static class Darkness extends BukkitRunnable implements Listener {
         private HashMap<String, Integer> darkness = new HashMap<String, Integer>();
         private HashMap<String, Integer> carrotEffects = new HashMap<String, Integer>();
 
@@ -125,9 +106,7 @@ public class InfluenceTasks {
                     if (location.getY() >= location.getWorld().getHighestBlockYAt(location.getBlockX(), location.getBlockZ())) {
                         needToCheck -= LightingCompensation.getComp(player.getWorld().getUID());
                     }
-                    if ((block.getLightFromBlocks() == 0 &&
-                            player.getWorld().getTime() <= InfluenceTasks.down &&
-                            player.getWorld().getTime() >= InfluenceTasks.up) || (
+                    if ((block.getLightFromBlocks() <= needToCheck) && (
                             block.getLightLevel() <= needToCheck
                     )) {
                         if (darkness.containsKey(player.getName())) {
