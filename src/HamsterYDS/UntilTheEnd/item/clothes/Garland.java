@@ -11,6 +11,6 @@ public class Garland {
     public static int sanityImprove = ItemManager.itemAttributes.getInt("Garland.sanityImprove");
 
     public Garland() {
-        ChangeTasks.clothesChangeSanity.put("Garland", sanityImprove);
+        ChangeTasks.clothesChangeSanity.put(ItemManager.items.get("Garland").displayName, sanityImprove);
     }
 }

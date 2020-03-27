@@ -142,10 +142,10 @@ public class Commands implements CommandExecutor, Listener, TabCompleter {
                 if (pl == null) {
                     notPlayer(cs);
                 } else {
-                    if (CraftGuide.cheating.contains(pl.getName()))
-                        CraftGuide.cheating.remove(pl.getName());
+                    if (CraftGuide.cheating.contains(pl.getUniqueId()))
+                        CraftGuide.cheating.remove(pl.getUniqueId());
                     else
-                        CraftGuide.cheating.add(pl.getName());
+                        CraftGuide.cheating.add(pl.getUniqueId());
                     changeCheatingMode(pl);
                 }
                 break;

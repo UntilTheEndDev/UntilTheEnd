@@ -1,10 +1,6 @@
 package HamsterYDS.UntilTheEnd.guide;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-import java.util.Objects;
+import java.util.*;
 
 import HamsterYDS.UntilTheEnd.internal.UTEi18n;
 import HamsterYDS.UntilTheEnd.item.ItemManager;
@@ -46,7 +42,7 @@ public class CraftGuide implements Listener {
     public static HashMap<String, ArrayList<Inventory>> helps = new HashMap<String, ArrayList<Inventory>>();
     public static HashMap<ItemStack, Inventory> crafts = new HashMap<ItemStack, Inventory>();
     public static HashMap<String, ArrayList<Inventory>> playerInvs = new HashMap<String, ArrayList<Inventory>>();
-    public static ArrayList<String> cheating = new ArrayList<String>();
+    public static ArrayList<UUID> cheating = new ArrayList<>();
 
     public static Inventory inv = Bukkit.createInventory(HolderCraftingHelp.INSTANCE, 45,
             UTEi18n.cache("item.guide.help.crafting.main"));
@@ -143,7 +139,7 @@ public class CraftGuide implements Listener {
         if (item.getItemMeta() == null)
             return;
         item.setAmount(1);
-        if (cheating.contains(player.getName()))
+        if (cheating.contains(player.getUniqueId()))
             if (event.getClick() == ClickType.MIDDLE) {
                 event.setCursor(event.getCurrentItem());
                 return;
@@ -180,7 +176,7 @@ public class CraftGuide implements Listener {
         }
         Inventory find = find(item);
         if (find != null) {
-            if (cheating.contains(player.getName()))
+            if (cheating.contains(player.getUniqueId()))
                 if (find.getSize() == 27) {
                     event.setCancelled(true);
                     event.setCursor(item);
@@ -390,7 +386,7 @@ public class CraftGuide implements Listener {
             if (oldInv.getItem(slot) == null) continue;
             ItemStack item = oldInv.getItem(slot).clone();
             String id = ItemManager.isUTEItem(item);
-            if (id.equalsIgnoreCase("")) {
+            if (cheating.contains(player.getUniqueId()) || id.equalsIgnoreCase("")) {
                 inv.setItem(slot, item);
                 continue;
             }
