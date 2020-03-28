@@ -5,7 +5,6 @@ import HamsterYDS.UntilTheEnd.internal.ItemFactory;
 import org.bukkit.*;
 import org.bukkit.block.Block;
 import org.bukkit.block.BlockState;
-import org.bukkit.block.Container;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.EventPriority;
 import org.bukkit.event.Listener;
@@ -79,13 +78,13 @@ public class RottenFoodEvents implements Listener, Runnable {
             return Bukkit.getWorld(world).getChunkAt(cx, cz).getBlock(x, y, z);
         }
 
-        Container check() {
+        InventoryHolder check() {
             final Block block = block();
             final BlockState state = block.getState();
-            if (!(state instanceof Container)) {
+            if (!(state instanceof InventoryHolder)) {
                 return null;
             }
-            return (Container) state;
+            return (InventoryHolder) state;
         }
     }
 
@@ -110,7 +109,7 @@ public class RottenFoodEvents implements Listener, Runnable {
             final Map.Entry<WorldB3Loc, Integer> next = iterator.next();
             final WorldB3Loc key = next.getKey();
             final Integer value = next.getValue();
-            final Container check = key.check();
+            final InventoryHolder check = key.check();
             if (check == null) iterator.remove();
             else {
                 if (key.ticking++ >= value) {
@@ -161,7 +160,7 @@ public class RottenFoodEvents implements Listener, Runnable {
 
     private void initialize(BlockState tileEntity) {
         if (Config.enableWorlds.contains(tileEntity.getWorld()))
-            if (tileEntity instanceof Container) {
+            if (tileEntity instanceof InventoryHolder) {
                 Integer d = ONE;
                 if (tileEntity instanceof Nameable) {
                     d = titleFactors.getOrDefault(((Nameable) tileEntity).getCustomName(), d);
