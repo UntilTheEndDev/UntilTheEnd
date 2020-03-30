@@ -1,5 +1,6 @@
 package HamsterYDS.UntilTheEnd.player.role.events;
 
+import HamsterYDS.UntilTheEnd.UntilTheEnd;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
@@ -14,7 +15,9 @@ public class GeneralEvents implements Listener {
         if (event.getDamager() instanceof Player) {
             Player player = (Player) event.getDamager();
             double damageLevel = PlayerManager.check(player, CheckType.DAMAGELEVEL);
-            event.setDamage(event.getDamage() * damageLevel);
+            double dm = event.getDamage();
+            event.setDamage(dm * damageLevel);
+            UntilTheEnd.getInstance().getLogger().fine(() -> "Role'd damage{source=" + dm + ", lv=" + damageLevel + ", changed=" + event.getDamage() + "}");
         }
     }
 }

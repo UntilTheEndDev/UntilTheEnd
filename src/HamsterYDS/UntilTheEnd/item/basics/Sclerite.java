@@ -1,5 +1,6 @@
 package HamsterYDS.UntilTheEnd.item.basics;
 
+import HamsterYDS.UntilTheEnd.internal.DisableManager;
 import HamsterYDS.UntilTheEnd.internal.EventHelper;
 import HamsterYDS.UntilTheEnd.internal.ItemFactory;
 import org.bukkit.Material;
@@ -32,11 +33,11 @@ public class Sclerite implements Listener {
         ItemManager.plugin.getServer().getPluginManager().registerEvents(this, ItemManager.plugin);
     }
 
-    @EventHandler(priority = EventPriority.MONITOR, ignoreCancelled = true)
+    @EventHandler(priority = EventPriority.MONITOR)
     public void onRight(PlayerInteractEvent event) {
         Player player = event.getPlayer();
-        if (!event.hasItem())
-            return;
+        if (event.isCancelled() && !DisableManager.bypass_right_action_cancelled) return;
+        if (!event.hasItem()) return;
         if (EventHelper.isRight(event.getAction())) {
             ItemStack item = event.getItem();
             if (ItemManager.isSimilar(item, getClass())) {

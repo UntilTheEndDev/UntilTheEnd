@@ -14,6 +14,10 @@ import HamsterYDS.UntilTheEnd.Config;
 import HamsterYDS.UntilTheEnd.UntilTheEnd;
 import HamsterYDS.UntilTheEnd.api.WorldApi;
 import HamsterYDS.UntilTheEnd.world.WorldProvider.Season;
+import org.bukkit.event.EventHandler;
+import org.bukkit.event.Listener;
+import org.bukkit.event.world.WorldLoadEvent;
+import org.bukkit.event.world.WorldUnloadEvent;
 
 public class TemperatureProvider {
     public static UntilTheEnd plugin;
@@ -22,10 +26,23 @@ public class TemperatureProvider {
     public static HashMap<Material, FMBlock> fmBlocks = new HashMap<Material, FMBlock>();
 
     public TemperatureProvider(UntilTheEnd plugin) {
-        this.plugin = plugin;
+        TemperatureProvider.plugin = plugin;
         loadWorldTemperatures();
         loadBlockTemperatures();
         loadFMBlocks();
+        Bukkit.getPluginManager().registerEvents(new Listener() {
+            @EventHandler()
+            void onWorldLoad(WorldLoadEvent event) {
+                if (Config.enableWorlds.contains(event.getWorld()))
+                    worldTemperatures.put(event.getWorld(), getWorldTemperature(event.getWorld()));
+                else worldTemperatures.put(event.getWorld(), 37);
+            }
+
+            @EventHandler()
+            void onWorldUnload(WorldUnloadEvent event) {
+                worldTemperatures.remove(event.getWorld());
+            }
+        }, plugin);
     }
 
     public static void loadFMBlocks() {

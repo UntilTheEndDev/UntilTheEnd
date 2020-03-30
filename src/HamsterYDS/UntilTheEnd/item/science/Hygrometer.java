@@ -2,6 +2,7 @@ package HamsterYDS.UntilTheEnd.item.science;
 
 import java.util.ArrayList;
 
+import HamsterYDS.UntilTheEnd.internal.UTEi18n;
 import org.bukkit.Location;
 import org.bukkit.block.Block;
 import org.bukkit.entity.ArmorStand;
@@ -40,8 +41,10 @@ public class Hygrometer implements Listener {
         if (BlockApi.getSpecialBlocks("Hygrometer").contains(toString)) {
             if (clicked.contains(toString)) return;
             clicked.add(toString);
-            String text = "§e§l天气-§d§l" + (loc.getWorld().hasStorm() ? "雨雪" : "晴天");
-            String text2 = "§e§l目前该天气还有§d§l" + (loc.getWorld().getWeatherDuration() / 20) + "§e§l秒";
+            String text = UTEi18n.parse("item.hygrometer.main.main", (loc.getWorld().hasStorm()
+                    ? UTEi18n.cache("item.hygrometer.main.rain") : UTEi18n.cache("item.hygrometer.main.sun"))
+            );
+            String text2 = UTEi18n.parse("item.hygrometer.sub.text", String.valueOf(loc.getWorld().getWeatherDuration() / 20));
             ArmorStand armor = (ArmorStand) player.getWorld().spawnEntity(loc.clone().add(0.5, 0.5, 0.5), EntityType.ARMOR_STAND);
             armor.setVisible(false);
             armor.setSmall(true);

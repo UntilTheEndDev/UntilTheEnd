@@ -81,9 +81,8 @@ public class ToothTrap implements Listener {
         }
     }
 
-    @EventHandler
+    @EventHandler(ignoreCancelled = true)
     public void onClick(PlayerInteractEvent event) {
-        if (event.isCancelled()) return;
         Player player = event.getPlayer();
         if (event.getAction() != Action.RIGHT_CLICK_BLOCK) return;
         Block block = event.getClickedBlock();

@@ -1,5 +1,6 @@
 package HamsterYDS.UntilTheEnd.item.survival;
 
+import HamsterYDS.UntilTheEnd.internal.DisableManager;
 import HamsterYDS.UntilTheEnd.internal.EventHelper;
 import org.bukkit.Location;
 import org.bukkit.Material;
@@ -19,10 +20,11 @@ public class WaterBalloon implements Listener {
         ItemManager.plugin.getServer().getPluginManager().registerEvents(this, ItemManager.plugin);
     }
 
-    @EventHandler(priority = EventPriority.MONITOR, ignoreCancelled = true)
+    @EventHandler(priority = EventPriority.MONITOR)
     public void onClick(PlayerInteractEvent event) {
         Player player = event.getPlayer();
         if (!event.hasItem()) return;
+        if (event.isCancelled() && !DisableManager.bypass_right_action_cancelled) return;
         if (!EventHelper.isRight(event.getAction())) return;
         ItemStack item = event.getItem();
         if (ItemManager.isSimilar(item, getClass())) {

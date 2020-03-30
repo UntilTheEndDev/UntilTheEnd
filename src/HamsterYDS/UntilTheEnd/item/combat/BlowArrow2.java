@@ -1,6 +1,7 @@
 package HamsterYDS.UntilTheEnd.item.combat;
 
 import HamsterYDS.UntilTheEnd.internal.ArrowManager;
+import HamsterYDS.UntilTheEnd.internal.DisableManager;
 import HamsterYDS.UntilTheEnd.internal.EventHelper;
 import HamsterYDS.UntilTheEnd.item.ItemManager;
 import org.bukkit.Material;
@@ -25,8 +26,9 @@ public class BlowArrow2 implements Listener {
         ItemManager.plugin.getServer().getPluginManager().registerEvents(this, ItemManager.plugin);
     }
 
-    @EventHandler(priority = EventPriority.MONITOR, ignoreCancelled = true)
+    @EventHandler(priority = EventPriority.MONITOR)
     public void onRight(PlayerInteractEvent event) {
+        if (event.isCancelled() && !DisableManager.bypass_right_action_cancelled) return;
         Player player = event.getPlayer();
         if (EventHelper.isRight(event.getAction())) {
             ItemStack item = player.getInventory().getItemInMainHand();

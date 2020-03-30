@@ -5,6 +5,11 @@
 # 如果語言和港台繁體有偏差的話請提交至開發團隊
 prefix: '§6[§cUntilTheEnd§6]§r '
 
+item.hygrometer.main.main: "§e§l天氣-§d§l{0}"
+item.hygrometer.main.rain: "雨雪"
+item.hygrometer.main.sun: "晴天"
+item.hygrometer.sub.text: "§e§l目前该天气还有§d§l{0}§e§l秒"
+item.weather-pain.cd: "旋風使用冷卻時間未結束！"
 cap.hum.provider.rule: "檢測到帶有潮濕方塊變化 {0} -> {1}"
 item.category.base: "§6基礎"
 logging.store.type: "數據存儲模式: {0}[{1}]"

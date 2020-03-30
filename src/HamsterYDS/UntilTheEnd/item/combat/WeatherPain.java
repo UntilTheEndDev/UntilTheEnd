@@ -1,9 +1,13 @@
 package HamsterYDS.UntilTheEnd.item.combat;
 
 import java.util.HashMap;
+import java.util.UUID;
 
+import HamsterYDS.UntilTheEnd.UntilTheEnd;
+import HamsterYDS.UntilTheEnd.internal.DisableManager;
 import HamsterYDS.UntilTheEnd.internal.EventHelper;
 import HamsterYDS.UntilTheEnd.internal.ItemFactory;
+import HamsterYDS.UntilTheEnd.internal.UTEi18n;
 import org.bukkit.Location;
 import org.bukkit.Material;
 import org.bukkit.Particle;
@@ -27,28 +31,30 @@ public class WeatherPain implements Listener {
         ItemManager.plugin.getServer().getPluginManager().registerEvents(this, ItemManager.plugin);
     }
 
-    private static HashMap<String, Integer> cd = new HashMap<String, Integer>();
+    private static HashMap<UUID, Integer> cd = new HashMap<>();
 
-    @EventHandler(priority = EventPriority.MONITOR, ignoreCancelled = true)
+    @EventHandler(priority = EventPriority.HIGHEST)
     public void onRight(PlayerInteractEvent event) {
         Player player = event.getPlayer();
+        UntilTheEnd.getInstance().getLogger().fine(() -> "[WeatherPain] {action=" + event.getAction() + ", cancelled=" + event.isCancelled() + "}");
+        if (event.isCancelled() && !DisableManager.bypass_right_action_cancelled) return;
         if (!event.hasItem()) return;
         if (!EventHelper.isRight(event.getAction())) return;
         ItemStack item = event.getItem();
         if (ItemManager.isSimilar(item, getClass())) {
-            if (cd.containsKey(player.getName()))
-                if (cd.get(player.getName()) > 0) {
-                    player.sendMessage("[§cUntilTheEnd]§r 旋风使用冷却时间未到！");
+            if (cd.containsKey(player.getUniqueId()))
+                if (cd.get(player.getUniqueId()) > 0) {
+                    player.sendMessage(UTEi18n.cacheWithPrefix("item.weather-pain.cd"));
                     return;
                 }
-            cd.remove(player.getName());
-            cd.put(player.getName(), 10);
+            cd.put(player.getUniqueId(), 10);
             ItemStack itemr = event.getItem();
             itemr.setDurability((short) (itemr.getDurability() + 25));
             if (itemr.getDurability() > ItemFactory.getType(itemr).getMaxDurability())
                 itemr.setType(Material.AIR);
             Location loc = player.getLocation().add(0.0, 1.0, 0.0);
             Vector vec = player.getEyeLocation().getDirection().multiply(0.5);
+            player.setCooldown(ItemFactory.getType(item), 90);
             new BukkitRunnable() {
                 int range = 150;
 
@@ -58,7 +64,7 @@ public class WeatherPain implements Listener {
                         range--;
                         if (range <= 0) {
                             cancel();
-                            cd.remove(player.getName());
+                            cd.remove(player.getUniqueId());
                             return;
                         }
                         loc.getWorld().spawnParticle(Particle.EXPLOSION_LARGE, loc, 1);

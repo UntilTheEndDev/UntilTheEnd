@@ -2,12 +2,14 @@ package HamsterYDS.UntilTheEnd.guide;
 
 import java.util.ArrayList;
 
+import HamsterYDS.UntilTheEnd.internal.DisableManager;
 import HamsterYDS.UntilTheEnd.internal.EventHelper;
 import HamsterYDS.UntilTheEnd.internal.UTEi18n;
 import org.bukkit.Bukkit;
 import org.bukkit.Material;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
+import org.bukkit.event.EventPriority;
 import org.bukkit.event.Listener;
 import org.bukkit.event.inventory.InventoryAction;
 import org.bukkit.event.inventory.InventoryClickEvent;
@@ -110,8 +112,9 @@ public class Guide implements Listener {
         return item;
     }
 
-    @EventHandler
+    @EventHandler(priority = EventPriority.MONITOR)
     public void onRight(PlayerInteractEvent event) {
+        if (event.isCancelled() && !DisableManager.bypass_right_action_cancelled) return;
         Player player = event.getPlayer();
         if (EventHelper.isRight(event.getAction())) {
             if (event.hasItem())

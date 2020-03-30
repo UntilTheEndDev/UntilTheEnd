@@ -1,5 +1,6 @@
 package HamsterYDS.UntilTheEnd.cap.san;
 
+import HamsterYDS.UntilTheEnd.internal.DisableManager;
 import org.bukkit.Location;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
@@ -37,18 +38,19 @@ public class InfluenceEvents implements Listener {
         }
     }
 
-    @EventHandler(priority = EventPriority.HIGHEST, ignoreCancelled = true)
+    @EventHandler(priority = EventPriority.LOW, ignoreCancelled = true)
     public void onChat(AsyncPlayerChatEvent event) {
-        String newString = "";
+        StringBuilder newString = new StringBuilder();
         Player sender = event.getPlayer();
-        event.setMessage(PlaceholderAPI.setPlaceholders(sender, event.getMessage()));
+        if (!DisableManager.root.getBoolean("chatting_placeholder_api", true))
+            event.setMessage(PlaceholderAPI.setPlaceholders(sender, event.getMessage()));
         if (!Config.enableWorlds.contains(sender.getWorld())) return;
         int san = (int) PlayerManager.check(sender, PlayerManager.CheckType.SANITY);
         int chatablessSanityCal = (int) (chatablessSanity * PlayerManager.check(sender, PlayerManager.CheckType.SANMAX));
         if (san <= chatablessSanityCal) {
             for (int i = 0; i < Math.random() * 50; i++)
-                newString += (char) (10000 * Math.random() + 40);
-            event.setMessage(newString);
+                newString.append((char) (10000 * Math.random() + 40));
+            event.setMessage(newString.toString());
         }
     }
 }

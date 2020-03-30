@@ -2,6 +2,7 @@ package HamsterYDS.UntilTheEnd.item;
 
 import java.util.HashMap;
 
+import HamsterYDS.UntilTheEnd.internal.DisableManager;
 import HamsterYDS.UntilTheEnd.internal.EventHelper;
 import HamsterYDS.UntilTheEnd.internal.UTEi18n;
 import org.bukkit.GameMode;
@@ -42,16 +43,14 @@ public class ItemListener implements Listener {
 
     @EventHandler(priority = EventPriority.LOWEST)
     public void onUse(PlayerInteractEvent event) {
+        if (event.isCancelled() && !DisableManager.bypass_right_action_cancelled) return;
+        if (!event.hasItem()) return;
         if (EventHelper.isRight(event.getAction())) {
             Player player = event.getPlayer();
-            if (player.getGameMode() == GameMode.CREATIVE)
-                return;
-            PlayerInventory inv = player.getInventory();
-
-            if (inv.getItemInMainHand() == null)
+            if (player.getGameMode() == GameMode.CREATIVE || player.getGameMode() == GameMode.SPECTATOR)
                 return;
 
-            ItemStack item = inv.getItemInMainHand();
+            ItemStack item = event.getItem();
             String id = ItemManager.isUTEItem(item);
             if (!id.equalsIgnoreCase("")) {
                 if (ItemManager.items.get(id).isConsume) {
