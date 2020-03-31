@@ -64,7 +64,22 @@ public class PlayerManager implements Listener {
         }
     }
 
-    public static ArrayList<UUID> playerChangedRole = new ArrayList<UUID>();
+    public static Collection<UUID> playerChangedRole = new HashSet<UUID>() {
+        @Override
+        public boolean add(UUID uuid) {
+            if (UntilTheEnd.DEBUG)
+                plugin.getLogger().log(Level.FINE, "[PM] [PCR] Add " + uuid, new Throwable("Stack Trace"));
+
+            return super.add(uuid);
+        }
+
+        @Override
+        public boolean remove(Object uuid) {
+            if (UntilTheEnd.DEBUG)
+                plugin.getLogger().log(Level.FINE, "[PM] [PCR] Remove " + uuid, new Throwable("Stack Trace"));
+            return super.remove(uuid);
+        }
+    };
 
     @EventHandler()
     public void onJoin(PlayerJoinEvent event) {
@@ -78,6 +93,16 @@ public class PlayerManager implements Listener {
         HudProvider.humidity.put(name, " ");
         HudProvider.temperature.put(name, " ");
         HudProvider.tiredness.put(name, " ");
+    }
+
+    @EventHandler()
+    public void onExit(PlayerQuitEvent event) { // Release
+        UUID name = event.getPlayer().getUniqueId();
+        HudProvider.sanity.remove(name);
+        HudProvider.humidity.remove(name);
+        HudProvider.temperature.remove(name);
+        HudProvider.tiredness.remove(name);
+        playerChangedRole.remove(name);
     }
 
     @EventHandler()
@@ -101,6 +126,7 @@ public class PlayerManager implements Listener {
             }
             return false;
         });
+        playerChangedRole.remove(event.getEntity().getUniqueId());
         IPlayer ip = players.get(event.getEntity().getUniqueId());
         if (ip == null) return;
         Player p = event.getEntity();
@@ -109,8 +135,8 @@ public class PlayerManager implements Listener {
         forgetChange(event.getEntity(), CheckType.SANITY, getDefault(ip, CheckType.SANITY, p), EditAction.SET);
         forgetChange(event.getEntity(), CheckType.TIREDNESS, getDefault(ip, CheckType.TIREDNESS, p), EditAction.SET);
         changeRole(event.getEntity(), Roles.DEFAULT);
+        playerChangedRole.remove(event.getEntity().getUniqueId());
         save(event.getEntity());
-        playerChangedRole.remove(p.getUniqueId());
     }
 
     public static void load(OfflinePlayer name) {
@@ -148,6 +174,7 @@ public class PlayerManager implements Listener {
         IPlayer player = new IPlayer(temperature, humidity, sanity, tiredness, unlockedRecipes);
 
         player.role = Roles.valueOf(roleName);
+        if (player.role != Roles.DEFAULT) playerChangedRole.add(name.getUniqueId());
         player.roleStats = new IRole(level, sanMax, healthMax, damageLevel);
 
         players.put(name.getUniqueId(), player);

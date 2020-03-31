@@ -33,7 +33,7 @@ import HamsterYDS.UntilTheEnd.world.WorldProvider.Season;
  */
 public class Commands implements CommandExecutor, Listener, TabCompleter {
 
-    public static UntilTheEnd plugin;
+    public static UntilTheEnd plugin = UntilTheEnd.getInstance();
     public static ArrayList<String> cmdTab = new ArrayList<String>();
     public static ArrayList<String> seasonTab = new ArrayList<String>();
     public static ArrayList<String> itemTab = new ArrayList<String>();
@@ -301,8 +301,11 @@ public class Commands implements CommandExecutor, Listener, TabCompleter {
                         pl.sendMessage(UTEi18n.cacheWithPrefix("cmd.role.invalid"));
                         return true;
                     }
-                    if (!role.allow || !pl.hasPermission("ute.role." + role.name))
+                    if (!role.allow || !pl.hasPermission("ute.role." + role.name().toLowerCase())) {
                         notPermitted(cs);
+                        return true;
+                    }
+                    plugin.getLogger().fine(() -> "[CommandExecutor] [Role] All permission ok. " + PlayerManager.playerChangedRole);
                     if (PlayerManager.playerChangedRole.contains(pl.getUniqueId()))
                         return true;
                     PlayerManager.changeRole(pl, role);
