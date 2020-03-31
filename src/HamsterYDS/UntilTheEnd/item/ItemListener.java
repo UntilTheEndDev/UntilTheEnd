@@ -89,8 +89,10 @@ public class ItemListener implements Listener {
         for (String id : drop.keySet()) {
             UTEItemStack item = ItemManager.items.get(id);
             double percent = drop.get(id);
-            while (percent-- >= 1.0)
+            while (percent >= 1.0) {
                 world.dropItemNaturally(loc, item.item);
+                percent--;
+            }
             if (Math.random() <= percent)
                 world.dropItemNaturally(loc, item.item);
         }
