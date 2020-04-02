@@ -11,7 +11,6 @@ import HamsterYDS.UntilTheEnd.api.PlayerApi;
 import HamsterYDS.UntilTheEnd.player.PlayerManager;
 import HamsterYDS.UntilTheEnd.player.PlayerManager.CheckType;
 import HamsterYDS.UntilTheEnd.player.role.Roles;
-import HamsterYDS.UntilTheEnd.world.InfluenceTasks;
 
 public class Wolfgang {
     public Wolfgang(UntilTheEnd plugin) {

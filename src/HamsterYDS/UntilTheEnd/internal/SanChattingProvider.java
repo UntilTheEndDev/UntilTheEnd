@@ -10,7 +10,6 @@ package HamsterYDS.UntilTheEnd.internal;
 
 import HamsterYDS.UntilTheEnd.UntilTheEnd;
 import HamsterYDS.UntilTheEnd.cap.san.Sanity;
-import HamsterYDS.UntilTheEnd.cap.san.SanityProvider;
 import org.jetbrains.annotations.NotNull;
 
 import java.nio.CharBuffer;

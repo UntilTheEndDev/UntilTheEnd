@@ -8,16 +8,12 @@ import java.nio.charset.StandardCharsets;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.function.BiFunction;
-import java.util.function.DoubleUnaryOperator;
-import java.util.function.IntBinaryOperator;
-import java.util.function.IntToDoubleFunction;
 import java.util.logging.Level;
 
 import HamsterYDS.UntilTheEnd.internal.ItemFactory;
 import HamsterYDS.UntilTheEnd.internal.ScriptProvider;
 import HamsterYDS.UntilTheEnd.internal.UTEi18n;
 import com.google.common.util.concurrent.AtomicDouble;
-import com.sun.javafx.image.IntToIntPixelConverter;
 import org.bukkit.Bukkit;
 import org.bukkit.Location;
 import org.bukkit.Material;
