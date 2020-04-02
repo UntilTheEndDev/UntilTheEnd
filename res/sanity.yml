@@ -45,3 +45,19 @@ creatureAura:
   GHAST: -1
   #例如这个是恶魂：-1
   #可以再添加
+
+# 当理智过低时采用的转换格式
+# 可选:
+#  v1 - 老版本的方法
+#  v2 - 稍微有些优化的方法
+#  OrderDisorder - 只会打乱说话循序
+#
+# [其他] - [扩展]当做class类处理, 要求实现 Function<String, String>
+# Eg: cn.mcres.karlatemp.ute.ext.ChattingFunc
+# # File: ChattingFunc.java
+# package cn.mcres.karlatemp.ute.ext;
+# import java.util.function.Function;
+# public class ChattingFunc implements Function<String,String>{
+#     public String apply(String source) {return "wwwwwwwwwwwwwww";}
+# }
+function: v2
