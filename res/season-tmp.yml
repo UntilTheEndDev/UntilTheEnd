@@ -1,0 +1,16 @@
+# 这是定义季节的温度算法文件
+# 以下内容的值定义全部统一
+# default: 默认
+# 其他: 采用js文件
+#
+# 例如 "spring.js", 将使用 plugins/UntilTheEnd/scripts/spring.js
+# 例如 "summer.js", 将使用 plugins/UntilTheEnd/scripts/summer.js
+# 关于自定义公式, 请看
+# https://www.w3school.com.cn/jsref/jsref_obj_math.asp
+# https://www.runoob.com/jsref/jsref-obj-math.html
+# https://www.runoob.com/js/js-obj-math.html
+
+spring: default
+summer: default
+autumn: default
+winter: default

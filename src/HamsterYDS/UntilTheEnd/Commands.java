@@ -360,7 +360,7 @@ public class Commands implements CommandExecutor, Listener, TabCompleter {
         IWorld world = new IWorld(season, day, season.newLoop());
         WorldProvider.worldStates.remove(setWorld.getName());
         WorldProvider.worldStates.put(setWorld.getName(), world);
-        TemperatureProvider.loadWorldTemperatures();
+        TemperatureProvider.loadWorldTemperature(setWorld);
     }
 
     @Override
