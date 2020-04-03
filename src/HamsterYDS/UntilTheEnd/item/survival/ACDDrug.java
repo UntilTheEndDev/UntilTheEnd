@@ -1,6 +1,8 @@
 package HamsterYDS.UntilTheEnd.item.survival;
 
+import HamsterYDS.UntilTheEnd.internal.DisableManager;
 import HamsterYDS.UntilTheEnd.internal.EventHelper;
+
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.EventPriority;
@@ -18,11 +20,12 @@ public class ACDDrug implements Listener {
         ItemManager.plugin.getServer().getPluginManager().registerEvents(this, ItemManager.plugin);
     }
 
-    @EventHandler(priority = EventPriority.MONITOR, ignoreCancelled = true)
+    @EventHandler(priority = EventPriority.MONITOR)
     public void onRight(PlayerInteractEvent event) {
         Player player = event.getPlayer();
-        if (!EventHelper.isRight(event.getAction())) return;
+        if (event.isCancelled() && !DisableManager.bypass_right_action_cancelled) return;
         if (!event.hasItem()) return;
+        if (!EventHelper.isRight(event.getAction())) return;
         ItemStack item = event.getItem();
         if (ItemManager.isSimilar(item, getClass())) {
             event.setCancelled(true);

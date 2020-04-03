@@ -9,7 +9,11 @@
 package HamsterYDS.UntilTheEnd.internal;
 
 public class ExceptionBox extends Throwable {
-    public final Object exception;
+    /**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+	public final Object exception;
 
     public ExceptionBox(Object exception) {
         super(null, null, false, false);

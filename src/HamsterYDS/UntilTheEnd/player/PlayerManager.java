@@ -34,7 +34,12 @@ import HamsterYDS.UntilTheEnd.player.role.Roles;
 public class PlayerManager implements Listener {
     public static UntilTheEnd plugin = UntilTheEnd.getInstance();
     private static HashMap<UUID, IPlayer> players = new HashMap<UUID, IPlayer>() {
-        @Override
+        /**
+		 * 
+		 */
+		private static final long serialVersionUID = 1L;
+
+		@Override
         public IPlayer remove(Object key) {
             if (UntilTheEnd.DEBUG)
                 plugin.getLogger().log(Level.FINER, null, new Throwable("Player Data Removing! " + key));
@@ -65,7 +70,12 @@ public class PlayerManager implements Listener {
     }
 
     public static Collection<UUID> playerChangedRole = new HashSet<UUID>() {
-        @Override
+        /**
+		 * 
+		 */
+		private static final long serialVersionUID = 1L;
+
+		@Override
         public boolean add(UUID uuid) {
             if (UntilTheEnd.DEBUG)
                 plugin.getLogger().log(Level.FINE, "[PM] [PCR] Add " + uuid, new Throwable("Stack Trace"));

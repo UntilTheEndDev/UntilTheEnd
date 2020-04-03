@@ -824,7 +824,39 @@ FireWand:
   - AnimateWood
   - NightMare
   amounts:
+  - 1
   - 3
+  - 1
+  category: 魔法
+IceWand:
+  enable: true
+  type: WOOD_SPADE
+  name: §6冰魔杖
+  lores:
+  - §8-蓄势待发
+  - '§8-效用: §d右击发射包含冰的魔法攻击~'
+  materials:
+  - BlueGum
+  - AnimateWood
+  - NightMare
+  amounts:
+  - 1
+  - 3
+  - 1
+  category: 魔法
+TelelocatorWand:
+  enable: true
+  type: WOOD_SPADE
+  name: §6传送魔杖
+  lores:
+  - §8-神秘之气
+  - '§8-效用: §d带你去远方'
+  materials:
+  - PurpleGum
+  - AnimateWood
+  - NightMare
+  amounts:
+  - 2
   - 3
   - 1
   category: 魔法
@@ -847,6 +879,42 @@ Prestihatitator:
   - 3
   - 9
   - 5
+  category: 魔法
+LifeGivingAmulet:
+  enable: true
+  type: IRON_CHESTPLATE
+  name: §6提神护符
+  lores:
+  - §8-神清气爽？
+  - '§8-效用: §d增加理智值'
+  - '§8-效用: §d把饥饿转换成生命'
+  - '§8-效用: §d防止死亡'
+  materials:
+  - RedGum
+  - NightMare
+  - GOLD_BLOCK
+  amounts:
+  - 2
+  - 2
+  - 9
+  category: 魔法
+ChilledgAmulet:
+  enable: true
+  type: IRON_CHESTPLATE
+  name: §6寒冰护符
+  lores:
+  - §8-神清气爽？
+  - '§8-效用: §d增加理智值'
+  - '§8-效用: §d降低温度'
+  - '§8-效用: §d防止冰系魔法攻击'
+  materials:
+  - BlueGum
+  - NightMare
+  - GOLD_BLOCK
+  amounts:
+  - 1
+  - 1
+  - 9
   category: 魔法
 # 人物####################################
 Beard:

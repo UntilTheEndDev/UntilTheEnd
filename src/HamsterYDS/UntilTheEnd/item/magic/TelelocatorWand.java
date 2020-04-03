@@ -9,8 +9,8 @@ import HamsterYDS.UntilTheEnd.internal.EventHelper;
 import HamsterYDS.UntilTheEnd.internal.ItemFactory;
 import org.bukkit.Bukkit;
 import org.bukkit.Location;
+import org.bukkit.Material;
 import org.bukkit.Particle;
-import org.bukkit.entity.Entity;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.EventPriority;
@@ -23,12 +23,10 @@ import org.bukkit.util.Vector;
 import HamsterYDS.UntilTheEnd.item.ItemManager;
 import HamsterYDS.UntilTheEnd.player.PlayerManager;
 
-public class FireWand implements Listener {
-    public static int firePeriod = ItemManager.itemAttributes.getInt("FireWand.firePeriod");
-    public static int maxDist = ItemManager.itemAttributes.getInt("FireWand.maxDist");
-    public static double range = ItemManager.itemAttributes.getDouble("FireWand.range");
+public class TelelocatorWand implements Listener {
+    public static int maxDist = ItemManager.itemAttributes.getInt("TelelocatorWand.maxDist");
 
-    public FireWand() {
+    public TelelocatorWand() {
         ItemManager.plugin.getServer().getPluginManager().registerEvents(this, ItemManager.plugin);
     }
 
@@ -62,7 +60,7 @@ public class FireWand implements Listener {
                 PlayerManager.change(player, PlayerManager.CheckType.SANITY, -5);
             new BukkitRunnable() {
                 int range = maxDist;
-
+                Location oldLoc=loc.clone();
                 @Override
                 public void run() {
                     for (int i = 0; i < 5; i++) {
@@ -72,16 +70,16 @@ public class FireWand implements Listener {
                             cd.remove(player.getName());
                             return;
                         }
-                        loc.getWorld().spawnParticle(Particle.LAVA, loc, 1);
+                        loc.getWorld().spawnParticle(Particle.END_ROD, loc, 1);
                         loc.add(vec);
-                        for (Entity entity : loc.getWorld().getNearbyEntities(loc, FireWand.range, FireWand.range, FireWand.range)) {
-                            if (entity.getEntityId() == player.getEntityId()) continue;
-                            entity.setFireTicks(firePeriod * 20);
-                            cancel();
+                        if (loc.getBlock().getType()!=Material.AIR) {
+                            player.teleport(oldLoc);
+                            cancel(); 
                             cd.remove(player.getName());
                             return;
                         }
                     }
+                    oldLoc=loc.clone();
                 }
             }.runTaskTimer(ItemManager.plugin, 0L, 1L);
         }
