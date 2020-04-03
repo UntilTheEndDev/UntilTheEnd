@@ -288,15 +288,37 @@ AlchemyEngine:
 FireWand:
   canPlace: false
   isConsume: false
-  needLevel: 0
+  needLevel: 2
   firePeriod: 60  #魔咒击中生物着火秒数
   maxDist: 100.0  #魔咒最远飞多长
   range: 0.3  #魔咒击中判定范围
+IceWand:
+  canPlace: false
+  isConsume: false
+  needLevel: 2
+  icePeriod: 20  #魔咒击中生物冰冻秒数
+  maxDist: 100.0  #魔咒最远飞多长
+  range: 0.3  #魔咒击中判定范围
+TelelocatorWand:
+  canPlace: false
+  isConsume: false
+  needLevel: 3
+  maxDist: 500.0  #魔咒最远飞多长
 Prestihatitator:
   canPlace: true
   isConsume: false
   needLevel: 2
   provideLevel: 3   #提供3级科学
+LifeGivingAmulet:
+  canPlace: false
+  isConsume: false
+  needLevel: 3
+  sanityImprove: 3
+ChilledgAmulet:
+  canPlace: false
+  isConsume: false
+  needLevel: 3
+  sanityImprove: 1
 # 人物类材料####################################################
 Beard:
   canPlace: false

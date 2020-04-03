@@ -21,7 +21,11 @@ import HamsterYDS.UntilTheEnd.item.combat.BlowArrow2;
 import HamsterYDS.UntilTheEnd.item.combat.BlowArrow3;
 import HamsterYDS.UntilTheEnd.item.combat.ToothTrap;
 import HamsterYDS.UntilTheEnd.item.combat.WeatherPain;
+import HamsterYDS.UntilTheEnd.item.magic.ChilledAmulet;
 import HamsterYDS.UntilTheEnd.item.magic.FireWand;
+import HamsterYDS.UntilTheEnd.item.magic.IceWand;
+import HamsterYDS.UntilTheEnd.item.magic.LifeGivingAmulet;
+import HamsterYDS.UntilTheEnd.item.magic.TelelocatorWand;
 import HamsterYDS.UntilTheEnd.item.materials.Fern;
 import HamsterYDS.UntilTheEnd.item.materials.Hail;
 import HamsterYDS.UntilTheEnd.item.materials.NightMare;
@@ -140,6 +144,10 @@ public class ItemManager {
         new Refridgerator();
 
         new FireWand();
+        new IceWand();
+        new TelelocatorWand();
+        new LifeGivingAmulet();
+        new ChilledAmulet();
 
         new ClothesContainer();
 
@@ -218,6 +226,7 @@ public class ItemManager {
             return false;
         String id = clazz.getSimpleName();
         if (!items.containsKey(id)) return false;
+        
         ItemStack uteItem = items.get(id).item;
         if (item == uteItem)
             return true;

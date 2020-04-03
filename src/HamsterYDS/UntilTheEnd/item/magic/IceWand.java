@@ -9,26 +9,31 @@ import HamsterYDS.UntilTheEnd.internal.EventHelper;
 import HamsterYDS.UntilTheEnd.internal.ItemFactory;
 import org.bukkit.Bukkit;
 import org.bukkit.Location;
+import org.bukkit.Material;
 import org.bukkit.Particle;
 import org.bukkit.entity.Entity;
+import org.bukkit.entity.LivingEntity;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.EventPriority;
 import org.bukkit.event.Listener;
 import org.bukkit.event.player.PlayerInteractEvent;
 import org.bukkit.inventory.ItemStack;
+import org.bukkit.potion.PotionEffect;
+import org.bukkit.potion.PotionEffectType;
 import org.bukkit.scheduler.BukkitRunnable;
 import org.bukkit.util.Vector;
 
 import HamsterYDS.UntilTheEnd.item.ItemManager;
+import HamsterYDS.UntilTheEnd.item.other.ClothesContainer;
 import HamsterYDS.UntilTheEnd.player.PlayerManager;
 
-public class FireWand implements Listener {
-    public static int firePeriod = ItemManager.itemAttributes.getInt("FireWand.firePeriod");
-    public static int maxDist = ItemManager.itemAttributes.getInt("FireWand.maxDist");
-    public static double range = ItemManager.itemAttributes.getDouble("FireWand.range");
+public class IceWand implements Listener {
+    public static int icePeriod = ItemManager.itemAttributes.getInt("IceWand.icePeriod");
+    public static int maxDist = ItemManager.itemAttributes.getInt("IceWand.maxDist");
+    public static double range = ItemManager.itemAttributes.getDouble("IceWand.range");
 
-    public FireWand() {
+    public IceWand() {
         ItemManager.plugin.getServer().getPluginManager().registerEvents(this, ItemManager.plugin);
     }
 
@@ -72,12 +77,30 @@ public class FireWand implements Listener {
                             cd.remove(player.getName());
                             return;
                         }
-                        loc.getWorld().spawnParticle(Particle.LAVA, loc, 1);
+                        loc.getWorld().spawnParticle(Particle.SNOWBALL, loc, 1);
                         loc.add(vec);
-                        for (Entity entity : loc.getWorld().getNearbyEntities(loc, FireWand.range, FireWand.range, FireWand.range)) {
+                        for (Entity entity : loc.getWorld().getNearbyEntities(loc, IceWand.range, IceWand.range, IceWand.range)) {
                             if (entity.getEntityId() == player.getEntityId()) continue;
-                            entity.setFireTicks(firePeriod * 20);
-                            cancel();
+                            if(!(entity instanceof LivingEntity)) continue;
+                            if(entity instanceof Player) {
+                            	ItemStack[] clothes = ClothesContainer.getInventory(player).getStorageContents();
+        						boolean flag=false;
+                            	for (ItemStack cloth : clothes) {
+        	                        if(ItemManager.isSimilar(cloth,ItemManager.items.get("ChilledAmulet").item)) {
+        	                        	flag=true;
+        	                        	cloth.setDurability((short) (cloth.getDurability()+10));
+        	                        }
+        	                    }
+        						if(flag) continue;
+                            }
+                            ((LivingEntity) entity).addPotionEffect(new PotionEffect(PotionEffectType.SLOW,icePeriod*20,9));
+                            if(entity.getLocation().getBlock().getType()==Material.AIR) {
+                            	entity.getLocation().getBlock().setType(Material.ICE);
+                            }
+                            if(entity.getLocation().getBlock().getLocation().add(0,1,0).getBlock().getType()==Material.AIR) {
+                            	entity.getLocation().getBlock().getLocation().add(0,1,0).getBlock().setType(Material.ICE);
+                            }
+                            cancel(); 
                             cd.remove(player.getName());
                             return;
                         }

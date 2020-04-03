@@ -92,6 +92,8 @@ public class HudBossBar extends BukkitRunnable implements Listener {
                         ndBossBar.san.removeAll();
                         ndBossBar.tir.removeAll();
                         continue;
+				default:
+					break;
                 }
                 double san = PlayerManager.check(p, PlayerManager.CheckType.SANITY);
                 double sanMax = PlayerManager.check(p, PlayerManager.CheckType.SANMAX);
