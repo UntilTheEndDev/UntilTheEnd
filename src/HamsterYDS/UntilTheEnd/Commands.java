@@ -1,6 +1,6 @@
 package HamsterYDS.UntilTheEnd;
 
-import java.util.*; 
+import java.util.*;
 
 import HamsterYDS.UntilTheEnd.internal.ItemFactory;
 import HamsterYDS.UntilTheEnd.internal.UTEi18n;
@@ -277,8 +277,8 @@ public class Commands implements CommandExecutor, Listener, TabCompleter {
             case "temp": {
                 if (pl != null) {
                     final Location location = pl.getLocation();
-                    pl.sendMessage(TemperatureProvider.getBlockTemperature(location) + ", "
-                            + location.getBlock().getTemperature());
+                    pl.sendMessage("temp= " + TemperatureProvider.getBlockTemperature(location) + ", v-temp="
+                            + location.getBlock().getTemperature() + ", season=" + TemperatureProvider.worldTemperatures.get(location.getWorld()));
                 }
                 break;
             }
