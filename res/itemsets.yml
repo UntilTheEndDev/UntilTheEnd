@@ -898,7 +898,7 @@ LifeGivingAmulet:
   - 2
   - 9
   category: 魔法
-ChilledgAmulet:
+ChilledAmulet:
   enable: true
   type: IRON_CHESTPLATE
   name: §6寒冰护符

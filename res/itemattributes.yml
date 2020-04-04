@@ -314,7 +314,7 @@ LifeGivingAmulet:
   isConsume: false
   needLevel: 3
   sanityImprove: 3
-ChilledgAmulet:
+ChilledAmulet:
   canPlace: false
   isConsume: false
   needLevel: 3
