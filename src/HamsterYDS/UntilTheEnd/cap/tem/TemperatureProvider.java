@@ -155,33 +155,34 @@ public class TemperatureProvider {
         if (!Config.enableWorlds.contains(loc.getWorld())) return 37;
         if (loc.getBlock() == null) return 37;
         World world = loc.getWorld();
-        Block block = loc.getBlock();
-        Material material = ItemFactory.getType(block);
-        if (blockTemperatures.containsKey(material)) return blockTemperatures.get(material);
-        double seasonTem = TemperatureProvider.worldTemperatures.get(world).doubleValue();
-        double tems = seasonTem;
-        int tot = 1;
-        for (int x = -4; x <= 4; x++)
-            for (int y = -4; y <= 4; y++)
-                for (int z = -4; z <= 4; z++) {
-                    Location newLoc = new Location(loc.getWorld(), loc.getX() + x, loc.getY() + y, loc.getZ() + z);
-                    if (newLoc.getBlock() == null) continue;
-                    Material blockMaterial = ItemFactory.getType(newLoc.getBlock());
-                    double factor = loc.distance(newLoc) * 0.4;
-                    if (blockTemperatures.containsKey(blockMaterial)) {
-                        int blockTem = blockTemperatures.get(blockMaterial);
-                        double dValue = Math.abs(blockTem - seasonTem);
-                        double influent = dValue / factor;
-                        tot++;
-                        if (blockTem > seasonTem) tems += seasonTem + influent;
-                        else tems += seasonTem - influent;
+        // 我们需要你的帮助来优化此温度算法! 谢谢!
+        // We need the help for update this Temperature algorithm. Thank you very much!
+
+        double season = TemperatureProvider.worldTemperatures.get(world).doubleValue();
+        Location l = loc.clone();
+        final int d = 4;
+        // double deg = Math.sqrt(d * d * 3);
+        double tem0 = season;
+        for (int x = -d; x <= d; x++) {
+            l.setX(loc.getX() + x);
+            for (int z = -d; z <= d; z++) {
+                l.setZ(loc.getZ() + z);
+                for (int y = -d; y <= d; y++) {
+                    l.setY(loc.getY() + y);
+                    Block b = l.getBlock();
+                    if (b == null) continue;
+                    Material mt = ItemFactory.getType(b);
+                    final Integer tmp = blockTemperatures.get(mt);
+                    if (tmp != null) {
+                        double dg = l.distance(loc);
+                        tem0 += (tmp.doubleValue() - tem0) / ((dg + 1) / 3);
+                        // * (deg - dg);
                     }
                 }
-        double result = (tems / tot);
-        result = (result - (1.5 * ((loc.getBlockY() - 50) / 10D)));
-        final double temperature = block.getTemperature();
-        result += ((temperature - 0.8) * 14); // TODO 配置可改
-        return result;
+            }
+        }
+        // if (tot == 0) return season;
+        return tem0 + (loc.getBlock().getTemperature() - 0.8) * 14;
     }
 
     public static class FMBlock {

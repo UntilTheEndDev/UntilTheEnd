@@ -1,8 +1,12 @@
 name: UntilTheEnd
 main: HamsterYDS.UntilTheEnd.UntilTheEnd
-version: "5.7.0-Alpha"
+version: "5.7.0-Beta"
 depend: [PlaceholderAPI]
-softdepend: [ProtocolLib,Multiverse-Core,LibsDisguises,Citizens]
+softdepend:
+  - ProtocolLib
+  - Multiverse-Core
+  - LibsDisguises
+  - Citizens
 authors:
   - "南外丶仓鼠"
   - "瑞瑞瑞瑞阿"
