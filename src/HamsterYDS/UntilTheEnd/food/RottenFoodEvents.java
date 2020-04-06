@@ -5,6 +5,7 @@ import HamsterYDS.UntilTheEnd.internal.ItemFactory;
 import org.bukkit.*;
 import org.bukkit.block.Block;
 import org.bukkit.block.BlockState;
+import org.bukkit.block.Furnace;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.EventPriority;
 import org.bukkit.event.Listener;
@@ -112,6 +113,11 @@ public class RottenFoodEvents implements Listener, Runnable {
             final InventoryHolder check = key.check();
             if (check == null) iterator.remove();
             else {
+                if (check instanceof Furnace) {
+                    if (((Furnace) check).getBurnTime() > 0) {
+                        continue;
+                    }
+                }
                 if (key.ticking++ >= value) {
                     key.ticking = 0;
                     final Inventory inventory = check.getInventory();

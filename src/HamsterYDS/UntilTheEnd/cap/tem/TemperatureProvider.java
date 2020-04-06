@@ -157,6 +157,8 @@ public class TemperatureProvider {
         World world = loc.getWorld();
         // 我们需要你的帮助来优化此温度算法! 谢谢!
         // We need the help for update this Temperature algorithm. Thank you very much!
+        final Integer value = blockTemperatures.get(ItemFactory.getType(loc.getBlock()));
+        if (value != null) return value;
 
         double season = TemperatureProvider.worldTemperatures.get(world).doubleValue();
         Location l = loc.clone();
