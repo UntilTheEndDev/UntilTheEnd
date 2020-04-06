@@ -155,14 +155,16 @@ public class TemperatureProvider {
         if (!Config.enableWorlds.contains(loc.getWorld())) return 37;
         if (loc.getBlock() == null) return 37;
         World world = loc.getWorld();
-        // 我们需要你的帮助来优化此温度算法! 谢谢!
-        // We need the help for update this Temperature algorithm. Thank you very much!
-
+        
         double season = TemperatureProvider.worldTemperatures.get(world).doubleValue();
         Location l = loc.clone();
         final int d = 4;
         // double deg = Math.sqrt(d * d * 3);
         double tem0 = season;
+        //单位方块变化总和
+        double temminus=0.0;
+        //单位数量
+        int tot=0;
         for (int x = -d; x <= d; x++) {
             l.setX(loc.getX() + x);
             for (int z = -d; z <= d; z++) {
@@ -174,15 +176,20 @@ public class TemperatureProvider {
                     Material mt = ItemFactory.getType(b);
                     final Integer tmp = blockTemperatures.get(mt);
                     if (tmp != null) {
+                    	tot++;
+                    	
                         double dg = l.distance(loc);
-                        tem0 += (tmp.doubleValue() - tem0) / ((dg + 1) / 3);
+                        //权重
+                        double weight=dg/(4*Math.sqrt(2));
+                        //变化量*权重 加入 单位方块变化总和
+                        temminus+=weight*(tmp-season);
                         // * (deg - dg);
                     }
                 }
             }
         }
         // if (tot == 0) return season;
-        return tem0 + (loc.getBlock().getTemperature() - 0.8) * 14;
+        return tem0 + /*均摊变化*/(temminus/tot) + (loc.getBlock().getTemperature() - 0.8) * 14;
     }
 
     public static class FMBlock {
