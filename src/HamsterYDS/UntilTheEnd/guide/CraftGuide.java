@@ -158,7 +158,7 @@ public class CraftGuide implements Listener {
         if (event.getSlot() == 20)
             return;
         if (event.getSlot() == 40) {
-            String id = ItemManager.isUTEItem(inv.getItem(20));
+            String id = ItemManager.getUTEItemId(inv.getItem(20));
             if (!id.equalsIgnoreCase("")) {
                 goCraft(player, id);
                 return;
@@ -385,7 +385,7 @@ public class CraftGuide implements Listener {
         for (int slot = 0; slot < oldInv.getSize(); slot++) {
             if (oldInv.getItem(slot) == null) continue;
             ItemStack item = oldInv.getItem(slot).clone();
-            String id = ItemManager.isUTEItem(item);
+            String id = ItemManager.getUTEItemId(item);
             if (cheating.contains(player.getUniqueId()) || id.equalsIgnoreCase("")) {
                 inv.setItem(slot, item);
                 continue;

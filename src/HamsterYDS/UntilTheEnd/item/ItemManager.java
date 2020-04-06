@@ -212,21 +212,26 @@ public class ItemManager {
         items.get(path).registerRecipe(craft, itemSets.getString(path + ".category"));
     }
 
-    public static String isUTEItem(ItemStack item) {
-        if (item == null) return "";
+    public static String getUTEItemId(ItemStack item, String default_) {
+        if (item == null) return default_;
         if (item.hasItemMeta())
             if (item.getItemMeta().hasDisplayName())
                 if (ids.containsKey(item.getItemMeta().getDisplayName()))
                     return ids.get(item.getItemMeta().getDisplayName());
-        return "";
+        return default_;
     }
+
+    public static String getUTEItemId(ItemStack item) {
+        return getUTEItemId(item, "");
+    }
+
 
     public static boolean isSimilar(ItemStack item, Class<?> clazz) {
         if (item == null)
             return false;
         String id = clazz.getSimpleName();
         if (!items.containsKey(id)) return false;
-        
+
         ItemStack uteItem = items.get(id).item;
         if (item == uteItem)
             return true;

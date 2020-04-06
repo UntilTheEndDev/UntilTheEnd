@@ -112,10 +112,10 @@ public class BlockManager extends BukkitRunnable implements Listener {
         if (event.isCancelled()) return;
         if (event.getItemInHand() == null) return;
         ItemStack item = event.getItemInHand();
-        if (ItemManager.isUTEItem(item).equalsIgnoreCase("")) return;
+        if (ItemManager.getUTEItemId(item).equalsIgnoreCase("")) return;
         Location loc = event.getBlock().getLocation();
         String toString = BlockApi.locToStr(loc);
-        addBlockData(ItemManager.isUTEItem(item), toString);
+        addBlockData(ItemManager.getUTEItemId(item), toString);
     }
 
     @EventHandler(priority = EventPriority.MONITOR, ignoreCancelled = true)

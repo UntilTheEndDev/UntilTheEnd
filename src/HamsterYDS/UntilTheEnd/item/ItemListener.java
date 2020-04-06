@@ -31,7 +31,7 @@ public class ItemListener implements Listener {
         if (event.isCancelled())
             return;
         ItemStack item = event.getItemInHand();
-        String id = ItemManager.isUTEItem(item);
+        String id = ItemManager.getUTEItemId(item);
         if (!id.equalsIgnoreCase("")) {
             if (ItemManager.items.get(id).canPlace)
                 return;
@@ -50,7 +50,7 @@ public class ItemListener implements Listener {
                 return;
 
             ItemStack item = event.getItem();
-            String id = ItemManager.isUTEItem(item);
+            String id = ItemManager.getUTEItemId(item);
             if (!id.equalsIgnoreCase("")) {
                 if (ItemManager.items.get(id).isConsume) {
                     item.setAmount(item.getAmount() - 1);
@@ -63,16 +63,14 @@ public class ItemListener implements Listener {
     @EventHandler(priority = EventPriority.MONITOR, ignoreCancelled = true)
     public void onCraftVanillaRecipes(CraftItemEvent event) {
         Recipe recipe = event.getRecipe();
-        ItemStack resultClone = recipe.getResult().clone();
-        resultClone.setAmount(1);
-        if (!ItemManager.isUTEItem(resultClone).equalsIgnoreCase(""))
-            return;
+        if (ItemManager.getUTEItemId(recipe.getResult(), null) != null) return;
         for (ItemStack item : event.getClickedInventory().getContents()) {
             if (item == null)
-                return;
-            if (!ItemManager.isUTEItem(item).equalsIgnoreCase("")) {
+                continue;
+            if (ItemManager.getUTEItemId(item, null) != null) {
                 event.setCancelled(true);
                 event.getWhoClicked().sendMessage(UTEi18n.cacheWithPrefix("item.system.no-crafting"));
+                break;
             }
         }
     }
@@ -104,7 +102,7 @@ public class ItemListener implements Listener {
             return;
         ItemStack item = event.getCursor();
         if (inv instanceof AnvilInventory) {
-            if (!ItemManager.isUTEItem(item).equalsIgnoreCase(""))
+            if (!ItemManager.getUTEItemId(item).equalsIgnoreCase(""))
                 event.setCancelled(true);
         }
     }

@@ -115,7 +115,7 @@ public class ClothesContainer implements Listener {
             String type = String.valueOf(ItemFactory.getType(cursor));
             if (type.contains("HELMET") || type.contains("CHESTPLATE") || type.contains("LEGGINGS")
                     || type.contains("BOOTS"))
-                if (!ItemManager.isUTEItem(cursor).equalsIgnoreCase(""))
+                if (!ItemManager.getUTEItemId(cursor).equalsIgnoreCase(""))
                     return;
             player.sendMessage("只有可穿戴的UTE衣物可以放入衣物管理器！");
             event.setCancelled(true);
