@@ -2,6 +2,12 @@
 
 ---
 
-Readme? 要那玩意干嘛?
+Readme? 閭ｇ涓滆タ涓嶆槸寰堥渶瑕佸暒~
+
+## 寮�婧愬湴鍧�
+
+[GitHub](https://github.com/Karlatemp/UntilTheEnd)
+
+[Coding](https://e.coding.net/untiltheend/UntilTheEnd.git)
 
 
