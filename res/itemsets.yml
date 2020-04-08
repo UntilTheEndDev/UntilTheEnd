@@ -213,12 +213,24 @@ BlueGum:
   name: §6蓝宝石
   lores:
   - §8-冰晶结合体.......
+GreenGum:
+  enable: true
+  type: NETHER_STAR
+  name: §6绿宝石
+  lores:
+  - §8-活力四射
 AnimateWood:
   enable: true
   type: LOG
   name: §6有生命的木头
   lores:
   - §8-它是动物吗？
+Nitre:
+  enable: true
+  type: FLINT
+  name: §6硝石
+  lores:
+  - §8-难闻的味道
 # 衣物####################################
 BushesHat:
   enable: true
@@ -811,6 +823,53 @@ AlchemyEngine:
   - 2
   - 2
   category: 科学
+  
+CombinedTools: 
+  enable: true
+  type: DIAMOND_SWORD
+  name: §6多用工具
+  lores:
+  - §8-一物多用
+  - '§8-效用: §d剑|镐|铲|斧'
+  materials:
+  - Plank
+  - Brick
+  - DIAMOND_SWORD
+  - DIAMOND_PICKAXE
+  - DIAMOND_AXE
+  - DIAMOND_SPADE
+  amounts:
+  - 4
+  - 4
+  - 1
+  - 1
+  - 1
+  - 1
+  category: 科学
+ColdFire:
+  enable: true
+  type: FIRE
+  name: §6冰火
+  lores:
+  - §8-反自然
+  - '§8-效用: §d提供一个燃烧90s的寒冷火焰'
+  materials:
+  - Nitre
+  - FLINT
+  - IRON_INGOT
+  amounts:
+  - 12
+  - 1
+  - 1
+  category: 科学
+BluePrint:
+  enable: true
+  type: EMPTY_MAP
+  name: §6蓝图
+  lores:
+  - §8-速成小课
+  - '§8-效用: §d直接免科学机器解锁某个合成'
+  - '§8-解锁合成: '
 # 魔法####################################
 FireWand:
   enable: true
@@ -911,6 +970,54 @@ ChilledAmulet:
   - BlueGum
   - NightMare
   - GOLD_BLOCK
+  amounts:
+  - 1
+  - 1
+  - 9
+  category: 魔法
+Teleportage: 
+  enable: true
+  type: IRON_BLOCK
+  name: §6传送阵地
+  lores:
+  - §8-呼啸而过
+  - '§8-效用: §d设置你的传送点'
+  materials:
+  - NightMare
+  - IRON_BLOCK
+  - PurpleGum
+  amounts:
+  - 3
+  - 9
+  - 1
+  category: 魔法
+DecomposeWand: 
+  enable: true
+  type: WOOD_SPADE
+  name: §6分解权杖
+  lores:
+  - §8-消失的东西去哪了？
+  - '§8-效用: §d强制挖掘击中方块|伤害击中玩家'
+  materials:
+  - GreenGum
+  - AnimateWood
+  - NightMare
+  amounts:
+  - 2
+  - 3
+  - 1
+  category: 魔法
+BuildAmulet: 
+  enable: true
+  type: IRON_CHESTPLATE
+  name: §6建筑护符
+  lores:
+  - §8-创意泉涌
+  - '§8-效用: §d减少50%合成所需物品'
+  materials:
+  - GreenGum
+  - NightMare
+  - DIAMOND_BLOCK
   amounts:
   - 1
   - 1

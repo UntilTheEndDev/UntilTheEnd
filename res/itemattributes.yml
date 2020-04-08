@@ -107,7 +107,15 @@ PurpleGum:
   canPlace: false
   isConsume: false
   needLevel: 2
+GreenGum:
+  canPlace: false
+  isConsume: false
+  needLevel: 0
 AnimateWood:
+  canPlace: false
+  isConsume: false
+  needLevel: 0
+Nitre:
   canPlace: false
   isConsume: false
   needLevel: 0
@@ -284,6 +292,19 @@ AlchemyEngine:
   isConsume: false
   needLevel: 1
   provideLevel: 2   #提供2级科学
+  
+CombinedTools: 
+  canPlace: false
+  isConsume: false
+  needLevel: 2
+ColdFire:
+  canPlace: true
+  isConsume: false
+  needLevel: 2
+BluePrint:
+  canPlace: false
+  isConsume: true
+  needLevel: 10
 # 魔法类材料####################################################
 FireWand:
   canPlace: false
@@ -319,6 +340,19 @@ ChilledAmulet:
   isConsume: false
   needLevel: 3
   sanityImprove: 1
+  
+Teleportage: 
+  canPlace: true
+  isConsume: false
+  needLevel: 3
+DecomposeWand: 
+  canPlace: false
+  isConsume: false
+  needLevel: 3
+BuildAmulet: 
+  canPlace: false
+  isConsume: false
+  needLevel: 3
 # 人物类材料####################################################
 Beard:
   canPlace: false
