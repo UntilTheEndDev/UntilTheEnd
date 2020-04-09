@@ -848,7 +848,7 @@ CombinedTools:
   category: 科学
 ColdFire:
   enable: true
-  type: FIRE
+  type: FLINT_AND_STEEL
   name: §6冰火
   lores:
   - §8-反自然
@@ -864,12 +864,11 @@ ColdFire:
   category: 科学
 BluePrint:
   enable: true
-  type: EMPTY_MAP
-  name: §6蓝图
+  type: PAPER
+  name: '§6蓝图: '
   lores:
-  - §8-速成小课
+  - §8-速成小课仅需888￥
   - '§8-效用: §d直接免科学机器解锁某个合成'
-  - '§8-解锁合成: '
 # 魔法####################################
 FireWand:
   enable: true

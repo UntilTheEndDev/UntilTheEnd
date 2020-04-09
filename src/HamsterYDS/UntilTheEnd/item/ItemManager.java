@@ -30,6 +30,8 @@ import HamsterYDS.UntilTheEnd.item.materials.Fern;
 import HamsterYDS.UntilTheEnd.item.materials.Hail;
 import HamsterYDS.UntilTheEnd.item.materials.NightMare;
 import HamsterYDS.UntilTheEnd.item.other.ClothesContainer;
+import HamsterYDS.UntilTheEnd.item.science.BluePrint;
+import HamsterYDS.UntilTheEnd.item.science.CombinedTools;
 import HamsterYDS.UntilTheEnd.item.science.Hygrometer;
 import HamsterYDS.UntilTheEnd.item.science.IceFlingomatic;
 import HamsterYDS.UntilTheEnd.item.science.LightningArrester;
@@ -77,7 +79,6 @@ public class ItemManager {
                 continue;
 
             ids.put(item.getItemMeta().getDisplayName(), path);
-
             UTEItemStack uteItem = new UTEItemStack(
                     itemAttributes.getBoolean(path + ".canPlace"),
                     itemAttributes.getBoolean(path + ".isConsume"),
@@ -142,6 +143,8 @@ public class ItemManager {
         new LightningArrester();
         new IceFlingomatic();
         new Refridgerator();
+        new CombinedTools();
+        new BluePrint();
 
         new FireWand();
         new IceWand();

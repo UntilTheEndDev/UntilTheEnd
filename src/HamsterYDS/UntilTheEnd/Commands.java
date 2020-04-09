@@ -43,7 +43,7 @@ public class Commands implements CommandExecutor, Listener, TabCompleter {
 
     static {
         itemTab.addAll(ItemManager.items.keySet());
-        cmdTab.addAll(Arrays.asList("cheat", "give", "guide", "help", "material", "entitytype", "set", "season", "temp",
+        cmdTab.addAll(Arrays.asList("cheat", "give", "guide", "help", "material", "entitytype", "set", "season", "temp", "attribute",
                 "role", "openguide"));
         if (!Roles.isEnable) cmdTab.remove("role");
         for (Season season : Season.values())
@@ -313,7 +313,7 @@ public class Commands implements CommandExecutor, Listener, TabCompleter {
                     pl.sendMessage(UTEi18n.cacheWithPrefix("cmd.role.change"));
                 }
             }
-            case "lore": {
+            case "attribute": {
                 if (pl == null) {
                     notPlayer(cs);
                     break;
@@ -337,8 +337,17 @@ public class Commands implements CommandExecutor, Listener, TabCompleter {
                         pl.getInventory().setItemInMainHand(item);
                         pl.updateInventory();
                     }
+                    if (ct[1].equalsIgnoreCase("addblueprint")) {
+	                    ItemStack item=ItemManager.items.get("BluePrint").item.clone();
+	                    ItemMeta meta=item.getItemMeta();
+	                    meta.setDisplayName(meta.getDisplayName()+ItemManager.items.get(ct[2]).displayName);
+	                    item.setItemMeta(meta);
+	                    pl.getInventory().addItem(item);
+	                    pl.sendMessage("给予图纸成功");
+	                }
                 }
                 break;
+                
             }
         }
         return true;

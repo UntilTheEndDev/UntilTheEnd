@@ -163,11 +163,8 @@ public class TemperatureProvider {
         double season = TemperatureProvider.worldTemperatures.get(world).doubleValue();
         Location l = loc.clone();
         final int d = 4;
-        // double deg = Math.sqrt(d * d * 3);
         double tem0 = season;
-        //单位方块变化总和
-        double temminus = 0.0;
-        //单位数量
+        double temchange = 0.0;
         double tot = 0;
         for (int x = -d; x <= d; x++) {
             l.setX(loc.getX() + x);
@@ -181,19 +178,15 @@ public class TemperatureProvider {
                     final Integer tmp = blockTemperatures.get(mt);
                     if (tmp != null) {
                         double dg = l.distance(loc);
-                        tot += 1 * (dg / (4 * Math.sqrt(2)));
-                        //权重
-                        double weight = dg / (4 * Math.sqrt(2));
-                        //变化量*权重 加入 单位方块变化总和
-                        temminus += weight * (tmp - season);
-                        // * (deg - dg);
+                        double weight = 1- dg / (4 * Math.sqrt(2));
+                        tot += weight;
+                        temchange += weight * (tmp - season);
                     }
                 }
             }
         }
-        if (tot == 0) tot = 1;
-        // if (tot == 0) return season;
-        return tem0 + /*均摊变化*/(temminus / tot) + (loc.getBlock().getTemperature() - 0.8) * 14;
+        double answer=tem0+(temchange * tot);
+        return answer+(loc.getBlockY()>=90?(loc.getBlockY()-90)*0.6:0);
     }
 
     public static class FMBlock {

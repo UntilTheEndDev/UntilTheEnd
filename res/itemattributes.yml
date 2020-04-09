@@ -294,7 +294,7 @@ AlchemyEngine:
   provideLevel: 2   #提供2级科学
   
 CombinedTools: 
-  canPlace: false
+  canPlace: true
   isConsume: false
   needLevel: 2
 ColdFire:
