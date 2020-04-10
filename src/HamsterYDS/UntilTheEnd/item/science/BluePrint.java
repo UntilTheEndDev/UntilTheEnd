@@ -50,6 +50,8 @@ public class BluePrint implements Listener {
         				    }
         				}
         			}
+        			item.setAmount(item.getAmount()-1); 
+        			player.getInventory().setItemInMainHand(item);
         		}
     }
 }

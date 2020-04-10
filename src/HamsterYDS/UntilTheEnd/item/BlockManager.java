@@ -5,8 +5,10 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
 
+import org.bukkit.Bukkit;
 import org.bukkit.Location;
 import org.bukkit.Particle;
+import org.bukkit.block.Block;
 import org.bukkit.configuration.file.YamlConfiguration;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.EventPriority;
@@ -14,11 +16,15 @@ import org.bukkit.event.Listener;
 import org.bukkit.event.block.BlockBreakEvent;
 import org.bukkit.event.block.BlockPistonExtendEvent;
 import org.bukkit.event.block.BlockPlaceEvent;
+import org.bukkit.event.player.PlayerInteractEvent;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.scheduler.BukkitRunnable;
 
 import HamsterYDS.UntilTheEnd.UntilTheEnd;
 import HamsterYDS.UntilTheEnd.api.BlockApi;
+import HamsterYDS.UntilTheEnd.event.block.CustomBlockBreakEvent;
+import HamsterYDS.UntilTheEnd.event.block.CustomBlockInteractEvent;
+import HamsterYDS.UntilTheEnd.event.block.CustomBlockPlaceEvent;
 import HamsterYDS.UntilTheEnd.item.combat.ToothTrap;
 
 /**
@@ -85,12 +91,20 @@ public class BlockManager extends BukkitRunnable implements Listener {
         }
     }
 
-    @EventHandler(priority = EventPriority.MONITOR, ignoreCancelled = true)
+    @EventHandler(priority = EventPriority.MONITOR)
     public void onBreak(BlockBreakEvent event) {
         if (event.isCancelled()) return;
         Location loc = event.getBlock().getLocation();
         String toString = BlockApi.locToStr(loc);
         if (blocks.get(toString) == null) return;
+        
+        CustomBlockBreakEvent evt=new CustomBlockBreakEvent(event.getBlock(),event.getPlayer(),ItemManager.items.get(blocks.get(toString)));
+        Bukkit.getPluginManager().callEvent(evt);
+        if(evt.isCancelled()) {
+        	event.setCancelled(true);
+        	return;
+        }
+        
         event.setDropItems(false);
         plugin.getLogger().fine(() -> "[BlockManager] Breaking with " + toString + " is " + blocks.get(toString));
         loc.getWorld().spawnParticle(Particle.CRIT, loc.add(0.5, 0.5, 0.5), 3);
@@ -107,12 +121,19 @@ public class BlockManager extends BukkitRunnable implements Listener {
         removeBlockData(blocks.get(toString), toString);
     }
 
-    @EventHandler(priority = EventPriority.MONITOR, ignoreCancelled = true)
+    @EventHandler(priority = EventPriority.HIGHEST)
     public void onPlace(BlockPlaceEvent event) {
         if (event.isCancelled()) return;
         if (event.getItemInHand() == null) return;
         ItemStack item = event.getItemInHand();
         if (ItemManager.getUTEItemId(item).equalsIgnoreCase("")) return;
+        CustomBlockPlaceEvent evt=new CustomBlockPlaceEvent(event.getBlock(),event.getBlockReplacedState(),
+        		event.getBlockAgainst(),event.getItemInHand(),event.getPlayer(),event.canBuild(),event.getHand(),ItemManager.items.get(ItemManager.getUTEItemId(item)));
+        Bukkit.getPluginManager().callEvent(evt);
+        if(evt.isCancelled()) {
+        	event.setCancelled(true);
+        	return;
+        }
         Location loc = event.getBlock().getLocation();
         String toString = BlockApi.locToStr(loc);
         addBlockData(ItemManager.getUTEItemId(item), toString);
@@ -128,6 +149,23 @@ public class BlockManager extends BukkitRunnable implements Listener {
         }
     }
 
+    @EventHandler(priority = EventPriority.MONITOR, ignoreCancelled = true)
+    public void onInteract(PlayerInteractEvent event) {
+        if (event.isCancelled()) return;
+        Block block=event.getClickedBlock();
+        if(block==null) return;
+        Location loc = block.getLocation();
+        String toString = BlockApi.locToStr(loc);
+        if (blocks.containsKey(toString)) {
+        	String id=blocks.get(toString);
+        	CustomBlockInteractEvent evt=new CustomBlockInteractEvent(event.getPlayer(), event.getAction(),
+        			event.getItem(), block, event.getBlockFace(), event.getHand(), ItemManager.items.get(id));
+            Bukkit.getPluginManager().callEvent(evt);
+            if(evt.isCancelled()) 
+            	event.setCancelled(true); 
+        }
+    }
+    
     @Override
     public void run() {
         saveBlocks();

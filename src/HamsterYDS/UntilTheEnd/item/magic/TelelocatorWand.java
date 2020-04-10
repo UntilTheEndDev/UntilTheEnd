@@ -1,7 +1,10 @@
 package HamsterYDS.UntilTheEnd.item.magic;
 
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 
+import HamsterYDS.UntilTheEnd.api.BlockApi;
 import HamsterYDS.UntilTheEnd.event.hud.SanityChangeEvent;
 import HamsterYDS.UntilTheEnd.event.hud.SanityChangeEvent.ChangeCause;
 import HamsterYDS.UntilTheEnd.internal.DisableManager;
@@ -15,12 +18,17 @@ import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.EventPriority;
 import org.bukkit.event.Listener;
+import org.bukkit.event.inventory.InventoryClickEvent;
 import org.bukkit.event.player.PlayerInteractEvent;
+import org.bukkit.event.player.PlayerTeleportEvent.TeleportCause;
+import org.bukkit.inventory.Inventory;
 import org.bukkit.inventory.ItemStack;
+import org.bukkit.inventory.meta.ItemMeta;
 import org.bukkit.scheduler.BukkitRunnable;
 import org.bukkit.util.Vector;
 
 import HamsterYDS.UntilTheEnd.item.ItemManager;
+import HamsterYDS.UntilTheEnd.item.magic.Teleportage.TeleportMaster;
 import HamsterYDS.UntilTheEnd.player.PlayerManager;
 
 public class TelelocatorWand implements Listener {
@@ -31,16 +39,20 @@ public class TelelocatorWand implements Listener {
     }
 
     private static HashMap<String, Integer> cd = new HashMap<String, Integer>();
-
+    private static List<String> openers=new ArrayList<String>();
     @EventHandler(priority = EventPriority.MONITOR)
     public void onRight(PlayerInteractEvent event) {
         Player player = event.getPlayer();
         if (event.isCancelled() && !DisableManager.bypass_right_action_cancelled) return;
         if (!event.hasItem()) return;
-        if (!EventHelper.isRight(event.getAction())) return;
         ItemStack item = event.getItem();
         if (ItemManager.isSimilar(item, getClass())) {
             event.setCancelled(true);
+            if (!EventHelper.isRight(event.getAction())) { 
+            	player.openInventory(getInventory(player));
+            	openers.add(player.getName());
+            	return;
+        	}
             if (cd.containsKey(player.getName()))
                 if (cd.get(player.getName()) > 0) {
                     player.sendMessage("[§cUntilTheEnd]§r 您的魔咒未冷却！");
@@ -84,4 +96,37 @@ public class TelelocatorWand implements Listener {
             }.runTaskTimer(ItemManager.plugin, 0L, 1L);
         }
     }
+	private Inventory getInventory(Player player) {
+		Inventory inv=Bukkit.createInventory(player,54,"§8§l可选择的传送矩阵");
+		for(TeleportMaster master:Teleportage.teleportages.keySet()) {
+			ItemStack item=new ItemStack(Material.ENDER_PEARL);
+			ItemMeta meta=item.getItemMeta();
+			if(master.master==player.getUniqueId().toString()) {
+				meta.setDisplayName("§6§l玩家"+player.getName()+"的传送矩阵");
+				List<String> lores=meta.getLore()==null?new ArrayList<String>():meta.getLore();
+				lores.add(master.loc);
+				meta.setLore(lores);
+			}
+			if(Teleportage.teleportages.get(master).permissioners.contains(player.getUniqueId().toString())) {
+				meta.setDisplayName("§6§l玩家"+Bukkit.getOfflinePlayer(master.master).getName()+"的传送矩阵");
+			}
+			item.setItemMeta(meta);
+			inv.addItem(item);
+		}
+		return inv;
+	}
+	@EventHandler public void onClick(InventoryClickEvent event) {
+		Player player=(Player) event.getWhoClicked();
+		if(!openers.contains(player.getName())) return;
+		if(event.getClickedInventory()!=null) {
+			ItemStack item=event.getCurrentItem();
+			if(item==null) return;
+			if(!item.hasItemMeta()) return;
+			if(!item.getItemMeta().hasLore());
+			List<String> lores=item.getItemMeta().getLore();
+			System.out.println(player.getWorld());
+			System.out.println(BlockApi.strToLoc(lores.get(0)).getWorld());
+			player.teleport(BlockApi.strToLoc(lores.get(0)).add(0,1.0,0),TeleportCause.PLUGIN);
+		}
+	}
 }

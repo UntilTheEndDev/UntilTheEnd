@@ -165,7 +165,7 @@ public class TemperatureProvider {
         final int d = 4;
         double tem0 = season;
         double temchange = 0.0;
-        double tot = 0;
+        double tot = 1;
         for (int x = -d; x <= d; x++) {
             l.setX(loc.getX() + x);
             for (int z = -d; z <= d; z++) {
@@ -185,7 +185,7 @@ public class TemperatureProvider {
                 }
             }
         }
-        double answer=tem0+(temchange * tot);
+        double answer=tem0+(temchange / tot);
         return answer+(loc.getBlockY()>=90?(loc.getBlockY()-90)*0.6:0);
     }
 

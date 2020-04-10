@@ -26,6 +26,7 @@ import HamsterYDS.UntilTheEnd.item.magic.FireWand;
 import HamsterYDS.UntilTheEnd.item.magic.IceWand;
 import HamsterYDS.UntilTheEnd.item.magic.LifeGivingAmulet;
 import HamsterYDS.UntilTheEnd.item.magic.TelelocatorWand;
+import HamsterYDS.UntilTheEnd.item.magic.Teleportage;
 import HamsterYDS.UntilTheEnd.item.materials.Fern;
 import HamsterYDS.UntilTheEnd.item.materials.Hail;
 import HamsterYDS.UntilTheEnd.item.materials.NightMare;
@@ -151,6 +152,7 @@ public class ItemManager {
         new TelelocatorWand();
         new LifeGivingAmulet();
         new ChilledAmulet();
+        new Teleportage();
 
         new ClothesContainer();
 

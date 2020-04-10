@@ -14,6 +14,10 @@ public class BlockApi {
         String toString = locToStr(loc);
         return BlockManager.blocks.containsKey(toString) ? BlockManager.blocks.get(toString) : " ";
     }
+    
+    public static String getSpecialBlock(String toString) {
+        return BlockManager.blocks.containsKey(toString) ? BlockManager.blocks.get(toString) : " ";
+    }
 
     public static HashMap<String, String> getSpecialBlocks(World world) {
         HashMap<String, String> map = new HashMap<String, String>();

@@ -401,7 +401,8 @@ public class CraftGuide implements Listener {
                 else {
                     ItemMeta meta = item.getItemMeta();
                     List<String> lores = new ArrayList<String>();
-                    if (meta.hasLore()) lores = meta.getLore();
+                    if(meta!=null)
+                    	if (meta.hasLore()) lores = meta.getLore();
 
                     boolean flag = true;
                     lores.removeIf(line -> line.contains("缺少机器"));
