@@ -51,7 +51,6 @@ public class BlockManager extends BukkitRunnable implements Listener {
             array = blockDatas.get(blockName);
         else array = new ArrayList<String>();
         array.add(toString);
-        blockDatas.remove(blockName);
         blockDatas.put(blockName, array);
     }
 
@@ -62,7 +61,6 @@ public class BlockManager extends BukkitRunnable implements Listener {
             array = blockDatas.get(blockName);
         else array = new ArrayList<String>();
         array.remove(toString);
-        blockDatas.remove(blockName);
         blockDatas.put(blockName, array);
     }
 
@@ -120,13 +118,22 @@ public class BlockManager extends BukkitRunnable implements Listener {
             }
         removeBlockData(blocks.get(toString), toString);
     }
-
+    private void onPlace$reset(String loc){
+        blocks.remove(loc);
+    }
     @EventHandler(priority = EventPriority.HIGHEST)
     public void onPlace(BlockPlaceEvent event) {
-        if (event.isCancelled()) return;
-        if (event.getItemInHand() == null) return;
+        Location loc = event.getBlock().getLocation();
+        String toString = BlockApi.locToStr(loc);
+        if (event.getItemInHand() == null) {
+            onPlace$reset(toString);
+            return;
+        }
         ItemStack item = event.getItemInHand();
-        if (ItemManager.getUTEItemId(item).equalsIgnoreCase("")) return;
+        if (ItemManager.getUTEItemId(item, null) == null) {
+            onPlace$reset(toString);
+            return;
+        }
         CustomBlockPlaceEvent evt=new CustomBlockPlaceEvent(event.getBlock(),event.getBlockReplacedState(),
         		event.getBlockAgainst(),event.getItemInHand(),event.getPlayer(),event.canBuild(),event.getHand(),ItemManager.items.get(ItemManager.getUTEItemId(item)));
         Bukkit.getPluginManager().callEvent(evt);
@@ -134,8 +141,6 @@ public class BlockManager extends BukkitRunnable implements Listener {
         	event.setCancelled(true);
         	return;
         }
-        Location loc = event.getBlock().getLocation();
-        String toString = BlockApi.locToStr(loc);
         addBlockData(ItemManager.getUTEItemId(item), toString);
     }
 
