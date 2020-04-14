@@ -4,6 +4,7 @@ import java.util.*;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.logging.Level;
 
+import HamsterYDS.UntilTheEnd.Logging;
 import org.bukkit.entity.LivingEntity;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
@@ -65,7 +66,7 @@ public class ChangeEvents implements Listener {
             if (event.getTo().distance(event.getFrom()) <= 10.0) return;
             PlayerManager.change(player, CheckType.TIREDNESS, Tiredness.yaml.getInt("change.event.teleport"));
         } catch (Exception e) {
-            plugin.getLogger().log(Level.SEVERE, "Failed to process teleport event! ", e);
+            Logging.getLogger().log(Level.SEVERE, "Failed to process teleport event! ", e);
         }
     }
 

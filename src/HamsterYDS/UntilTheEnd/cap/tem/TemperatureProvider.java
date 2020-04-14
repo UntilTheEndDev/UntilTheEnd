@@ -10,6 +10,7 @@ import java.util.Map;
 import java.util.function.BiFunction;
 import java.util.logging.Level;
 
+import HamsterYDS.UntilTheEnd.Logging;
 import HamsterYDS.UntilTheEnd.internal.ItemFactory;
 import HamsterYDS.UntilTheEnd.internal.ScriptProvider;
 import HamsterYDS.UntilTheEnd.internal.UTEi18n;
@@ -60,7 +61,7 @@ public class TemperatureProvider {
                     return num.doubleValue();
                 };
             } catch (Exception e) {
-                UntilTheEnd.getInstance().getLogger().log(Level.SEVERE, "Failed to load script " + script, e);
+                Logging.getLogger().log(Level.SEVERE, "Failed to load script " + script, e);
             }
         }
         return null;
@@ -115,7 +116,7 @@ public class TemperatureProvider {
                 boolean isIncrease = Temperature.yaml.getBoolean(path + ".increase");
                 int temperature = Temperature.yaml.getInt(path + ".temperature");
                 fmBlocks.put(currentMaterial, new FMBlock(newMaterial, temperature, isIncrease));
-                UntilTheEnd.getInstance().getLogger().info(UTEi18n.parse("cap.tem.provider.fmb.rule", path.replace("fmBlocks.", ""), String.valueOf(newMaterial), String.valueOf(temperature)));
+                Logging.getLogger().info(UTEi18n.parse("cap.tem.provider.fmb.rule", path.replace("fmBlocks.", ""), String.valueOf(newMaterial), String.valueOf(temperature)));
             }
         }
     }
@@ -137,7 +138,7 @@ public class TemperatureProvider {
                 int tem = Temperature.yaml.getInt(path);
                 path = path.replace("blockTemperature.", "");
                 Material material = ItemFactory.valueOf(path);
-                UntilTheEnd.getInstance().getLogger().info(UTEi18n.parse("cap.tem.provider.block.tem.rule", String.valueOf(material), String.valueOf(tem)));
+                Logging.getLogger().info(UTEi18n.parse("cap.tem.provider.block.tem.rule", String.valueOf(material), String.valueOf(tem)));
                 blockTemperatures.put(material, tem);
             }
         }

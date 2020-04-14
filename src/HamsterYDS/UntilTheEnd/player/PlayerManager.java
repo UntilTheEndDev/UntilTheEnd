@@ -7,6 +7,7 @@ import java.util.function.*;
 import java.util.logging.Level;
 
 import HamsterYDS.UntilTheEnd.Config;
+import HamsterYDS.UntilTheEnd.Logging;
 import HamsterYDS.UntilTheEnd.internal.DisableManager;
 import HamsterYDS.UntilTheEnd.internal.NPCChecker;
 import HamsterYDS.UntilTheEnd.internal.UTEi18n;
@@ -42,21 +43,21 @@ public class PlayerManager implements Listener {
 		@Override
         public IPlayer remove(Object key) {
             if (UntilTheEnd.DEBUG)
-                plugin.getLogger().log(Level.FINER, null, new Throwable("Player Data Removing! " + key));
+                Logging.getLogger().log(Level.FINER, null, new Throwable("Player Data Removing! " + key));
             return super.remove(key);
         }
 
         @Override
         public IPlayer put(UUID key, IPlayer value) {
             if (UntilTheEnd.DEBUG)
-                plugin.getLogger().log(Level.FINER, null, new Throwable("Player Data Overriding! " + key + " = " + value));
+                Logging.getLogger().log(Level.FINER, null, new Throwable("Player Data Overriding! " + key + " = " + value));
             return super.put(key, value);
         }
     };
     public static final File playerdata = new File(plugin.getDataFolder(), "playerdata");
 
     public PlayerManager(UntilTheEnd plugin) {
-        plugin.getLogger().log(Level.FINER, "Initializing Player Manager.....");
+        Logging.getLogger().log(Level.FINER, "Initializing Player Manager.....");
         new SavingTask();
         plugin.getServer().getPluginManager().registerEvents(this, plugin);
         for (Player player : Bukkit.getOnlinePlayers()) {
@@ -78,7 +79,7 @@ public class PlayerManager implements Listener {
 		@Override
         public boolean add(UUID uuid) {
             if (UntilTheEnd.DEBUG)
-                plugin.getLogger().log(Level.FINE, "[PM] [PCR] Add " + uuid, new Throwable("Stack Trace"));
+                Logging.getLogger().log(Level.FINE, "[PM] [PCR] Add " + uuid, new Throwable("Stack Trace"));
 
             return super.add(uuid);
         }
@@ -86,7 +87,7 @@ public class PlayerManager implements Listener {
         @Override
         public boolean remove(Object uuid) {
             if (UntilTheEnd.DEBUG)
-                plugin.getLogger().log(Level.FINE, "[PM] [PCR] Remove " + uuid, new Throwable("Stack Trace"));
+                Logging.getLogger().log(Level.FINE, "[PM] [PCR] Remove " + uuid, new Throwable("Stack Trace"));
             return super.remove(uuid);
         }
     };
@@ -150,7 +151,7 @@ public class PlayerManager implements Listener {
     }
 
     public static void load(OfflinePlayer name) {
-        plugin.getLogger().log(Level.FINER, "Loading save for " + name);
+        Logging.getLogger().log(Level.FINER, "Loading save for " + name);
         double humidity = 0;
         double temperature = 37;
         double sanity = 200;
@@ -179,7 +180,7 @@ public class PlayerManager implements Listener {
                 unlockedRecipes = (List<String>) (load.getOrDefault("unlockedRecipes", unlockedRecipes));
             }
         } catch (Throwable exception) {
-            plugin.getLogger().log(Level.WARNING, "Failed to load " + name, exception);
+            Logging.getLogger().log(Level.WARNING, "Failed to load " + name, exception);
         }
         IPlayer player = new IPlayer(temperature, humidity, sanity, tiredness, unlockedRecipes);
 
@@ -191,7 +192,7 @@ public class PlayerManager implements Listener {
     }
 
     public static void save(OfflinePlayer name) {
-        plugin.getLogger().log(Level.FINER, "Saving save for " + name);
+        Logging.getLogger().log(Level.FINER, "Saving save for " + name);
         Map<String, Object> data = new HashMap<>();
         IPlayer player = players.get(name.getUniqueId());
         data.put("humidity", player.humidity);
@@ -207,7 +208,7 @@ public class PlayerManager implements Listener {
         try {
             PlayerDataLoaderImpl.loader.save(playerdata, name, data);
         } catch (IOException e) {
-            plugin.getLogger().log(Level.WARNING, "Failed save data for " + name, e);
+            Logging.getLogger().log(Level.WARNING, "Failed save data for " + name, e);
         }
     }
 
@@ -385,7 +386,7 @@ public class PlayerManager implements Listener {
             return;
         IPlayer ip = players.get(player.getUniqueId());
         if (ip == null) { // NPC? not loaded? should report?
-            UntilTheEnd.getInstance().getLogger().log(Level.SEVERE, "Failed found player data for " + player.getName() + ", " +
+            Logging.getLogger().log(Level.SEVERE, "Failed found player data for " + player.getName() + ", " +
                     "{class=" + player.getClass() + ", uuid=" + player.getUniqueId() + "}", new Throwable("Trace Stack Dump"));
             return;
         }

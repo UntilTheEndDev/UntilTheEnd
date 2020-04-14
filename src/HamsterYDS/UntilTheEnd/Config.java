@@ -109,7 +109,7 @@ public class Config {
                     }
                 }
             } catch (IOException ioe) {
-                plugin.getLogger().log(Level.SEVERE, "Failed in updating configuration " + name, ioe);
+                Logging.getLogger().log(Level.SEVERE, "Failed in updating configuration " + name, ioe);
             }
         }
         /*

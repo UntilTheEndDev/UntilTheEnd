@@ -9,6 +9,7 @@
 package HamsterYDS.UntilTheEnd.internal;
 
 import HamsterYDS.UntilTheEnd.Config;
+import HamsterYDS.UntilTheEnd.Logging;
 import HamsterYDS.UntilTheEnd.UntilTheEnd;
 import HamsterYDS.UntilTheEnd.internal.karlatemp.mxlib.formatter.*;
 import org.bukkit.configuration.ConfigurationSection;
@@ -35,20 +36,20 @@ public class UTEi18n {
         {
             YamlConfiguration temp;
             String selected = UntilTheEnd.getInstance().getConfig().getString("language", "i18n.zh_cn.yml");
-            UntilTheEnd.getInstance().getLogger().log(Level.INFO, "loading i18n with [" + selected + "]");
+            Logging.getLogger().log(Level.INFO, "loading i18n with [" + selected + "]");
             try {
                 temp = Config.autoUpdateConfigs(selected);
             } catch (Throwable exception) {
-                UntilTheEnd.getInstance().getLogger().log(Level.WARNING, "Failed to load i18n configuration[" + selected + "], try to load it from default language [i18n.zh_cn.yml].", exception);
+                Logging.getLogger().log(Level.WARNING, "Failed to load i18n configuration[" + selected + "], try to load it from default language [i18n.zh_cn.yml].", exception);
                 try {
                     temp = Config.autoUpdateConfigs("i18n.zh_cn.yml");
                 } catch (Throwable throwable) {
-                    UntilTheEnd.getInstance().getLogger().log(Level.SEVERE, "Failed to load default configuration. Try to override it and reload!");
+                    Logging.getLogger().log(Level.SEVERE, "Failed to load default configuration. Try to override it and reload!");
                     try {
                         UntilTheEnd.getInstance().saveResource("i18n.zh_cn.yml", true);
                         temp = YamlConfiguration.loadConfiguration(new File(UntilTheEnd.getInstance().getDataFolder(), "i18n.zh_cn.yml"));
                     } catch (Throwable step) {
-                        UntilTheEnd.getInstance().getLogger().log(Level.SEVERE, "FAILED TO LOAD I18N FROM PLUGIN RESOURCE. WAS IT EDITED? NO LANGUAGE SUPPORT!");
+                        Logging.getLogger().log(Level.SEVERE, "FAILED TO LOAD I18N FROM PLUGIN RESOURCE. WAS IT EDITED? NO LANGUAGE SUPPORT!");
                         temp = new YamlConfiguration();
                     }
                 }

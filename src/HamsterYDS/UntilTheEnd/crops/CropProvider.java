@@ -1,6 +1,6 @@
 package HamsterYDS.UntilTheEnd.crops;
 
-import HamsterYDS.UntilTheEnd.UntilTheEnd;
+import HamsterYDS.UntilTheEnd.Logging;
 import HamsterYDS.UntilTheEnd.internal.UTEi18n;
 
 import java.util.HashMap;
@@ -21,7 +21,7 @@ public class CropProvider {
                     crop.put(name, percents.get(index));
                     index++;
                 }
-                UntilTheEnd.getInstance().getLogger().info(UTEi18n.parse("crops.provider.rule", path.replace("seasonCrops.", ""), String.valueOf(crop)));
+                Logging.getLogger().info(UTEi18n.parse("crops.provider.rule", path.replace("seasonCrops.", ""), String.valueOf(crop)));
                 seasonCrops.put(path.replace("seasonCrops.", ""), crop);
             }
         }

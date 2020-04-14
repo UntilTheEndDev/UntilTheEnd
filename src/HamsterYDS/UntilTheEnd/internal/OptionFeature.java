@@ -8,6 +8,7 @@
 
 package HamsterYDS.UntilTheEnd.internal;
 
+import HamsterYDS.UntilTheEnd.Logging;
 import HamsterYDS.UntilTheEnd.UntilTheEnd;
 
 import java.io.*;
@@ -34,7 +35,7 @@ public abstract class OptionFeature {
                         "# If you want to dump all features. Use \"/ute dump-features\" to dump them.\n" +
                         "").getBytes(StandardCharsets.UTF_8));
             } catch (IOException e) {
-                UntilTheEnd.getInstance().getLogger().log(Level.SEVERE, "Failed to save disabled list.", e);
+                Logging.getLogger().log(Level.SEVERE, "Failed to save disabled list.", e);
             }
         } else {
             try {
@@ -52,7 +53,7 @@ public abstract class OptionFeature {
                     }
                 }
             } catch (Throwable any) {
-                UntilTheEnd.getInstance().getLogger().log(Level.SEVERE, "Exception in loading disabled list.", any);
+                Logging.getLogger().log(Level.SEVERE, "Exception in loading disabled list.", any);
             }
         }
     }
@@ -71,6 +72,6 @@ public abstract class OptionFeature {
         String uniqueId = getFeatureName();
         if (!all.contains(uniqueId)) all.add(uniqueId);
         if (isEnable()) boot();
-        else UntilTheEnd.getInstance().getLogger().log(Level.WARNING, "Feature " + uniqueId + " disabled.");
+        else Logging.getLogger().log(Level.WARNING, "Feature " + uniqueId + " disabled.");
     }
 }

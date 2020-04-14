@@ -5,6 +5,7 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
 
+import HamsterYDS.UntilTheEnd.Logging;
 import org.bukkit.Bukkit;
 import org.bukkit.Location;
 import org.bukkit.Particle;
@@ -41,7 +42,7 @@ public class BlockManager extends BukkitRunnable implements Listener {
         plugin.getServer().getPluginManager().registerEvents(this, plugin);
         runTaskTimer(plugin, 0L, plugin.getConfig().getLong("block.fresh") * 20);
         loadBlocks();
-        plugin.getLogger().info(String.valueOf(blockDatas));
+        Logging.getLogger().info(String.valueOf(blockDatas));
     }
 
     public static void addBlockData(String blockName, String toString) {
@@ -104,7 +105,7 @@ public class BlockManager extends BukkitRunnable implements Listener {
         }
 
         event.setDropItems(false);
-        plugin.getLogger().fine(() -> "[BlockManager] Breaking with " + toString + " is " + blocks.get(toString));
+        Logging.getLogger().fine(() -> "[BlockManager] Breaking with " + toString + " is " + blocks.get(toString));
         loc.getWorld().spawnParticle(Particle.CRIT, loc.add(0.5, 0.5, 0.5), 3);
         HashMap<ItemStack, Integer> craft = ItemManager.items.get(blocks.get(toString)).craft;
         if (craft != null)
@@ -113,7 +114,7 @@ public class BlockManager extends BukkitRunnable implements Listener {
                 int amount = (int) (craft.get(item) * (1.0 - Math.random()));
                 if (amount < 1) continue;
                 itemClone.setAmount(amount);
-                plugin.getLogger().fine(() -> "[BlockManager] Try drop " + itemClone + " at " + loc);
+                Logging.getLogger().fine(() -> "[BlockManager] Try drop " + itemClone + " at " + loc);
                 loc.getWorld().dropItemNaturally(loc, itemClone);
             }
         removeBlockData(blocks.get(toString), toString);

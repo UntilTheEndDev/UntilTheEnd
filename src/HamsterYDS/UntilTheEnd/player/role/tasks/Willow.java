@@ -1,5 +1,6 @@
 package HamsterYDS.UntilTheEnd.player.role.tasks;
 
+import HamsterYDS.UntilTheEnd.Logging;
 import HamsterYDS.UntilTheEnd.internal.NPCChecker;
 import org.bukkit.Location;
 import org.bukkit.World;
@@ -32,7 +33,7 @@ public class Willow {
                                     Location newLoc = loc.clone().add(x, y, z);
                                     switch (newLoc.getBlock().getType()) {
                                         case FIRE:
-                                            UntilTheEnd.getInstance().getLogger().finer("awa");
+                                            Logging.getLogger().finer("awa");
                                             PlayerManager.change(player, CheckType.SANITY, 1);
                                             break;
                                         case LAVA:

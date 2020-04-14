@@ -56,7 +56,7 @@ public class UntilTheEnd extends JavaPlugin implements Listener {
 
     @Override
     public void onEnable() {
-        getLogger().setLevel((DEBUG = getConfig().getBoolean("debug", false)) ? Level.ALL : Level.INFO);
+        Logging.getLogger().setLevel((DEBUG = getConfig().getBoolean("debug", false)) ? Level.ALL : Level.INFO);
         if (DEBUG) {
             String warn = "" +
                     "#\n" +

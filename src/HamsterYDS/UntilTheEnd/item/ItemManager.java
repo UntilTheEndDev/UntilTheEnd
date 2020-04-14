@@ -5,6 +5,7 @@ import java.util.List;
 import java.util.Objects;
 import java.util.logging.Level;
 
+import HamsterYDS.UntilTheEnd.Logging;
 import HamsterYDS.UntilTheEnd.internal.ItemFactory;
 import HamsterYDS.UntilTheEnd.item.clothes.*;
 import org.bukkit.Material;
@@ -67,15 +68,15 @@ public class ItemManager {
     public static YamlConfiguration itemAttributes = Config.autoUpdateConfigs("itemattributes.yml");
 
     static {
-        plugin.getLogger().log(Level.FINER, "[ItemManager] Pre Initializing ItemManager.");
-        plugin.getLogger().log(Level.FINER, "[ItemManager] Loading Trace Stack: ", new Throwable("Loading Trace Stack"));
+        Logging.getLogger().log(Level.FINER, "[ItemManager] Pre Initializing ItemManager.");
+        Logging.getLogger().log(Level.FINER, "[ItemManager] Loading Trace Stack: ", new Throwable("Loading Trace Stack"));
     }
 
     public ItemManager(UntilTheEnd plugin) {
 
         for (String path : itemAttributes.getKeys(false)) {
             ItemStack item = loadItem(path);
-            plugin.getLogger().log(Level.FINER, () -> "Loading PItem[" + path + "] [" + item + "]");
+            Logging.getLogger().log(Level.FINER, () -> "Loading PItem[" + path + "] [" + item + "]");
             if (item == null)
                 continue;
 
@@ -162,7 +163,7 @@ public class ItemManager {
     }
 
     public static ItemStack loadItem(String path) {
-        plugin.getLogger().log(Level.FINER, () -> "[ItemManager] Loading item stack [" + path + "]");
+        Logging.getLogger().log(Level.FINER, () -> "[ItemManager] Loading item stack [" + path + "]");
         try {
             Material material = ItemFactory.valueOf(itemSets.getString(path + ".type"));
             String name = itemSets.getString(path + ".name");
@@ -175,13 +176,13 @@ public class ItemManager {
             item.setItemMeta(meta);
             return item;
         } catch (Exception exception) {
-            plugin.getLogger().log(Level.SEVERE, "Failed to load [" + path + "] from itemset.yml", exception);
+            Logging.getLogger().log(Level.SEVERE, "Failed to load [" + path + "] from itemset.yml", exception);
         }
         return null;
     }
 
     public static void loadRecipe(String path) {
-        plugin.getLogger().fine("[ItemManager] Loading Recipe for " + path);
+        Logging.getLogger().fine("[ItemManager] Loading Recipe for " + path);
         if (!items.containsKey(path)) return;
         HashMap<ItemStack, Integer> craft = new HashMap<ItemStack, Integer>();
         if (!itemSets.contains(path + ".materials")) return;
@@ -203,14 +204,14 @@ public class ItemManager {
             if (m0 != null) {
                 m0 = ItemFactory.fromLegacy(m0);
                 Material m1 = m0;
-                plugin.getLogger().fine(() -> "[ItemManager] Found Vanilla Material " + str + ": " + m1);
+                Logging.getLogger().fine(() -> "[ItemManager] Found Vanilla Material " + str + ": " + m1);
                 craft.put(new ItemStack(m0), amount);
             } else {
                 try {
-                    plugin.getLogger().fine(() -> "[ItemManager] Vanilla Material not found. Load " + str + " with " + items.get(str).item);
+                    Logging.getLogger().fine(() -> "[ItemManager] Vanilla Material not found. Load " + str + " with " + items.get(str).item);
                     craft.put(items.get(str).item, amount);
                 } catch (Exception exception2) {
-                    plugin.getLogger().log(Level.SEVERE, "Failed to load recipe [" + path + "] from itemsets.yml", exception2);
+                    Logging.getLogger().log(Level.SEVERE, "Failed to load recipe [" + path + "] from itemsets.yml", exception2);
                 }
             }
         }
