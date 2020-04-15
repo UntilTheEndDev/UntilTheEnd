@@ -19,7 +19,7 @@ public class BushesHat implements Listener {
         ItemManager.plugin.getServer().getPluginManager().registerEvents(this, ItemManager.plugin);
     }
 
-    @EventHandler(priority = EventPriority.MONITOR, ignoreCancelled = true)
+    @EventHandler(priority = EventPriority.NORMAL, ignoreCancelled = true)
     public void onTarget(EntityTargetEvent event) {
         if (event.getTarget() instanceof Player) {
             Player player = (Player) event.getTarget();

@@ -146,7 +146,7 @@ public class BlockManager extends BukkitRunnable implements Listener {
         addBlockData(ItemManager.getUTEItemId(item), toString);
     }
 
-    @EventHandler(priority = EventPriority.MONITOR, ignoreCancelled = true)
+    @EventHandler(priority = EventPriority.NORMAL, ignoreCancelled = true)
     public void onExtend(BlockPistonExtendEvent event) {
         if (event.isCancelled()) return;
         for (org.bukkit.block.Block block : event.getBlocks()) {
@@ -156,7 +156,7 @@ public class BlockManager extends BukkitRunnable implements Listener {
         }
     }
 
-    @EventHandler(priority = EventPriority.MONITOR, ignoreCancelled = true)
+    @EventHandler(priority = EventPriority.NORMAL, ignoreCancelled = true)
     public void onInteract(PlayerInteractEvent event) {
         if (event.isCancelled()) return;
         Block block = event.getClickedBlock();

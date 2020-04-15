@@ -29,7 +29,7 @@ public class EyeballUmbrella implements Listener {
         HamsterYDS.UntilTheEnd.cap.hum.ChangeTasks.umbrellas.add(ItemManager.items.get("EyeballUmbrella").displayName);
     }
 
-    @EventHandler(priority = EventPriority.MONITOR, ignoreCancelled = true)
+    @EventHandler(priority = EventPriority.NORMAL, ignoreCancelled = true)
     public void onLight(LightningStrikeEvent event) {
         Location loc = event.getLightning().getLocation();
         for (Entity entity : loc.getWorld().getNearbyEntities(loc, range, range, range)) {

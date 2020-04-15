@@ -34,7 +34,7 @@ public class FurRoll implements Listener {
 
     public static Set<UUID> sleeping = new HashSet<UUID>();
 
-    @EventHandler(priority = EventPriority.MONITOR, ignoreCancelled = true)
+    @EventHandler(priority = EventPriority.NORMAL, ignoreCancelled = true)
     public void onClick(PlayerInteractEvent event) {
         Player player = event.getPlayer();
         if (!EventHelper.isRight(event.getAction())) return;

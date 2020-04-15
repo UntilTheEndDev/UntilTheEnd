@@ -1,6 +1,5 @@
 package HamsterYDS.UntilTheEnd.item.materials;
 
-import HamsterYDS.UntilTheEnd.internal.EventHelper;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.EventPriority;
@@ -20,12 +19,16 @@ public class Fern implements Listener {
         ItemManager.plugin.getServer().getPluginManager().registerEvents(this, ItemManager.plugin);
     }
 
-    @EventHandler(priority = EventPriority.MONITOR, ignoreCancelled = true)
+    @EventHandler(priority = EventPriority.NORMAL, ignoreCancelled = true)
     public void onRight(PlayerInteractEvent event) {
         Player player = event.getPlayer();
-        if (!EventHelper.isRight(event.getAction())) return;
+        System.out.println("awa");
+        System.out.println("awa");
+        if (!event.hasItem()) return;
+        System.out.println("awa");
         ItemStack item = event.getItem();
         if (ItemManager.isSimilar(item, getClass())) {
+        	 System.out.println("awa");
             if (player.getHealth() + heal >= player.getMaxHealth()) player.setHealth(player.getMaxHealth());
             else player.setHealth(player.getHealth() + heal);
         }

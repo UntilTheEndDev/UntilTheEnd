@@ -40,7 +40,7 @@ public class ItemListener implements Listener {
         }
     }
 
-    @EventHandler(priority = EventPriority.LOWEST)
+    @EventHandler(priority = EventPriority.HIGHEST)
     public void onUse(PlayerInteractEvent event) {
         if (event.isCancelled() && !DisableManager.bypass_right_action_cancelled) return;
         if (!event.hasItem()) return;
@@ -60,7 +60,7 @@ public class ItemListener implements Listener {
         }
     }
 
-    @EventHandler(priority = EventPriority.MONITOR, ignoreCancelled = true)
+    @EventHandler(priority = EventPriority.NORMAL, ignoreCancelled = true)
     public void onCraftVanillaRecipes(CraftItemEvent event) {
         Recipe recipe = event.getRecipe();
         if (ItemManager.getUTEItemId(recipe.getResult(), null) != null) return;
@@ -95,7 +95,7 @@ public class ItemListener implements Listener {
         }
     }
 
-    @EventHandler(priority = EventPriority.MONITOR, ignoreCancelled = true)
+    @EventHandler(priority = EventPriority.NORMAL, ignoreCancelled = true)
     public void onUseAnvil(InventoryClickEvent event) {
         Inventory inv = event.getInventory();
         if (inv == null)
@@ -107,7 +107,7 @@ public class ItemListener implements Listener {
         }
     }
 
-    @EventHandler(priority = EventPriority.MONITOR, ignoreCancelled = true)
+    @EventHandler(priority = EventPriority.NORMAL, ignoreCancelled = true)
     public void onDrop(ItemSpawnEvent event) {
         if (!ItemManager.plugin.getConfig().getBoolean("item.sawer.enable"))
             return;

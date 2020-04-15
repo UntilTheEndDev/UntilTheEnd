@@ -40,7 +40,7 @@ public class ClothesContainer implements Listener {
         ItemManager.plugin.getServer().getPluginManager().registerEvents(this, ItemManager.plugin);
     }
 
-    @EventHandler(priority = EventPriority.MONITOR, ignoreCancelled = true)
+    @EventHandler(priority = EventPriority.NORMAL, ignoreCancelled = true)
     public void onRight(PlayerInteractEvent event) {
         Player player = event.getPlayer();
         if (!event.hasItem())
@@ -98,7 +98,7 @@ public class ClothesContainer implements Listener {
         invs.put(player.getUniqueId(), inv);
     }
 
-    @EventHandler(priority = EventPriority.MONITOR, ignoreCancelled = true)
+    @EventHandler(priority = EventPriority.NORMAL, ignoreCancelled = true)
     public void onClick(InventoryClickEvent event) {
         Player player = (Player) event.getWhoClicked();
         if (openers.contains(player.getUniqueId())) {
