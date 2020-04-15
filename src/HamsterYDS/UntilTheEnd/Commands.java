@@ -305,7 +305,7 @@ public class Commands implements CommandExecutor, Listener, TabCompleter {
                         notPermitted(cs);
                         return true;
                     }
-                    plugin.getLogger().fine(() -> "[CommandExecutor] [Role] All permission ok. " + PlayerManager.playerChangedRole);
+                    Logging.getLogger().fine(() -> "[CommandExecutor] [Role] All permission ok. " + PlayerManager.playerChangedRole);
                     if (PlayerManager.playerChangedRole.contains(pl.getUniqueId()))
                         return true;
                     PlayerManager.changeRole(pl, role);

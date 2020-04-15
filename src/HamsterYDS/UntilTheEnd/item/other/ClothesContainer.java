@@ -7,7 +7,7 @@ import java.util.HashMap;
 import java.util.UUID;
 import java.util.logging.Level;
 
-import HamsterYDS.UntilTheEnd.UntilTheEnd;
+import HamsterYDS.UntilTheEnd.Logging;
 import HamsterYDS.UntilTheEnd.internal.ItemFactory;
 import org.bukkit.Bukkit;
 import org.bukkit.Material;
@@ -79,7 +79,7 @@ public class ClothesContainer implements Listener {
         try {
             yaml.save(file);
         } catch (IOException e) {
-            UntilTheEnd.getInstance().getLogger().log(Level.SEVERE,
+            Logging.getLogger().log(Level.SEVERE,
                     "Failed to save " + player.getName() + "'s clothes container!", e
             );
         }

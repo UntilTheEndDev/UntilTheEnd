@@ -9,7 +9,7 @@
 package HamsterYDS.UntilTheEnd.internal;
 
 import HamsterYDS.UntilTheEnd.Config;
-import HamsterYDS.UntilTheEnd.UntilTheEnd;
+import HamsterYDS.UntilTheEnd.Logging;
 import HamsterYDS.UntilTheEnd.player.PlayerManager;
 import org.bukkit.World;
 import org.bukkit.configuration.ConfigurationSection;
@@ -22,7 +22,7 @@ public class DisableManager {
     public static boolean bypass_right_action_cancelled;
 
     static {
-        UntilTheEnd.getInstance().getLogger().fine("[DisableManager] Loading disable manager's data....");
+        Logging.getLogger().fine("[DisableManager] Loading disable manager's data....");
         bypass_right_action_cancelled = root.getBoolean("bypass_right_action_cancelled", false);
     }
 

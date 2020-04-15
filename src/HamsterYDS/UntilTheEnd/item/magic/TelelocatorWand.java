@@ -39,7 +39,8 @@ public class TelelocatorWand implements Listener {
     }
 
     private static HashMap<String, Integer> cd = new HashMap<String, Integer>();
-    private static List<String> openers=new ArrayList<String>();
+    private static List<String> openers = new ArrayList<String>();
+
     @EventHandler(priority = EventPriority.MONITOR)
     public void onRight(PlayerInteractEvent event) {
         Player player = event.getPlayer();
@@ -48,11 +49,11 @@ public class TelelocatorWand implements Listener {
         ItemStack item = event.getItem();
         if (ItemManager.isSimilar(item, getClass())) {
             event.setCancelled(true);
-            if (!EventHelper.isRight(event.getAction())) { 
-            	player.openInventory(getInventory(player));
-            	openers.add(player.getName());
-            	return;
-        	}
+            if (!EventHelper.isRight(event.getAction())) {
+                player.openInventory(getInventory(player));
+                openers.add(player.getName());
+                return;
+            }
             if (cd.containsKey(player.getName()))
                 if (cd.get(player.getName()) > 0) {
                     player.sendMessage("[§cUntilTheEnd]§r 您的魔咒未冷却！");
@@ -72,7 +73,8 @@ public class TelelocatorWand implements Listener {
                 PlayerManager.change(player, PlayerManager.CheckType.SANITY, -5);
             new BukkitRunnable() {
                 int range = maxDist;
-                Location oldLoc=loc.clone();
+                Location oldLoc = loc.clone();
+
                 @Override
                 public void run() {
                     for (int i = 0; i < 5; i++) {
@@ -84,49 +86,50 @@ public class TelelocatorWand implements Listener {
                         }
                         loc.getWorld().spawnParticle(Particle.END_ROD, loc, 1);
                         loc.add(vec);
-                        if (loc.getBlock().getType()!=Material.AIR) {
+                        if (loc.getBlock().getType() != Material.AIR) {
                             player.teleport(oldLoc);
-                            cancel(); 
+                            cancel();
                             cd.remove(player.getName());
                             return;
                         }
                     }
-                    oldLoc=loc.clone();
+                    oldLoc = loc.clone();
                 }
             }.runTaskTimer(ItemManager.plugin, 0L, 1L);
         }
     }
-	private Inventory getInventory(Player player) {
-		Inventory inv=Bukkit.createInventory(player,54,"§8§l可选择的传送矩阵");
-		for(TeleportMaster master:Teleportage.teleportages.keySet()) {
-			ItemStack item=new ItemStack(Material.ENDER_PEARL);
-			ItemMeta meta=item.getItemMeta();
-			if(master.master==player.getUniqueId().toString()) {
-				meta.setDisplayName("§6§l玩家"+player.getName()+"的传送矩阵");
-				List<String> lores=meta.getLore()==null?new ArrayList<String>():meta.getLore();
-				lores.add(master.loc);
-				meta.setLore(lores);
-			}
-			if(Teleportage.teleportages.get(master).permissioners.contains(player.getUniqueId().toString())) {
-				meta.setDisplayName("§6§l玩家"+Bukkit.getOfflinePlayer(master.master).getName()+"的传送矩阵");
-			}
-			item.setItemMeta(meta);
-			inv.addItem(item);
-		}
-		return inv;
-	}
-	@EventHandler public void onClick(InventoryClickEvent event) {
-		Player player=(Player) event.getWhoClicked();
-		if(!openers.contains(player.getName())) return;
-		if(event.getClickedInventory()!=null) {
-			ItemStack item=event.getCurrentItem();
-			if(item==null) return;
-			if(!item.hasItemMeta()) return;
-			if(!item.getItemMeta().hasLore());
-			List<String> lores=item.getItemMeta().getLore();
-			System.out.println(player.getWorld());
-			System.out.println(BlockApi.strToLoc(lores.get(0)).getWorld());
-			player.teleport(BlockApi.strToLoc(lores.get(0)).add(0,1.0,0),TeleportCause.PLUGIN);
-		}
-	}
+
+    private Inventory getInventory(Player player) {
+        Inventory inv = Bukkit.createInventory(player, 54, "§8§l可选择的传送矩阵");
+        for (TeleportMaster master : Teleportage.teleportages.keySet()) {
+            ItemStack item = new ItemStack(Material.ENDER_PEARL);
+            ItemMeta meta = item.getItemMeta();
+            if (master.master == player.getUniqueId().toString()) {
+                meta.setDisplayName("§6§l玩家" + player.getName() + "的传送矩阵");
+                List<String> lores = meta.getLore() == null ? new ArrayList<String>() : meta.getLore();
+                lores.add(master.loc);
+                meta.setLore(lores);
+            }
+            if (Teleportage.teleportages.get(master).permissioners.contains(player.getUniqueId().toString())) {
+                meta.setDisplayName("§6§l玩家" + Bukkit.getOfflinePlayer(master.master).getName() + "的传送矩阵");
+            }
+            item.setItemMeta(meta);
+            inv.addItem(item);
+        }
+        return inv;
+    }
+
+    @EventHandler
+    public void onClick(InventoryClickEvent event) {
+        Player player = (Player) event.getWhoClicked();
+        if (!openers.contains(player.getName())) return;
+        if (event.getClickedInventory() != null) {
+            ItemStack item = event.getCurrentItem();
+            if (item == null) return;
+            if (!item.hasItemMeta()) return;
+            if (!item.getItemMeta().hasLore()) ;
+            List<String> lores = item.getItemMeta().getLore();
+            player.teleport(BlockApi.strToLoc(lores.get(0)).add(0, 1.0, 0), TeleportCause.PLUGIN);
+        }
+    }
 }

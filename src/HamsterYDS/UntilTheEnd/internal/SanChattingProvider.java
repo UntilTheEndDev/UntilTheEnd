@@ -8,7 +8,7 @@
 
 package HamsterYDS.UntilTheEnd.internal;
 
-import HamsterYDS.UntilTheEnd.UntilTheEnd;
+import HamsterYDS.UntilTheEnd.Logging;
 import HamsterYDS.UntilTheEnd.cap.san.Sanity;
 import org.jetbrains.annotations.NotNull;
 
@@ -95,7 +95,7 @@ public class SanChattingProvider {
                     func.apply("Hello World");
                     preSet = func;
                 } catch (Throwable fail) {
-                    UntilTheEnd.getInstance().getLogger().log(Level.SEVERE,
+                    Logging.getLogger().log(Level.SEVERE,
                             "[SanityChattingProvider] Failed to provide " + path + ", " +
                                     "please check your configuration or contact provider's anchor!",
                             fail);

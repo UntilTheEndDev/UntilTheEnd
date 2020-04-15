@@ -2,7 +2,7 @@ package HamsterYDS.UntilTheEnd.cap.hum;
 
 import java.util.HashMap;
 
-import HamsterYDS.UntilTheEnd.UntilTheEnd;
+import HamsterYDS.UntilTheEnd.Logging;
 import HamsterYDS.UntilTheEnd.internal.ItemFactory;
 import HamsterYDS.UntilTheEnd.internal.UTEi18n;
 import org.bukkit.Material;
@@ -19,7 +19,7 @@ public class HumidityProvider {
                 String to = section.getString(from);
                 Material sf = ItemFactory.valueOf(from);
                 Material tm = ItemFactory.valueOf(to);
-                UntilTheEnd.getInstance().getLogger().info(UTEi18n.parse("cap.hum.provider.rule", String.valueOf(to), String.valueOf(from)));
+                Logging.getLogger().info(UTEi18n.parse("cap.hum.provider.rule", String.valueOf(to), String.valueOf(from)));
                 moistness.put(sf, tm);
                 driness.put(tm, sf);
             }

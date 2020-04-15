@@ -3,7 +3,7 @@ package HamsterYDS.UntilTheEnd.item.combat;
 import java.util.HashMap;
 import java.util.UUID;
 
-import HamsterYDS.UntilTheEnd.UntilTheEnd;
+import HamsterYDS.UntilTheEnd.Logging;
 import HamsterYDS.UntilTheEnd.internal.DisableManager;
 import HamsterYDS.UntilTheEnd.internal.EventHelper;
 import HamsterYDS.UntilTheEnd.internal.ItemFactory;
@@ -36,7 +36,7 @@ public class WeatherPain implements Listener {
     @EventHandler(priority = EventPriority.HIGHEST)
     public void onRight(PlayerInteractEvent event) {
         Player player = event.getPlayer();
-        UntilTheEnd.getInstance().getLogger().fine(() -> "[WeatherPain] {action=" + event.getAction() + ", cancelled=" + event.isCancelled() + "}");
+        Logging.getLogger().fine(() -> "[WeatherPain] {action=" + event.getAction() + ", cancelled=" + event.isCancelled() + "}");
         if (event.isCancelled() && !DisableManager.bypass_right_action_cancelled) return;
         if (!event.hasItem()) return;
         if (!EventHelper.isRight(event.getAction())) return;

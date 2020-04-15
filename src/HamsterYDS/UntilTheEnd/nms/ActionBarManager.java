@@ -6,7 +6,7 @@ import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 import java.util.logging.Level;
 
-import HamsterYDS.UntilTheEnd.UntilTheEnd;
+import HamsterYDS.UntilTheEnd.Logging;
 import org.bukkit.entity.Player;
 
 public class ActionBarManager {
@@ -51,7 +51,7 @@ public class ActionBarManager {
             sendPacket.invoke(objCon, bar);
         } catch (InstantiationException | IllegalAccessException | IllegalArgumentException
                 | InvocationTargetException | NoSuchFieldException | SecurityException e) {
-            UntilTheEnd.getInstance().getLogger().log(Level.SEVERE, "Failed to send packet to " + player.getName(), e);
+            Logging.getLogger().log(Level.SEVERE, "Failed to send packet to " + player.getName(), e);
         }
     }
 }

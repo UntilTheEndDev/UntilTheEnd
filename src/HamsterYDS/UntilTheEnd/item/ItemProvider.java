@@ -5,7 +5,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.logging.Level;
 
-import HamsterYDS.UntilTheEnd.UntilTheEnd;
+import HamsterYDS.UntilTheEnd.Logging;
 import HamsterYDS.UntilTheEnd.internal.UTEi18n;
 import org.bukkit.configuration.file.YamlConfiguration;
 import org.bukkit.entity.EntityType;
@@ -30,14 +30,14 @@ public class ItemProvider {
             HashMap<String, Double> drop = new HashMap<String, Double>();
             for (int index = 0; index < items.size(); index++) {
                 drop.put(items.get(index), percents.get(index));
-                UntilTheEnd.getInstance().getLogger().log(Level.INFO,
+                Logging.getLogger().log(Level.INFO,
                         UTEi18n.parse("item.provider.drops.rule", path, String.valueOf(items.get(index)), String.valueOf(percents.get(index)))
                 );
             }
             try {
                 drops.put(EntityType.valueOf(path), drop);
             } catch (Exception exception) {
-                UntilTheEnd.getInstance().getLogger().log(Level.SEVERE, "Failed to load drops [" + path + "] from drops.yml", exception);
+                Logging.getLogger().log(Level.SEVERE, "Failed to load drops [" + path + "] from drops.yml", exception);
             }
         }
     }
