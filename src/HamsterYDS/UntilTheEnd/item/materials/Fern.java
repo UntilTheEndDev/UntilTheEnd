@@ -22,13 +22,9 @@ public class Fern implements Listener {
     @EventHandler(priority = EventPriority.NORMAL, ignoreCancelled = true)
     public void onRight(PlayerInteractEvent event) {
         Player player = event.getPlayer();
-        System.out.println("awa");
-        System.out.println("awa");
         if (!event.hasItem()) return;
-        System.out.println("awa");
         ItemStack item = event.getItem();
         if (ItemManager.isSimilar(item, getClass())) {
-        	 System.out.println("awa");
             if (player.getHealth() + heal >= player.getMaxHealth()) player.setHealth(player.getMaxHealth());
             else player.setHealth(player.getHealth() + heal);
         }

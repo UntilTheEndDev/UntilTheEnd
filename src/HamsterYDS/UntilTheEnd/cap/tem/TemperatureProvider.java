@@ -163,31 +163,47 @@ public class TemperatureProvider {
 
         double season = TemperatureProvider.worldTemperatures.get(world).doubleValue();
         Location l = loc.clone();
+        Location blockBaseLoc = loc.clone();
+        {
+            blockBaseLoc.setX(blockBaseLoc.getBlockX() + 0.5);
+            blockBaseLoc.setY(blockBaseLoc.getBlockY() + 0.5);
+            blockBaseLoc.setZ(blockBaseLoc.getBlockZ() + 0.5);
+        }
         final int d = 4;
-        double tem0 = season;
-        double temchange = 0.0;
-        double tot = 1;
+        double temUpOffset = 0;
+        double temDownOffset = 0;
+        double temUpScale = 1;
+        double temDownScale = 1;
+        boolean edited = false;
         for (int x = -d; x <= d; x++) {
-            l.setX(loc.getX() + x);
+            l.setX(blockBaseLoc.getX() + x);
             for (int z = -d; z <= d; z++) {
-                l.setZ(loc.getZ() + z);
+                l.setZ(blockBaseLoc.getZ() + z);
                 for (int y = -d; y <= d; y++) {
-                    l.setY(loc.getY() + y);
+                    l.setY(blockBaseLoc.getY() + y);
                     Block b = l.getBlock();
                     if (b == null) continue;
                     Material mt = ItemFactory.getType(b);
                     final Integer tmp = blockTemperatures.get(mt);
                     if (tmp != null) {
-                        double dg = l.distance(loc);
-                        double weight = 1- dg / (4 * Math.sqrt(2));
-                        tot += weight;
-                        temchange += weight * (tmp - season);
+                        double scale = l.distance(loc);
+                        double val = tmp - season;
+                        if (val > 0) {
+                            temUpScale += scale * Math.max(1, scale * 3 / d);
+                            temUpOffset += val * scale;
+                        } else {
+                            temDownScale += scale * Math.max(1, scale * 3 / d);
+                            temDownOffset += val * scale;
+                        }
+                        edited = true;
                     }
                 }
             }
         }
-        double answer=tem0+(temchange / tot);
-        return answer+(loc.getBlockY()>=90?(loc.getBlockY()-90)*0.6:0);
+        if (edited) {
+            season += (temUpOffset / temUpScale) + (temDownOffset / temDownScale);
+        }
+        return season;
     }
 
     public static class FMBlock {
