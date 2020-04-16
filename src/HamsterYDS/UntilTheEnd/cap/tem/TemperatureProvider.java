@@ -135,6 +135,7 @@ public class TemperatureProvider {
     public static void loadBlockTemperatures() {
         for (String path : Temperature.yaml.getKeys(true)) {
             if (path.startsWith("blockTemperature.")) {
+            	System.out.println(path);
                 int tem = Temperature.yaml.getInt(path);
                 path = path.replace("blockTemperature.", "");
                 Material material = ItemFactory.valueOf(path);
@@ -156,6 +157,7 @@ public class TemperatureProvider {
         if (!Config.enableWorlds.contains(loc.getWorld())) return 37;
         if (loc.getBlock() == null) return 37;
         World world = loc.getWorld();
+       
         // 我们需要你的帮助来优化此温度算法! 谢谢!
         // We need the help for update this Temperature algorithm. Thank you very much!
         final Integer value = blockTemperatures.get(ItemFactory.getType(loc.getBlock()));
@@ -185,6 +187,7 @@ public class TemperatureProvider {
                     if (b == null) continue;
                     Material mt = ItemFactory.getType(b);
                     final Integer tmp = blockTemperatures.get(mt);
+                    
                     if (tmp != null) {
                         double scale = l.distance(loc);
                         double val = tmp - season;
@@ -203,6 +206,7 @@ public class TemperatureProvider {
         if (edited) {
             season += (temUpOffset / temUpScale) + (temDownOffset / temDownScale);
         }
+        
         return season;
     }
 

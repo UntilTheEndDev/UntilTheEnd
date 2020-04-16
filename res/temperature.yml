@@ -28,7 +28,6 @@ fmChangeSpeed: 200
 #方块的温度(没有设置的方块为环境温度)
 blockTemperature:
   #方块Material名字: 温度
-  BURNING_FURNACE: 65
   LAVA: 75
   STATIONARY_LAVA: 75
   FIRE: 75
