@@ -31,6 +31,7 @@ public class ItemFactory {
     private static final Function<Material, Material> fromLegacy;
     private static final Predicate<Material> isLegacy;
     public static final boolean use13;
+    public static final Material AIR;
 
     static {
         MethodHandles.Lookup lk = MethodHandles.lookup();
@@ -79,6 +80,7 @@ public class ItemFactory {
             throw new ExceptionInInitializerError(throwable);
         }
         isLegacy = isLeg;
+        AIR = valueOf("AIR");
     }
 
     public static Material getType(ItemStack stack) {
@@ -100,9 +102,18 @@ public class ItemFactory {
     public static Material valueOf(String name) {
         try {
             return valueOf.apply(name);
-        } catch (Throwable ignore) {
+        } catch (Throwable any) {
+            // 低于 1.13 版本的时候没必要再去搜索 LEGACY
+            if (!use13) throw any;
         }
-        return fromLegacy.apply(valueOf.apply("LEGACY_" + name));
+        Material result = fromLegacy.apply(valueOf.apply("LEGACY_" + name));
+        if (result == AIR) {
+            if (!name.equals("AIR")) {
+                throw new IllegalArgumentException("No enum constant Material." + name +
+                        " (constant founded but result of flatting is AIR)");
+            }
+        }
+        return result;
     }
 
     public static Material load(String... names) {
@@ -136,5 +147,9 @@ public class ItemFactory {
             if (source.getDurability() != check.getDurability()) return false;
             return Objects.equals(i1.getEnchants(), i2.getEnchants());
         } else return source.equals(check);
+    }
+
+    public static String toString(Object material) {
+        return String.valueOf(material);
     }
 }
