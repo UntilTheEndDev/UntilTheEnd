@@ -1,6 +1,6 @@
 name: UntilTheEnd
 main: HamsterYDS.UntilTheEnd.UntilTheEnd
-version: "5.7.2.1-Release"
+version: "5.7.3-Release"
 depend: [PlaceholderAPI]
 softdepend:
   - ProtocolLib
