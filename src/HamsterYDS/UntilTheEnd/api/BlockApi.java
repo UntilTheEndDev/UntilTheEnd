@@ -65,7 +65,7 @@ public class BlockApi {
                 if (tot == 2) y.append(ch);
                 if (tot == 3) z.append(ch);
             }
-            return new Location(Bukkit.getWorld(world.toString()), Integer.parseInt(x.toString()), Integer.parseInt(y.toString()), Integer.parseInt(z.toString()));
+            return new Location(Bukkit.getWorld(world.toString()), Integer.parseInt(x.toString()), Integer.parseInt(y.toString()), Integer.parseInt(z.toString())).clone();
         } catch (Exception e) {
             return null;
         }
