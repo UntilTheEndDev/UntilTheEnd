@@ -3,10 +3,11 @@
 	<classpathentry kind="src" path="src"/>
 	<classpathentry kind="src" path="res"/>
 	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER"/>
-	<classpathentry kind="lib" path="C:/Users/HamsterB君/Desktop/spigot-1.12.2-R0.1-SNAPSHOT-b1409.jar"/>
 	<classpathentry kind="lib" path="C:/Users/HamsterB君/Desktop/PlaceholderAPI-2.10.2.jar"/>
 	<classpathentry kind="lib" path="C:/Users/HamsterB君/Desktop/LibsDisguises.jar"/>
 	<classpathentry kind="lib" path="C:/Users/HamsterB君/Desktop/JetBrains Java Annotations-13.0.jar"/>
 	<classpathentry kind="lib" path="C:/Users/HamsterB君/Desktop/Citizens-2.0.26-b1845.jar"/>
+	<classpathentry kind="lib" path="T:/服务器/1.12.2构建/spigot-1.12.2-R0.1-SNAPSHOT-b1409.jar"/>
+	<classpathentry kind="lib" path="T:/服务器/笑世界/凌域/plugins/[领地]Residence.jar"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>

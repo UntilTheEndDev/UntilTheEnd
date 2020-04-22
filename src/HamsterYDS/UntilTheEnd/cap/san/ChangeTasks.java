@@ -3,6 +3,7 @@ package HamsterYDS.UntilTheEnd.cap.san;
 import java.util.HashMap;
 
 import HamsterYDS.UntilTheEnd.internal.NPCChecker;
+import HamsterYDS.UntilTheEnd.internal.ResidenceChecker;
 import HamsterYDS.UntilTheEnd.item.other.ClothesContainer;
 
 import org.bukkit.Bukkit;
@@ -51,7 +52,7 @@ public class ChangeTasks {
         public void run() {
             for (World world : Config.enableWorlds) {
                 for (Player player : world.getPlayers()) {
-                    if (NPCChecker.isNPC(player)) continue;
+                    if (NPCChecker.isNPC(player)||ResidenceChecker.isProtected(player.getLocation())) continue;
                     PlayerInventory inv = player.getInventory();
                     String helmet = getName(inv.getHelmet());
                     String chestplate = getName(inv.getChestplate());
@@ -98,7 +99,7 @@ public class ChangeTasks {
         public void run() {
             for (World world : Config.enableWorlds) {
                 for (Player player : world.getPlayers()) {
-                    if (NPCChecker.isNPC(player)) continue;
+                    if (NPCChecker.isNPC(player)||ResidenceChecker.isProtected(player.getLocation())) continue;
                     PlayerInventory inv = player.getInventory();
                     for (int slot = 0; slot < inv.getSize(); slot++) {
                         ItemStack item = inv.getItem(slot);
@@ -158,7 +159,7 @@ public class ChangeTasks {
         public void run() {
             for (World world : Config.enableWorlds) {
                 for (Player player : world.getPlayers()) {
-                    if (NPCChecker.isNPC(player)) continue;
+                    if (NPCChecker.isNPC(player)||ResidenceChecker.isProtected(player.getLocation())) continue;
                     int hum = (int) PlayerManager.check(player, PlayerManager.CheckType.HUMIDITY);
                     PlayerManager.change(player, PlayerManager.CheckType.SANITY, -hum / 10);
                 }

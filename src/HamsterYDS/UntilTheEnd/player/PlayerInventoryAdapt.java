@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 
 import HamsterYDS.UntilTheEnd.internal.NPCChecker;
+import HamsterYDS.UntilTheEnd.internal.ResidenceChecker;
 import HamsterYDS.UntilTheEnd.internal.UTEi18n;
 import HamsterYDS.UntilTheEnd.item.other.ClothesContainer;
 
@@ -63,7 +64,7 @@ public class PlayerInventoryAdapt extends BukkitRunnable implements Listener {
         if (UntilTheEnd.getInstance().getConfig().getBoolean("player.inventory.enable"))
             for (World world : Config.enableWorlds)
                 for (Player player : world.getPlayers()) {
-                    if (NPCChecker.isNPC(player)) continue;
+                    if (NPCChecker.isNPC(player)||ResidenceChecker.isProtected(player.getLocation())) continue;
                     if (player.getGameMode() == GameMode.CREATIVE) continue;
                     lockingPlayers.add(player.getName());
                     int extraSize = 0;

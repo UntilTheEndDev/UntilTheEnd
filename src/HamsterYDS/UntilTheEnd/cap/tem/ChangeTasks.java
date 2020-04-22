@@ -5,6 +5,7 @@ import java.util.HashMap;
 import java.util.List;
 
 import HamsterYDS.UntilTheEnd.internal.NPCChecker;
+import HamsterYDS.UntilTheEnd.internal.ResidenceChecker;
 import HamsterYDS.UntilTheEnd.item.ItemManager;
 import HamsterYDS.UntilTheEnd.item.other.ClothesContainer;
 import HamsterYDS.UntilTheEnd.item.survival.WarmStone;
@@ -39,7 +40,7 @@ public class ChangeTasks {
         public void run() {
             for (World world : Config.enableWorlds)
                 for (Player player : world.getPlayers()) {
-                    if (NPCChecker.isNPC(player)) continue;
+                    if (NPCChecker.isNPC(player)||ResidenceChecker.isProtected(player.getLocation())) continue;
                     int hum = (int) PlayerManager.check(player, PlayerManager.CheckType.HUMIDITY);
                     PlayerManager.change(player, PlayerManager.CheckType.TEMPERATURE, -hum / 5);
                 }

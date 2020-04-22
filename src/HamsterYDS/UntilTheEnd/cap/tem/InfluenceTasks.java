@@ -4,6 +4,7 @@ import java.util.ArrayList;
 
 import HamsterYDS.UntilTheEnd.internal.ItemFactory;
 import HamsterYDS.UntilTheEnd.internal.NPCChecker;
+import HamsterYDS.UntilTheEnd.internal.ResidenceChecker;
 import HamsterYDS.UntilTheEnd.internal.UTEi18n;
 import org.bukkit.Location;
 import org.bukkit.Material;
@@ -54,7 +55,7 @@ public class InfluenceTasks {
         public void run() {
             for (World world : Config.enableWorlds)
                 for (Player player : world.getPlayers()) {
-                    if (NPCChecker.isNPC(player)) continue;
+                    if (NPCChecker.isNPC(player)||ResidenceChecker.isProtected(player.getLocation())) continue;
                     int playerTem = (int) PlayerManager.check(player, PlayerManager.CheckType.TEMPERATURE);
                     if (playerTem > hotTem) {
                         if (player.getHealth() <= 0.2 * (playerTem - hotTem))
@@ -76,7 +77,7 @@ public class InfluenceTasks {
         public void run() {
             for (World world : Config.enableWorlds)
                 for (Player player : world.getPlayers()) {
-                    if (NPCChecker.isNPC(player)) continue;
+                    if (NPCChecker.isNPC(player)||ResidenceChecker.isProtected(player.getLocation())) continue;
                     Location playerLoc = player.getLocation();
                     for (int i = -3; i <= 3; i++)
                         for (int j = -3; j <= 3; j++)
@@ -126,7 +127,7 @@ public class InfluenceTasks {
         public void run() {
             for (World world : Config.enableWorlds) {
                 for (Player player : world.getPlayers()) {
-                    if (NPCChecker.isNPC(player)) continue;
+                    if (NPCChecker.isNPC(player)||ResidenceChecker.isProtected(player.getLocation())) continue;
                     Location playerLoc = player.getLocation();
                     for (int i = -3; i <= 3; i++)
                         for (int j = -3; j <= 3; j++)

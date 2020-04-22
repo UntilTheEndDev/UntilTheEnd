@@ -5,6 +5,7 @@ import java.util.List;
 
 import HamsterYDS.UntilTheEnd.internal.ItemFactory;
 import HamsterYDS.UntilTheEnd.internal.NPCChecker;
+import HamsterYDS.UntilTheEnd.internal.ResidenceChecker;
 import HamsterYDS.UntilTheEnd.item.other.ClothesContainer;
 
 import org.bukkit.GameMode;
@@ -37,7 +38,7 @@ public class RottenFoodTask {
             for (World world : Config.enableWorlds)
                 next_player:
                         for (Player player : world.getPlayers()) {
-                            if (NPCChecker.isNPC(player)) continue;
+                            if (NPCChecker.isNPC(player)||ResidenceChecker.isProtected(player.getLocation())) continue;
                             if (player.getGameMode() == GameMode.CREATIVE || player.getGameMode() == GameMode.SPECTATOR)
                                 continue;
                             PlayerInventory inv = player.getInventory();

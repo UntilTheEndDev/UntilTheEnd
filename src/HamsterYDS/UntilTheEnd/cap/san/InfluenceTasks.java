@@ -4,6 +4,8 @@ import java.util.ArrayList;
 import java.util.UUID;
 
 import HamsterYDS.UntilTheEnd.internal.NPCChecker;
+import HamsterYDS.UntilTheEnd.internal.ResidenceChecker;
+
 import org.bukkit.Bukkit;
 import org.bukkit.World;
 import org.bukkit.entity.Entity;
@@ -48,7 +50,7 @@ public class InfluenceTasks {
             }
             for (World world : Config.enableWorlds)
                 for (Player player : world.getPlayers()) {
-                    if (NPCChecker.isNPC(player)) continue;
+                    if (NPCChecker.isNPC(player)||ResidenceChecker.isProtected(player.getLocation())) continue;
                     int san = (int) PlayerManager.check(player, PlayerManager.CheckType.SANITY);
                     int disguiseSanityCal = (int) (disguiseSanity * PlayerManager.check(player, PlayerManager.CheckType.SANMAX));
                     if (san <= disguiseSanityCal)
@@ -69,7 +71,7 @@ public class InfluenceTasks {
         public void run() {
             for (World world : Config.enableWorlds)
                 for (Player player : world.getPlayers()) {
-                    if (NPCChecker.isNPC(player)) continue;
+                    if (NPCChecker.isNPC(player)||ResidenceChecker.isProtected(player.getLocation())) continue;
                     int san = (int) PlayerManager.check(player, PlayerManager.CheckType.SANITY);
                     int confusionSanityCal = (int) (confusionSanity * PlayerManager.check(player, PlayerManager.CheckType.SANMAX));
                     if (san <= confusionSanityCal) {

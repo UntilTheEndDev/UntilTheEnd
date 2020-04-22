@@ -1,6 +1,8 @@
 package HamsterYDS.UntilTheEnd.player.role.tasks;
 
 import HamsterYDS.UntilTheEnd.internal.NPCChecker;
+import HamsterYDS.UntilTheEnd.internal.ResidenceChecker;
+
 import org.bukkit.World;
 import org.bukkit.entity.Player;
 import org.bukkit.scheduler.BukkitRunnable;
@@ -21,7 +23,7 @@ public class Wilson {
         public void run() {
             for (World world : Config.enableWorlds)
                 for (Player player : world.getPlayers()) {
-                    if (NPCChecker.isNPC(player)) continue;
+                    if (NPCChecker.isNPC(player)||ResidenceChecker.isProtected(player.getLocation())) continue;
                     if (PlayerApi.getRole(player) == Roles.WILSON) {
                         if (Math.random() <= 0.1) {
                             player.getInventory().addItem(ItemManager.items.get("Beard").item);

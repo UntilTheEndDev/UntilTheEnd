@@ -9,6 +9,7 @@ import java.util.concurrent.ConcurrentLinkedDeque;
 import HamsterYDS.UntilTheEnd.UntilTheEnd;
 import HamsterYDS.UntilTheEnd.internal.MathHelper;
 import HamsterYDS.UntilTheEnd.internal.NPCChecker;
+import HamsterYDS.UntilTheEnd.internal.ResidenceChecker;
 import HamsterYDS.UntilTheEnd.internal.UTEi18n;
 import org.bukkit.Bukkit;
 import org.bukkit.World;
@@ -82,7 +83,7 @@ public class HudBossBar extends BukkitRunnable implements Listener {
     public void run() {
         for (World w : Config.enableWorlds) {
             for (Player p : w.getPlayers()) {
-                if (NPCChecker.isNPC(p)) continue;
+            	if (NPCChecker.isNPC(p)||ResidenceChecker.isProtected(p.getLocation())) continue;
                 final NdBossBar ndBossBar = create(p.getUniqueId());
                 switch (p.getGameMode()) {
                     case CREATIVE:

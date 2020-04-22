@@ -4,6 +4,7 @@ import java.util.HashMap;
 
 import HamsterYDS.UntilTheEnd.internal.LightingCompensation;
 import HamsterYDS.UntilTheEnd.internal.NPCChecker;
+import HamsterYDS.UntilTheEnd.internal.ResidenceChecker;
 import HamsterYDS.UntilTheEnd.internal.UTEi18n;
 
 import org.bukkit.Bukkit;
@@ -88,7 +89,7 @@ public class InfluenceTasks {
         public void run() {
             for (World world : Config.enableWorlds) {
                 for (Player player : world.getPlayers()) {
-                    if (NPCChecker.isNPC(player)) continue;
+                    if (NPCChecker.isNPC(player)||ResidenceChecker.isProtected(player.getLocation())) continue;
                     if (player.getGameMode() == GameMode.CREATIVE || player.getGameMode() == GameMode.SPECTATOR)
                         continue;
                     if (carrotEffects.containsKey(player.getName())) {

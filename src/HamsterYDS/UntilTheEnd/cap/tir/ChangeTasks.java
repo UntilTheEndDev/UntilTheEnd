@@ -4,6 +4,8 @@ import java.util.HashMap;
 
 import HamsterYDS.UntilTheEnd.internal.ItemFactory;
 import HamsterYDS.UntilTheEnd.internal.NPCChecker;
+import HamsterYDS.UntilTheEnd.internal.ResidenceChecker;
+
 import org.bukkit.Material;
 import org.bukkit.World;
 import org.bukkit.entity.Player;
@@ -46,8 +48,8 @@ public class ChangeTasks {
         public void run() {
             for (World world : Config.enableWorlds)
                 for (Player player : world.getPlayers()) {
-                    if (NPCChecker.isNPC(player)) continue;
-                    if (player.isSprinting())
+                    if (NPCChecker.isNPC(player)||ResidenceChecker.isProtected(player.getLocation())) continue;
+                    if (player.isSprinting()) 
                         PlayerManager.change(player, CheckType.TIREDNESS, Tiredness.yaml.getDouble("change.task.sprint"));
                     if (player.isInsideVehicle())
                         PlayerManager.change(player, CheckType.TIREDNESS, Tiredness.yaml.getDouble("change.task.sit"));

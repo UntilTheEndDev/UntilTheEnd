@@ -9,6 +9,7 @@ import java.util.function.BiFunction;
 
 import HamsterYDS.UntilTheEnd.cap.tem.TemperatureProvider;
 import HamsterYDS.UntilTheEnd.internal.NPCChecker;
+import HamsterYDS.UntilTheEnd.internal.ResidenceChecker;
 import HamsterYDS.UntilTheEnd.item.other.ClothesContainer;
 
 import org.bukkit.Location;
@@ -92,7 +93,7 @@ public class ChangeTasks {
                 if (world.hasStorm()) {
                     player_loop:
                     for (Player player : world.getPlayers()) {
-                        if (NPCChecker.isNPC(player)) continue;
+                        if (NPCChecker.isNPC(player)||ResidenceChecker.isProtected(player.getLocation())) continue;
                         // 莫得雨
                         if (player.getLocation().getBlock().getTemperature() > 1.0
                                 || player.getLocation().getBlock().getBiome().toString().contains("SAVANNA")) {
@@ -121,7 +122,7 @@ public class ChangeTasks {
                     }
                 } else {
                     for (Player player : world.getPlayers()) {
-                        if (NPCChecker.isNPC(player)) continue;
+                        if (NPCChecker.isNPC(player)||ResidenceChecker.isProtected(player.getLocation())) continue;
                         doTickTem(player);
                         PlayerManager.change(player, PlayerManager.CheckType.HUMIDITY, -0.3);
                     }
@@ -169,7 +170,7 @@ public class ChangeTasks {
             for (World world : Config.enableWorlds) {
                 playerLoop:
                 for (Player player : world.getPlayers()) {
-                    if (NPCChecker.isNPC(player)) continue;
+                    if (NPCChecker.isNPC(player)||ResidenceChecker.isProtected(player.getLocation())) continue;
                     if (player.isInsideVehicle()) {
                         Location loc = player.getLocation().add(0, 1, 0); // 沉了
                         if (world.getBlockAt(loc).getType().equals(Material.WATER) || world.getBlockAt(loc).getType().equals(Material.STATIONARY_WATER))

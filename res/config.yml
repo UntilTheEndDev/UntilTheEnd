@@ -75,3 +75,8 @@ saving: "name"
 # 能获得最详细的执行情况
 # 但是. 前提是你的磁盘撑得住
 debug: false
+#区域设置##########################################################
+ignoreResidences:
+# 插件在哪些领地中失效（RESIDENCE前置）
+- residence1
+- residence2

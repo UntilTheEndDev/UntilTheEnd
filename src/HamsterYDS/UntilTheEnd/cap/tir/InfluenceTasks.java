@@ -1,6 +1,8 @@
 package HamsterYDS.UntilTheEnd.cap.tir;
 
 import HamsterYDS.UntilTheEnd.internal.NPCChecker;
+import HamsterYDS.UntilTheEnd.internal.ResidenceChecker;
+
 import org.bukkit.World;
 import org.bukkit.entity.Player;
 import org.bukkit.potion.PotionEffect;
@@ -24,7 +26,7 @@ public class InfluenceTasks extends BukkitRunnable {
     public void run() {
         for (World world : Config.enableWorlds)
             for (Player player : world.getPlayers()) {
-                if (NPCChecker.isNPC(player)) continue;
+                if (NPCChecker.isNPC(player)||ResidenceChecker.isProtected(player.getLocation())) continue;
                 int tir = (int) PlayerManager.check(player, CheckType.TIREDNESS);
                 if (tir >= slowness)
                     addEffect(player, PotionEffectType.SLOW, (tir - slowness) / 15);
