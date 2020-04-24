@@ -2,7 +2,9 @@
 
 ---
 
-Readme? 那种东西不是很需要啦~
+## 提交错误/想法
+如果有任何错误或者想法, 请前往 [GitHub Issue](https://github.com/Karlatemp/UntilTheEnd/issues?q=is%3Aissue)
+创建一个新的issue前请先确认是否有同样的issue, 不然你的issue可能不会被我们接受
 
 ## 开源地址
 
