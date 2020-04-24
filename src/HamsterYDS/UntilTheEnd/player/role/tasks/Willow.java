@@ -21,12 +21,12 @@ public class Willow {
         new Beard().runTaskTimer(plugin, 0L, 60L);
     }
 
-    public class Beard extends BukkitRunnable {
+    public static class Beard extends BukkitRunnable {
         @Override
         public void run() {
             for (World world : Config.enableWorlds)
                 for (Player player : world.getPlayers()) {
-                    if (NPCChecker.isNPC(player)||ResidenceChecker.isProtected(player.getLocation())) continue;
+                    if (NPCChecker.isNPC(player) || ResidenceChecker.isProtected(player.getLocation())) continue;
                     if (PlayerApi.getRole(player) == Roles.WILLOW) {
                         Location loc = player.getLocation();
                         for (int x = -5; x <= 5; x++)

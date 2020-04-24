@@ -1,5 +1,6 @@
 package HamsterYDS.UntilTheEnd.item.combat;
 
+import HamsterYDS.UntilTheEnd.Config;
 import org.bukkit.GameMode;
 import org.bukkit.Location;
 import org.bukkit.Material;
@@ -34,6 +35,7 @@ public class BeeMine implements Listener {
         if (event.isCancelled())
             return;
         Entity entity = event.getEntity();
+        if (!Config.enableWorlds.contains(entity.getWorld())) return;
         Location loc = event.getBlock().getLocation();
         if (!(entity instanceof LivingEntity))
             return;
@@ -50,6 +52,7 @@ public class BeeMine implements Listener {
     @EventHandler(priority = EventPriority.NORMAL, ignoreCancelled = true)
     public void onMove(PlayerMoveEvent event) {
         Player player = event.getPlayer();
+        if (!Config.enableWorlds.contains(player.getWorld())) return;
         if (player.getGameMode() == GameMode.CREATIVE || player.getGameMode() == GameMode.SPECTATOR)
             return;
         Location loc = event.getTo();

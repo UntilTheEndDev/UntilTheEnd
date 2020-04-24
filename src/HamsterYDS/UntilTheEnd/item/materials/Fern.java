@@ -1,5 +1,6 @@
 package HamsterYDS.UntilTheEnd.item.materials;
 
+import HamsterYDS.UntilTheEnd.Config;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.EventPriority;
@@ -22,6 +23,7 @@ public class Fern implements Listener {
     @EventHandler(priority = EventPriority.NORMAL, ignoreCancelled = true)
     public void onRight(PlayerInteractEvent event) {
         Player player = event.getPlayer();
+        if (!Config.enableWorlds.contains(player.getWorld())) return;
         if (!event.hasItem()) return;
         ItemStack item = event.getItem();
         if (ItemManager.isSimilar(item, getClass())) {

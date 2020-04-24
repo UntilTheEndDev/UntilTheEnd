@@ -2,6 +2,7 @@ package HamsterYDS.UntilTheEnd.item.science;
 
 import java.util.ArrayList;
 
+import HamsterYDS.UntilTheEnd.Config;
 import HamsterYDS.UntilTheEnd.internal.UTEi18n;
 import org.bukkit.Location;
 import org.bukkit.block.Block;
@@ -35,6 +36,7 @@ public class Hygrometer implements Listener {
     public void onClick(PlayerInteractEvent event) {
         if (event.getAction() != Action.RIGHT_CLICK_BLOCK) return;
         Player player = event.getPlayer();
+        if (!Config.enableWorlds.contains(player.getWorld())) return;
         Block block = event.getClickedBlock();
         Location loc = block.getLocation();
         String toString = BlockApi.locToStr(loc);

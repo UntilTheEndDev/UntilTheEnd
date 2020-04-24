@@ -2,6 +2,7 @@ package HamsterYDS.UntilTheEnd.item;
 
 import java.util.HashMap;
 
+import HamsterYDS.UntilTheEnd.Config;
 import HamsterYDS.UntilTheEnd.internal.DisableManager;
 import HamsterYDS.UntilTheEnd.internal.EventHelper;
 import HamsterYDS.UntilTheEnd.internal.UTEi18n;
@@ -30,6 +31,7 @@ public class ItemListener implements Listener {
     public void onPlace(BlockPlaceEvent event) {
         if (event.isCancelled())
             return;
+        if (!Config.enableWorlds.contains(event.getBlockPlaced().getWorld())) return;
         ItemStack item = event.getItemInHand();
         String id = ItemManager.getUTEItemId(item);
         if (!id.equalsIgnoreCase("")) {
@@ -102,7 +104,7 @@ public class ItemListener implements Listener {
             return;
         ItemStack item = event.getCursor();
         if (inv instanceof AnvilInventory) {
-            if (!ItemManager.getUTEItemId(item).equalsIgnoreCase(""))
+            if (ItemManager.getUTEItemId(item, null) != null)
                 event.setCancelled(true);
         }
     }

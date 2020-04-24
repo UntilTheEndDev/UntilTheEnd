@@ -1,5 +1,6 @@
 package HamsterYDS.UntilTheEnd.item.basics;
 
+import HamsterYDS.UntilTheEnd.Config;
 import HamsterYDS.UntilTheEnd.internal.DisableManager;
 import HamsterYDS.UntilTheEnd.internal.EventHelper;
 import org.bukkit.entity.Player;
@@ -26,6 +27,7 @@ public class SpiderGland implements Listener {
     public void onRight(PlayerInteractEvent event) {
         if (event.isCancelled() && !DisableManager.bypass_right_action_cancelled) return;
         Player player = event.getPlayer();
+        if (!Config.enableWorlds.contains(player.getWorld())) return;
         if (!EventHelper.isRight(event.getAction()))
             return;
         if (!event.hasItem()) return;

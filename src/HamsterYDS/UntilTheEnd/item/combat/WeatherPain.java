@@ -3,6 +3,7 @@ package HamsterYDS.UntilTheEnd.item.combat;
 import java.util.HashMap;
 import java.util.UUID;
 
+import HamsterYDS.UntilTheEnd.Config;
 import HamsterYDS.UntilTheEnd.Logging;
 import HamsterYDS.UntilTheEnd.internal.DisableManager;
 import HamsterYDS.UntilTheEnd.internal.EventHelper;
@@ -31,11 +32,12 @@ public class WeatherPain implements Listener {
         ItemManager.plugin.getServer().getPluginManager().registerEvents(this, ItemManager.plugin);
     }
 
-    private static HashMap<UUID, Integer> cd = new HashMap<>();
+    private static final HashMap<UUID, Integer> cd = new HashMap<>();
 
     @EventHandler(priority = EventPriority.HIGHEST)
     public void onRight(PlayerInteractEvent event) {
         Player player = event.getPlayer();
+        if (!Config.enableWorlds.contains(player.getWorld())) return;
         Logging.getLogger().fine(() -> "[WeatherPain] {action=" + event.getAction() + ", cancelled=" + event.isCancelled() + "}");
         if (event.isCancelled() && !DisableManager.bypass_right_action_cancelled) return;
         if (!event.hasItem()) return;

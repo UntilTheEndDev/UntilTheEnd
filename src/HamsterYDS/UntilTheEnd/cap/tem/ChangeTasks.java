@@ -3,6 +3,7 @@ package HamsterYDS.UntilTheEnd.cap.tem;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
+import java.util.UUID;
 
 import HamsterYDS.UntilTheEnd.internal.NPCChecker;
 import HamsterYDS.UntilTheEnd.internal.ResidenceChecker;
@@ -41,7 +42,7 @@ public class ChangeTasks {
             for (World world : Config.enableWorlds)
                 for (Player player : world.getPlayers()) {
                     if (NPCChecker.isNPC(player)||ResidenceChecker.isProtected(player.getLocation())) continue;
-                    int hum = (int) PlayerManager.check(player, PlayerManager.CheckType.HUMIDITY);
+                    double hum = PlayerManager.check(player, PlayerManager.CheckType.HUMIDITY);
                     PlayerManager.change(player, PlayerManager.CheckType.TEMPERATURE, -hum / 5);
                 }
         }
@@ -142,7 +143,7 @@ public class ChangeTasks {
             return "";
         }
 
-        public ArrayList<String> hasStone = new ArrayList<String>();
+        public ArrayList<UUID> hasStone = new ArrayList<>();
         public long totStone = 0;
         public long totNatural = 0;
 
@@ -152,19 +153,19 @@ public class ChangeTasks {
             totNatural++;
             if (totStone % temperatureChangeSpeedStone == 0) {
                 totStone = 0;
-                hasStone = new ArrayList<String>();
+                hasStone = new ArrayList<>();
                 for (World world : Config.enableWorlds)
                     for (Player player : world.getPlayers())
                         if (!NPCChecker.isNPC(player))
                             if (goWarmStone(player))
-                                hasStone.add(player.getName());
+                                hasStone.add(player.getUniqueId());
             }
             if (totNatural % temperatureChangeSpeedNatural == 0) {
                 totNatural = 0;
                 for (World world : Config.enableWorlds)
                     for (Player player : world.getPlayers())
                         if (!NPCChecker.isNPC(player))
-                            if (!hasStone.contains(player.getName()))
+                            if (!hasStone.contains(player.getUniqueId()))
                                 goNatural(player);
             }
         }

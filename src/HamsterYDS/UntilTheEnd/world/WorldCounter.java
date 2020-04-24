@@ -22,7 +22,7 @@ import HamsterYDS.UntilTheEnd.world.WorldProvider.Season;
  */
 public class WorldCounter extends BukkitRunnable {
     // private HashSet<String> changingWorlds=new HashSet<String>();
-    private Map<UUID, AtomicLong> lateTime = new HashMap<>();
+    private final Map<UUID, AtomicLong> lateTime = new HashMap<>();
 
     @Override
     public void run() {
@@ -32,7 +32,8 @@ public class WorldCounter extends BukkitRunnable {
             final AtomicLong atomicLong = lateTime.get(uid);
             if (atomicLong == null) {
                 lateTime.put(uid, new AtomicLong(time));
-                newDay(world);
+                // 没值的时候到底需不需要把这玩意进入下一天
+                // newDay(world);
             } else {
                 if (atomicLong.get() > time) { // Loop
                     newDay(world);
@@ -44,7 +45,7 @@ public class WorldCounter extends BukkitRunnable {
 
     private void newDay(World world) {
         IWorld state = WorldProvider.worldStates.get(world.getName());
-        int days = state.day;
+        // int days = state.day;
         if (state.season != Season.NULL) {
             if (state.day < state.loop) {
                 state.day++;

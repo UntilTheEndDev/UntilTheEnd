@@ -2,6 +2,7 @@ package HamsterYDS.UntilTheEnd.item.magic;
 
 import java.util.HashMap;
 
+import HamsterYDS.UntilTheEnd.Config;
 import HamsterYDS.UntilTheEnd.event.hud.SanityChangeEvent;
 import HamsterYDS.UntilTheEnd.event.hud.SanityChangeEvent.ChangeCause;
 import HamsterYDS.UntilTheEnd.internal.DisableManager;
@@ -37,6 +38,7 @@ public class FireWand implements Listener {
     @EventHandler(priority = EventPriority.MONITOR)
     public void onRight(PlayerInteractEvent event) {
         Player player = event.getPlayer();
+        if (!Config.enableWorlds.contains(player.getWorld())) return;
         if (event.isCancelled() && !DisableManager.bypass_right_action_cancelled) return;
         if (!event.hasItem()) return;
         if (!EventHelper.isRight(event.getAction())) return;

@@ -7,6 +7,7 @@ import java.util.HashMap;
 import java.util.UUID;
 import java.util.logging.Level;
 
+import HamsterYDS.UntilTheEnd.Config;
 import HamsterYDS.UntilTheEnd.Logging;
 import HamsterYDS.UntilTheEnd.internal.ItemFactory;
 import org.bukkit.Bukkit;
@@ -43,6 +44,7 @@ public class ClothesContainer implements Listener {
     @EventHandler(priority = EventPriority.NORMAL, ignoreCancelled = true)
     public void onRight(PlayerInteractEvent event) {
         Player player = event.getPlayer();
+        if (!Config.enableWorlds.contains(player.getWorld())) return;
         if (!event.hasItem())
             return;
         if (EventHelper.isRight(event.getAction())) {
@@ -87,13 +89,13 @@ public class ClothesContainer implements Listener {
 
     @EventHandler()
     public void onJoin(PlayerJoinEvent event) {
-        Player player = (Player) event.getPlayer();
+        Player player = event.getPlayer();
         File file = new File(ItemManager.plugin.getDataFolder() + "/clothes", player.getUniqueId().toString() + ".yml");
         YamlConfiguration yaml = YamlConfiguration.loadConfiguration(file);
         Inventory inv = Bukkit.createInventory(player, 9, ItemManager.items.get("ClothesContainer").displayName);
         for (String path : yaml.getKeys(false)) {
             ItemStack item = yaml.getItemStack(path);
-            inv.setItem(Integer.valueOf(path), item);
+            inv.setItem(Integer.parseInt(path), item);
         }
         invs.put(player.getUniqueId(), inv);
     }
@@ -115,7 +117,7 @@ public class ClothesContainer implements Listener {
             String type = String.valueOf(ItemFactory.getType(cursor));
             if (type.contains("HELMET") || type.contains("CHESTPLATE") || type.contains("LEGGINGS")
                     || type.contains("BOOTS"))
-                if (!ItemManager.getUTEItemId(cursor).equalsIgnoreCase(""))
+                if (ItemManager.getUTEItemId(cursor, null) != null)
                     return;
             player.sendMessage("只有可穿戴的UTE衣物可以放入衣物管理器！");
             event.setCancelled(true);

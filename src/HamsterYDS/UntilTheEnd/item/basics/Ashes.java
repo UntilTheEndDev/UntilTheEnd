@@ -1,5 +1,6 @@
 package HamsterYDS.UntilTheEnd.item.basics;
 
+import HamsterYDS.UntilTheEnd.Config;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.EventPriority;
 import org.bukkit.event.Listener;
@@ -21,6 +22,7 @@ public class Ashes implements Listener {
     public void onBurn(BlockBurnEvent event) {
         if (event.isCancelled())
             return;
+        if (!Config.enableWorlds.contains(event.getBlock().getWorld())) return;
         if (Math.random() <= percent) {
             event.getBlock().getWorld().dropItem(event.getBlock().getLocation(), ItemManager.items.get("Ashes").item);
         }

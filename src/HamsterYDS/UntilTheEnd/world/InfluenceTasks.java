@@ -1,6 +1,7 @@
 package HamsterYDS.UntilTheEnd.world;
 
 import java.util.HashMap;
+import java.util.UUID;
 
 import HamsterYDS.UntilTheEnd.internal.LightingCompensation;
 import HamsterYDS.UntilTheEnd.internal.NPCChecker;
@@ -44,44 +45,42 @@ public class InfluenceTasks {
     public static int carrotEffect = HamsterYDS.UntilTheEnd.world.World.plugin.getConfig().getInt("world.darkness.carrotEffect");
 
     public InfluenceTasks(UntilTheEnd plugin) {
-        this.plugin = plugin;
+        InfluenceTasks.plugin = plugin;
         Darkness dark = new Darkness();
         dark.runTaskTimer(plugin, 0L, 20L);
         plugin.getServer().getPluginManager().registerEvents(dark, plugin);
     }
 
     public static class Darkness extends BukkitRunnable implements Listener {
-        private HashMap<String, Integer> darkness = new HashMap<String, Integer>();
-        private HashMap<String, Integer> carrotEffects = new HashMap<String, Integer>();
+        private final HashMap<UUID, Integer> darkness = new HashMap<>();
+        private final HashMap<UUID, Integer> carrotEffects = new HashMap<>();
 
         @EventHandler(priority = EventPriority.MONITOR, ignoreCancelled = true)
         public void onUse(PlayerItemConsumeEvent event) {
             Player player = event.getPlayer();
             if (event.getItem().getType() == Material.CARROT) {
                 int currentEffect = 0;
-                if (carrotEffects.containsKey(player.getName()))
-                    currentEffect += carrotEffects.get(player.getName());
-                carrotEffects.remove(player.getName());
-                carrotEffects.put(player.getName(), currentEffect + carrotEffect);
+                if (carrotEffects.containsKey(player.getUniqueId()))
+                    currentEffect += carrotEffects.get(player.getUniqueId());
+                carrotEffects.put(player.getUniqueId(), currentEffect + carrotEffect);
             }
             if (event.getItem().getType() == Material.GOLDEN_CARROT) {
                 int currentEffect = 0;
-                if (carrotEffects.containsKey(player.getName()))
-                    currentEffect += carrotEffects.get(player.getName());
-                carrotEffects.remove(player.getName());
-                carrotEffects.put(player.getName(), currentEffect + carrotEffect * 5);
+                if (carrotEffects.containsKey(player.getUniqueId()))
+                    currentEffect += carrotEffects.get(player.getUniqueId());
+                carrotEffects.put(player.getUniqueId(), currentEffect + carrotEffect * 5);
             }
         }
 
         @EventHandler()
         public void onDeath(PlayerDeathEvent event) {
-            if (darkness.containsKey(event.getEntity().getName())) {
-                if (carrotEffects.containsKey(event.getEntity().getName())) {
-                    int currentEffect = carrotEffects.get(event.getEntity().getName());
-                    carrotEffects.remove(event.getEntity().getName());
-                    carrotEffects.put(event.getEntity().getName(), 10 + currentEffect);
-                } else carrotEffects.put(event.getEntity().getName(), 10);
-                darkness.remove(event.getEntity().getName());
+            if (darkness.containsKey(event.getEntity().getUniqueId())) {
+                if (carrotEffects.containsKey(event.getEntity().getUniqueId())) {
+                    int currentEffect = carrotEffects.get(event.getEntity().getUniqueId());
+                    carrotEffects.remove(event.getEntity().getUniqueId());
+                    carrotEffects.put(event.getEntity().getUniqueId(), 10 + currentEffect);
+                } else carrotEffects.put(event.getEntity().getUniqueId(), 10);
+                darkness.remove(event.getEntity().getUniqueId());
             }
         }
 
@@ -92,10 +91,9 @@ public class InfluenceTasks {
                     if (NPCChecker.isNPC(player)||ResidenceChecker.isProtected(player.getLocation())) continue;
                     if (player.getGameMode() == GameMode.CREATIVE || player.getGameMode() == GameMode.SPECTATOR)
                         continue;
-                    if (carrotEffects.containsKey(player.getName())) {
-                        int currentEffect = carrotEffects.get(player.getName());
-                        carrotEffects.remove(player.getName());
-                        carrotEffects.put(player.getName(), currentEffect - 1);
+                    if (carrotEffects.containsKey(player.getUniqueId())) {
+                        int currentEffect = carrotEffects.get(player.getUniqueId());
+                        carrotEffects.put(player.getUniqueId(), currentEffect - 1);
                         if (currentEffect >= 0) continue;
                     }
                     if (player.hasPotionEffect(PotionEffectType.NIGHT_VISION)) continue;
@@ -109,22 +107,22 @@ public class InfluenceTasks {
                     if ((block.getLightFromBlocks() <= needToCheck) && (
                             block.getLightLevel() <= needToCheck
                     )) {
-                        if (darkness.containsKey(player.getName())) {
-                            int second = darkness.get(player.getName());
-                            darkness.remove(player.getName());
-                            darkness.put(player.getName(), second + 1);
-                        } else darkness.put(player.getName(), 1);
-                    } else darkness.remove(player.getName());
+                        if (darkness.containsKey(player.getUniqueId())) {
+                            int second = darkness.get(player.getUniqueId());
+                            darkness.remove(player.getUniqueId());
+                            darkness.put(player.getUniqueId(), second + 1);
+                        } else darkness.put(player.getUniqueId(), 1);
+                    } else darkness.remove(player.getUniqueId());
 
-                    if (darkness.containsKey(player.getName())) {
-                        if (darkness.get(player.getName()) == warn) {
+                    if (darkness.containsKey(player.getUniqueId())) {
+                        if (darkness.get(player.getUniqueId()) == warn) {
                             player.sendTitle(UTEi18n.cache("mechanism.darkness.who-is-there.main"), UTEi18n.cache("mechanism.darkness.who-is-there.sub"));
                             SanityChangeEvent event = new SanityChangeEvent(player, ChangeCause.DARKWARN, san_warn);
                             Bukkit.getPluginManager().callEvent(event);
                             if (!event.isCancelled())
                                 PlayerManager.change(player, PlayerManager.CheckType.SANITY, san_warn);
                         }
-                        if (darkness.get(player.getName()) >= attack) {
+                        if (darkness.get(player.getUniqueId()) >= attack) {
                             player.sendTitle(UTEi18n.cache("mechanism.darkness.hurt-me.main"), UTEi18n.cache("mechanism.darkness.hurt-me.sub"));
                             player.damage(damage);
                             if (player.getHealth() <= san_attack)

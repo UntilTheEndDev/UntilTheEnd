@@ -18,7 +18,7 @@ public class Wilson {
         new Beard().runTaskTimer(plugin, 0L, 1200L);
     }
 
-    public class Beard extends BukkitRunnable {
+    public static class Beard extends BukkitRunnable {
         @Override
         public void run() {
             for (World world : Config.enableWorlds)

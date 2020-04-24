@@ -30,6 +30,8 @@ public class TakeWaterUp implements Listener {
     public void onLiquidRun(BlockFromToEvent event) {
         Block block1 = event.getBlock();
         Block block2 = event.getToBlock();
+        if (!Config.enableWorlds.contains(block1.getWorld())) return;
+        if (!Config.enableWorlds.contains(block2.getWorld())) return;
         if (!block1.isLiquid()) return;
         if (block2.isLiquid()) event.setCancelled(true);
     }

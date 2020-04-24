@@ -5,6 +5,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.UUID;
 
+import HamsterYDS.UntilTheEnd.Config;
 import HamsterYDS.UntilTheEnd.api.BlockApi;
 import HamsterYDS.UntilTheEnd.event.hud.SanityChangeEvent;
 import HamsterYDS.UntilTheEnd.event.hud.SanityChangeEvent.ChangeCause;
@@ -45,6 +46,7 @@ public class TelelocatorWand implements Listener, HolderPlaceholder {
     @EventHandler(priority = EventPriority.MONITOR)
     public void onRight(PlayerInteractEvent event) {
         Player player = event.getPlayer();
+        if (!Config.enableWorlds.contains(player.getWorld())) return;
         if (event.isCancelled() && !DisableManager.bypass_right_action_cancelled)
             return;
         if (!event.hasItem())

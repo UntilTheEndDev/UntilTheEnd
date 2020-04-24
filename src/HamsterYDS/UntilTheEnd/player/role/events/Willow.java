@@ -1,5 +1,6 @@
 package HamsterYDS.UntilTheEnd.player.role.events;
 
+import HamsterYDS.UntilTheEnd.Config;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.EventPriority;
@@ -13,6 +14,7 @@ import HamsterYDS.UntilTheEnd.player.role.Roles;
 public class Willow implements Listener {
     @EventHandler(priority = EventPriority.MONITOR, ignoreCancelled = true)
     public void onAttack(EntityDamageEvent event) {
+        if (!Config.enableWorlds.contains(event.getEntity().getWorld())) return;
         if (event.getEntity() instanceof Player) {
             Player player = (Player) event.getEntity();
             if (PlayerApi.getRole(player) == Roles.WILLOW) {

@@ -5,6 +5,7 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
 
+import HamsterYDS.UntilTheEnd.Config;
 import HamsterYDS.UntilTheEnd.Logging;
 import org.bukkit.Bukkit;
 import org.bukkit.Location;
@@ -94,6 +95,7 @@ public class BlockManager extends BukkitRunnable implements Listener {
     public void onBreak(BlockBreakEvent event) {
         if (event.isCancelled()) return;
         Location loc = event.getBlock().getLocation();
+        if (!Config.enableWorlds.contains(loc.getWorld())) return;
         String toString = BlockApi.locToStr(loc);
         if (blocks.get(toString) == null) return;
 
@@ -127,6 +129,7 @@ public class BlockManager extends BukkitRunnable implements Listener {
     @EventHandler(priority = EventPriority.HIGHEST)
     public void onPlace(BlockPlaceEvent event) {
         Location loc = event.getBlock().getLocation();
+        if (!Config.enableWorlds.contains(loc.getWorld())) return;
         String toString = BlockApi.locToStr(loc);
         if (event.getItemInHand() == null) {
             onPlace$reset(toString);
@@ -150,6 +153,7 @@ public class BlockManager extends BukkitRunnable implements Listener {
     @EventHandler(priority = EventPriority.NORMAL, ignoreCancelled = true)
     public void onExtend(BlockPistonExtendEvent event) {
         if (event.isCancelled()) return;
+        if (!Config.enableWorlds.contains(event.getBlock().getWorld())) return;
         for (org.bukkit.block.Block block : event.getBlocks()) {
             Location loc = block.getLocation();
             String toString = BlockApi.locToStr(loc);

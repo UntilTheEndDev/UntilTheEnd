@@ -1,5 +1,6 @@
 package HamsterYDS.UntilTheEnd.item.survival;
 
+import HamsterYDS.UntilTheEnd.Config;
 import org.bukkit.Bukkit;
 import org.bukkit.block.Block;
 import org.bukkit.entity.Entity;
@@ -24,10 +25,10 @@ public class SiestaLeanto implements Listener {
         ItemManager.plugin.getServer().getPluginManager().registerEvents(this, ItemManager.plugin);
     }
 
-    @EventHandler
+    @EventHandler(ignoreCancelled = true)
     public void onClick(PlayerInteractEvent event) {
-        if (event.isCancelled()) return;
         Player player = event.getPlayer();
+        if (!Config.enableWorlds.contains(player.getWorld())) return;
         if (event.getAction() != Action.RIGHT_CLICK_BLOCK) return;
         Block block = event.getClickedBlock();
         String toString = BlockApi.locToStr(block.getLocation());

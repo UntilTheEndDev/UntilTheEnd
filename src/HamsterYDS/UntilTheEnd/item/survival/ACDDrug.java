@@ -1,5 +1,6 @@
 package HamsterYDS.UntilTheEnd.item.survival;
 
+import HamsterYDS.UntilTheEnd.Config;
 import HamsterYDS.UntilTheEnd.internal.DisableManager;
 import HamsterYDS.UntilTheEnd.internal.EventHelper;
 
@@ -23,6 +24,7 @@ public class ACDDrug implements Listener {
     @EventHandler(priority = EventPriority.MONITOR)
     public void onRight(PlayerInteractEvent event) {
         Player player = event.getPlayer();
+        if (!Config.enableWorlds.contains(player.getWorld())) return;
         if (event.isCancelled() && !DisableManager.bypass_right_action_cancelled) return;
         if (!event.hasItem()) return;
         if (!EventHelper.isRight(event.getAction())) return;

@@ -1,5 +1,6 @@
 package HamsterYDS.UntilTheEnd.cap.tir;
 
+import HamsterYDS.UntilTheEnd.Config;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.EventPriority;
@@ -30,6 +31,8 @@ public class InfluenceEvents implements Listener {
     @EventHandler(priority = EventPriority.MONITOR, ignoreCancelled = true)
     public void onTeleport(PlayerTeleportEvent event) {
         Player player = event.getPlayer();
+        if (!Config.enableWorlds.contains(event.getFrom().getWorld())) return;
+        if (!Config.enableWorlds.contains(event.getTo().getWorld())) return;
         if (PlayerManager.check(player, CheckType.TIREDNESS) >= teleport) {
             player.sendMessage(UTEi18n.cache("cap.tir.influence.teleport"));
             event.setCancelled(true);
@@ -40,6 +43,7 @@ public class InfluenceEvents implements Listener {
     public void onBreak(BlockBreakEvent event) {
         Player player = event.getPlayer();
         if (player == null) return;
+        if (!Config.enableWorlds.contains(player.getWorld())) return;
         if (PlayerManager.check(player, CheckType.TIREDNESS) >= lbreak) {
             player.sendMessage(UTEi18n.cache("cap.tir.influence.break"));
             event.setCancelled(true);
@@ -50,6 +54,7 @@ public class InfluenceEvents implements Listener {
     public void onPlace(BlockPlaceEvent event) {
         Player player = event.getPlayer();
         if (player == null) return;
+        if (!Config.enableWorlds.contains(player.getWorld())) return;
         if (PlayerManager.check(player, CheckType.TIREDNESS) >= place) {
             player.sendMessage(UTEi18n.cache("cap.tir.influence.place"));
             event.setCancelled(true);
@@ -61,6 +66,7 @@ public class InfluenceEvents implements Listener {
         Player player = event.getPlayer();
         if (player == null)
             return;
+        if (!Config.enableWorlds.contains(player.getWorld())) return;
         if (PlayerManager.check(player, CheckType.TIREDNESS) >= talk) {
             player.sendMessage(UTEi18n.cache("cap.tir.influence.talk"));
             event.setCancelled(true);
@@ -69,6 +75,7 @@ public class InfluenceEvents implements Listener {
 
     @EventHandler(priority = EventPriority.MONITOR, ignoreCancelled = true)
     public void onAttack(EntityDamageByEntityEvent event) {
+        if (!Config.enableWorlds.contains(event.getDamager().getWorld())) return;
         if (event.getDamager() instanceof Player) {
             Player player = (Player) event.getDamager();
             if (PlayerManager.check(player, CheckType.TIREDNESS) >= attack) {

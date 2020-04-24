@@ -45,6 +45,7 @@ public class LifeGivingAmulet implements Listener {
 
     @EventHandler
     public void onDeath(EntityDamageEvent event) {
+        if (!Config.enableWorlds.contains(event.getEntity().getWorld())) return;
         if (event.getEntity() instanceof Player) {
             Player player = (Player) event.getEntity();
             if (player.getHealth() <= event.getDamage()) {

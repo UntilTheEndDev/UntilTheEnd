@@ -1,5 +1,6 @@
 package HamsterYDS.UntilTheEnd.item.science;
 
+import HamsterYDS.UntilTheEnd.Config;
 import org.bukkit.Material;
 import org.bukkit.block.Block;
 import org.bukkit.entity.Player;
@@ -22,31 +23,32 @@ public class CombinedTools implements Listener {
 
     @EventHandler
     public void onRight(PlayerInteractEvent event) {
-        Player player=event.getPlayer();
-        ItemStack item=player.getInventory().getItemInMainHand();
-        if(item==null) return;
-        if(item.hasItemMeta())
-        	if(item.getItemMeta().hasDisplayName())
-        		if(item.getItemMeta().getDisplayName().equalsIgnoreCase(ItemManager.items.get("CombinedTools").displayName)) {
-        			if(event.getAction()==Action.PHYSICAL)
-        				item.setType(Material.DIAMOND_SWORD);
-        			if(event.hasBlock()) {
-        				Block block=event.getClickedBlock();
-        				if(block.getType().toString().contains("GRASS")
-        						||block.getType().toString().contains("DIRT")
-        						||block.getType().toString().contains("SAND")
-        						||block.getType().toString().contains("GRAVEL")
-        						||block.getType().toString().contains("CLAY")){
-        					item.setType(Material.DIAMOND_SPADE);
-        					return;
-        				}
-        				if(block.getType().toString().contains("PLANK")
-        						||block.getType().toString().contains("LOG")) {
-        					item.setType(Material.DIAMOND_AXE);
-        					return;
-        				}
-        				item.setType(Material.DIAMOND_PICKAXE);
-        			}
-        		}
+        Player player = event.getPlayer();
+        if (!Config.enableWorlds.contains(player.getWorld())) return;
+        ItemStack item = player.getInventory().getItemInMainHand();
+        if (item == null) return;
+        if (item.hasItemMeta())
+            if (item.getItemMeta().hasDisplayName())
+                if (item.getItemMeta().getDisplayName().equalsIgnoreCase(ItemManager.items.get("CombinedTools").displayName)) {
+                    if (event.getAction() == Action.PHYSICAL)
+                        item.setType(Material.DIAMOND_SWORD);
+                    if (event.hasBlock()) {
+                        Block block = event.getClickedBlock();
+                        if (block.getType().toString().contains("GRASS")
+                                || block.getType().toString().contains("DIRT")
+                                || block.getType().toString().contains("SAND")
+                                || block.getType().toString().contains("GRAVEL")
+                                || block.getType().toString().contains("CLAY")) {
+                            item.setType(Material.DIAMOND_SPADE);
+                            return;
+                        }
+                        if (block.getType().toString().contains("PLANK")
+                                || block.getType().toString().contains("LOG")) {
+                            item.setType(Material.DIAMOND_AXE);
+                            return;
+                        }
+                        item.setType(Material.DIAMOND_PICKAXE);
+                    }
+                }
     }
 }

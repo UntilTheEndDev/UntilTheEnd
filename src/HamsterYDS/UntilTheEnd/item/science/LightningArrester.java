@@ -1,5 +1,6 @@
 package HamsterYDS.UntilTheEnd.item.science;
 
+import HamsterYDS.UntilTheEnd.Config;
 import org.bukkit.Location;
 import org.bukkit.Particle;
 import org.bukkit.event.EventHandler;
@@ -20,6 +21,7 @@ public class LightningArrester implements Listener {
     @EventHandler
     public void onLight(LightningStrikeEvent event) {
         Location loc = event.getLightning().getLocation();
+        if (!Config.enableWorlds.contains(loc.getWorld())) return;
         for (String str : BlockApi.getSpecialBlocks("LightningArrester")) {
             Location loc2 = BlockApi.strToLoc(str);
             if (loc.distance(loc2) <= 20) {

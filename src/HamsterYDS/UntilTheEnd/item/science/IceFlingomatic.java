@@ -1,5 +1,6 @@
 package HamsterYDS.UntilTheEnd.item.science;
 
+import HamsterYDS.UntilTheEnd.Config;
 import org.bukkit.Location;
 import org.bukkit.Particle;
 import org.bukkit.event.EventHandler;
@@ -22,6 +23,7 @@ public class IceFlingomatic implements Listener {
     @EventHandler
     public void onBurn(BlockIgniteEvent event) {
         if (event.isCancelled()) return;
+        if (!Config.enableWorlds.contains(event.getIgnitingBlock().getWorld())) return;
         for (String str : BlockApi.getSpecialBlocks("IceFlingomatic")) {
             Location loc = BlockApi.strToLoc(str);
             Location loc2 = event.getBlock().getLocation();

@@ -1,5 +1,6 @@
 package HamsterYDS.UntilTheEnd.item.clothes;
 
+import HamsterYDS.UntilTheEnd.Config;
 import org.bukkit.Location;
 import org.bukkit.entity.Entity;
 import org.bukkit.entity.Player;
@@ -31,6 +32,7 @@ public class EyeballUmbrella implements Listener {
 
     @EventHandler(priority = EventPriority.NORMAL, ignoreCancelled = true)
     public void onLight(LightningStrikeEvent event) {
+        if (!Config.enableWorlds.contains(event.getLightning().getWorld())) return;
         Location loc = event.getLightning().getLocation();
         for (Entity entity : loc.getWorld().getNearbyEntities(loc, range, range, range)) {
             if (!(entity instanceof Player))

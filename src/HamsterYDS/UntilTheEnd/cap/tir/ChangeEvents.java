@@ -4,6 +4,7 @@ import java.util.*;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.logging.Level;
 
+import HamsterYDS.UntilTheEnd.Config;
 import HamsterYDS.UntilTheEnd.Logging;
 import org.bukkit.entity.LivingEntity;
 import org.bukkit.entity.Player;
@@ -33,6 +34,7 @@ public class ChangeEvents implements Listener {
     @EventHandler(priority = EventPriority.MONITOR, ignoreCancelled = true)
     public void onMove(PlayerMoveEvent event) {
         Player player = event.getPlayer();
+        if (!Config.enableWorlds.contains(player.getWorld())) return;
         movingPlayers.computeIfAbsent(player.getUniqueId(), uid -> new BukkitRunnable() {
             private int tick;
 
@@ -61,6 +63,8 @@ public class ChangeEvents implements Listener {
     @EventHandler(priority = EventPriority.MONITOR, ignoreCancelled = true)
     public void onTeleport(PlayerTeleportEvent event) {
         Player player = event.getPlayer();
+        if (!Config.enableWorlds.contains(event.getFrom().getWorld())) return;
+        if (!Config.enableWorlds.contains(event.getTo().getWorld())) return;
         try {
             if (event.getTo().getWorld() != event.getFrom().getWorld()) return;
             if (event.getTo().distance(event.getFrom()) <= 10.0) return;
@@ -75,6 +79,7 @@ public class ChangeEvents implements Listener {
         Player player = event.getPlayer();
         if (player == null)
             return;
+        if (!Config.enableWorlds.contains(player.getWorld())) return;
         PlayerManager.change(player, CheckType.TIREDNESS, Tiredness.yaml.getInt("change.event.break"));
     }
 
@@ -83,6 +88,7 @@ public class ChangeEvents implements Listener {
         Player player = event.getPlayer();
         if (player == null)
             return;
+        if (!Config.enableWorlds.contains(player.getWorld())) return;
         PlayerManager.change(player, CheckType.TIREDNESS, Tiredness.yaml.getInt("change.event.talk"));
     }
 
@@ -91,11 +97,13 @@ public class ChangeEvents implements Listener {
         Player player = event.getPlayer();
         if (player == null)
             return;
+        if (!Config.enableWorlds.contains(player.getWorld())) return;
         PlayerManager.change(player, CheckType.TIREDNESS, Tiredness.yaml.getInt("change.event.tab"));
     }
 
     @EventHandler(priority = EventPriority.MONITOR, ignoreCancelled = true)
     public void onAttack(EntityDamageByEntityEvent event) {
+        if (!Config.enableWorlds.contains(event.getDamager().getWorld())) return;
         if (event.getDamager() instanceof Player) {
             Player player = (Player) event.getDamager();
             PlayerManager.change(player, CheckType.TIREDNESS, Tiredness.yaml.getInt("change.event.damage"));
@@ -110,6 +118,7 @@ public class ChangeEvents implements Listener {
     @EventHandler(priority = EventPriority.MONITOR, ignoreCancelled = true)
     public void onPick(EnchantItemEvent event) {
         Player player = event.getEnchanter();
+        if (!Config.enableWorlds.contains(player.getWorld())) return;
         PlayerManager.change(player, CheckType.TIREDNESS, Tiredness.yaml.getInt("change.event.enchant"));
     }
 }

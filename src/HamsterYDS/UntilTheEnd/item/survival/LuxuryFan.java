@@ -1,5 +1,6 @@
 package HamsterYDS.UntilTheEnd.item.survival;
 
+import HamsterYDS.UntilTheEnd.Config;
 import HamsterYDS.UntilTheEnd.internal.EventHelper;
 import org.bukkit.entity.Entity;
 import org.bukkit.entity.Player;
@@ -20,6 +21,7 @@ public class LuxuryFan implements Listener {
     @EventHandler(priority = EventPriority.NORMAL, ignoreCancelled = true)
     public void onClick(PlayerInteractEvent event) {
         Player player = event.getPlayer();
+        if (!Config.enableWorlds.contains(player.getWorld())) return;
         if (!event.hasItem()) return;
         if (!EventHelper.isRight(event.getAction())) return;
         ItemStack item = event.getItem();

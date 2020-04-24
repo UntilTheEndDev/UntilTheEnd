@@ -1,5 +1,6 @@
 package HamsterYDS.UntilTheEnd.item.combat;
 
+import HamsterYDS.UntilTheEnd.Config;
 import HamsterYDS.UntilTheEnd.internal.ArrowManager;
 import HamsterYDS.UntilTheEnd.internal.DisableManager;
 import HamsterYDS.UntilTheEnd.internal.EventHelper;
@@ -30,6 +31,7 @@ public class BlowArrow2 implements Listener {
     public void onRight(PlayerInteractEvent event) {
         if (event.isCancelled() && !DisableManager.bypass_right_action_cancelled) return;
         Player player = event.getPlayer();
+        if (!Config.enableWorlds.contains(player.getWorld())) return;
         if (EventHelper.isRight(event.getAction())) {
             ItemStack item = player.getInventory().getItemInMainHand();
             if (ItemManager.isSimilar(item, getClass())) {

@@ -1,5 +1,6 @@
 package HamsterYDS.UntilTheEnd.item.survival;
 
+import HamsterYDS.UntilTheEnd.Config;
 import HamsterYDS.UntilTheEnd.internal.EventHelper;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
@@ -21,6 +22,7 @@ public class HealingSalve implements Listener {
     @EventHandler(priority = EventPriority.NORMAL, ignoreCancelled = true)
     public void onRight(PlayerInteractEvent event) {
         Player player = event.getPlayer();
+        if (!Config.enableWorlds.contains(player.getWorld())) return;
         if (!EventHelper.isRight(event.getAction())) return;
         if (!event.hasItem()) return;
         ItemStack item = event.getItem();

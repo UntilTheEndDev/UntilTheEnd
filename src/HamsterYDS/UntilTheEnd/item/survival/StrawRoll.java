@@ -4,6 +4,7 @@ import java.util.HashSet;
 import java.util.Set;
 import java.util.UUID;
 
+import HamsterYDS.UntilTheEnd.Config;
 import org.bukkit.Bukkit;
 import org.bukkit.Location;
 import org.bukkit.World.Environment;
@@ -36,6 +37,7 @@ public class StrawRoll implements Listener {
     @EventHandler(priority = EventPriority.NORMAL, ignoreCancelled = true)
     public void onClick(PlayerInteractEvent event) {
         Player player = event.getPlayer();
+        if (!Config.enableWorlds.contains(player.getWorld())) return;
         if (!EventHelper.isRight(event.getAction())) return;
         if (!event.hasItem()) return;
         ItemStack item = event.getItem();

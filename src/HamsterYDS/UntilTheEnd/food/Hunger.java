@@ -25,6 +25,7 @@ public class Hunger implements Listener {
 
     @EventHandler()
     public void onJoin(PlayerJoinEvent event) {
+        if (!Config.enableWorlds.contains(event.getPlayer().getWorld())) return;
         event.getPlayer().setFoodLevel(10);
     }
 

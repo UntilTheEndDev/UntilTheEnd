@@ -57,7 +57,7 @@ public class PlayerInventoryAdapt extends BukkitRunnable implements Listener {
     }
 
     private static ArrayList<String> lockingPlayers = new ArrayList<String>();
-    private static int[] slots = new int[]{0, 1, 2, 3, 4, 5, 6, 7, 8, 27, 28, 29, 30, 31, 32, 33, 34, 35, 18, 19, 20, 21, 22, 23, 24, 25, 26, 9, 10, 11, 12, 13, 14, 15, 16, 17};
+    private static final int[] slots = new int[]{0, 1, 2, 3, 4, 5, 6, 7, 8, 27, 28, 29, 30, 31, 32, 33, 34, 35, 18, 19, 20, 21, 22, 23, 24, 25, 26, 9, 10, 11, 12, 13, 14, 15, 16, 17};
 
     @Override
     public void run() {
@@ -114,7 +114,7 @@ public class PlayerInventoryAdapt extends BukkitRunnable implements Listener {
         return "";
     }
 
-    private ItemStack item1 = getItem(Material.STAINED_GLASS_PANE, 15, UTEi18n.cache("item.locked"));
+    private final ItemStack item1 = getItem(Material.STAINED_GLASS_PANE, 15, UTEi18n.cache("item.locked"));
 
     public static ItemStack getItem(Material material, int data, String name) {
         ItemStack item = new ItemStack(material, 1);

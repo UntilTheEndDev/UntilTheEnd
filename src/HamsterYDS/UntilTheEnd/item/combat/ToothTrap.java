@@ -4,6 +4,7 @@ import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
 
+import HamsterYDS.UntilTheEnd.Config;
 import org.bukkit.GameMode;
 import org.bukkit.Location;
 import org.bukkit.Material;
@@ -41,6 +42,7 @@ public class ToothTrap implements Listener {
     public void onMove(EntityInteractEvent event) {
         if (event.isCancelled()) return;
         Entity entity = event.getEntity();
+        if (!Config.enableWorlds.contains(entity.getWorld())) return;
         if (!(entity instanceof LivingEntity)) return;
         if (entity instanceof Player) return;
         Location loc = event.getBlock().getLocation();
