@@ -65,12 +65,13 @@ val buildAll: Task by tasks.creating {
     }
 }
 
-val githubRelease: Task by tasks.creating {
+val releases: Task by tasks.creating {
     group = "ute"
     dependsOn("buildAll")
     doFirst {
         val file = Versions.resultFile ?: error("Cannot found release jar.")
         GitHub.upload(file, "https://api.github.com/repos/UntilTheEndDev/UntilTheEndReleases/contents/shadow/${project.name}/${file.name}", project())
+        Gitee.upload(file)
     }
 }
 
