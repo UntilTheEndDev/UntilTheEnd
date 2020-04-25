@@ -36,16 +36,15 @@ import HamsterYDS.UntilTheEnd.player.death.DeathMessage;
  * @version V5.1.1
  */
 public class InfluenceTasks {
-    public static UntilTheEnd plugin;
-    public static int warn = HamsterYDS.UntilTheEnd.world.World.plugin.getConfig().getInt("world.darkness.warnTime");
-    public static int attack = HamsterYDS.UntilTheEnd.world.World.plugin.getConfig().getInt("world.darkness.attackTime");
-    public static int damage = HamsterYDS.UntilTheEnd.world.World.plugin.getConfig().getInt("world.darkness.darkDamage");
-    public static int san_warn = HamsterYDS.UntilTheEnd.world.World.plugin.getConfig().getInt("world.darkness.sanWarn");
-    public static int san_attack = HamsterYDS.UntilTheEnd.world.World.plugin.getConfig().getInt("world.darkness.sanAttack");
-    public static int carrotEffect = HamsterYDS.UntilTheEnd.world.World.plugin.getConfig().getInt("world.darkness.carrotEffect");
+    public static UntilTheEnd plugin = UntilTheEnd.getInstance();
+    public static int warn = plugin.getConfig().getInt("world.darkness.warnTime");
+    public static int attack = plugin.getConfig().getInt("world.darkness.attackTime");
+    public static int damage = plugin.getConfig().getInt("world.darkness.darkDamage");
+    public static int san_warn = plugin.getConfig().getInt("world.darkness.sanWarn");
+    public static int san_attack = plugin.getConfig().getInt("world.darkness.sanAttack");
+    public static int carrotEffect = plugin.getConfig().getInt("world.darkness.carrotEffect");
 
     public InfluenceTasks(UntilTheEnd plugin) {
-        InfluenceTasks.plugin = plugin;
         Darkness dark = new Darkness();
         dark.runTaskTimer(plugin, 0L, 20L);
         plugin.getServer().getPluginManager().registerEvents(dark, plugin);
@@ -88,7 +87,7 @@ public class InfluenceTasks {
         public void run() {
             for (World world : Config.enableWorlds) {
                 for (Player player : world.getPlayers()) {
-                    if (NPCChecker.isNPC(player)||ResidenceChecker.isProtected(player.getLocation())) continue;
+                    if (NPCChecker.isNPC(player) || ResidenceChecker.isProtected(player.getLocation())) continue;
                     if (player.getGameMode() == GameMode.CREATIVE || player.getGameMode() == GameMode.SPECTATOR)
                         continue;
                     if (carrotEffects.containsKey(player.getUniqueId())) {
