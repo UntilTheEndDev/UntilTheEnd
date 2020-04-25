@@ -19,6 +19,12 @@ kotlin {
 
 dependencies {
     fun kotlinx(id: String, version: String) = "org.jetbrains.kotlinx:kotlinx-$id:$version"
+    fun ktor(id: String, version: String) = "io.ktor:ktor-$id:$version"
+
+    api(ktor("client-core", "1.3.2"))
+    api(ktor("client-cio", "1.3.2"))
+    api(ktor("client-json", "1.3.2"))
+
     api("org.jsoup:jsoup:1.12.1")
     api("org.ow2.asm:asm:7.2")
     api("org.ow2.asm:asm-tree:7.2")

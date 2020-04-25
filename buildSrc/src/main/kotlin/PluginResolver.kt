@@ -58,6 +58,15 @@ object PluginResolver {
     }
 
     fun resolve(file: File, project: Project) {
+        try {
+            resolve0(file, project)
+        } catch (any: Throwable) {
+            any.printStackTrace()
+            throw any
+        }
+    }
+
+    fun resolve0(file: File, project: Project) {
         println("Target file $file")
         val output = File(project.projectDir, "dist")
         println("Dist dir: $output")
@@ -65,6 +74,7 @@ object PluginResolver {
         val outputFile = File(output, "UntilTheEnd v${Versions.UTE}.jar")
         output.mkdirs()
         println("Target: $outputFile")
+        Versions.resultFile = outputFile
         ZipOutputStream(RAFOutputStream(outputFile)).use { writer ->
             ZipFile(file).use { zip ->
                 val plugin = zip.getEntry("plugin.yml")

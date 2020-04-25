@@ -10,6 +10,8 @@ plugins {
     java
 }
 
+Versions.project = project()
+
 group = "io.github.untiltheend"
 version = Versions.UTE
 
@@ -59,6 +61,16 @@ val buildAll: Task by tasks.creating {
                 .filter { it.name == "until-the-end-${Versions.UTE}.jar" }
                 .firstOrNull() ?: error("Result not found!")
         PluginResolver.resolve(out, project())
+
+    }
+}
+
+val githubRelease: Task by tasks.creating {
+    group = "ute"
+    dependsOn("buildAll")
+    doFirst {
+        val file = Versions.resultFile ?: error("Cannot found release jar.")
+        GitHub.upload(file, "https://api.github.com/repos/UntilTheEndDev/UntilTheEndReleases/contents/shadow/${project.name}/${file.name}", project())
     }
 }
 
