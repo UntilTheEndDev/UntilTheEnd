@@ -20,7 +20,7 @@ jobs:
       - name: Grant execute permission for gradlew
         run: chmod +x gradlew
       - name: Build with Gradle
-        run: ./gradlew githubReleases
+        run: ./gradlew githubRelease
         env:
           github_token: ${{ secrets.push_token }}
 
