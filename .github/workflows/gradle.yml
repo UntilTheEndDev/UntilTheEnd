@@ -6,8 +6,16 @@ name: Java CI with Gradle
 on:
   push:
     branches: [ master ]
+    paths:
+      - 'src/**'
+      - 'buildSrc/**'
+      - 'libs/**'
   pull_request:
     branches: [ master ]
+    paths:
+      - 'src/**'
+      - 'buildSrc/**'
+      - 'libs/**'
 
 jobs:
   build:
