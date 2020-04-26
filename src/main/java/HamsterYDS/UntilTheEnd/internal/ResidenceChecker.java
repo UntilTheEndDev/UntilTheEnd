@@ -8,7 +8,9 @@
 
 package HamsterYDS.UntilTheEnd.internal;
 
+import java.util.LinkedList;
 import java.util.List;
+import java.util.function.Consumer;
 
 import org.bukkit.Location;
 
@@ -16,17 +18,48 @@ import com.bekvon.bukkit.residence.api.ResidenceApi;
 import com.bekvon.bukkit.residence.protection.ClaimedResidence;
 import HamsterYDS.UntilTheEnd.UntilTheEnd;
 
+// 代码隔离
+@SuppressWarnings("Convert2Lambda")
 public class ResidenceChecker {
-	static List<String> ignoreResidences=UntilTheEnd.getInstance().getConfig().getStringList("ignoreResidences");
-	public static boolean isProtected(Location loc) {
-		try {
-			ClaimedResidence res=ResidenceApi.getResidenceManager().getByLoc(loc);
-			if(res==null) return false;
-			if(ignoreResidences.contains(res.getName()))
-				return true;
-			return false;
-		}catch(Exception e) {
-			return false;
-		}
-	}
+    public static final LinkedList<Consumer<ProtectedEvent>> handlers = new LinkedList<>();
+
+    public static class ProtectedEvent {
+        public boolean cancelled;
+        public final Location location;
+
+        public ProtectedEvent(Location location) {
+            this.location = location;
+        }
+    }
+
+    static {
+        try {
+            // Residence
+            Class.forName("com.bekvon.bukkit.residence.api.ResidenceApi");
+            List<String> ignoredList = UntilTheEnd.getInstance().getConfig().getStringList("ignoreResidences");
+            handlers.add(new Consumer<ProtectedEvent>() {
+                @Override
+                public void accept(ProtectedEvent event) {
+                    if (event.cancelled) return;
+                    ClaimedResidence residence = ResidenceApi.getResidenceManager().getByLoc(event.location);
+                    while (residence != null) {
+                        if (ignoredList.contains(residence.getName())) {
+                            event.cancelled = true;
+                            return;
+                        }
+                        residence = residence.getParent();
+                    }
+                }
+            });
+        } catch (Throwable ignore) {
+        }
+    }
+
+    public static boolean isProtected(Location loc) {
+        ProtectedEvent event = new ProtectedEvent(loc);
+        for (Consumer<ProtectedEvent> handler : handlers) {
+            handler.accept(event);
+        }
+        return event.cancelled;
+    }
 }
