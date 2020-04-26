@@ -26,7 +26,7 @@
 ## 下载
 
 你可以在 [GitHub](https://github.com/UntilTheEndDev/UntilTheEndReleases/tree/master/shadow/until-the-end)
-或者 [Gitee](https://gitee.com/Karlatemp-bot/UntilTheEndReleases) 找到我们的全部构建
+或者 [Gitee](https://gitee.com/Karlatemp-bot/UntilTheEndReleases/tree/master/releases) 找到我们的全部构建
 
 
 ## 如何构建
