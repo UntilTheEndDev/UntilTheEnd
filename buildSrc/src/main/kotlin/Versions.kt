@@ -17,7 +17,7 @@ object Versions {
             val pro = project ?: error("Project not set")
             val file = File(pro.projectDir, "UTEversion.txt")
             if (file.isFile) {
-                return file.readText(Charsets.UTF_8)
+                return file.readText(Charsets.UTF_8).trim()
             }
             error("Version info not found!")
         }

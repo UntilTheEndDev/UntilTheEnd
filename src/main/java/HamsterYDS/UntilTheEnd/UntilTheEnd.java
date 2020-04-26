@@ -183,7 +183,7 @@ public class UntilTheEnd extends JavaPlugin implements Listener {
             while ((byteRead = inStream.read()) != -1) {
                 builder.append((char) byteRead);
             }
-            return builder.toString();
+            return builder.toString().trim();
         } catch (Exception exception) {
             INSTANCE.getLogger().log(Level.WARNING, "Failed to get update info.", exception);
         } finally {

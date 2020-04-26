@@ -23,6 +23,12 @@
 
 *不是不想是不能改啊!!!!*
 
+## 下载
+
+你可以在 [GitHub](https://github.com/UntilTheEndDev/UntilTheEndReleases/tree/master/shadow/until-the-end)
+或者 [Gitee](https://gitee.com/Karlatemp-bot/UntilTheEndReleases) 找到我们的全部构建
+
+
 ## 如何构建
 
 使用 `glt clone` 克隆本仓库到你本机上, 然后打开命令行, 键入 `./gradlew :buildAll`
