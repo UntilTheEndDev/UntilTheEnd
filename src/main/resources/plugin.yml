@@ -1,6 +1,6 @@
 name: UntilTheEnd
 main: HamsterYDS.UntilTheEnd.UntilTheEnd
-version: "<It will override in PluginResolver>"
+version: "Development"
 depend: [PlaceholderAPI]
 softdepend:
   - ProtocolLib

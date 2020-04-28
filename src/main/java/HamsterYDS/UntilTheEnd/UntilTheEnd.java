@@ -15,6 +15,7 @@ import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.player.PlayerJoinEvent;
+import org.bukkit.event.player.PlayerLoginEvent;
 import org.bukkit.plugin.java.JavaPlugin;
 import org.bukkit.scheduler.BukkitRunnable;
 
@@ -139,7 +140,21 @@ public class UntilTheEnd extends JavaPlugin implements Listener {
             saveResource(language, false);
     }
 
-    public void checkUpdate() {
+    private void checkUpdate() {
+        if (getDescription().getVersion().equalsIgnoreCase("Development")) {
+            String msg = UTEi18n.cache("prefix") + "§c # WARMING: You are using Development version! This may not be supported in version!";
+            Bukkit.getConsoleSender().sendMessage(msg);
+            Bukkit.getPluginManager().registerEvents(new Listener() {
+                @EventHandler
+                public void onPlayerLogin(PlayerLoginEvent event) {
+                    Player player = event.getPlayer();
+                    if (player.hasPermission("ute.update")) {
+                        player.sendMessage(msg);
+                    }
+                }
+            }, this);
+            return;
+        }
         new BukkitRunnable() {
             public void run() {
                 Bukkit.getConsoleSender().sendMessage(UTEi18n.cacheWithPrefix("logging.update.checking"));

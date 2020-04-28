@@ -15,7 +15,7 @@ object Versions {
     val UTE: String
         get() {
             val pro = project ?: error("Project not set")
-            val file = File(pro.projectDir, "UTEversion.txt")
+            val file = File(pro.projectDir, "dev-version.txt")
             if (file.isFile) {
                 return file.readText(Charsets.UTF_8).trim()
             }
