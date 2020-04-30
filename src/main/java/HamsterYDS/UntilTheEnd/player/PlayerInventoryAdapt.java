@@ -64,7 +64,7 @@ public class PlayerInventoryAdapt extends BukkitRunnable implements Listener {
         if (UntilTheEnd.getInstance().getConfig().getBoolean("player.inventory.enable"))
             for (World world : Config.enableWorlds)
                 for (Player player : world.getPlayers()) {
-                    if (NPCChecker.isNPC(player)||ResidenceChecker.isProtected(player.getLocation())) continue;
+                    if (NPCChecker.isNPC(player) || ResidenceChecker.isProtected(player.getLocation())) continue;
                     if (player.getGameMode() == GameMode.CREATIVE) continue;
                     lockingPlayers.add(player.getName());
                     int extraSize = 0;
@@ -82,7 +82,8 @@ public class PlayerInventoryAdapt extends BukkitRunnable implements Listener {
                             inv.setItem(slots[i], item1);
                     }
                     for (int i = 35 - lockingSlot + extraSize; i > -1; i--) {
-                        if (i < 0) break;
+                        // TODO: 未知原因, 等写这块的 南外丶仓鼠 查看
+                        if (i >= slots.length) continue;
                         ItemStack item = inv.getItem(slots[i]);
                         if (getName(item).equalsIgnoreCase(UTEi18n.cache("item.locked")))
                             inv.setItem(slots[i], new ItemStack(Material.AIR));
