@@ -10,6 +10,7 @@ import HamsterYDS.UntilTheEnd.api.UTEPapiExpansion;
 import HamsterYDS.UntilTheEnd.cap.HudBossBar;
 import HamsterYDS.UntilTheEnd.internal.Metrics;
 import HamsterYDS.UntilTheEnd.internal.UTEi18n;
+import HamsterYDS.UntilTheEnd.nms.ActionBarManager;
 import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
@@ -93,21 +94,21 @@ public class UntilTheEnd extends JavaPlugin implements Listener {
             checkUpdate();
             loadConfig();
             try {
-                new NMSManager();
-            } catch (ExceptionInInitializerError e) {
-
+                ActionBarManager.initialize();
+            } catch (Throwable exception) {
+                getLogger().log(Level.WARNING, "Failed to initialize ActionBar Manager", exception);
             }
-            new Config(this);
-            new World(this);
-            new Temperature(this);
-            new Sanity(this);
-            new Humidity(this);
-            new Tiredness(this);
+            Config.initialize();
+            World.initialize(this);
+            Temperature.initialize(this);
+            Sanity.initialize(this);
+            Humidity.initialize(this);
+            Tiredness.initialize(this);
             new Guide(this);
-            new Crops(this);
-            new ItemManager(this);
-            new HamsterYDS.UntilTheEnd.player.Player(this);
-            new HudProvider(this);
+            Crops.initialize(this);
+            ItemManager.initialize(this);
+            HamsterYDS.UntilTheEnd.player.Player.initialize(this);
+            HudProvider.initialize(this);
             new Food(this);
             new Commands(this);
             new UTEPapiExpansion().register();

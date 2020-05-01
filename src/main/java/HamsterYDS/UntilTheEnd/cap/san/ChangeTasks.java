@@ -23,7 +23,7 @@ import HamsterYDS.UntilTheEnd.event.hud.SanityChangeEvent.ChangeCause;
 import HamsterYDS.UntilTheEnd.player.PlayerManager;
 
 public class ChangeTasks {
-    public UntilTheEnd plugin;
+    public static UntilTheEnd plugin = UntilTheEnd.getInstance();
     public static double auraRangeX = Sanity.yaml.getDouble("auraRangeX");
     public static double auraRangeY = Sanity.yaml.getDouble("auraRangeY");
     public static double auraRangeZ = Sanity.yaml.getDouble("auraRangeZ");
@@ -38,8 +38,7 @@ public class ChangeTasks {
     public static HashMap<String, Integer> clothesChangeSanity = new HashMap<String, Integer>();
     public static HashMap<String, Integer> itemsChangeSanity = new HashMap<String, Integer>();
 
-    public ChangeTasks(UntilTheEnd plugin) {
-        this.plugin = plugin;
+    public static void initialize() {
         new ClothesTasks().runTaskTimer(plugin, 0L, 200L);
         new ItemsTasks().runTaskTimer(plugin, 0L, 200L);
         new SanityAura().runTaskTimer(plugin, 0L, auraPeriod);
@@ -47,7 +46,7 @@ public class ChangeTasks {
         new TimeTask().runTaskTimer(plugin, 0L, timePeriod);
     }
 
-    public class ClothesTasks extends BukkitRunnable {
+    public static class ClothesTasks extends BukkitRunnable {
         @Override
         public void run() {
             for (World world : Config.enableWorlds) {
@@ -94,7 +93,7 @@ public class ChangeTasks {
         }
     }
 
-    public class ItemsTasks extends BukkitRunnable {
+    public static class ItemsTasks extends BukkitRunnable {
         @Override
         public void run() {
             for (World world : Config.enableWorlds) {
@@ -124,7 +123,7 @@ public class ChangeTasks {
         }
     }
 
-    public class SanityAura extends BukkitRunnable {
+    public static class SanityAura extends BukkitRunnable {
         @Override
         public void run() {
             for (World world : Config.enableWorlds)
@@ -154,20 +153,20 @@ public class ChangeTasks {
         }
     }
 
-    public class HumidityTask extends BukkitRunnable {
+    public static class HumidityTask extends BukkitRunnable {
         @Override
         public void run() {
             for (World world : Config.enableWorlds) {
                 for (Player player : world.getPlayers()) {
                     if (NPCChecker.isNPC(player)||ResidenceChecker.isProtected(player.getLocation())) continue;
-                    int hum = (int) PlayerManager.check(player, PlayerManager.CheckType.HUMIDITY);
+                    double hum = PlayerManager.check(player, PlayerManager.CheckType.HUMIDITY);
                     PlayerManager.change(player, PlayerManager.CheckType.SANITY, -hum / 10);
                 }
             }
         }
     }
 
-    public class TimeTask extends BukkitRunnable {
+    public static class TimeTask extends BukkitRunnable {
         public long counter = 0;
 
         @Override

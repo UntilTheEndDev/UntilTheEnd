@@ -14,11 +14,11 @@ import HamsterYDS.UntilTheEnd.UntilTheEnd;
 public class Temperature {
     public static YamlConfiguration yaml;
 
-    public Temperature(UntilTheEnd plugin) {
+    public static void initialize(UntilTheEnd plugin) {
         yaml = Config.autoUpdateConfigs("temperature.yml");
         Bukkit.getConsoleSender().sendMessage(UTEi18n.cacheWithPrefix("cap.tem.provider.loading"));
-        new TemperatureProvider(plugin);
-        new ChangeTasks(plugin);
-        new InfluenceTasks(plugin);
+        TemperatureProvider.initialize(plugin);
+        ChangeTasks.initialize(plugin);
+        InfluenceTasks.initialize(plugin);
     }
 }

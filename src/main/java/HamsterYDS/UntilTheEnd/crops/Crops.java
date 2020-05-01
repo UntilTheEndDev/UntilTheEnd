@@ -14,7 +14,7 @@ import HamsterYDS.UntilTheEnd.UntilTheEnd;
 public class Crops {
     static YamlConfiguration yaml;
 
-    public Crops(UntilTheEnd plugin) {
+    public static void initialize(UntilTheEnd plugin) {
         yaml = Config.autoUpdateConfigs("crops.yml");
         Bukkit.getServer().getConsoleSender().sendMessage(UTEi18n.cacheWithPrefix("cap.crops.provider.loading"));
         CropProvider.loadConfig();

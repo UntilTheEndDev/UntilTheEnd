@@ -22,15 +22,14 @@ import me.libraryaddict.disguise.disguisetypes.DisguiseType;
 import me.libraryaddict.disguise.disguisetypes.MobDisguise;
 
 public class InfluenceTasks {
-    public UntilTheEnd plugin;
+    public  static UntilTheEnd plugin= UntilTheEnd.getInstance();
     public static double disguiseRangeX = Sanity.yaml.getDouble("disguiseRangeX");
     public static double disguiseRangeY = Sanity.yaml.getDouble("disguiseRangeY");
     public static double disguiseRangeZ = Sanity.yaml.getDouble("disguiseRangeZ");
     public static double disguiseSanity = Sanity.yaml.getDouble("disguiseSanity");
     public static double confusionSanity = Sanity.yaml.getDouble("confusionSanity");
 
-    public InfluenceTasks(UntilTheEnd plugin) {
-        this.plugin = plugin;
+    public static void initialize() {
         try {
             new CreatureDisguise().runTaskTimer(plugin, 0L, 1000L);
         } catch (Throwable ignore) {
@@ -38,7 +37,7 @@ public class InfluenceTasks {
         new Confusion().runTaskTimer(plugin, 0L, 80L);
     }
 
-    public class CreatureDisguise extends BukkitRunnable {
+    public static class CreatureDisguise extends BukkitRunnable {
         public ArrayList<UUID> mobs = new ArrayList<UUID>();
 
         @Override
@@ -66,7 +65,7 @@ public class InfluenceTasks {
         }
     }
 
-    public class Confusion extends BukkitRunnable {
+    public static class Confusion extends BukkitRunnable {
         @Override
         public void run() {
             for (World world : Config.enableWorlds)

@@ -15,12 +15,12 @@ import HamsterYDS.UntilTheEnd.UntilTheEnd;
 public class Humidity implements Listener {
     public static YamlConfiguration yaml;
 
-    public Humidity(UntilTheEnd plugin) {
+    public static void initialize(UntilTheEnd plugin) {
         yaml = Config.autoUpdateConfigs("humidity.yml");
         Bukkit.getConsoleSender().sendMessage(UTEi18n.cacheWithPrefix("cap.hum.provider.loading"));
         HumidityProvider.loadConfig();
-        new ChangeTasks(plugin);
-        new InfluenceTasks(plugin);
+        ChangeTasks.initialize(plugin);
+        InfluenceTasks.initialize(plugin);
         new InfluenceEvents(plugin);
     }
 }

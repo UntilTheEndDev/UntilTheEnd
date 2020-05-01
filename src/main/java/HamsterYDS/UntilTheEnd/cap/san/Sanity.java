@@ -14,12 +14,12 @@ import HamsterYDS.UntilTheEnd.UntilTheEnd;
 public class Sanity {
     public static YamlConfiguration yaml;
 
-    public Sanity(UntilTheEnd plugin) {
+    public static void initialize(UntilTheEnd plugin) {
         yaml = Config.autoUpdateConfigs("sanity.yml");
         Bukkit.getConsoleSender().sendMessage(UTEi18n.cacheWithPrefix("cap.san.provider.loading"));
         SanityProvider.loadAura();
-        new ChangeTasks(plugin);
-        new InfluenceTasks(plugin);
+        ChangeTasks.initialize();
+        InfluenceTasks.initialize();
         plugin.getServer().getPluginManager().registerEvents(new InfluenceEvents(), plugin);
     }
 }

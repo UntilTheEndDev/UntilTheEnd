@@ -21,12 +21,11 @@ import HamsterYDS.UntilTheEnd.player.PlayerManager;
 import HamsterYDS.UntilTheEnd.player.PlayerManager.CheckType;
 
 public class ChangeTasks {
-    public UntilTheEnd plugin;
+    public static UntilTheEnd plugin = UntilTheEnd.getInstance();
     public static double defaultWeight = 0.01;
     public static HashMap<Material, Double> weights = new HashMap<>();
 
-    public ChangeTasks(UntilTheEnd plugin) {
-        this.plugin = plugin;
+    public static void initialize() {
         for (String path : Tiredness.yaml.getKeys(true)) {
             if (path.startsWith("change.task.item.")) {
                 if (path.replace("change.task.item.", "").equalsIgnoreCase("default")) {
@@ -42,14 +41,14 @@ public class ChangeTasks {
         new Behaviors().runTaskTimer(plugin, 0L, 40L);
     }
 
-    public class Behaviors extends BukkitRunnable {
+    public static class Behaviors extends BukkitRunnable {
 
         @Override
         public void run() {
             for (World world : Config.enableWorlds)
                 for (Player player : world.getPlayers()) {
-                    if (NPCChecker.isNPC(player)||ResidenceChecker.isProtected(player.getLocation())) continue;
-                    if (player.isSprinting()) 
+                    if (NPCChecker.isNPC(player) || ResidenceChecker.isProtected(player.getLocation())) continue;
+                    if (player.isSprinting())
                         PlayerManager.change(player, CheckType.TIREDNESS, Tiredness.yaml.getDouble("change.task.sprint"));
                     if (player.isInsideVehicle())
                         PlayerManager.change(player, CheckType.TIREDNESS, Tiredness.yaml.getDouble("change.task.sit"));

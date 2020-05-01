@@ -15,12 +15,12 @@ public class World {
     public static File file;
     public static YamlConfiguration yaml;
 
-    public World(UntilTheEnd plugin) {
+    public static void initialize(UntilTheEnd plugin) {
         file = new File(plugin.getDataFolder(), "worlds.yml");
         yaml = YamlConfiguration.loadConfiguration(file);
         WorldProvider.loadWorlds();
         new WorldCounter().runTaskTimer(plugin, 0L, 20L);
-        new InfluenceTasks(plugin);
+        InfluenceTasks.initialize(plugin);
 //		new DarkNight().runTaskTimer(plugin,0L,50L);
     }
 }

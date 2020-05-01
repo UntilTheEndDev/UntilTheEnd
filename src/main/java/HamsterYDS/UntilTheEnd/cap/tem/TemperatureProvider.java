@@ -38,7 +38,7 @@ public class TemperatureProvider {
         double apply(int day, World world);
     }
 
-    public static UntilTheEnd plugin;
+    public static UntilTheEnd plugin = UntilTheEnd.getInstance();
     public static HashMap<World, AtomicDouble> worldTemperatures = new HashMap<>();
     public static HashMap<Material, Integer> blockTemperatures = new HashMap<>();
     public static HashMap<Material, FMBlock> fmBlocks = new HashMap<>();
@@ -89,8 +89,7 @@ public class TemperatureProvider {
         worldTemperatures.compute(world, merger).set(value);
     }
 
-    public TemperatureProvider(UntilTheEnd plugin) {
-        TemperatureProvider.plugin = plugin;
+    public static void initialize(UntilTheEnd plugin) {
         loadWorldTemperatures();
         loadBlockTemperatures();
         loadFMBlocks();

@@ -27,7 +27,7 @@ public class InfluenceTasks {
     public static int seasonHumidity = Humidity.yaml.getInt("seasonHumidity");
     public static int dampHumidity = Humidity.yaml.getInt("dampHumidity");
 
-    public InfluenceTasks(UntilTheEnd plugin) {
+    public static void initialize(UntilTheEnd plugin) {
         new Effect().runTaskTimer(plugin, 0L, 200L);
         new NormalDamp().runTaskTimer(plugin, 0L, dampPeriod);
         new NormalSeason().runTaskTimer(plugin, 0L, seasonPeriod);

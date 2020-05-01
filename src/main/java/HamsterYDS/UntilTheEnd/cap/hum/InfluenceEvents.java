@@ -31,7 +31,7 @@ public class InfluenceEvents implements Listener {
         plugin.getServer().getPluginManager().registerEvents(this, plugin);
     }
 
-    private HashMap<UUID, Integer> wetFoodLevels = new HashMap<>();
+    private final HashMap<UUID, Integer> wetFoodLevels = new HashMap<>();
 
     @EventHandler(priority = EventPriority.MONITOR, ignoreCancelled = true)
     public void onUse(PlayerItemConsumeEvent event) {

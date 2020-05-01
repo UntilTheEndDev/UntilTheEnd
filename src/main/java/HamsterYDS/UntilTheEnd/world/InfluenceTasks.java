@@ -44,7 +44,7 @@ public class InfluenceTasks {
     public static int san_attack = plugin.getConfig().getInt("world.darkness.sanAttack");
     public static int carrotEffect = plugin.getConfig().getInt("world.darkness.carrotEffect");
 
-    public InfluenceTasks(UntilTheEnd plugin) {
+    public static void initialize(UntilTheEnd plugin) {
         Darkness dark = new Darkness();
         dark.runTaskTimer(plugin, 0L, 20L);
         plugin.getServer().getPluginManager().registerEvents(dark, plugin);

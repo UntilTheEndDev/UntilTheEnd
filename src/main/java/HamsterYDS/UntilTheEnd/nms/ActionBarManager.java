@@ -24,16 +24,24 @@ public class ActionBarManager {
     static Method makeChatType;
     static Method getHandle;
 
-    public ActionBarManager() throws NoSuchMethodException, SecurityException {
-        sendPacket = PlayerConnection.getMethod("sendPacket", Packet);
-        getHandle = CraftPlayer.getMethod("getHandle");
-        makeChatComponentText = ChatComponentText.getConstructor(String.class);
-        if (NMSManager.version.equals("v1_12_R1")) {
-            ClassChatMessageType = NMSManager.getClass("ChatMessageType");
-            makeChatType = ClassChatMessageType.getMethod("a", Byte.TYPE);
-            makePacketPlayOutChat = PacketPlayOutChat.getConstructor(IChatBaseComponent, ClassChatMessageType);
-        } else {
-            makePacketPlayOutChat = PacketPlayOutChat.getConstructor(IChatBaseComponent, Byte.class);
+    public static void initialize() {
+        ActionBarManager.class.getClassLoader();
+    }
+
+    static {
+        try {
+            sendPacket = PlayerConnection.getMethod("sendPacket", Packet);
+            getHandle = CraftPlayer.getMethod("getHandle");
+            makeChatComponentText = ChatComponentText.getConstructor(String.class);
+            if (NMSManager.version.equals("v1_12_R1")) {
+                ClassChatMessageType = NMSManager.getClass("ChatMessageType");
+                makeChatType = ClassChatMessageType.getMethod("a", Byte.TYPE);
+                makePacketPlayOutChat = PacketPlayOutChat.getConstructor(IChatBaseComponent, ClassChatMessageType);
+            } else {
+                makePacketPlayOutChat = PacketPlayOutChat.getConstructor(IChatBaseComponent, Byte.class);
+            }
+        } catch (Exception exception) {
+            throw new ExceptionInInitializerError(exception);
         }
     }
 
