@@ -50,7 +50,7 @@ public class Commands implements CommandExecutor, Listener, TabCompleter {
             seasonTab.add(season.name().toLowerCase());
         for (PlayerManager.CheckType type : PlayerManager.CheckType.values())
             capTab.add(type.getShortName());
-        for (Roles role : Roles.values())
+        for (Roles role : Roles.values()) 
             if (role.allow)
                 roleTab.add(role.toString());
         Collections.sort(itemTab);
