@@ -22,7 +22,7 @@ public class Logging extends java.util.logging.Logger {
 
     public static java.util.logging.Logger getLogger() {
         return INSTANCE;
-    }
+    } 
 
     private Logging() {
         super("UntilTheEnd", null);
