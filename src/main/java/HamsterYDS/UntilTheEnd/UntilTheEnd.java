@@ -31,7 +31,6 @@ import HamsterYDS.UntilTheEnd.guide.Guide;
 import HamsterYDS.UntilTheEnd.internal.pdl.PlayerDataLoaderImpl;
 import HamsterYDS.UntilTheEnd.item.BlockManager;
 import HamsterYDS.UntilTheEnd.item.ItemManager;
-import HamsterYDS.UntilTheEnd.nms.NMSManager;
 import HamsterYDS.UntilTheEnd.player.PlayerManager;
 import HamsterYDS.UntilTheEnd.world.World;
 import HamsterYDS.UntilTheEnd.world.WorldProvider;
