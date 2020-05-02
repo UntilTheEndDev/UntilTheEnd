@@ -12,9 +12,8 @@ import HamsterYDS.UntilTheEnd.player.role.tasks.TaskLoader;
  * @version V5.1.1
  */
 public class Player {
-    public static UntilTheEnd plugin;
 
-    public Player(UntilTheEnd plugin) {
+    public static void initialize(UntilTheEnd plugin) {
         new PlayerManager(plugin);
         for (org.bukkit.entity.Player player : Bukkit.getOnlinePlayers())
             PlayerManager.load(player);

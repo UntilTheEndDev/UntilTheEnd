@@ -23,20 +23,19 @@ import HamsterYDS.UntilTheEnd.UntilTheEnd;
 import HamsterYDS.UntilTheEnd.player.PlayerManager;
 
 public class ChangeTasks {
-    public static UntilTheEnd plugin;
+    public static UntilTheEnd plugin = UntilTheEnd.getInstance();
     public static long temperatureChangeSpeedStone = Temperature.yaml.getLong("temperatureChangeSpeedStone");
     public static long temperatureChangeSpeedNatural = Temperature.yaml.getLong("temperatureChangeSpeedNatural");
     public static double stoneChangePercent = Temperature.yaml.getDouble("stoneChangePercent");
     public static long humidityChangeSpeed = Temperature.yaml.getLong("humidityChangeSpeed");
     public static HashMap<String, Double> clothesChangeTemperature = new HashMap<String, Double>();
 
-    public ChangeTasks(UntilTheEnd plugin) {
-        this.plugin = plugin;
+    public static void initialize(UntilTheEnd plugin) {
         new PlayerTask().runTaskTimer(plugin, 0L, 10L);
         new HumidityTask().runTaskTimer(plugin, 0L, humidityChangeSpeed);
     }
 
-    public class HumidityTask extends BukkitRunnable {
+    public static class HumidityTask extends BukkitRunnable {
         @Override
         public void run() {
             for (World world : Config.enableWorlds)

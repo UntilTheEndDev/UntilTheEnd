@@ -28,7 +28,7 @@ public class Config {
         } 
     }
 
-    public Config(UntilTheEnd plugin) {
+    public static void initialize() {
         disables.addAll(plugin.getConfig().getStringList("disableWorlds"));
         Bukkit.getWorlds().forEach(Config::registerWorld);
         Bukkit.getPluginManager().registerEvents(new Listener() {

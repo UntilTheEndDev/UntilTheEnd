@@ -72,7 +72,7 @@ public class ItemManager {
         Logging.getLogger().log(Level.FINER, "[ItemManager] Loading Trace Stack: ", new Throwable("Loading Trace Stack"));
     }
 
-    public ItemManager(UntilTheEnd plugin) {
+    public static void initialize(UntilTheEnd plugin) {
 
         for (String path : itemAttributes.getKeys(false)) {
             ItemStack item = loadItem(path);

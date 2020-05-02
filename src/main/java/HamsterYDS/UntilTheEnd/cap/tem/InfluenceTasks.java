@@ -30,7 +30,7 @@ import HamsterYDS.UntilTheEnd.player.death.DeathCause;
 import HamsterYDS.UntilTheEnd.player.death.DeathMessage;
 
 public class InfluenceTasks {
-    public static UntilTheEnd plugin;
+    public static UntilTheEnd plugin = UntilTheEnd.getInstance();
     public static double smoulderPercent = Temperature.yaml.getLong("smoulderPercent");
     public static long smoulderSpeed = Temperature.yaml.getLong("smoulderSpeed");
     public static int smoulderTimeout = Temperature.yaml.getInt("smoulderTimeout");
@@ -39,8 +39,7 @@ public class InfluenceTasks {
     public static int hotTem = Temperature.yaml.getInt("hotTem");
     public static long fmChangeSpeed = Temperature.yaml.getLong("fmChangeSpeed");
 
-    public InfluenceTasks(UntilTheEnd plugin) {
-        this.plugin = plugin;
+    public static void initialize(UntilTheEnd plugin) {
         if (Temperature.yaml.getBoolean("enable.smoulder")) {
             new Smoulder().runTaskTimer(plugin, 0L, smoulderSpeed);
             plugin.getServer().getPluginManager().registerEvents(new Smoulder(), plugin);
@@ -50,7 +49,7 @@ public class InfluenceTasks {
             new FMChange().runTaskTimer(plugin, 0L, fmChangeSpeed);
     }
 
-    public class Damager extends BukkitRunnable {
+    public static class Damager extends BukkitRunnable {
         @Override
         public void run() {
             for (World world : Config.enableWorlds)
@@ -72,7 +71,7 @@ public class InfluenceTasks {
         }
     }
 
-    public class FMChange extends BukkitRunnable {
+    public static class FMChange extends BukkitRunnable {
         @Override
         public void run() {
             for (World world : Config.enableWorlds)

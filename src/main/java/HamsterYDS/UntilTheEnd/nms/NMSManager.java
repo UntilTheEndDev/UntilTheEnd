@@ -16,11 +16,4 @@ public class NMSManager {
             }
         }
     }
-
-    public NMSManager() {
-        try {
-            new ActionBarManager();
-        } catch (NoSuchMethodException | SecurityException e) {
-        }
-    }
 }
