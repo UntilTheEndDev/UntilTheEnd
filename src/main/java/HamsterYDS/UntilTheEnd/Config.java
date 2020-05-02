@@ -25,7 +25,7 @@ public class Config {
         final String wn = world.getName();
         if (disables.stream().noneMatch(name -> name.equalsIgnoreCase(wn))) {
             enableWorlds.add(world);
-        }
+        } 
     }
 
     public Config(UntilTheEnd plugin) {
