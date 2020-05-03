@@ -14,28 +14,26 @@ import HamsterYDS.UntilTheEnd.item.ItemManager;
  * @version V5.1.1
  */
 public class IceFlingomatic implements Listener {
-	public static int range = ItemManager.itemAttributes.getInt("IceFlingomatic.range");
+    public static int range = ItemManager.itemAttributes.getInt("IceFlingomatic.range");
 
-	public IceFlingomatic() {
-		ItemManager.plugin.getServer().getPluginManager().registerEvents(this, ItemManager.plugin);
-	}
-	@EventHandler
-	public void onBurn(BlockIgniteEvent event) {
-		if (event.isCancelled())
-			return;
-		if (event.getIgnitingBlock() == null)
-			return;
-		if (!Config.enableWorlds.contains(event.getIgnitingBlock().getWorld()))
-			return;
-		for (String str : BlockApi.getSpecialBlocks("IceFlingomatic")) {
-			Location loc = BlockApi.strToLoc(str);
-			Location loc2 = event.getBlock().getLocation();
-			if (loc.distance(loc2) <= range) {
-				loc2.getWorld().spawnParticle(Particle.SNOWBALL, loc2, 5);
-				loc.getWorld().spawnParticle(Particle.SNOWBALL, loc.add(0.5, 1.0, 0.5), 5);
-				event.setCancelled(true);
-				return;
-			}
-		}
-	}
+    public IceFlingomatic() {
+        ItemManager.plugin.getServer().getPluginManager().registerEvents(this, ItemManager.plugin);
+    }
+
+    @EventHandler(ignoreCancelled = true)
+    public void onBurn(BlockIgniteEvent event) {
+        if (event.getIgnitingBlock() == null) return;
+        if (!Config.enableWorlds.contains(event.getIgnitingBlock().getWorld())) return;
+        for (String str : BlockApi.getSpecialBlocks("IceFlingomatic")) {
+            Location loc = BlockApi.strToLoc(str);
+            Location loc2 = event.getBlock().getLocation();
+            assert loc != null;
+            if (loc.distance(loc2) <= range) {
+                loc2.getWorld().spawnParticle(Particle.SNOWBALL, loc2, 5);
+                loc.getWorld().spawnParticle(Particle.SNOWBALL, loc.add(0.5, 1.0, 0.5), 5);
+                event.setCancelled(true);
+                return;
+            }
+        }
+    }
 }
