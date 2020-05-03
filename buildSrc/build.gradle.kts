@@ -4,7 +4,8 @@ plugins {
 
 repositories {
     mavenLocal()
-    maven(url = "https://mirrors.huaweicloud.com/repository/maven")
+    if (System.getenv("is_github")?.toBoolean() != true)
+        maven(url = "https://mirrors.huaweicloud.com/repository/maven")
     // SpigotMC
     maven(url = "https://hub.spigotmc.org/nexus/content/groups/public")
     jcenter()
