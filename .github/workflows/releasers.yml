@@ -22,6 +22,7 @@ jobs:
       - name: Build with Gradle
         run: ./gradlew releases
         env:
+          is_github: true
           github_token: ${{ secrets.push_token }}
           gitee_token: ${{ secrets.gitee_token }}
 

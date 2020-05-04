@@ -20,7 +20,8 @@ repositories {
 //    flatDir {
 //        dir("libs")
 //    }
-    maven(url = "https://mirrors.huaweicloud.com/repository/maven")
+    if (System.getenv("is_github")?.toBoolean() != true)
+        maven(url = "https://mirrors.huaweicloud.com/repository/maven")
     maven(url = "https://repo.codemc.org/repository/maven-public")
     // SpigotMC
     maven(url = "https://hub.spigotmc.org/nexus/content/groups/public")

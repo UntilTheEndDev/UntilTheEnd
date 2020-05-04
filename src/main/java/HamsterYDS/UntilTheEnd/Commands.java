@@ -50,7 +50,7 @@ public class Commands implements CommandExecutor, Listener, TabCompleter {
             seasonTab.add(season.name().toLowerCase());
         for (PlayerManager.CheckType type : PlayerManager.CheckType.values())
             capTab.add(type.getShortName());
-        for (Roles role : Roles.values()) 
+        for (Roles role : Roles.values())
             if (role.allow)
                 roleTab.add(role.toString());
         Collections.sort(itemTab);
@@ -338,16 +338,16 @@ public class Commands implements CommandExecutor, Listener, TabCompleter {
                         pl.updateInventory();
                     }
                     if (ct[1].equalsIgnoreCase("addblueprint")) {
-	                    ItemStack item=ItemManager.items.get("BluePrint").item.clone();
-	                    ItemMeta meta=item.getItemMeta();
-	                    meta.setDisplayName(meta.getDisplayName()+ItemManager.items.get(ct[2]).displayName);
-	                    item.setItemMeta(meta);
-	                    pl.getInventory().addItem(item);
-	                    pl.sendMessage("给予图纸成功");
-	                }
+                        ItemStack item = ItemManager.items.get("BluePrint").item.clone();
+                        ItemMeta meta = item.getItemMeta();
+                        meta.setDisplayName(meta.getDisplayName() + ItemManager.items.get(ct[2]).displayName);
+                        item.setItemMeta(meta);
+                        pl.getInventory().addItem(item);
+                        pl.sendMessage("给予图纸成功");
+                    }
                 }
                 break;
-                
+
             }
         }
         return true;
