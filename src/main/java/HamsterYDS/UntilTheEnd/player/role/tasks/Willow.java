@@ -32,7 +32,7 @@ public class Willow {
                             for (int y = -5; y <= 5; y++)
                                 for (int z = -5; z <= 5; z++) {
                                     Location newLoc = loc.clone().add(x, y, z);
-                                    switch (newLoc.getBlock().getType()) {
+                                    switch (newLoc.getBlock().getType()) { 
                                         case FIRE:
                                             PlayerManager.change(player, CheckType.SANITY, 1);
                                             break;
