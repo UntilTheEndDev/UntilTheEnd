@@ -23,6 +23,7 @@ import HamsterYDS.UntilTheEnd.item.combat.BlowArrow3;
 import HamsterYDS.UntilTheEnd.item.combat.ToothTrap;
 import HamsterYDS.UntilTheEnd.item.combat.WeatherPain;
 import HamsterYDS.UntilTheEnd.item.magic.ChilledAmulet;
+import HamsterYDS.UntilTheEnd.item.magic.DecomposeWand;
 import HamsterYDS.UntilTheEnd.item.magic.FireWand;
 import HamsterYDS.UntilTheEnd.item.magic.IceWand;
 import HamsterYDS.UntilTheEnd.item.magic.LifeGivingAmulet;
@@ -154,6 +155,7 @@ public class ItemManager {
         new LifeGivingAmulet();
         new ChilledAmulet();
         new Teleportage();
+        new DecomposeWand();
 
         new ClothesContainer();
 

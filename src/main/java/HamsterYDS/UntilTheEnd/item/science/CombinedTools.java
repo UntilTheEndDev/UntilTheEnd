@@ -6,7 +6,6 @@ import org.bukkit.block.Block;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
-import org.bukkit.event.block.Action;
 import org.bukkit.event.player.PlayerInteractEvent;
 import org.bukkit.inventory.ItemStack;
 
@@ -30,8 +29,7 @@ public class CombinedTools implements Listener {
         if (item.hasItemMeta())
             if (item.getItemMeta().hasDisplayName())
                 if (item.getItemMeta().getDisplayName().equalsIgnoreCase(ItemManager.items.get("CombinedTools").displayName)) {
-                    if (event.getAction() == Action.PHYSICAL)
-                        item.setType(Material.DIAMOND_SWORD);
+                   
                     if (event.hasBlock()) {
                         Block block = event.getClickedBlock();
                         if (block.getType().toString().contains("GRASS")
@@ -48,7 +46,9 @@ public class CombinedTools implements Listener {
                             return;
                         }
                         item.setType(Material.DIAMOND_PICKAXE);
+                        return;
                     }
+                    item.setType(Material.DIAMOND_SWORD);
                 }
     }
 }

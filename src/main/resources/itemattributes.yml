@@ -348,6 +348,7 @@ Teleportage:
 DecomposeWand: 
   canPlace: false
   isConsume: false
+  maxDist: 100.0  #魔咒最远飞多长
   needLevel: 3
 BuildAmulet: 
   canPlace: false
