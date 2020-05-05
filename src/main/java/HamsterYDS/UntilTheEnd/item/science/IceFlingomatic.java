@@ -19,7 +19,6 @@ public class IceFlingomatic implements Listener {
 	public IceFlingomatic() {
 		ItemManager.plugin.getServer().getPluginManager().registerEvents(this, ItemManager.plugin);
 	}
-
 	@EventHandler
 	public void onBurn(BlockIgniteEvent event) {
 		if (event.isCancelled())
