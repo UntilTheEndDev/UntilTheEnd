@@ -63,6 +63,6 @@ public class WorldCounter extends BukkitRunnable {
         IWorld state = WorldProvider.worldStates.get(world.getName());
         for (Player player : world.getPlayers())
             if (!NPCChecker.isNPC(player))
-                player.sendTitle(UTEi18n.parse("mechanism.world.next-day.main", state.season.name), UTEi18n.parse("mechanism.world.next-day.sub", String.valueOf(state.day)), 10, 70, 20);//TODO-lang
+                player.sendTitle(UTEi18n.parse("mechanism.world.next-day.main", state.season.name), UTEi18n.parse("mechanism.world.next-day.sub", String.valueOf(state.day)), 10, 70, 20);
     }
 }
