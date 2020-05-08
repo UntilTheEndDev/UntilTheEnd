@@ -1,16 +1,24 @@
 package HamsterYDS.UntilTheEnd;
 
-import java.io.File;
-import java.io.InputStream;
-import java.net.HttpURLConnection;
-import java.net.URL;
-import java.util.logging.Level;
-
 import HamsterYDS.UntilTheEnd.api.UTEPapiExpansion;
 import HamsterYDS.UntilTheEnd.cap.HudBossBar;
+import HamsterYDS.UntilTheEnd.cap.HudProvider;
+import HamsterYDS.UntilTheEnd.cap.hum.Humidity;
+import HamsterYDS.UntilTheEnd.cap.san.Sanity;
+import HamsterYDS.UntilTheEnd.cap.tem.Temperature;
+import HamsterYDS.UntilTheEnd.cap.tir.Tiredness;
+import HamsterYDS.UntilTheEnd.crops.Crops;
+import HamsterYDS.UntilTheEnd.food.Food;
+import HamsterYDS.UntilTheEnd.guide.Guide;
 import HamsterYDS.UntilTheEnd.internal.Metrics;
 import HamsterYDS.UntilTheEnd.internal.UTEi18n;
+import HamsterYDS.UntilTheEnd.internal.pdl.PlayerDataLoaderImpl;
+import HamsterYDS.UntilTheEnd.item.BlockManager;
+import HamsterYDS.UntilTheEnd.item.ItemManager;
 import HamsterYDS.UntilTheEnd.nms.ActionBarManager;
+import HamsterYDS.UntilTheEnd.player.PlayerManager;
+import HamsterYDS.UntilTheEnd.world.World;
+import HamsterYDS.UntilTheEnd.world.WorldProvider;
 import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
@@ -20,20 +28,13 @@ import org.bukkit.event.player.PlayerLoginEvent;
 import org.bukkit.plugin.java.JavaPlugin;
 import org.bukkit.scheduler.BukkitRunnable;
 
-import HamsterYDS.UntilTheEnd.cap.HudProvider;
-import HamsterYDS.UntilTheEnd.cap.hum.Humidity;
-import HamsterYDS.UntilTheEnd.cap.san.Sanity;
-import HamsterYDS.UntilTheEnd.cap.tem.Temperature;
-import HamsterYDS.UntilTheEnd.cap.tir.Tiredness;
-import HamsterYDS.UntilTheEnd.crops.Crops;
-import HamsterYDS.UntilTheEnd.food.Food;
-import HamsterYDS.UntilTheEnd.guide.Guide;
-import HamsterYDS.UntilTheEnd.internal.pdl.PlayerDataLoaderImpl;
-import HamsterYDS.UntilTheEnd.item.BlockManager;
-import HamsterYDS.UntilTheEnd.item.ItemManager;
-import HamsterYDS.UntilTheEnd.player.PlayerManager;
-import HamsterYDS.UntilTheEnd.world.World;
-import HamsterYDS.UntilTheEnd.world.WorldProvider;
+import java.io.BufferedReader;
+import java.io.File;
+import java.io.InputStreamReader;
+import java.net.HttpURLConnection;
+import java.net.URL;
+import java.nio.charset.StandardCharsets;
+import java.util.logging.Level;
 
 /**
  * @author 南外丶仓鼠
@@ -192,13 +193,16 @@ public class UntilTheEnd extends JavaPlugin implements Listener {
             URL url = new URL("https://untiltheend.coding.net/p/UntilTheEnd/d/UntilTheEnd/git/raw/master/UTEversion.txt");
             connection = (HttpURLConnection) url.openConnection();
             connection.setConnectTimeout(timeout);
-            InputStream inStream = connection.getInputStream();
-            final StringBuilder builder = new StringBuilder(255);
-            int byteRead;
-            while ((byteRead = inStream.read()) != -1) {
-                builder.append((char) byteRead);
+            final StringBuilder buffer = new StringBuilder(255);
+            try (BufferedReader reader = new BufferedReader(new InputStreamReader(connection.getInputStream(), StandardCharsets.UTF_8))) {
+                char[] buffer0 = new char[255];
+                while (true) {
+                    int length = reader.read(buffer0);
+                    if (length == -1) break;
+                    buffer.append(buffer0, 0, length);
+                }
             }
-            return builder.toString().trim();
+            return buffer.toString().trim();
         } catch (Exception exception) {
             INSTANCE.getLogger().log(Level.WARNING, "Failed to get update info.", exception);
         } finally {
