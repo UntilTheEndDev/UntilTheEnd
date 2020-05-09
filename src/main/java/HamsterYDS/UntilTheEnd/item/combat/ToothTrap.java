@@ -98,8 +98,7 @@ public class ToothTrap implements Listener {
     }
 
     public static void saveBlocks() {
-        File file = new File(ItemManager.plugin.getDataFolder() + "/data/", "traps.yml");
-        file.delete();
+        File file = new File(ItemManager.plugin.getDataFolder() + "/data", "traps.yml");
         YamlConfiguration yaml = YamlConfiguration.loadConfiguration(file);
         for (String loc : touched)
             yaml.set(loc, "");
@@ -111,9 +110,8 @@ public class ToothTrap implements Listener {
     }
 
     public static void loadBlocks() {
-        File file = new File(ItemManager.plugin.getDataFolder() + "/data/", "traps.yml");
+        File file = new File(ItemManager.plugin.getDataFolder() + "/data", "traps.yml");
         YamlConfiguration yaml = YamlConfiguration.loadConfiguration(file);
-        for (String path : yaml.getKeys(false))
-            touched.add(path);
+        touched.addAll(yaml.getKeys(false));
     }
 }

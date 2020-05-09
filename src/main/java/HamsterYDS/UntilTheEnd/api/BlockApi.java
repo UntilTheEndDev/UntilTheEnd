@@ -1,15 +1,17 @@
 package HamsterYDS.UntilTheEnd.api;
 
 import HamsterYDS.UntilTheEnd.item.BlockManager;
+import com.google.common.annotations.Beta;
 import com.google.common.io.ByteArrayDataInput;
 import com.google.common.io.ByteArrayDataOutput;
 import com.google.common.io.ByteStreams;
-import org.bukkit.Bukkit;
 import org.bukkit.Location;
 import org.bukkit.World;
 import org.jetbrains.annotations.NotNull;
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Base64;
+import java.util.HashMap;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -50,27 +52,24 @@ public class BlockApi {
     }
 
     @SuppressWarnings("UnstableApiUsage")
-    private static Location binToLoc(byte[] data) {
+    private static Loc3D binToLoc(byte[] data) {
         final ByteArrayDataInput input = ByteStreams.newDataInput(data);
         String worldName = input.readUTF();
-        World world = Bukkit.getWorld(worldName);
-        if (world == null) {
-            throw new NoSuchElementException("World not found `" + worldName + "`");
-        }
-        return new Location(
-                world,
+        return new Loc3D(
+                worldName,
                 input.readInt(),
                 input.readInt(),
                 input.readInt()
         );
     }
 
-    private static final Pattern loc3d = Pattern.compile(
+    @Beta
+    public static final Pattern loc3d = Pattern.compile(
             // World-X-Y-Z
             "(^.*)?-([0-9]+)-((-|)[0-9]+)-((-|)[0-9]+)$"
     );
 
-    public static Location strToLoc(@NotNull String location) {
+    public static Loc3D strToLoc3d(@NotNull String location) {
         try {
             return strToLoc0(location);
         } catch (Throwable any) {
@@ -79,7 +78,18 @@ public class BlockApi {
         }
     }
 
-    public static Location strToLoc0(@NotNull String location) {
+    public static Location strToLoc(@NotNull String location) {
+        final Loc3D loc3d = strToLoc3d(location);
+        if (loc3d == null) return null;
+        try {
+            return loc3d.toUsableLocation();
+        } catch (Throwable any) {
+            any.addSuppressed(new Exception("Try parsing `" + location + "`"));
+            throw any;
+        }
+    }
+
+    public static Loc3D strToLoc0(@NotNull String location) {
         base64:
         {
             byte[] base64;
@@ -107,8 +117,8 @@ public class BlockApi {
             world = world.substring(0, world.length() - 1);
             x = '-' + x;
         }
-        return new Location(
-                Objects.requireNonNull(Bukkit.getWorld(world), "No world `" + world + "` found."),
+        return new Loc3D(
+                world,
                 Integer.parseInt(x),
                 Integer.parseInt(y),
                 Integer.parseInt(z)
@@ -116,13 +126,16 @@ public class BlockApi {
     }
 
     @SuppressWarnings("UnstableApiUsage")
-    public static String locToStr(Location loc) {
+    public static @NotNull String locToStr(@NotNull Loc3D loc) {
         final ByteArrayDataOutput output = ByteStreams.newDataOutput();
-        World world = loc.getWorld();
-        output.writeUTF(world.getName());
-        output.writeInt(loc.getBlockX());
-        output.writeInt(loc.getBlockY());
-        output.writeInt(loc.getBlockZ());
+        output.writeUTF(loc.world);
+        output.writeInt(loc.x);
+        output.writeInt(loc.y);
+        output.writeInt(loc.z);
         return Base64.getEncoder().encodeToString(output.toByteArray());
+    }
+
+    public static @NotNull String locToStr(@NotNull Location loc) {
+        return locToStr(Loc3D.from(loc));
     }
 }

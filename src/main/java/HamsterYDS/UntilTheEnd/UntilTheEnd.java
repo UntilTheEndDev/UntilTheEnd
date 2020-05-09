@@ -10,6 +10,7 @@ import HamsterYDS.UntilTheEnd.cap.tir.Tiredness;
 import HamsterYDS.UntilTheEnd.crops.Crops;
 import HamsterYDS.UntilTheEnd.food.Food;
 import HamsterYDS.UntilTheEnd.guide.Guide;
+import HamsterYDS.UntilTheEnd.internal.DataConverter;
 import HamsterYDS.UntilTheEnd.internal.Metrics;
 import HamsterYDS.UntilTheEnd.internal.UTEi18n;
 import HamsterYDS.UntilTheEnd.internal.pdl.PlayerDataLoaderImpl;
@@ -27,6 +28,7 @@ import org.bukkit.event.player.PlayerJoinEvent;
 import org.bukkit.event.player.PlayerLoginEvent;
 import org.bukkit.plugin.java.JavaPlugin;
 import org.bukkit.scheduler.BukkitRunnable;
+import org.jetbrains.annotations.NotNull;
 
 import java.io.BufferedReader;
 import java.io.File;
@@ -46,7 +48,7 @@ public class UntilTheEnd extends JavaPlugin implements Listener {
     private static UntilTheEnd INSTANCE;
     public static boolean DEBUG;
 
-    public static UntilTheEnd getInstance() {
+    public static @NotNull UntilTheEnd getInstance() {
         return INSTANCE;
     }
 
@@ -93,6 +95,7 @@ public class UntilTheEnd extends JavaPlugin implements Listener {
             metrics.addCustomChart(new Metrics.SimplePie("chart_id", () -> "My value"));
             checkUpdate();
             loadConfig();
+            DataConverter.run();
             try {
                 ActionBarManager.initialize();
             } catch (Throwable exception) {

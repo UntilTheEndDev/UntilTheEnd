@@ -1,10 +1,9 @@
 package HamsterYDS.UntilTheEnd.api;
 
-import org.bukkit.World;
-
 import HamsterYDS.UntilTheEnd.cap.HudProvider;
 import HamsterYDS.UntilTheEnd.world.WorldProvider;
 import HamsterYDS.UntilTheEnd.world.WorldProvider.Season;
+import org.bukkit.World;
 
 public class WorldApi {
     public static String getSeasonColor(World world) {
@@ -16,14 +15,16 @@ public class WorldApi {
     }
 
     public static Season getSeason(World world) {
-        if (WorldProvider.worldStates.containsKey(world.getName()))
-            return WorldProvider.worldStates.get(world.getName()).season;
+        final WorldProvider.IWorld status = WorldProvider.worldStates.get(world.getName());
+        if (status != null)
+            return status.season;
         return Season.NULL;
     }
 
     public static int getDay(World world) {
-        if (WorldProvider.worldStates.containsKey(world.getName()))
-            return WorldProvider.worldStates.get(world.getName()).day;
+        final WorldProvider.IWorld status = WorldProvider.worldStates.get(world.getName());
+        if (status != null)
+            return status.day;
         return -1;
     }
 }

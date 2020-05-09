@@ -10,6 +10,7 @@ package HamsterYDS.UntilTheEnd;
 
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
+import org.jetbrains.annotations.NotNull;
 
 import java.util.logging.Level;
 import java.util.logging.LogRecord;
@@ -20,9 +21,9 @@ public class Logging extends java.util.logging.Logger {
     private static final Logging INSTANCE = new Logging();
     private static final SimpleFormatter formatter = new SimpleFormatter();
 
-    public static java.util.logging.Logger getLogger() {
+    public static @NotNull java.util.logging.Logger getLogger() {
         return INSTANCE;
-    } 
+    }
 
     private Logging() {
         super("UntilTheEnd", null);

@@ -1,48 +1,83 @@
 package HamsterYDS.UntilTheEnd.world;
 
-import java.io.IOException;
-import java.util.HashMap;
-
 import HamsterYDS.UntilTheEnd.Config;
+import HamsterYDS.UntilTheEnd.Logging;
 import HamsterYDS.UntilTheEnd.UntilTheEnd;
 import HamsterYDS.UntilTheEnd.internal.UTEi18n;
+import org.bukkit.Bukkit;
+import org.bukkit.configuration.ConfigurationSection;
+import org.bukkit.event.EventHandler;
+import org.bukkit.event.Listener;
+import org.bukkit.event.world.WorldLoadEvent;
+
+import java.io.IOException;
+import java.util.HashMap;
+import java.util.logging.Level;
 
 public class WorldProvider {
-    public static HashMap<String, IWorld> worldStates = new HashMap<String, IWorld>();
+    public static HashMap<String, IWorld> worldStates = new HashMap<>();
+
+    private static boolean initialize(org.bukkit.World world) {
+        final ConfigurationSection section = World.yaml.getConfigurationSection(world.getName());
+        if (section != null) {
+            Season season = Season.getSeason(section.getString("season"));
+            int day = section.getInt("day");
+            int loop = section.getInt("loop", season.newLoop());
+            worldStates.put(world.getName(), new IWorld(season, day, loop));
+            return false;
+        }
+        int loop = Season.AUTUMN.newLoop();
+        worldStates.put(world.getName(), new IWorld(Season.AUTUMN, 1, loop));
+        final ConfigurationSection store = World.yaml.createSection(world.getName());
+        store.set("season", Season.AUTUMN.name());
+        store.set("day", 1);
+        store.set("loop", loop);
+        return true;
+    }
 
     public static void loadWorlds() {
+        boolean needUpdate = false;
         for (org.bukkit.World world : Config.enableWorlds) {
             String worldName = world.getName();
+            needUpdate |= initialize(world);
             if (!World.yaml.getKeys(false).contains(worldName)) {
                 worldStates.put(worldName, new IWorld(Season.AUTUMN, 1, Season.AUTUMN.newLoop()));
                 World.yaml.set(worldName + ".season", Season.AUTUMN.name);
                 World.yaml.set(worldName + ".day", 1);
-                try {
-                    World.yaml.save(World.file);
-                } catch (IOException e) {
-                    e.printStackTrace();
-                }
-            } else {
-                Season season = Season.getSeason(World.yaml.getString(worldName + ".season"));
-                int day = World.yaml.getInt(worldName + ".day");
-                int loop = World.yaml.getInt(worldName + ".loop", season.newLoop());
-                worldStates.put(worldName, new IWorld(season, day, loop));
             }
         }
+        if (needUpdate) storeData();
+    }
+
+    private static void storeData() {
+        try {
+            World.yaml.save(World.file);
+        } catch (IOException e) {
+            Logging.getLogger().log(Level.SEVERE, "Failed to update world data", e);
+        }
+    }
+
+    public static void registerListener() {
+        Bukkit.getPluginManager().registerEvents(new Listener() {
+            @EventHandler()
+            public void on(WorldLoadEvent event) {
+                if (initialize(event.getWorld()))
+                    storeData();
+            }
+        }, UntilTheEnd.getInstance());
     }
 
     public static void saveWorlds() {
         for (org.bukkit.World world : Config.enableWorlds) {
             IWorld state = worldStates.get(world.getName());
+            if (state == null) { // Hum????????
+                continue;
+            }
             World.yaml.set(world.getName() + ".season", state.season.name());
             World.yaml.set(world.getName() + ".day", state.day);
             World.yaml.set(world.getName() + ".loop", state.loop);
-            try {
-                World.yaml.save(World.file);
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
         }
+        storeData();
     }
 
     public enum Season {
