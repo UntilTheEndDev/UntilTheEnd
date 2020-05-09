@@ -66,7 +66,7 @@ public class BlockApi {
     @Beta
     public static final Pattern loc3d = Pattern.compile(
             // World-X-Y-Z
-            "(^.*)?-([0-9]+)-((-|)[0-9]+)-((-|)[0-9]+)$"
+            "(^.*)?((-|)[0-9]+)-((-|)[0-9]+)-((-|)[0-9]+)$"
     );
 
     public static Loc3D strToLoc3d(@NotNull String location) {
@@ -104,18 +104,36 @@ public class BlockApi {
         if (!matcher.find()) {
             return null;
         }
+        // region Legacy
+
+        // region 正则匹配信息
         // 1: World
         // 2: X
-        // 3: Y
-        // 5: Z
+        // 4: Y
+        // 6: Z
+        // endregion
         String world = matcher.group(1);
         String x = matcher.group(2);
-        String y = matcher.group(3);
-        String z = matcher.group(5);
+        String y = matcher.group(4);
+        String z = matcher.group(6);
         if (world.isEmpty()) throw new ArrayIndexOutOfBoundsException("Empty world name");
-        if (world.charAt(world.length() - 1) == '-') {
-            world = world.substring(0, world.length() - 1);
-            x = '-' + x;
+        if (x.charAt(0) != '-') { // 应该永远都是 true?
+            int cut = world.length();
+            while (cut > 1) {
+                int pre = cut - 1;
+                char prev = world.charAt(pre);
+                if (prev == '-') {
+                    cut = pre;
+                    break;
+                } else {
+                    if (prev >= '0' && prev <= '9') {
+                        cut = pre;
+                    } else break;
+                }
+            }
+            String fullWorld = world;
+            world = fullWorld.substring(0, cut);
+            x = fullWorld.substring(cut) + x;
         }
         return new Loc3D(
                 world,
@@ -123,6 +141,7 @@ public class BlockApi {
                 Integer.parseInt(y),
                 Integer.parseInt(z)
         );
+        // endregion
     }
 
     @SuppressWarnings("UnstableApiUsage")
