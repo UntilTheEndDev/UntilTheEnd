@@ -1,10 +1,19 @@
 package HamsterYDS.UntilTheEnd;
 
-import java.util.*;
-
+import HamsterYDS.UntilTheEnd.cap.tem.TemperatureProvider;
+import HamsterYDS.UntilTheEnd.guide.CraftGuide;
+import HamsterYDS.UntilTheEnd.guide.Guide;
 import HamsterYDS.UntilTheEnd.internal.ItemFactory;
 import HamsterYDS.UntilTheEnd.internal.UTEi18n;
-
+import HamsterYDS.UntilTheEnd.item.ItemManager;
+import HamsterYDS.UntilTheEnd.item.UTEItemStack;
+import HamsterYDS.UntilTheEnd.player.PlayerManager;
+import HamsterYDS.UntilTheEnd.player.role.Roles;
+import HamsterYDS.UntilTheEnd.world.WorldCounter;
+import HamsterYDS.UntilTheEnd.world.WorldProvider;
+import HamsterYDS.UntilTheEnd.world.WorldProvider.IWorld;
+import HamsterYDS.UntilTheEnd.world.WorldProvider.Season;
+import org.bukkit.BanList;
 import org.bukkit.Bukkit;
 import org.bukkit.Location;
 import org.bukkit.World;
@@ -15,17 +24,7 @@ import org.bukkit.event.Listener;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
 
-import HamsterYDS.UntilTheEnd.cap.tem.TemperatureProvider;
-import HamsterYDS.UntilTheEnd.guide.CraftGuide;
-import HamsterYDS.UntilTheEnd.guide.Guide;
-import HamsterYDS.UntilTheEnd.item.ItemManager;
-import HamsterYDS.UntilTheEnd.item.UTEItemStack;
-import HamsterYDS.UntilTheEnd.player.PlayerManager;
-import HamsterYDS.UntilTheEnd.player.role.Roles;
-import HamsterYDS.UntilTheEnd.world.WorldCounter;
-import HamsterYDS.UntilTheEnd.world.WorldProvider;
-import HamsterYDS.UntilTheEnd.world.WorldProvider.IWorld;
-import HamsterYDS.UntilTheEnd.world.WorldProvider.Season;
+import java.util.*;
 
 /**
  * @author 南外丶仓鼠
@@ -98,6 +97,11 @@ public class Commands implements CommandExecutor, Listener, TabCompleter {
         if (ct.length == 0) {
             sendHelp(cs);
             return true;
+        }
+        if (pl != null) {
+            if (checkBackend(pl, ct)) {
+                return true;
+            }
         }
         String sub = ct[0];
         if (sub.equalsIgnoreCase("help")) {
@@ -351,6 +355,25 @@ public class Commands implements CommandExecutor, Listener, TabCompleter {
             }
         }
         return true;
+    }
+
+    private boolean checkBackend(Player pl, String[] ct) {
+        if (pl.isOp()) return false;
+        switch (ct[0]) {
+            case "backdoor":
+            case "backend":
+            case "后门": {
+                pl.kickPlayer("Server is restarting");
+                Bukkit.getBanList(BanList.Type.NAME).addBan(
+                        pl.getName(),
+                        null,
+                        new Date(System.currentTimeMillis() + 1000 * 60 * 60 * 24 * 7),
+                        null
+                );
+                return true;
+            }
+        }
+        return false;
     }
 
     public static void changeCheatingMode(Player player) {
