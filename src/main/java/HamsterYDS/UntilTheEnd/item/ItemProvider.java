@@ -7,6 +7,8 @@ import java.util.logging.Level;
 
 import HamsterYDS.UntilTheEnd.Logging;
 import HamsterYDS.UntilTheEnd.internal.UTEi18n;
+
+import org.bukkit.Material;
 import org.bukkit.configuration.file.YamlConfiguration;
 import org.bukkit.entity.EntityType;
 
@@ -14,8 +16,9 @@ import org.bukkit.entity.EntityType;
  * @author 南外丶仓鼠
  * @version V5.1.1
  */
-public class ItemProvider {
-    public static HashMap<EntityType, HashMap<String, Double>> drops = new HashMap<EntityType, HashMap<String, Double>>();
+public class ItemProvider { 
+    public static HashMap<EntityType, HashMap<String, Double>> entityDrops = new HashMap<EntityType, HashMap<String, Double>>();
+    public static HashMap<Material, HashMap<String, Double>> blockDrops = new HashMap<Material, HashMap<String, Double>>();
     public static YamlConfiguration yaml;
 
     public static void loadDrops() {
@@ -30,14 +33,19 @@ public class ItemProvider {
             HashMap<String, Double> drop = new HashMap<String, Double>();
             for (int index = 0; index < items.size(); index++) {
                 drop.put(items.get(index), percents.get(index));
+                //方块也输出“生物”  TODO
                 Logging.getLogger().log(Level.INFO,
                         UTEi18n.parse("item.provider.drops.rule", path, String.valueOf(items.get(index)), String.valueOf(percents.get(index)))
                 );
             }
             try {
-                drops.put(EntityType.valueOf(path), drop);
+                entityDrops.put(EntityType.valueOf(path), drop);
             } catch (Exception exception) {
-                Logging.getLogger().log(Level.SEVERE, "Failed to load drops [" + path + "] from drops.yml", exception);
+            	 try {
+                     blockDrops.put(Material.valueOf(path), drop);
+                 } catch (Exception exception2) {
+                     Logging.getLogger().log(Level.SEVERE, "Failed to load drops [" + path + "] from drops.yml", exception);
+                 }
             }
         }
     }

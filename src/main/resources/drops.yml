@@ -55,23 +55,20 @@ WITHER_SKELETON:
   - Gear
   percents: 
   - 0.2
-VILLAGER: 
-  dropitems:
-  - GreenGum
-  percents:
-  - 0.2
-MAGMA_CUBE: 
-  dropitems:
-  - RedGum
-  percents:
-  - 0.02
-ELDER_GUARDIAN: 
-  dropitems:
-  - BlueGum
-  percents:
-  - 1.5
 WITHER: 
   dropitems:
   - AnimateWood
   percents:
   - 5
+  
+STONE:
+  dropitems:
+  - RedGum
+  - BlueGum
+  - GreenGum
+  - Nitre
+  percents: 
+  - 0.005
+  - 0.005
+  - 0.002
+  - 0.07

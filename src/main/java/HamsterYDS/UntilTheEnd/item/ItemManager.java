@@ -34,6 +34,7 @@ import HamsterYDS.UntilTheEnd.item.materials.Hail;
 import HamsterYDS.UntilTheEnd.item.materials.NightMare;
 import HamsterYDS.UntilTheEnd.item.other.ClothesContainer;
 import HamsterYDS.UntilTheEnd.item.science.BluePrint;
+import HamsterYDS.UntilTheEnd.item.science.ColdFire;
 import HamsterYDS.UntilTheEnd.item.science.CombinedTools;
 import HamsterYDS.UntilTheEnd.item.science.Hygrometer;
 import HamsterYDS.UntilTheEnd.item.science.IceFlingomatic;
@@ -148,6 +149,7 @@ public class ItemManager {
         new Refridgerator();
         new CombinedTools();
         new BluePrint();
+        new ColdFire();
 
         new FireWand();
         new IceWand();

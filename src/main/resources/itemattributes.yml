@@ -298,8 +298,8 @@ CombinedTools:
   isConsume: false
   needLevel: 2
 ColdFire:
-  canPlace: true
-  isConsume: false
+  canPlace: false
+  isConsume: true
   needLevel: 2
 BluePrint:
   canPlace: false

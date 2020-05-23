@@ -23,6 +23,7 @@ import org.bukkit.block.Block;
 
 import HamsterYDS.UntilTheEnd.Config;
 import HamsterYDS.UntilTheEnd.UntilTheEnd;
+import HamsterYDS.UntilTheEnd.api.BlockApi;
 import HamsterYDS.UntilTheEnd.api.WorldApi;
 import HamsterYDS.UntilTheEnd.world.WorldProvider.Season;
 import org.bukkit.configuration.file.YamlConfiguration;
@@ -42,6 +43,7 @@ public class TemperatureProvider {
     public static HashMap<World, AtomicDouble> worldTemperatures = new HashMap<>();
     public static HashMap<Material, Integer> blockTemperatures = new HashMap<>();
     public static HashMap<Material, FMBlock> fmBlocks = new HashMap<>();
+    public static HashMap<String, Integer> uteBlockTemperatures = new HashMap<>();
     private static final BiFunction<World, AtomicDouble, AtomicDouble> merger = (w, v) -> v == null ? new AtomicDouble() : v;
     private static final Map<Season, TemperatureAllocator> rules = new HashMap<>();
 
@@ -188,8 +190,10 @@ public class TemperatureProvider {
                     Block b = l.getBlock();
                     if (b == null) continue;
                     Material mt = ItemFactory.getType(b);
-                    final Integer tmp = blockTemperatures.get(mt);
-
+                    Integer tmp = blockTemperatures.get(mt);
+                    if(uteBlockTemperatures.containsKey(BlockApi.getSpecialBlock(l))){
+                    	tmp=uteBlockTemperatures.get(BlockApi.getSpecialBlock(l));
+                    }
                     if (tmp != null) {
                         double scale = l.distance(loc);
                         double val = tmp - season;
@@ -202,6 +206,7 @@ public class TemperatureProvider {
                         }
                         edited = true;
                     }
+                   
                 }
             }
         }
