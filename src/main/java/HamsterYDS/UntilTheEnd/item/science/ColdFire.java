@@ -46,14 +46,16 @@ public class ColdFire implements Listener {
 
 	@EventHandler
 	public void onRight(PlayerInteractEvent event) {
-		if (event.hasItem()) {
-			ItemStack item = event.getItem();
-			if (ItemManager.getUTEItemId(item).equalsIgnoreCase("ColdFire")) {
-				BlockFace face = event.getBlockFace();
-				Location loc = new Location(event.getClickedBlock().getWorld(), face.getModX(), face.getModY(),
-						face.getModZ());
-				if (loc.getBlock().getType() == Material.AIR) {
-					loc.getBlock().setType(Material.FIRE);
+		if(event.hasBlock()) {
+			if (event.hasItem()) {
+				ItemStack item = event.getItem();
+				if (ItemManager.getUTEItemId(item).equalsIgnoreCase("ColdFire")) {
+					BlockFace face = event.getBlockFace();
+					Location loc = new Location(event.getClickedBlock().getWorld(), face.getModX(), face.getModY(),
+							face.getModZ());
+					if (loc.getBlock().getType() == Material.AIR) {
+						loc.getBlock().setType(Material.FIRE);
+					}
 				}
 			}
 		}

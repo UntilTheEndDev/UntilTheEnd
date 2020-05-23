@@ -90,27 +90,32 @@ public class ItemListener implements Listener {
 		Material material = block.getType();
 		if (ItemProvider.blockDrops.containsKey(material)) {
 			HashMap<String, Double> drop = ItemProvider.blockDrops.get(material);
-			dropItem(drop, block.getLocation());
+			if (dropItem(drop, block.getLocation()))
+				event.setDropItems(false);
 		}
 	}
 
-	public static void dropItem(HashMap<String, Double> drop, Location loc) {
+	public static boolean dropItem(HashMap<String, Double> drop, Location loc) {
 		World world = loc.getWorld();
+		boolean droped = false;
 		for (String id : drop.keySet()) {
 			ItemStack stack;
 			if (ItemManager.items.containsKey(id))
 				stack = ItemManager.items.get(id).item;
 			else
 				stack = new ItemStack(Material.valueOf(id));
-
 			double percent = drop.get(id);
 			while (percent >= 1.0) {
+				droped = true;
 				world.dropItemNaturally(loc, stack);
 				percent--;
 			}
-			if (Math.random() <= percent)
+			if (Math.random() <= percent) {
+				droped = true;
 				world.dropItemNaturally(loc, stack);
+			}
 		}
+		return droped;
 	}
 
 	@EventHandler()
