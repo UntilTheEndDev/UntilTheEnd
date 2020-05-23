@@ -1,16 +1,15 @@
 package HamsterYDS.UntilTheEnd.player;
 
-import java.io.File;
-import java.io.IOException;
-import java.util.*;
-import java.util.function.*;
-import java.util.logging.Level;
-
 import HamsterYDS.UntilTheEnd.Config;
 import HamsterYDS.UntilTheEnd.Logging;
+import HamsterYDS.UntilTheEnd.UntilTheEnd;
+import HamsterYDS.UntilTheEnd.cap.HudProvider;
 import HamsterYDS.UntilTheEnd.internal.DisableManager;
 import HamsterYDS.UntilTheEnd.internal.NPCChecker;
 import HamsterYDS.UntilTheEnd.internal.UTEi18n;
+import HamsterYDS.UntilTheEnd.internal.pdl.PlayerDataLoaderImpl;
+import HamsterYDS.UntilTheEnd.player.role.IRole;
+import HamsterYDS.UntilTheEnd.player.role.Roles;
 import org.bukkit.Bukkit;
 import org.bukkit.GameMode;
 import org.bukkit.OfflinePlayer;
@@ -22,11 +21,11 @@ import org.bukkit.event.player.PlayerJoinEvent;
 import org.bukkit.event.player.PlayerQuitEvent;
 import org.bukkit.scheduler.BukkitRunnable;
 
-import HamsterYDS.UntilTheEnd.UntilTheEnd;
-import HamsterYDS.UntilTheEnd.cap.HudProvider;
-import HamsterYDS.UntilTheEnd.internal.pdl.PlayerDataLoaderImpl;
-import HamsterYDS.UntilTheEnd.player.role.IRole;
-import HamsterYDS.UntilTheEnd.player.role.Roles;
+import java.io.File;
+import java.io.IOException;
+import java.util.*;
+import java.util.function.*;
+import java.util.logging.Level;
 
 /**
  * @author 南外丶仓鼠
@@ -36,11 +35,11 @@ public class PlayerManager implements Listener {
     public static UntilTheEnd plugin = UntilTheEnd.getInstance();
     private static HashMap<UUID, IPlayer> players = new HashMap<UUID, IPlayer>() {
         /**
-		 * 
-		 */
-		private static final long serialVersionUID = 1L;
+         *
+         */
+        private static final long serialVersionUID = 1L;
 
-		@Override
+        @Override
         public IPlayer remove(Object key) {
             if (UntilTheEnd.DEBUG)
                 Logging.getLogger().log(Level.FINER, null, new Throwable("Player Data Removing! " + key));
@@ -72,11 +71,11 @@ public class PlayerManager implements Listener {
 
     public static Collection<UUID> playerChangedRole = new HashSet<UUID>() {
         /**
-		 * 
-		 */
-		private static final long serialVersionUID = 1L;
+         *
+         */
+        private static final long serialVersionUID = 1L;
 
-		@Override
+        @Override
         public boolean add(UUID uuid) {
             if (UntilTheEnd.DEBUG)
                 Logging.getLogger().log(Level.FINE, "[PM] [PCR] Add " + uuid, new Throwable("Stack Trace"));
@@ -496,8 +495,10 @@ public class PlayerManager implements Listener {
     private static class SavingTask extends BukkitRunnable {
         @Override
         public void run() {
-            for (Player player : Bukkit.getOnlinePlayers())
+            for (Player player : Bukkit.getOnlinePlayers()) {
+                if (NPCChecker.isNPC(player)) continue;
                 save(player);
+            }
         }
 
         public SavingTask() {
