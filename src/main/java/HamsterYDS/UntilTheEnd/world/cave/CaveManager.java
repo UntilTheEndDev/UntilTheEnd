@@ -54,9 +54,12 @@ public class CaveManager implements Listener {
 						else
 							world.generateTree(chunk.getBlock(x, y+1, z).getLocation(),TreeType.BROWN_MUSHROOM);
 						for(int k=y;k<=y*10;k++) {
-							if(chunk.getBlock(x, k, z).getType().toString().contains("HUGE_MUSHROOM_")
+							if(chunk.getBlock(x, k, z).getType().toString().contains("HUGE_MUSHROOM_1")
 									&& chunk.getBlock(x, k+1, z).getType() == Material.AIR)
 								chunk.getBlock(x, k+1, z).setType(Material.GLOWSTONE); 
+							if(chunk.getBlock(x, k, z).getType().toString().contains("HUGE_MUSHROOM_1")
+									&& chunk.getBlock(x, k+1, z).getType() == Material.AIR)
+								chunk.getBlock(x, k+1, z).setType(Material.SEA_LANTERN); 
 							//LIGHT API TODO
 						}
 						break;
@@ -102,43 +105,43 @@ public class CaveManager implements Listener {
 
 		private Material getOre() {
 			double ran = Math.random();
-			if (ran <= 0.001)
+			if (ran <= 0.0005)
 				return Material.EMERALD_ORE;
 			ran = Math.random();
-			if (ran <= 0.0015)
+			if (ran <= 0.0007)
 				return Material.DIAMOND_ORE;
 			ran = Math.random();
-			if (ran <= 0.003)
+			if (ran <= 0.001)
 				return Material.GOLD_ORE;
 			ran = Math.random();
-			if (ran <= 0.007)
+			if (ran <= 0.003)
 				return Material.IRON_ORE;
 			ran = Math.random();
-			if (ran <= 0.008)
+			if (ran <= 0.003)
 				return Material.LAPIS_ORE;
 			ran = Math.random();
-			if (ran <= 0.01)
+			if (ran <= 0.005)
 				return Material.QUARTZ_ORE;
 			ran = Math.random();
-			if (ran <= 0.01)
+			if (ran <= 0.005)
 				return Material.GLOWSTONE;
 			ran = Math.random();
-			if (ran <= 0.013)
+			if (ran <= 0.003)
 				return Material.REDSTONE_ORE;
 			ran = Math.random();
-			if (ran <= 0.015)
+			if (ran <= 0.007)
 				return Material.COAL_ORE;
 			ran = Math.random();
-			if (ran <= 0.025)
+			if (ran <= 0.01)
 				return Material.COBBLESTONE;
 			ran = Math.random();
-			if (ran <= 0.03)
+			if (ran <= 0.01)
 				return Material.MOSSY_COBBLESTONE;
 			ran = Math.random();
-			if (ran <= 0.05)
+			if (ran <= 0.03)
 				return Material.DIRT;
 			ran = Math.random();
-			if (ran <= 0.06)
+			if (ran <= 0.04)
 				return Material.GRAVEL;
 			return Material.STONE;
 		}
