@@ -8,6 +8,8 @@
 
 package HamsterYDS.UntilTheEnd.internal;
 
+import HamsterYDS.UntilTheEnd.nms.NMSHelper;
+import com.infumia.fakeplayer.api.INPC;
 import net.citizensnpcs.api.npc.NPC;
 import net.citizensnpcs.npc.ai.NPCHolder;
 import org.bukkit.entity.Entity;
@@ -36,11 +38,23 @@ public class NPCChecker {
 
     static {
         try {
+            // For Citizens
             Class.forName("net.citizensnpcs.npc.ai.NPCHolder");
             register(new Predicate<Entity>() {
                 @Override
                 public boolean test(Entity entity) {
                     return entity instanceof NPC || entity instanceof NPCHolder;
+                }
+            });
+        } catch (Throwable ignore) {
+        }
+        try {
+            // For FakePlayer (73139)
+            Class.forName("com.infumia.fakeplayer.api.INPC");
+            register(new Predicate<Entity>() {
+                @Override
+                public boolean test(Entity entity) {
+                    return NMSHelper.getHandle(entity) instanceof INPC;
                 }
             });
         } catch (Throwable ignore) {

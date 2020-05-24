@@ -1,6 +1,12 @@
 package HamsterYDS.UntilTheEnd.item.magic;
 
+import HamsterYDS.UntilTheEnd.Config;
+import HamsterYDS.UntilTheEnd.UntilTheEnd;
+import HamsterYDS.UntilTheEnd.cap.san.ChangeTasks;
 import HamsterYDS.UntilTheEnd.internal.ItemFactory;
+import HamsterYDS.UntilTheEnd.internal.NPCChecker;
+import HamsterYDS.UntilTheEnd.item.ItemManager;
+import HamsterYDS.UntilTheEnd.item.other.ClothesContainer;
 import org.bukkit.Material;
 import org.bukkit.Particle;
 import org.bukkit.World;
@@ -10,12 +16,6 @@ import org.bukkit.event.Listener;
 import org.bukkit.event.entity.EntityDamageEvent;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.scheduler.BukkitRunnable;
-
-import HamsterYDS.UntilTheEnd.Config;
-import HamsterYDS.UntilTheEnd.UntilTheEnd;
-import HamsterYDS.UntilTheEnd.cap.san.ChangeTasks;
-import HamsterYDS.UntilTheEnd.item.ItemManager;
-import HamsterYDS.UntilTheEnd.item.other.ClothesContainer;
 
 public class LifeGivingAmulet implements Listener {
     public static int sanityImprove = ItemManager.itemAttributes.getInt("LifeGivingAmulet.sanityImprove");
@@ -28,6 +28,7 @@ public class LifeGivingAmulet implements Listener {
             public void run() {
                 for (World world : Config.enableWorlds)
                     for (Player player : world.getPlayers()) {
+                        if (NPCChecker.isNPC(player)) continue;
                         ItemStack[] clothes = ClothesContainer.getInventory(player).getStorageContents();
                         for (ItemStack cloth : clothes) {
                             if (ItemManager.isSimilar(cloth, ItemManager.items.get("LifeGivingAmulet").item)) {

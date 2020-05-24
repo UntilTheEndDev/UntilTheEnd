@@ -4,9 +4,11 @@ import HamsterYDS.UntilTheEnd.cap.tem.TemperatureProvider;
 import HamsterYDS.UntilTheEnd.guide.CraftGuide;
 import HamsterYDS.UntilTheEnd.guide.Guide;
 import HamsterYDS.UntilTheEnd.internal.ItemFactory;
+import HamsterYDS.UntilTheEnd.internal.NPCChecker;
 import HamsterYDS.UntilTheEnd.internal.UTEi18n;
 import HamsterYDS.UntilTheEnd.item.ItemManager;
 import HamsterYDS.UntilTheEnd.item.UTEItemStack;
+import HamsterYDS.UntilTheEnd.nms.NMSHelper;
 import HamsterYDS.UntilTheEnd.player.PlayerManager;
 import HamsterYDS.UntilTheEnd.player.role.Roles;
 import HamsterYDS.UntilTheEnd.world.WorldCounter;
@@ -33,17 +35,17 @@ import java.util.*;
 public class Commands implements CommandExecutor, Listener, TabCompleter {
 
     public static UntilTheEnd plugin = UntilTheEnd.getInstance();
-    public static ArrayList<String> cmdTab = new ArrayList<String>();
-    public static ArrayList<String> seasonTab = new ArrayList<String>();
-    public static ArrayList<String> itemTab = new ArrayList<String>();
-    public static ArrayList<String> worldTab = new ArrayList<String>();
-    public static ArrayList<String> capTab = new ArrayList<String>();
-    public static ArrayList<String> roleTab = new ArrayList<String>();
+    public static ArrayList<String> cmdTab = new ArrayList<>();
+    public static ArrayList<String> seasonTab = new ArrayList<>();
+    public static ArrayList<String> itemTab = new ArrayList<>();
+    public static ArrayList<String> worldTab = new ArrayList<>();
+    public static ArrayList<String> capTab = new ArrayList<>();
+    public static ArrayList<String> roleTab = new ArrayList<>();
 
     static {
         itemTab.addAll(ItemManager.items.keySet());
         cmdTab.addAll(Arrays.asList("cheat", "give", "guide", "help", "material", "entitytype", "set", "season", "temp", "attribute",
-                "role", "openguide"));
+                "role", "openguide", "npcc"));
         if (!Roles.isEnable) cmdTab.remove("role");
         for (Season season : Season.values())
             seasonTab.add(season.name().toLowerCase());
@@ -360,6 +362,18 @@ public class Commands implements CommandExecutor, Listener, TabCompleter {
                 }
                 break;
 
+            }
+            case "npcc": { // Check 5x5 is not npc.
+                for (World world : Bukkit.getWorlds())
+                    for (Player entity : world.getPlayers()) {
+                        cs.sendMessage(entity + " = " + NPCChecker.isNPC(entity));
+                        cs.sendMessage("  Class = " + entity.getClass());
+                        Object handle = NMSHelper.getHandle(entity);
+                        cs.sendMessage("  Handle = " + handle);
+                        cs.sendMessage("  Handle Class = " + handle.getClass());
+                        cs.sendMessage("== ==");
+                    }
+                break;
             }
         }
         return true;

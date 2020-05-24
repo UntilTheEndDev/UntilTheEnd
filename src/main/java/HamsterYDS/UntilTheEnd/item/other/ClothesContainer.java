@@ -1,15 +1,10 @@
 package HamsterYDS.UntilTheEnd.item.other;
 
-import java.io.File;
-import java.io.IOException;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.UUID;
-import java.util.logging.Level;
-
 import HamsterYDS.UntilTheEnd.Config;
 import HamsterYDS.UntilTheEnd.Logging;
+import HamsterYDS.UntilTheEnd.internal.EventHelper;
 import HamsterYDS.UntilTheEnd.internal.ItemFactory;
+import HamsterYDS.UntilTheEnd.item.ItemManager;
 import org.bukkit.Bukkit;
 import org.bukkit.Material;
 import org.bukkit.configuration.file.YamlConfiguration;
@@ -27,8 +22,12 @@ import org.bukkit.event.player.PlayerQuitEvent;
 import org.bukkit.inventory.Inventory;
 import org.bukkit.inventory.ItemStack;
 
-import HamsterYDS.UntilTheEnd.internal.EventHelper;
-import HamsterYDS.UntilTheEnd.item.ItemManager;
+import java.io.File;
+import java.io.IOException;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.UUID;
+import java.util.logging.Level;
 
 public class ClothesContainer implements Listener {
     public static HashMap<UUID, Inventory> invs = new HashMap<UUID, Inventory>();
