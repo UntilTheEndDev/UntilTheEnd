@@ -19,8 +19,8 @@ import org.bukkit.generator.ChunkGenerator;
 import HamsterYDS.UntilTheEnd.UntilTheEnd;
 
 public class CaveManager implements Listener {
-	static World cave;
-
+	public static World cave;
+ 
 	public CaveManager() {
 		Bukkit.getPluginManager().registerEvents(this, UntilTheEnd.getInstance());
 		Bukkit.getPluginManager().registerEvents(new CaveListener(), UntilTheEnd.getInstance());
