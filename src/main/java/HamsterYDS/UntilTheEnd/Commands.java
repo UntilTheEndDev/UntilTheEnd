@@ -121,6 +121,14 @@ public class Commands implements CommandExecutor, Listener, TabCompleter {
                 }
                 break;
             }
+            case "gotocave": {
+                if (pl == null) {
+                    notPlayer(cs);
+                } else {
+                    pl.teleport(new Location(Bukkit.getWorld("UTECave"),0,10,0)); 
+                }
+                break;
+            }
             case "guide": {
                 if (ct.length > 1) {// Open for other
                     if (!cs.hasPermission("ute.guide.other")) {
