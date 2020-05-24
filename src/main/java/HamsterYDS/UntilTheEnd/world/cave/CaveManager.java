@@ -57,7 +57,7 @@ public class CaveManager implements Listener {
 							if(chunk.getBlock(x, k, z).getType().toString().contains("HUGE_MUSHROOM_1")
 									&& chunk.getBlock(x, k+1, z).getType() == Material.AIR)
 								chunk.getBlock(x, k+1, z).setType(Material.GLOWSTONE); 
-							if(chunk.getBlock(x, k, z).getType().toString().contains("HUGE_MUSHROOM_1")
+							if(chunk.getBlock(x, k, z).getType().toString().contains("HUGE_MUSHROOM_2")
 									&& chunk.getBlock(x, k+1, z).getType() == Material.AIR)
 								chunk.getBlock(x, k+1, z).setType(Material.SEA_LANTERN); 
 							//LIGHT API TODO
