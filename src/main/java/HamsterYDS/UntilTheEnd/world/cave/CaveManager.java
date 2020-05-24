@@ -19,8 +19,7 @@ public class CaveManager implements Listener {
         if (DisableManager.root.getBoolean("disable_cave_world", true)) return;
         Bukkit.getPluginManager().registerEvents(new CaveManager(), UntilTheEnd.getInstance());
         Bukkit.getPluginManager().registerEvents(new CaveListener(), UntilTheEnd.getInstance());
-        if (Bukkit.getWorld("UTECave") == null)
-            Bukkit.createWorld(new WorldCreator("UTECave").generator(new CaveChunkGenerator()));
+        Bukkit.createWorld(new WorldCreator("UTECave").generator(new CaveChunkGenerator()));
         cave = Bukkit.getWorld("UTECave");
         cave.setDifficulty(Difficulty.HARD);
         cave.setGameRuleValue("KeepInventory", "true");

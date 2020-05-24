@@ -26,6 +26,7 @@ public class RabbitMan extends EntityZombie {
 	private static MinecraftKey minecraftKey;
 	static {
 		minecraftKey = new MinecraftKey("ute_rabbitman"); // minecraft:ute_rabbitman
+		register();
 	}
 
 	public static void summonRabbitMan(Location location, SpawnReason reason) {
@@ -39,10 +40,6 @@ public class RabbitMan extends EntityZombie {
 		this.setCustomName("§6兔人");
 		this.setCustomNameVisible(true);
 		this.setPosition(location.getX(), location.getY(), location.getZ());
-	}
-
-	public static MinecraftKey getMinecraftKey() {
-		return minecraftKey;
 	}
 
 	// 实体注册
