@@ -9,10 +9,11 @@
 package HamsterYDS.UntilTheEnd.internal;
 
 import HamsterYDS.UntilTheEnd.nms.NMSHelper;
-import com.infumia.fakeplayer.api.INPC;
 import net.citizensnpcs.api.npc.NPC;
 import net.citizensnpcs.npc.ai.NPCHolder;
 import org.bukkit.entity.Entity;
+
+import com.infumia.fakeplayer.api.INPC;
 
 import java.util.LinkedList;
 import java.util.function.Predicate;
