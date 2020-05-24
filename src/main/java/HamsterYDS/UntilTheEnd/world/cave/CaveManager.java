@@ -21,8 +21,8 @@ import HamsterYDS.UntilTheEnd.UntilTheEnd;
 public class CaveManager implements Listener {
 	public static World cave;
  
-	public CaveManager() {
-		Bukkit.getPluginManager().registerEvents(this, UntilTheEnd.getInstance());
+	public static void initialize() {
+		Bukkit.getPluginManager().registerEvents(new CaveManager(), UntilTheEnd.getInstance());
 		Bukkit.getPluginManager().registerEvents(new CaveListener(), UntilTheEnd.getInstance());
 		if (Bukkit.getWorld("UTECave") == null)
 			Bukkit.createWorld(new WorldCreator("UTECave").generator(new CaveChunkGenerator()));
@@ -31,7 +31,7 @@ public class CaveManager implements Listener {
 		cave.setGameRuleValue("KeepInventory", "true");
 	}
 
-	public class CaveListener implements Listener {
+	public static class CaveListener implements Listener {
 		@EventHandler
 		public void onWorldInit(WorldInitEvent event) {
 			if (event.getWorld().getName().equals("UTECave")) {
@@ -40,7 +40,7 @@ public class CaveManager implements Listener {
 		}
 	}
 
-	class CaveTreePopulator extends BlockPopulator {
+	static class CaveTreePopulator extends BlockPopulator {
 		@Override
 		public void populate(World world, Random random, Chunk chunk) {
 			final int maxn = 16;
@@ -69,7 +69,7 @@ public class CaveManager implements Listener {
 		}
 	}
 
-	class CaveChunkGenerator extends ChunkGenerator {
+	static class CaveChunkGenerator extends ChunkGenerator {
 		@Override
 		public ChunkData generateChunkData(World world, Random random, int x, int z, BiomeGrid biome) {
 			ChunkData chunkData = createChunkData(world);
