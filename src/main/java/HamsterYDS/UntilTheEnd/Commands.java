@@ -1,6 +1,7 @@
 package HamsterYDS.UntilTheEnd;
 
 import HamsterYDS.UntilTheEnd.cap.tem.TemperatureProvider;
+import HamsterYDS.UntilTheEnd.entity.RabbitMan;
 import HamsterYDS.UntilTheEnd.guide.CraftGuide;
 import HamsterYDS.UntilTheEnd.guide.Guide;
 import HamsterYDS.UntilTheEnd.internal.ItemFactory;
@@ -26,6 +27,7 @@ import org.bukkit.command.*;
 import org.bukkit.entity.Entity;
 import org.bukkit.entity.Player;
 import org.bukkit.event.Listener;
+import org.bukkit.event.entity.CreatureSpawnEvent.SpawnReason;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
 
@@ -127,6 +129,7 @@ public class Commands implements CommandExecutor, Listener, TabCompleter {
 			}
 			break;
 		}
+		//TODO
 		case "gotocave": {
 			if (pl == null) {
 				notPlayer(cs);
@@ -139,6 +142,15 @@ public class Commands implements CommandExecutor, Listener, TabCompleter {
 						break;
 				}
 				pl.teleport(loc.add(0, -1, 0));
+			}
+			break;
+		}
+		//TODO
+		case "summon_entity_10501": {
+			if (pl == null) {
+				notPlayer(cs);
+			} else {
+				RabbitMan.summonRabbitMan(pl.getLocation(),SpawnReason.CUSTOM);
 			}
 			break;
 		}
