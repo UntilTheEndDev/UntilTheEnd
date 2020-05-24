@@ -104,7 +104,7 @@ public class UntilTheEnd extends JavaPlugin implements Listener {
                 getLogger().log(Level.WARNING, "Failed to initialize ActionBar Manager", exception);
             }
             Config.initialize();
-            new CaveManager();
+            CaveManager.initialize();
             World.initialize(this);
             Temperature.initialize(this);
             Sanity.initialize(this);

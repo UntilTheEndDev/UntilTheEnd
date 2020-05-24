@@ -16,3 +16,6 @@ chatting_placeholder_api: false
 # 是否绕过AuthMe/服务器本身的右键检查
 # 当设置为true的时候, 将会继续执行被服务器/插件取消掉的右键点击事件
 bypass_right_action_cancelled: true
+
+# 是否关闭 Cave 世界
+disable_cave_world: true
