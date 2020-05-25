@@ -36,7 +36,7 @@ dependencies {
     // testCompile("junit", "junit", "4.12")
     compileOnly("org.spigotmc:spigot-api:1.12.2-R0.1-SNAPSHOT")
     // For NMS
-    compileOnly("org.bukkit:craftbukkit:1.12.2-R0.1-SNAPSHOT")
+    // compileOnly("org.bukkit:craftbukkit:1.12.2-R0.1-SNAPSHOT")
 
     compileOnly("me.clip:placeholderapi:2.10.5")
     compileOnly("org.jetbrains:annotations:17.0.0")
