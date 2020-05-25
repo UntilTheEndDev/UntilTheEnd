@@ -30,7 +30,6 @@ public class CaveEvents implements Listener {
 
 		@Override
 		public void run() {
-			System.out.println(isEarthQuaking + " " + lastPeriod);
 			lastPeriod = lastPeriod - 1;
 			if (lastPeriod <= 0) {
 				isEarthQuaking = false;
@@ -52,13 +51,19 @@ public class CaveEvents implements Listener {
 		public void run() {
 			if (!isEarthQuaking)
 				return;
+
 			for (Player player : CaveManager.cave.getPlayers()) {
 				Location loc = player.getLocation();
-				loc.setYaw((float) (loc.getYaw() + Math.random() * 3 - Math.random() * 3));
-				loc.setPitch((float) (loc.getPitch() + Math.random() * 3 - Math.random() * 3));
-				player.teleport(loc);
+				if (Math.random() <= 0.02) {
+					loc.setYaw((float) (loc.getYaw() + Math.random() * 3 - Math.random() * 3));
+					loc.setPitch((float) (loc.getPitch() + Math.random() * 3 - Math.random() * 3));
+					player.teleport(loc);
+				}
+
 				if (Math.random() <= 0.2)
-					player.setVelocity(loc.subtract(loc.clone().add(0, 10, 0)).toVector());
+					player.setVelocity(loc.subtract(loc.clone().add(0, 5, 0)).toVector());
+				if (Math.random() <= 0.2)
+					player.setVelocity(loc.subtract(loc.clone().add(0, -5, 0)).toVector());
 			}
 		}
 	}
@@ -73,15 +78,18 @@ public class CaveEvents implements Listener {
 			for (Player player : CaveManager.cave.getPlayers()) {
 				Location loc = player.getLocation();
 				Location fallingLoc = loc.clone();
-				for (int i = 0; i <= 300; i++) {
+				for (int i = 0; i <= 100; i++) {
 					if (Math.random() <= 0.2) {
-						fallingLoc.add(Math.random() * 32, 0, Math.random() * 32);
+						fallingLoc.add(Math.random() * 64 - Math.random() * 64, 0,
+								Math.random() * 64 - Math.random() * 64);
 						List<String> hasSupportLocs = new ArrayList<String>();
 						boolean tmp = false;
 						for (int y = 3; y <= 62; y++) {
 							fallingLoc.setY(y);
-							if (tmp)
+							if (tmp) {
 								hasSupportLocs.add(BlockApi.locToStr(fallingLoc));
+								continue;
+							}
 							if (fallingLoc.getBlock().getType() == Material.AIR) {
 								y--;
 								tmp = true;
@@ -93,11 +101,13 @@ public class CaveEvents implements Listener {
 							FallingBlock entity = CaveManager.cave.spawnFallingBlock(collapsePos, block.getType(),
 									block.getData());
 							entity.setHurtEntities(true);
+							entity.setDropItem(false);
+							block.setType(Material.AIR);
 							new BukkitRunnable() {
 
 								@Override
 								public void run() {
-									entity.setVelocity(collapsePos.clone().add(Math.random() * 3, 0, Math.random() * 3)
+									entity.setVelocity(collapsePos.clone().add(Math.random(), 0, Math.random())
 											.subtract(collapsePos).toVector());
 									if (entity.isOnGround())
 										cancel();
