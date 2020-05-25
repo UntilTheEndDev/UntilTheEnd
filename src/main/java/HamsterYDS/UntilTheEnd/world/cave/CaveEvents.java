@@ -30,6 +30,7 @@ public class CaveEvents implements Listener {
 
 		@Override
 		public void run() {
+			System.out.println(isEarthQuaking + " " + lastPeriod);
 			lastPeriod = lastPeriod - 1;
 			if (lastPeriod <= 0) {
 				isEarthQuaking = false;

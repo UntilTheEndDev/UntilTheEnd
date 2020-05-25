@@ -23,6 +23,8 @@ public class CaveManager implements Listener {
         cave = Bukkit.getWorld("UTECave");
         cave.setDifficulty(Difficulty.HARD);
         cave.setGameRuleValue("KeepInventory", "true");
+        
+        new CaveEvents();
     }
 
     public static class CaveListener implements Listener {
