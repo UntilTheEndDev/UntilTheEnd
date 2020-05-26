@@ -17,6 +17,8 @@ import HamsterYDS.UntilTheEnd.world.WorldProvider;
 import HamsterYDS.UntilTheEnd.world.WorldProvider.IWorld;
 import HamsterYDS.UntilTheEnd.world.WorldProvider.Season;
 import HamsterYDS.UntilTheEnd.world.cave.CaveManager;
+import HamsterYDS.UntilTheEnd.world.cave.CaveManager.CaveStructureGenerator;
+import HamsterYDS.UntilTheEnd.world.cave.CaveManager.CaveStructureType;
 
 import org.bukkit.BanList;
 import org.bukkit.Bukkit;
@@ -129,7 +131,7 @@ public class Commands implements CommandExecutor, Listener, TabCompleter {
 			}
 			break;
 		}
-		//TODO
+		// TODO
 		case "gotocave": {
 			if (pl == null) {
 				notPlayer(cs);
@@ -145,12 +147,22 @@ public class Commands implements CommandExecutor, Listener, TabCompleter {
 			}
 			break;
 		}
-		//TODO
+		// TODO
 		case "summon_entity_10501": {
 			if (pl == null) {
 				notPlayer(cs);
 			} else {
-				RabbitMan.summonRabbitMan(pl.getLocation(),SpawnReason.CUSTOM);
+				RabbitMan.summonRabbitMan(pl.getLocation(), SpawnReason.CUSTOM);
+			}
+			break;
+		}
+		// TODO
+		case "summon_structure_rabbithouse": {
+			if (pl == null) {
+				notPlayer(cs);
+			} else {
+				CaveStructureGenerator.spawnStructure(pl.getLocation().getChunk(), CaveStructureType.RABBITHOUSE);
+				;
 			}
 			break;
 		}
