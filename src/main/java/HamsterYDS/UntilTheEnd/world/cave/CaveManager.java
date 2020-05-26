@@ -82,13 +82,13 @@ public class CaveManager implements Listener {
 			CaveStructureType structure = CaveStructureType.NULL;
 			CaveStructureType newStructure = CaveStructureType.NULL;
 			for (Chunk other : ((HashMap<Chunk, CaveStructureType>)(hasStructures.clone())).keySet()) {
-				if ((other.getX() - chunk.getX() <= 2) && (other.getZ() - chunk.getZ() <= 2) && Math.random() <= 0.1) {
+				if ((other.getX() - chunk.getX() <= 2) && (other.getZ() - chunk.getZ() <= 2) && Math.random() <= 0.2) {
 					// 结构扩张
 					hasStructures.put(chunk, hasStructures.get(other));
 					spawnStructure(chunk, hasStructures.get(other));
-				}
+				}else break;
 			}
-			if (Math.random() <= 0.2) {
+			if (Math.random() <= 0.02) {
 				// 结构起始
 				newStructure = CaveStructureType
 						.values()[(int) Math.floor(CaveStructureType.values().length * Math.random())];
