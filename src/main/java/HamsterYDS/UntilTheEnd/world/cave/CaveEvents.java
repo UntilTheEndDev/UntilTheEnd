@@ -54,16 +54,16 @@ public class CaveEvents implements Listener {
 
             for (Player player : CaveManager.cave.getPlayers()) {
                 Location loc = player.getLocation();
-                if (Math.random() <= 0.02) {
+                if (Math.random() <= 0.3) {
                     loc.setYaw((float) (loc.getYaw() + Math.random() * 3 - Math.random() * 3));
                     loc.setPitch((float) (loc.getPitch() + Math.random() * 3 - Math.random() * 3));
                     player.teleport(loc);
                 }
 
-                if (Math.random() <= 0.2)
-                    player.setVelocity(loc.subtract(loc.clone().add(0, 5, 0)).toVector());
-                if (Math.random() <= 0.2)
-                    player.setVelocity(loc.subtract(loc.clone().add(0, -5, 0)).toVector());
+                if (Math.random() <= 0.05)
+                    player.setVelocity(loc.subtract(loc.clone().add(0, 1, 0)).toVector().multiply(0.15));
+                if (Math.random() <= 0.05)
+                    player.setVelocity(loc.subtract(loc.clone().add(0, -1, 0)).toVector().multiply(0.15));
             }
         }
     }
@@ -110,7 +110,7 @@ public class CaveEvents implements Listener {
                                 @Override
                                 public void run() {
                                     entity.setVelocity(collapsePos.clone().add(Math.random(), 0, Math.random())
-                                            .subtract(collapsePos).toVector());
+                                            .subtract(collapsePos).toVector().multiply(0.15));
                                     if (entity.isOnGround())
                                         cancel();
                                 }
