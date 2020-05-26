@@ -27,7 +27,7 @@ public class RabbitHouse {
 						* Math.sqrt(2)) {
 					block.setType(Material.WOOD);
 					block.setData((byte) Math.floor(Math.random() * 6));
-				}
+				} 
 				if (block.getLocation().distance(chunk.getBlock(centreX, standard, centreZ).getLocation()) <= 5
 						* Math.sqrt(2)) {
 					for (int y = standard + 1; y <= standard + height; y++) {
