@@ -1,12 +1,12 @@
 package HamsterYDS.UntilTheEnd.guide;
 
-import java.util.*;
-
+import HamsterYDS.UntilTheEnd.UntilTheEnd;
+import HamsterYDS.UntilTheEnd.api.BlockApi;
+import HamsterYDS.UntilTheEnd.api.GuideApi;
 import HamsterYDS.UntilTheEnd.internal.UTEi18n;
 import HamsterYDS.UntilTheEnd.item.ItemManager;
 import HamsterYDS.UntilTheEnd.item.UTEItemStack;
 import HamsterYDS.UntilTheEnd.player.PlayerManager;
-
 import org.bukkit.Bukkit;
 import org.bukkit.GameMode;
 import org.bukkit.Location;
@@ -14,11 +14,7 @@ import org.bukkit.Material;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
-import org.bukkit.event.inventory.InventoryAction;
-import org.bukkit.event.inventory.InventoryClickEvent;
-import org.bukkit.event.inventory.InventoryCloseEvent;
-import org.bukkit.event.inventory.InventoryDragEvent;
-import org.bukkit.event.inventory.InventoryOpenEvent;
+import org.bukkit.event.inventory.*;
 import org.bukkit.event.player.PlayerJoinEvent;
 import org.bukkit.event.player.PlayerQuitEvent;
 import org.bukkit.inventory.Inventory;
@@ -27,9 +23,7 @@ import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.PlayerInventory;
 import org.bukkit.inventory.meta.ItemMeta;
 
-import HamsterYDS.UntilTheEnd.UntilTheEnd;
-import HamsterYDS.UntilTheEnd.api.BlockApi;
-import HamsterYDS.UntilTheEnd.api.GuideApi;
+import java.util.*;
 
 /**
  * @author 南外丶仓鼠
@@ -38,9 +32,9 @@ import HamsterYDS.UntilTheEnd.api.GuideApi;
 public class CraftGuide implements Listener {
     public static UntilTheEnd plugin = UntilTheEnd.getInstance();
     public static int tot = 10;
-    public static HashMap<String, ArrayList<Inventory>> helps = new HashMap<String, ArrayList<Inventory>>();
-    public static HashMap<ItemStack, Inventory> crafts = new HashMap<ItemStack, Inventory>();
-    public static HashMap<String, ArrayList<Inventory>> playerInvs = new HashMap<String, ArrayList<Inventory>>();
+    public static HashMap<String, ArrayList<Inventory>> helps = new HashMap<>();
+    public static HashMap<ItemStack, Inventory> crafts = new HashMap<>();
+    public static HashMap<String, ArrayList<Inventory>> playerInvs = new HashMap<>();
     public static ArrayList<UUID> cheating = new ArrayList<>();
 
     public static Inventory inv = Bukkit.createInventory(HolderCraftingHelp.INSTANCE, 45,
@@ -79,13 +73,13 @@ public class CraftGuide implements Listener {
         GuideApi.addCategory("§6科学", Material.REDSTONE_COMPARATOR, (short) 0);
     }
 
-    public static ArrayList<String> openers = new ArrayList<String>();
+    public static ArrayList<UUID> openers = new ArrayList<>();
 
     @EventHandler()
     public void onOpen(InventoryOpenEvent event) {
         Inventory inv = event.getInventory();
         if (inv.getHolder() instanceof HolderCraftingHelp)
-            openers.add(event.getPlayer().getName());
+            openers.add(event.getPlayer().getUniqueId());
     }
 
     @EventHandler()
@@ -94,7 +88,7 @@ public class CraftGuide implements Listener {
         if (inv.getHolder() instanceof HolderCraftingHelp) {
             ArrayList<Inventory> invs = playerInvs.get(event.getPlayer().getName());
             invs.add(inv);
-            openers.remove(event.getPlayer().getName());
+            openers.remove(event.getPlayer().getUniqueId());
         }
     }
 
@@ -108,7 +102,7 @@ public class CraftGuide implements Listener {
     @EventHandler()
     public void onJoin(PlayerJoinEvent event) {
         Player player = event.getPlayer();
-        playerInvs.put(player.getName(), new ArrayList<Inventory>());
+        playerInvs.put(player.getName(), new ArrayList<>());
     }
 
     @EventHandler()
@@ -123,7 +117,7 @@ public class CraftGuide implements Listener {
         Inventory inv = event.getInventory();
         if (inv == null)
             return;
-        if (openers.contains(player.getName())) {
+        if (openers.contains(player.getUniqueId())) {
             if (event.getAction() == InventoryAction.MOVE_TO_OTHER_INVENTORY) {
                 event.setCancelled(true);
                 return;
@@ -138,9 +132,9 @@ public class CraftGuide implements Listener {
         if (item.getItemMeta() == null)
             return;
         item.setAmount(1);
-        if (cheating.contains(player.getUniqueId())){
-        	player.getInventory().addItem(event.getCurrentItem().clone());
-        	return;
+        if (cheating.contains(player.getUniqueId())) {
+            player.getInventory().addItem(event.getCurrentItem().clone());
+            return;
         }
         if (event.getSlot() == 8)
             player.openInventory(CraftGuide.inv);
@@ -177,6 +171,7 @@ public class CraftGuide implements Listener {
             if (cheating.contains(player.getUniqueId()))
                 if (find.getSize() == 27) {
                     event.setCancelled(true);
+                    //noinspection deprecation
                     event.setCursor(item);
                     return;
                 }
@@ -227,7 +222,7 @@ public class CraftGuide implements Listener {
     }
 
     private HashMap<Integer, ItemStack> getSimilarSlots(PlayerInventory inv, ItemStack material) {
-        HashMap<Integer, ItemStack> slots = new HashMap<Integer, ItemStack>();
+        HashMap<Integer, ItemStack> slots = new HashMap<>();
         for (int slot = 0; slot < inv.getSize(); slot++)
             if (ItemManager.isSimilar(inv.getItem(slot), material)) {
                 slots.put(slot, inv.getItem(slot));
@@ -258,8 +253,7 @@ public class CraftGuide implements Listener {
         if (PlayerManager.checkUnLockedRecipes(player).contains(id))
             return true;
         int playerLevel = getNearbyMachine(player);
-        if (playerLevel >= level) return true;
-        return false;
+        return playerLevel >= level;
     }
 
     private static int getNearbyMachine(Player player) {
@@ -353,7 +347,7 @@ public class CraftGuide implements Listener {
 
     // 获取一整个好多GUI
     public static ArrayList<Inventory> getTypeInventory() {
-        ArrayList<Inventory> invs = new ArrayList<Inventory>();
+        ArrayList<Inventory> invs = new ArrayList<>();
         invs.add(loadNew());
         return invs;
     }
@@ -398,22 +392,18 @@ public class CraftGuide implements Listener {
                     item.setDurability((short) 13);
                 else {
                     ItemMeta meta = item.getItemMeta();
-                    List<String> lores = new ArrayList<String>();
-                    if(meta!=null)
-                    	if (meta.hasLore()) lores = meta.getLore();
+                    assert meta != null;
+                    List<String> lores = meta.hasLore() ? meta.getLore() : new ArrayList<>();
 
-                    boolean flag = true;
                     lores.removeIf(line -> line.contains("缺少机器"));
 
                     if (playerLevel + 1 == level) {
                         item.setDurability((short) 14);
-                        if (flag)
-                            lores.add("§4缺少机器: §d§l" + ItemManager.items.get(ItemManager.machines.get(level)).displayName);
+                        lores.add("§4缺少机器: §d§l" + ItemManager.items.get(ItemManager.machines.get(level)).displayName);
                     }
                     if (playerLevel + 1 < level) {
                         item.setDurability((short) 7);
-                        if (flag)
-                            lores.add("§4缺少机器: §c§l未知");
+                        lores.add("§4缺少机器: §c§l未知");
                     }
                     meta.setLore(lores);
                     item.setItemMeta(meta);
