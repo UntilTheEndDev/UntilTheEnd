@@ -148,7 +148,7 @@ public class Commands implements CommandExecutor, Listener, TabCompleter {
 			break;
 		}
 		// TODO
-		case "summon_entity_10501": {
+		case "test_summon_entity_10501": {
 			if (pl == null) {
 				notPlayer(cs);
 			} else {
@@ -157,7 +157,7 @@ public class Commands implements CommandExecutor, Listener, TabCompleter {
 			break;
 		}
 		// TODO
-		case "summon_structure_rabbithouse": {
+		case "test_summon_structure_rabbithouse": {
 			if (pl == null) {
 				notPlayer(cs);
 			} else {
