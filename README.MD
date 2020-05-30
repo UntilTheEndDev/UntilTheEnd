@@ -2,6 +2,12 @@
 
 ---
 
+![Java CI with Gradle](https://github.com/UntilTheEndDev/UntilTheEnd/workflows/Java%20CI%20with%20Gradle/badge.svg)
+![GitHub code size in bytes](https://img.shields.io/github/languages/code-size/UntilTheEndDev/UntilTheEnd?style=flat-square)
+![GitHub release (latest by date including pre-releases)](https://img.shields.io/github/v/release/UntilTheEndDev/UntilTheEnd?include_prereleases&label=Latest%20Release&style=flat-square)
+
+---
+
 ## 提交错误/想法
 如果有任何错误或者想法, 请前往 [GitHub Issue](https://github.com/UntilTheEndDev/UntilTheEnd/issues?q=is%3Aissue)
 创建一个新的issue前请先确认是否有同样的issue, 不然你的issue可能不会被我们接受
