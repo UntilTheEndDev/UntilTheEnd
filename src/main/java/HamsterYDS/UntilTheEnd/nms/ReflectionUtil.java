@@ -44,15 +44,49 @@ public class ReflectionUtil {
     private static final MethodType type_Function = MethodType.methodType(Function.class);
     private static final MethodType type_Function_apply = MethodType.methodType(Object.class, Object.class);
 
-    @SuppressWarnings({"unchecked", "unused"})
+    @SuppressWarnings({"unused"})
     public static <T, R> Function<T, R> bindTo(Class<R> result, Method method) {
         try {
             final MethodHandle handle = lookup.unreflect(method);
+            return bindMethodHandle(result, handle, lookup);
+        } catch (Error | RuntimeException re) {
+            throw re;
+        } catch (Throwable throwable) {
+            throw new RuntimeException(throwable);
+        }
+    }
+
+    public interface UncheckedCode<T> {
+        T call(Object... args) throws Throwable;
+    }
+
+    public static <T> T runUncheck(UncheckedCode<T> callable, Object... args) {
+        try {
+            return callable.call(args);
+        } catch (Error | RuntimeException re) {
+            throw re;
+        } catch (Throwable throwable) {
+            throw new RuntimeException(throwable);
+        }
+    }
+
+    public static <T, R> Function<T, R> bindTo(Class<R> result, Field field) {
+        try {
+            final MethodHandle handle = lookup.unreflectGetter(field);
+            return bindMethodHandle(result, handle, lookup);
+        } catch (Error | RuntimeException re) {
+            throw re;
+        } catch (Throwable throwable) {
+            throw new RuntimeException(throwable);
+        }
+    }
+
+    @SuppressWarnings("unchecked")
+    public static <T, R> Function<T, R> bindMethodHandle(Class<R> result, MethodHandle handle, MethodHandles.Lookup lookup) {
+        try {
             return (Function<T, R>) LambdaMetafactory.metafactory(lookup, "apply",
                     type_Function,
                     type_Function_apply, handle, MethodType.methodType(result, handle.type().parameterType(0))).getTarget().invoke();
-        } catch (Error | RuntimeException re) {
-            throw re;
         } catch (Throwable throwable) {
             throw new RuntimeException(throwable);
         }
