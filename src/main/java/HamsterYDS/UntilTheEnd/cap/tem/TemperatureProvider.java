@@ -1,31 +1,20 @@
 package HamsterYDS.UntilTheEnd.cap.tem;
 
-import java.io.File;
-import java.io.FileInputStream;
-import java.io.InputStreamReader;
-import java.io.Reader;
-import java.nio.charset.StandardCharsets;
-import java.util.HashMap;
-import java.util.Map;
-import java.util.function.BiFunction;
-import java.util.logging.Level;
-
+import HamsterYDS.UntilTheEnd.Config;
 import HamsterYDS.UntilTheEnd.Logging;
+import HamsterYDS.UntilTheEnd.UntilTheEnd;
+import HamsterYDS.UntilTheEnd.api.BlockApi;
+import HamsterYDS.UntilTheEnd.api.WorldApi;
 import HamsterYDS.UntilTheEnd.internal.ItemFactory;
 import HamsterYDS.UntilTheEnd.internal.ScriptProvider;
 import HamsterYDS.UntilTheEnd.internal.UTEi18n;
+import HamsterYDS.UntilTheEnd.world.WorldProvider.Season;
 import com.google.common.util.concurrent.AtomicDouble;
 import org.bukkit.Bukkit;
 import org.bukkit.Location;
 import org.bukkit.Material;
 import org.bukkit.World;
 import org.bukkit.block.Block;
-
-import HamsterYDS.UntilTheEnd.Config;
-import HamsterYDS.UntilTheEnd.UntilTheEnd;
-import HamsterYDS.UntilTheEnd.api.BlockApi;
-import HamsterYDS.UntilTheEnd.api.WorldApi;
-import HamsterYDS.UntilTheEnd.world.WorldProvider.Season;
 import org.bukkit.configuration.file.YamlConfiguration;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
@@ -33,6 +22,9 @@ import org.bukkit.event.world.WorldLoadEvent;
 import org.bukkit.event.world.WorldUnloadEvent;
 
 import javax.script.CompiledScript;
+import java.util.HashMap;
+import java.util.Map;
+import java.util.function.BiFunction;
 
 public class TemperatureProvider {
     public interface TemperatureAllocator {
@@ -48,23 +40,18 @@ public class TemperatureProvider {
     private static final Map<Season, TemperatureAllocator> rules = new HashMap<>();
 
     private static TemperatureAllocator fromScript(String script) {
-        File sf = new File(UntilTheEnd.getInstance().getDataFolder(), "scripts/" + script);
-        if (sf.isFile()) {
-            try (Reader reader = new InputStreamReader(new FileInputStream(sf), StandardCharsets.UTF_8)) {
-                final CompiledScript compile = ScriptProvider.compile(reader);
-                return (day, world) -> {
-                    Number num = (Number)
-                            ScriptProvider.of(compile)
-                                    .name(script)
-                                    .append("day", day)
-                                    .append("world", world)
-                                    .invoke();
-                    if (num == null) return 0D;
-                    return num.doubleValue();
-                };
-            } catch (Exception e) {
-                Logging.getLogger().log(Level.SEVERE, "Failed to load script " + script, e);
-            }
+        final CompiledScript compile = ScriptProvider.of(script);
+        if (script != null) {
+            return (day, world) -> {
+                Number num = (Number)
+                        ScriptProvider.of(compile)
+                                .name(script)
+                                .append("day", day)
+                                .append("world", world)
+                                .invoke();
+                if (num == null) return 0D;
+                return num.doubleValue();
+            };
         }
         return null;
     }
@@ -191,8 +178,8 @@ public class TemperatureProvider {
                     if (b == null) continue;
                     Material mt = ItemFactory.getType(b);
                     Integer tmp = blockTemperatures.get(mt);
-                    if(uteBlockTemperatures.containsKey(BlockApi.getSpecialBlock(l))){
-                    	tmp=uteBlockTemperatures.get(BlockApi.getSpecialBlock(l));
+                    if (uteBlockTemperatures.containsKey(BlockApi.getSpecialBlock(l))) {
+                        tmp = uteBlockTemperatures.get(BlockApi.getSpecialBlock(l));
                     }
                     if (tmp != null) {
                         double scale = l.distance(loc);
@@ -206,7 +193,7 @@ public class TemperatureProvider {
                         }
                         edited = true;
                     }
-                   
+
                 }
             }
         }

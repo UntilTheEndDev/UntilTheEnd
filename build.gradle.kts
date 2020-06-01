@@ -45,6 +45,7 @@ dependencies {
     compileOnly(fileTree("libs").include("*.jar"))
     compileOnly("org.apache.logging.log4j:log4j-api:2.13.2")
     compileOnly("net.citizensnpcs:citizens:2.0.26-SNAPSHOT")
+    compileOnly("net.milkbowl.vault:VaultAPI:1.7")
     // compileOnly("net.citizensnpcs:citizensapi:2.0.26-SNAPSHOT")
 }
 

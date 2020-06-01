@@ -13,6 +13,7 @@ import HamsterYDS.UntilTheEnd.nms.ActionBarManager;
 import HamsterYDS.UntilTheEnd.nms.NMSHelper;
 import HamsterYDS.UntilTheEnd.player.PlayerManager;
 import HamsterYDS.UntilTheEnd.player.role.Roles;
+import HamsterYDS.UntilTheEnd.player.role.RolesSettings;
 import HamsterYDS.UntilTheEnd.world.WorldCounter;
 import HamsterYDS.UntilTheEnd.world.WorldProvider;
 import HamsterYDS.UntilTheEnd.world.WorldProvider.IWorld;
@@ -28,6 +29,8 @@ import org.bukkit.event.Listener;
 import org.bukkit.event.entity.CreatureSpawnEvent.SpawnReason;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
+import org.jetbrains.annotations.NotNull;
+import org.jetbrains.annotations.Nullable;
 
 import java.util.*;
 
@@ -47,8 +50,18 @@ public class Commands implements CommandExecutor, Listener, TabCompleter {
 
     static {
         itemTab.addAll(ItemManager.items.keySet());
-        cmdTab.addAll(Arrays.asList("cheat", "give", "guide", "help", "material", "entitytype", "set", "season", "temp",
-                "attribute", "role", "openguide", "npcc"));
+        cmdTab.addAll(Arrays.asList(
+                // All for players
+                "help", "guide", "role", "openguide",
+
+                // All for admins
+                "give", "reset-role", "cheat",
+                "season", "temp", "attribute",
+
+                // All for debuggers
+                "material", "set",
+                "npcc", "entitytype"
+        ));
         if (!Roles.isEnable)
             cmdTab.remove("role");
         for (Season season : Season.values())
@@ -84,6 +97,8 @@ public class Commands implements CommandExecutor, Listener, TabCompleter {
             sender.sendMessage(UTEi18n.cacheWithPrefix("cmd.ute.set"));
         if (sender.hasPermission("ute.role"))
             sender.sendMessage(UTEi18n.cacheWithPrefix("cmd.ute.role"));
+        if (sender.hasPermission("ute.reset-role"))
+            sender.sendMessage(UTEi18n.cacheWithPrefix("cmd.ute.reset-role"));
         sender.sendMessage(UTEi18n.cacheWithPrefix("cmd.label.2"));
         if (sender.hasPermission("ute.material"))
             sender.sendMessage(UTEi18n.cacheWithPrefix("cmd.ute.material"));
@@ -359,14 +374,23 @@ public class Commands implements CommandExecutor, Listener, TabCompleter {
                         notPermitted(cs);
                         return true;
                     }
+                    double coins = RolesSettings.roleCoins.applyAsDouble(pl, role);
+                    if (!RolesSettings.ecoTester.withdraw(pl, coins)) {
+                        pl.sendMessage(
+                                UTEi18n.cache("prefix") + UTEi18n.parse("cmd.role.pay-failed", RolesSettings.formatter.apply(coins))
+                        );
+                        return true;
+                    }
                     Logging.getLogger()
                             .fine(() -> "[CommandExecutor] [Role] All permission ok. " + PlayerManager.playerChangedRole);
                     if (PlayerManager.playerChangedRole.contains(pl.getUniqueId()))
                         return true;
                     PlayerManager.changeRole(pl, role);
                     PlayerManager.playerChangedRole.add(pl.getUniqueId());
-                    pl.sendMessage(UTEi18n.cacheWithPrefix("cmd.role.change"));
+                    pl.sendMessage(UTEi18n.cache("prefix") +
+                            UTEi18n.parse("cmd.role.pay-success", RolesSettings.formatter.apply(coins), role.name()));
                 }
+                break;
             }
             case "attribute": {
                 if (pl == null) {
@@ -417,8 +441,35 @@ public class Commands implements CommandExecutor, Listener, TabCompleter {
                     }
                 break;
             }
+            case "reset-role": {
+                if (ct.length == 1) {
+                    cs.sendMessage(UTEi18n.cacheWithPrefix("cmd.ute.reset-role"));
+                } else {
+                    Player selected = selectPlayer(ct[1]);
+                    if (selected == null) {
+                        cs.sendMessage(UTEi18n.cacheWithPrefix("cmd.null.player"));
+                    } else if (NPCChecker.isNPC(selected)) {
+                        cs.sendMessage(UTEi18n.cacheWithPrefix("target.is.npc"));
+                    } else {
+                        PlayerManager.changeRole(selected, Roles.DEFAULT);
+                        PlayerManager.playerChangedRole.remove(selected.getUniqueId());
+                        cs.sendMessage(UTEi18n.cacheWithPrefix("cmd.role.change"));
+                    }
+                }
+                break;
+            }
         }
         return true;
+    }
+
+    @Nullable
+    public static Player selectPlayer(@NotNull String select) {
+        try {
+            Player p = Bukkit.getPlayer(UUID.fromString(select));
+            if (p != null) return p;
+        } catch (Throwable ignore) {
+        }
+        return Bukkit.getPlayer(select);
     }
 
     private boolean checkBackend(Player pl, String[] ct) {
@@ -473,6 +524,11 @@ public class Commands implements CommandExecutor, Listener, TabCompleter {
             }
             default: {
                 switch (args[0].toLowerCase()) {
+                    case "reset-role": {
+                        if (args.length == 2)
+                            return null;
+                        break;
+                    }
                     case "give": {
                         if (sender.hasPermission("ute.give")) {
                             switch (args.length) {

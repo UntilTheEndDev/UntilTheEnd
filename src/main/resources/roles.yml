@@ -1,4 +1,16 @@
 enabled: true
+# 是否在玩家死亡的时候重置职业
+reset-on-death: true
+
+# 金币选择
+# 需要 Vault 支持
+economy:
+  enable: false
+  use-js: false
+  script: "role-script.js"
+  coins: 20
+
+
 
 default:
   name: "未选择"

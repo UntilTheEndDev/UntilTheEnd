@@ -1,5 +1,23 @@
 # 更新历史
 -----------------------------------------------------------
+5.8.3-Alpha
+roles.yml
+| reset-on-death:
+|    -  可开关时候在玩家死亡的时候重置其职业
+| economy:
+|    -  控制切换职业是否需要收钱
+|    -  开启时强行要求vault依赖
+Commands:
+|  新命令: /ute reset-role
+|    -  usage:
+|         | /ute reset-role <玩家名>
+|         | /ute reset-role <玩家uuid>
+|         | 要求玩家在线
+|    -  description: 重置某个玩家的职业 (Administrator Command)
+|    -  permission:  ute.reset-role
+|    -  other: 可在控制台使用
+@see https://github.com/UntilTheEndDev/UntilTheEnd/issues/4
+-----------------------------------------------------------
 5.8.2.1-Alpha
 修复NMS ActionManager无效问题
 -----------------------------------------------------------

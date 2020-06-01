@@ -67,5 +67,6 @@ public enum Roles {
                 instance.getLogger().fine("[Role] \t\tDamageLv : " + r.originDamageLevel);
             }
         }
+        RolesSettings.initialize(configs);
     }
 }

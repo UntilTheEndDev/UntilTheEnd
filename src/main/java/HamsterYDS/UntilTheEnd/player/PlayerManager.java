@@ -10,6 +10,7 @@ import HamsterYDS.UntilTheEnd.internal.UTEi18n;
 import HamsterYDS.UntilTheEnd.internal.pdl.PlayerDataLoaderImpl;
 import HamsterYDS.UntilTheEnd.player.role.IRole;
 import HamsterYDS.UntilTheEnd.player.role.Roles;
+import HamsterYDS.UntilTheEnd.player.role.RolesSettings;
 import org.bukkit.Bukkit;
 import org.bukkit.GameMode;
 import org.bukkit.OfflinePlayer;
@@ -129,6 +130,8 @@ public class PlayerManager implements Listener {
 
     @EventHandler()
     public void onDeath(PlayerDeathEvent event) {
+        Player p = event.getEntity();
+        if (NPCChecker.isNPC(p)) return;
         event.getDrops().removeIf(item -> {
             if (item == null) return true;
             if (item.hasItemMeta()) {
@@ -136,16 +139,16 @@ public class PlayerManager implements Listener {
             }
             return false;
         });
-        playerChangedRole.remove(event.getEntity().getUniqueId());
         IPlayer ip = players.get(event.getEntity().getUniqueId());
         if (ip == null) return;
-        Player p = event.getEntity();
         forgetChange(event.getEntity(), CheckType.TEMPERATURE, getDefault(ip, CheckType.TEMPERATURE, p), EditAction.SET);
         forgetChange(event.getEntity(), CheckType.HUMIDITY, getDefault(ip, CheckType.HUMIDITY, p), EditAction.SET);
         forgetChange(event.getEntity(), CheckType.SANITY, getDefault(ip, CheckType.SANITY, p), EditAction.SET);
         forgetChange(event.getEntity(), CheckType.TIREDNESS, getDefault(ip, CheckType.TIREDNESS, p), EditAction.SET);
-        changeRole(event.getEntity(), Roles.DEFAULT);
-        playerChangedRole.remove(event.getEntity().getUniqueId());
+        if (RolesSettings.resetRoleOnPlayerDeath) {
+            changeRole(event.getEntity(), Roles.DEFAULT);
+            playerChangedRole.remove(event.getEntity().getUniqueId());
+        }
         save(event.getEntity());
     }
 

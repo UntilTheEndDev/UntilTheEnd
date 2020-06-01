@@ -8,15 +8,22 @@
 
 package HamsterYDS.UntilTheEnd.internal;
 
+import HamsterYDS.UntilTheEnd.Logging;
+import HamsterYDS.UntilTheEnd.UntilTheEnd;
 import jdk.nashorn.api.scripting.NashornScriptEngine;
 import jdk.nashorn.api.scripting.NashornScriptEngineFactory;
 import jdk.nashorn.internal.runtime.Undefined;
 
 import javax.script.*;
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.InputStreamReader;
 import java.io.Reader;
+import java.nio.charset.StandardCharsets;
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.atomic.AtomicReference;
+import java.util.logging.Level;
 
 public class ScriptProvider {
     public static final NashornScriptEngine ENGINE = (NashornScriptEngine) new NashornScriptEngineFactory()
@@ -75,5 +82,21 @@ public class ScriptProvider {
 
     public static ScriptProvider of(CompiledScript script) {
         return new ScriptProvider(script);
+    }
+
+    public static CompiledScript of(String script) {
+        final CompiledScript stored = storedScripts.get(script);
+        if (stored != null) return stored;
+        File sf = new File(UntilTheEnd.getInstance().getDataFolder(), "scripts/" + script);
+        if (sf.isFile()) {
+            try (Reader reader = new InputStreamReader(new FileInputStream(sf), StandardCharsets.UTF_8)) {
+                final CompiledScript compile = ScriptProvider.compile(reader);
+                storedScripts.put(script, compile);
+                return compile;
+            } catch (Exception e) {
+                Logging.getLogger().log(Level.SEVERE, "Failed to load script " + script, e);
+            }
+        }
+        return null;
     }
 }
