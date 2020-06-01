@@ -41,7 +41,7 @@ public class Logging extends java.util.logging.Logger {
             logger.warn(message, exception);
         } else if (level == Level.INFO) {
             logger.info(message, exception);
-        } else if (level == Level.FINER) {
+        } else if (level == Level.FINER || level == Level.FINE) {
             logger.fatal(message, exception);
         } else if (level == Level.CONFIG) {
             logger.trace(message, exception);
