@@ -2,6 +2,7 @@ package HamsterYDS.UntilTheEnd;
 
 import HamsterYDS.UntilTheEnd.cap.tem.TemperatureProvider;
 import HamsterYDS.UntilTheEnd.entity.RabbitMan;
+import HamsterYDS.UntilTheEnd.event.player.PlayerRoleChangeByCommandEvent;
 import HamsterYDS.UntilTheEnd.guide.CraftGuide;
 import HamsterYDS.UntilTheEnd.guide.Guide;
 import HamsterYDS.UntilTheEnd.internal.ItemFactory;
@@ -374,12 +375,25 @@ public class Commands implements CommandExecutor, Listener, TabCompleter {
                         notPermitted(cs);
                         return true;
                     }
-                    double coins = RolesSettings.roleCoins.applyAsDouble(pl, role);
-                    if (!RolesSettings.ecoTester.withdraw(pl, coins)) {
-                        pl.sendMessage(
-                                UTEi18n.cache("prefix") + UTEi18n.parse("cmd.role.pay-failed", RolesSettings.formatter.apply(coins))
-                        );
-                        return true;
+                    PlayerRoleChangeByCommandEvent event = new PlayerRoleChangeByCommandEvent(pl, role);
+                    event.setNeedCoins(RolesSettings.isVaultSupported);
+                    Bukkit.getPluginManager().callEvent(event);
+                    if (event.isCancelled()) {
+                        String fallback = event.getFallbackMessage();
+                        if (fallback != null) {
+                            pl.sendMessage(fallback);
+                        }
+                        break;
+                    }
+                    double coins = 0;
+                    if (event.isNeedCoins()) {
+                        coins = RolesSettings.roleCoins.applyAsDouble(pl, role);
+                        if (!RolesSettings.ecoTester.withdraw(pl, coins)) {
+                            pl.sendMessage(
+                                    UTEi18n.cache("prefix") + UTEi18n.parse("cmd.role.pay-failed", RolesSettings.formatter.apply(coins))
+                            );
+                            return true;
+                        }
                     }
                     Logging.getLogger()
                             .fine(() -> "[CommandExecutor] [Role] All permission ok. " + PlayerManager.playerChangedRole);
@@ -387,8 +401,13 @@ public class Commands implements CommandExecutor, Listener, TabCompleter {
                         return true;
                     PlayerManager.changeRole(pl, role);
                     PlayerManager.playerChangedRole.add(pl.getUniqueId());
-                    pl.sendMessage(UTEi18n.cache("prefix") +
-                            UTEi18n.parse("cmd.role.pay-success", RolesSettings.formatter.apply(coins), role.name()));
+                    if (event.isNeedCoins()) {
+                        pl.sendMessage(UTEi18n.cache("prefix") +
+                                UTEi18n.parse("cmd.role.pay-success", RolesSettings.formatter.apply(coins), role.name()));
+
+                    } else {
+                        pl.sendMessage(UTEi18n.cache("cmd.role.change"));
+                    }
                 }
                 break;
             }

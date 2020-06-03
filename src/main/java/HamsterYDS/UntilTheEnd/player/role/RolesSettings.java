@@ -25,6 +25,7 @@ import java.util.logging.Level;
 
 public class RolesSettings {
     public static boolean resetRoleOnPlayerDeath;
+    public static boolean isVaultSupported;
 
     // 测试的同时会尝试移除对应的金钱
     public static ToDoubleBiFunction<Player, Roles> roleCoins;
@@ -40,8 +41,9 @@ public class RolesSettings {
 //        ScriptProvider
         resetRoleOnPlayerDeath = configs.getBoolean("reset-on-death", true);
         final ConfigurationSection economy = configs.getConfigurationSection("economy");
+        isVaultSupported = true;
         if (economy != null) {
-            if (economy.getBoolean("enable")) {
+            if (isVaultSupported = economy.getBoolean("enable")) {
                 final RegisteredServiceProvider<Economy> provider = Bukkit.getServicesManager().getRegistration(Economy.class);
                 if (provider == null) {
                     throw new ExceptionInInitializerError("Roles used vault. But Vault Economy NOT SET.");
