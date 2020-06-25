@@ -9,5 +9,7 @@
 	<classpathentry kind="lib" path="C:/Users/HamsterB君/Desktop/Citizens-2.0.26-b1845.jar"/>
 	<classpathentry kind="lib" path="T:/服务器/1.12.2构建/spigot-1.12.2-R0.1-SNAPSHOT-b1409.jar"/>
 	<classpathentry kind="lib" path="T:/服务器/笑世界/凌域/plugins/[领地]Residence.jar"/>
+	<classpathentry kind="lib" path="C:/Users/HamsterB君/Desktop/FakePlayer.jar"/>
+	<classpathentry kind="lib" path="C:/Users/HamsterB君/Desktop/Vault.jar"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>
