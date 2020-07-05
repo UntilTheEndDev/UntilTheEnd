@@ -10,6 +10,7 @@ package HamsterYDS.UntilTheEnd.player.role;
 
 import HamsterYDS.UntilTheEnd.Logging;
 import HamsterYDS.UntilTheEnd.internal.ScriptProvider;
+import net.milkbowl.vault.economy.Economy;
 import org.bukkit.Bukkit;
 import org.bukkit.configuration.ConfigurationSection;
 import org.bukkit.configuration.file.YamlConfiguration;
