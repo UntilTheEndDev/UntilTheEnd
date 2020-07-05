@@ -396,15 +396,8 @@ public class CraftGuide implements Listener {
                     ItemMeta meta = item.getItemMeta();
                     if (meta == null) {
                         // ???????
-                        Logging.getLogger().log(Level.WARNING,
-                                "[CraftGuide] A known bug was caught, please report the following information to us",
-                                new Throwable("Thread stack.")
-                        );
-                        Logging.getLogger().warning(() -> "Item = " + item);
-                        Logging.getLogger().warning(() -> "Bukkit.getVersion() " + Bukkit.getVersion());
-                        Logging.getLogger().warning(() -> "Bukkit.getBukkitVersion() " + Bukkit.getBukkitVersion());
-                        Logging.getLogger().warning(() -> "Java " + System.getProperty("java.home"));
-                        Logging.getLogger().warning(() -> "== == == == ==");
+                        Logging.getLogger().warning(() -> "Your server core version seems too old, it will affect the normal operation of UTE");
+                        Logging.getLogger().warning(() -> "你的服务器核心版本似乎过旧, 将会影响UTE的正常运行");
                         continue;
                     }
                     List<String> lores = meta.hasLore() ? meta.getLore() : new ArrayList<>();
