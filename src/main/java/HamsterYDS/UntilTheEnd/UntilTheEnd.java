@@ -21,7 +21,6 @@ import HamsterYDS.UntilTheEnd.player.PlayerManager;
 import HamsterYDS.UntilTheEnd.world.World;
 import HamsterYDS.UntilTheEnd.world.WorldProvider;
 import HamsterYDS.UntilTheEnd.world.cave.CaveManager;
-
 import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
@@ -118,7 +117,7 @@ public class UntilTheEnd extends JavaPlugin implements Listener {
             new Food(this);
             new Commands(this);
             new UTEPapiExpansion().register();
-           
+
             getLogger().log(Level.INFO, UTEi18n.parse("logging.store.type", PlayerDataLoaderImpl.loader.getClass().getSimpleName(), getConfig().getString("saving")));
         } catch (Throwable throwable) {
             failedLoading = true;
@@ -149,7 +148,8 @@ public class UntilTheEnd extends JavaPlugin implements Listener {
     }
 
     private void checkUpdate() {
-        if (getDescription().getVersion().equalsIgnoreCase("Development")) {
+        String version = getDescription().getVersion().toLowerCase();
+        if (version.contains("dev")) {
             String msg = UTEi18n.cache("prefix") + "§c # WARMING: You are using Development version! This may not be supported in version!";
             Bukkit.getConsoleSender().sendMessage(msg);
             Bukkit.getPluginManager().registerEvents(new Listener() {

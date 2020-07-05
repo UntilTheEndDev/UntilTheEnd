@@ -1,5 +1,6 @@
 package HamsterYDS.UntilTheEnd.guide;
 
+import HamsterYDS.UntilTheEnd.Logging;
 import HamsterYDS.UntilTheEnd.UntilTheEnd;
 import HamsterYDS.UntilTheEnd.api.BlockApi;
 import HamsterYDS.UntilTheEnd.api.GuideApi;
@@ -24,6 +25,7 @@ import org.bukkit.inventory.PlayerInventory;
 import org.bukkit.inventory.meta.ItemMeta;
 
 import java.util.*;
+import java.util.logging.Level;
 
 /**
  * @author 南外丶仓鼠
@@ -392,7 +394,19 @@ public class CraftGuide implements Listener {
                     item.setDurability((short) 13);
                 else {
                     ItemMeta meta = item.getItemMeta();
-                    assert meta != null;
+                    if (meta == null) {
+                        // ???????
+                        Logging.getLogger().log(Level.WARNING,
+                                "[CraftGuide] A known bug was caught, please report the following information to us",
+                                new Throwable("Thread stack.")
+                        );
+                        Logging.getLogger().warning(() -> "Item = " + item);
+                        Logging.getLogger().warning(() -> "Bukkit.getVersion() " + Bukkit.getVersion());
+                        Logging.getLogger().warning(() -> "Bukkit.getBukkitVersion() " + Bukkit.getBukkitVersion());
+                        Logging.getLogger().warning(() -> "Java " + System.getProperty("java.home"));
+                        Logging.getLogger().warning(() -> "== == == == ==");
+                        continue;
+                    }
                     List<String> lores = meta.hasLore() ? meta.getLore() : new ArrayList<>();
 
                     lores.removeIf(line -> line.contains("缺少机器"));
