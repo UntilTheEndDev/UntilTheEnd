@@ -1,5 +1,8 @@
 import org.gradle.api.Project
 import java.io.File
+import java.text.SimpleDateFormat
+import java.time.ZoneId
+import java.util.*
 
 /*
  * Copyright (c) 2018-2020 Karlatemp. All rights reserved.
@@ -9,6 +12,7 @@ import java.io.File
  * until-the-end/until-the-end.buildSrc.main/Versions.kt
  */
 
+@Suppress("MemberVisibilityCanBePrivate")
 object Versions {
     var resultFile: File? = null
     var project: Project? = null
@@ -21,4 +25,30 @@ object Versions {
             }
             error("Version info not found!")
         }
+
+    val commit by lazy {
+        kotlin.runCatching {
+            Runtime.getRuntime()
+                    .exec("git rev-parse HEAD")
+                    .apply { waitFor() }
+                    .inputStream
+                    .reader(Charsets.UTF_8)
+                    .use { it.readText() }
+        }.getOrElse { error ->
+            error.printStackTrace()
+            "ERROR: $error"
+        }
+    }
+    private val zone = TimeZone.getTimeZone(ZoneId.of("Asia/Shanghai"))!!
+
+    val buildDate = Date()
+
+    val format = SimpleDateFormat("yyyy-MM-dd HH:mm:ss '[Asia/Shanghai]'").apply {
+        this.timeZone = zone
+    }
+
+    val buildTime = buildDate.toInstant()
+            .atZone(zone.toZoneId())!!
+
+    val buildString = format.format(buildDate)!!
 }

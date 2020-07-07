@@ -10,6 +10,7 @@ import HamsterYDS.UntilTheEnd.cap.tir.Tiredness;
 import HamsterYDS.UntilTheEnd.crops.Crops;
 import HamsterYDS.UntilTheEnd.food.Food;
 import HamsterYDS.UntilTheEnd.guide.Guide;
+import HamsterYDS.UntilTheEnd.internal.BuildData;
 import HamsterYDS.UntilTheEnd.internal.DataConverter;
 import HamsterYDS.UntilTheEnd.internal.Metrics;
 import HamsterYDS.UntilTheEnd.internal.UTEi18n;
@@ -37,7 +38,9 @@ import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.URL;
 import java.nio.charset.StandardCharsets;
+import java.util.Date;
 import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  * @author 南外丶仓鼠
@@ -91,6 +94,15 @@ public class UntilTheEnd extends JavaPlugin implements Listener {
         }
         failedLoading = false;
         try {
+            // Pre starting check
+            {
+                Logger logger = Logging.getLogger();
+                logger.info("UntilTheEnd - build version:   " + BuildData.GIT_COMMIT);
+                logger.info("UntilTheEnd - build time:      " + new Date(BuildData.BUILD_TIME));
+                logger.info("UntilTheEnd - build timestamp: " + BuildData.BUILD_TIME);
+                BuildData.checkSystem();
+            }
+
             int pluginId = 6586;
             Metrics metrics = new Metrics(this, pluginId);
             metrics.addCustomChart(new Metrics.SimplePie("chart_id", () -> "My value"));

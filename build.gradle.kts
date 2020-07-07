@@ -82,3 +82,30 @@ val releases: Task by tasks.creating {
 
 @Suppress("NOTHING_TO_INLINE")
 inline fun Project.project(): Project = this
+
+val uteGradleTest: Task by tasks.creating {
+    group = "ute"
+    doFirst {
+        println(Versions.buildTime)
+        println(Versions.UTE)
+        println(Versions.commit)
+        println(Versions.format.format(Versions.buildDate))
+    }
+}
+
+tasks.getByName("jar", Jar::class) {
+
+    @Suppress("UnstableApiUsage")
+    manifest {
+        attributes(mapOf(
+                "Manifest-Version" to "1.0",
+                "Implementation-URL" to "https://github.com/UntilTheEndDev/UntilTheEnd",
+                "Implementation-Title" to "UntilTheEnd",
+                "Implementation-Version" to Versions.commit,
+                "Created-By" to "GitHub Action",
+                "BuildTimestamp" to Versions.buildDate.time,
+                "BuildDate" to Versions.buildString,
+                "Application-Version" to Versions.UTE
+        ))
+    }
+}
