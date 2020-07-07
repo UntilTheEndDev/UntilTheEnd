@@ -100,6 +100,7 @@ public class UntilTheEnd extends JavaPlugin implements Listener {
                 logger.info("UntilTheEnd - build version:   " + BuildData.GIT_COMMIT);
                 logger.info("UntilTheEnd - build time:      " + new Date(BuildData.BUILD_TIME));
                 logger.info("UntilTheEnd - build timestamp: " + BuildData.BUILD_TIME);
+                logger.info("UntilTheEnd - builder:         " + BuildData.BUILDER);
                 BuildData.checkSystem();
             }
 

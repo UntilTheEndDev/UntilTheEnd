@@ -23,8 +23,11 @@ import java.util.logging.Level;
 public class BuildData {
     public static final String GIT_COMMIT;
     public static final long BUILD_TIME;
+    public static final boolean BUILD_BY_GITHUB;
+    public static final String BUILDER;
 
     static {
+        String builder = "UNKNOWN";
         String gitCommit = "UNKNOWN";
         long buildTime = -1L;
         final InputStream resource = UntilTheEnd.getInstance().getResource("META-INF/MANIFEST.MF");
@@ -46,9 +49,15 @@ public class BuildData {
             if (!UntilTheEnd.getInstance().getDescription().getVersion().equals(attributes.getValue("Application-Version"))) {
                 Logging.getLogger().log(Level.WARNING, "Version not match! The jar of UntilTheEnd may be damaged.");
             }
+            builder = attributes.getValue("Created-By");
         }
         GIT_COMMIT = gitCommit;
         BUILD_TIME = buildTime;
+        BUILDER = builder;
+        BUILD_BY_GITHUB = "Github Action".equalsIgnoreCase(builder);
+        if (!BUILD_BY_GITHUB) {
+            Logging.getLogger().warning("You are using custom build.");
+        }
     }
 
     public static void checkSystem() {

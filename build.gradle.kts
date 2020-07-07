@@ -97,15 +97,15 @@ tasks.getByName("jar", Jar::class) {
 
     @Suppress("UnstableApiUsage")
     manifest {
-        attributes(mapOf(
+        attributes(
                 "Manifest-Version" to "1.0",
                 "Implementation-URL" to "https://github.com/UntilTheEndDev/UntilTheEnd",
                 "Implementation-Title" to "UntilTheEnd",
                 "Implementation-Version" to Versions.commit,
-                "Created-By" to "GitHub Action",
+                "Created-By" to Versions.whoAmI,
                 "BuildTimestamp" to Versions.buildDate.time,
                 "BuildDate" to Versions.buildString,
                 "Application-Version" to Versions.UTE
-        ))
+        )
     }
 }

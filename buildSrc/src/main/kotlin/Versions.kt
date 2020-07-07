@@ -16,6 +16,9 @@ import java.util.*
 object Versions {
     var resultFile: File? = null
     var project: Project? = null
+
+    val isGithubCI: Boolean = System.getenv("is_github")?.toBoolean() ?: false
+
     val UTE: String
         get() {
             val pro = project ?: error("Project not set")
@@ -34,11 +37,29 @@ object Versions {
                     .inputStream
                     .reader(Charsets.UTF_8)
                     .use { it.readText() }
+                    .trim()
         }.getOrElse { error ->
             error.printStackTrace()
             "ERROR: $error"
         }
     }
+
+    val whoAmI by lazy {
+        if (isGithubCI) return@lazy "Github Action"
+        kotlin.runCatching {
+            Runtime.getRuntime()
+                    .exec("whoami")
+                    .apply { waitFor() }
+                    .inputStream
+                    .reader(Charsets.UTF_8)
+                    .use { it.readText() }
+                    .trim()
+        }.getOrElse { error ->
+            error.printStackTrace()
+            "ERROR: $error"
+        }
+    }
+
     private val zone = TimeZone.getTimeZone(ZoneId.of("Asia/Shanghai"))!!
 
     val buildDate = Date()

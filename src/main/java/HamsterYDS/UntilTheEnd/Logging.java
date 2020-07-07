@@ -32,7 +32,7 @@ public class Logging extends java.util.logging.Logger {
     @Override
     public void log(LogRecord record) {
         if (!isLoggable(getLevel())) return;
-        String message = formatter.formatMessage(record);
+        String message = "[UntilTheEnd] " + formatter.formatMessage(record);
         Throwable exception = record.getThrown();
         Level level = record.getLevel();
         if (level == Level.SEVERE) {

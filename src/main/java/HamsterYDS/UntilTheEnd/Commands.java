@@ -5,6 +5,7 @@ import HamsterYDS.UntilTheEnd.entity.RabbitMan;
 import HamsterYDS.UntilTheEnd.event.player.PlayerRoleChangeByCommandEvent;
 import HamsterYDS.UntilTheEnd.guide.CraftGuide;
 import HamsterYDS.UntilTheEnd.guide.Guide;
+import HamsterYDS.UntilTheEnd.internal.BuildData;
 import HamsterYDS.UntilTheEnd.internal.ItemFactory;
 import HamsterYDS.UntilTheEnd.internal.NPCChecker;
 import HamsterYDS.UntilTheEnd.internal.UTEi18n;
@@ -85,6 +86,9 @@ public class Commands implements CommandExecutor, Listener, TabCompleter {
     public static void sendHelp(CommandSender sender) {
         sender.sendMessage(UTEi18n.cacheWithPrefix("prefix") + "§bUTE v"
                 + UntilTheEnd.getInstance().getDescription().getVersion());
+        sender.sendMessage("§b(" + BuildData.GIT_COMMIT + ")" + (
+                BuildData.BUILD_BY_GITHUB ? "" : " §c(Custom build. Build by " + BuildData.BUILDER + ")"
+        ));
         sender.sendMessage(UTEi18n.cacheWithPrefix("cmd.label.1"));
         if (sender.hasPermission("ute.cheat"))
             sender.sendMessage(UTEi18n.cacheWithPrefix("cmd.ute.cheat"));
