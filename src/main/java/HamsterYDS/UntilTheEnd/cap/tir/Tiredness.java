@@ -16,6 +16,6 @@ public class Tiredness {
         ChangeTasks.initialize();
         new InfluenceTasks().runTaskTimer(plugin, 0L, 20L);
         plugin.getServer().getPluginManager().registerEvents(new ChangeEvents(plugin), plugin);
-        plugin.getServer().getPluginManager().registerEvents(new InfluenceEvents(plugin), plugin);
+        plugin.getServer().getPluginManager().registerEvents(new InfluenceEvents(), plugin);
     }
 }

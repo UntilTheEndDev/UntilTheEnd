@@ -1,16 +1,12 @@
 package HamsterYDS.UntilTheEnd.cap;
 
-import java.util.Deque;
-import java.util.HashMap;
-import java.util.Map;
-import java.util.UUID;
-import java.util.concurrent.ConcurrentLinkedDeque;
-
+import HamsterYDS.UntilTheEnd.Config;
 import HamsterYDS.UntilTheEnd.UntilTheEnd;
 import HamsterYDS.UntilTheEnd.internal.MathHelper;
 import HamsterYDS.UntilTheEnd.internal.NPCChecker;
 import HamsterYDS.UntilTheEnd.internal.ResidenceChecker;
 import HamsterYDS.UntilTheEnd.internal.UTEi18n;
+import HamsterYDS.UntilTheEnd.player.PlayerManager;
 import org.bukkit.Bukkit;
 import org.bukkit.World;
 import org.bukkit.boss.BarColor;
@@ -23,8 +19,11 @@ import org.bukkit.event.player.PlayerChangedWorldEvent;
 import org.bukkit.event.player.PlayerQuitEvent;
 import org.bukkit.scheduler.BukkitRunnable;
 
-import HamsterYDS.UntilTheEnd.Config;
-import HamsterYDS.UntilTheEnd.player.PlayerManager;
+import java.util.Deque;
+import java.util.HashMap;
+import java.util.Map;
+import java.util.UUID;
+import java.util.concurrent.ConcurrentLinkedDeque;
 
 /**
  * @author 南外丶仓鼠
@@ -83,7 +82,7 @@ public class HudBossBar extends BukkitRunnable implements Listener {
     public void run() {
         for (World w : Config.enableWorlds) {
             for (Player p : w.getPlayers()) {
-            	if (NPCChecker.isNPC(p)||ResidenceChecker.isProtected(p.getLocation())) continue;
+                if (NPCChecker.isNPC(p) || ResidenceChecker.isProtected(p.getLocation())) continue;
                 final NdBossBar ndBossBar = create(p.getUniqueId());
                 switch (p.getGameMode()) {
                     case CREATIVE:
@@ -93,8 +92,8 @@ public class HudBossBar extends BukkitRunnable implements Listener {
                         ndBossBar.san.removeAll();
                         ndBossBar.tir.removeAll();
                         continue;
-				default:
-					break;
+                    default:
+                        break;
                 }
                 double san = PlayerManager.check(p, PlayerManager.CheckType.SANITY);
                 double sanMax = PlayerManager.check(p, PlayerManager.CheckType.SANMAX);

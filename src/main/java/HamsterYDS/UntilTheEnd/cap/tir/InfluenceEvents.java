@@ -1,6 +1,10 @@
 package HamsterYDS.UntilTheEnd.cap.tir;
 
 import HamsterYDS.UntilTheEnd.Config;
+import HamsterYDS.UntilTheEnd.UntilTheEnd;
+import HamsterYDS.UntilTheEnd.internal.UTEi18n;
+import HamsterYDS.UntilTheEnd.player.PlayerManager;
+import HamsterYDS.UntilTheEnd.player.PlayerManager.CheckType;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.EventPriority;
@@ -11,21 +15,15 @@ import org.bukkit.event.entity.EntityDamageByEntityEvent;
 import org.bukkit.event.player.AsyncPlayerChatEvent;
 import org.bukkit.event.player.PlayerTeleportEvent;
 
-import HamsterYDS.UntilTheEnd.UntilTheEnd;
-import HamsterYDS.UntilTheEnd.internal.UTEi18n;
-import HamsterYDS.UntilTheEnd.player.PlayerManager;
-import HamsterYDS.UntilTheEnd.player.PlayerManager.CheckType;
-
 public class InfluenceEvents implements Listener {
-    public static UntilTheEnd plugin;
-    public static int teleport = Tiredness.yaml.getInt("influence.event.teleport");
-    public static int lbreak = Tiredness.yaml.getInt("influence.event.break");
-    public static int place = Tiredness.yaml.getInt("influence.event.place");
-    public static int talk = Tiredness.yaml.getInt("influence.event.talk");
-    public static int attack = Tiredness.yaml.getInt("influence.event.attack");
+    public static UntilTheEnd plugin = UntilTheEnd.getInstance();
+    private static final double teleport = Tiredness.yaml.getDouble("influence.event.teleport");
+    private static final double lbreak = Tiredness.yaml.getDouble("influence.event.break");
+    private static final double place = Tiredness.yaml.getDouble("influence.event.place");
+    private static final double talk = Tiredness.yaml.getDouble("influence.event.talk");
+    private static final double attack = Tiredness.yaml.getDouble("influence.event.attack");
 
-    public InfluenceEvents(UntilTheEnd plugin) {
-        this.plugin = plugin;
+    public InfluenceEvents() {
     }
 
     @EventHandler(priority = EventPriority.MONITOR, ignoreCancelled = true)
