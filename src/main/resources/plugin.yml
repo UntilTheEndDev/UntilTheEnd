@@ -1,8 +1,8 @@
 name: UntilTheEnd
 main: HamsterYDS.UntilTheEnd.UntilTheEnd
 version: "Development"
-depend: [PlaceholderAPI]
 softdepend:
+  - PlaceholderAPI
   - ProtocolLib
   - Multiverse-Core
   - LibsDisguises

@@ -129,8 +129,11 @@ public class UntilTheEnd extends JavaPlugin implements Listener {
             HudProvider.initialize(this);
             new Food(this);
             new Commands(this);
-            new UTEPapiExpansion().register();
-
+            try {
+                Class.forName("me.clip.placeholderapi.expansion.PlaceholderExpansion");
+                new UTEPapiExpansion().register();
+            } catch (ClassNotFoundException ignored) {
+            }
             getLogger().log(Level.INFO, UTEi18n.parse("logging.store.type", PlayerDataLoaderImpl.loader.getClass().getSimpleName(), getConfig().getString("saving")));
         } catch (Throwable throwable) {
             failedLoading = true;

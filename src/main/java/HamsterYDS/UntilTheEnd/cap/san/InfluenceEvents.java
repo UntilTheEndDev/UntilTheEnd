@@ -1,5 +1,6 @@
 package HamsterYDS.UntilTheEnd.cap.san;
 
+import HamsterYDS.UntilTheEnd.api.PlayerApi;
 import HamsterYDS.UntilTheEnd.internal.DisableManager;
 import HamsterYDS.UntilTheEnd.internal.SanChattingProvider;
 import org.bukkit.Location;
@@ -12,7 +13,6 @@ import org.bukkit.event.player.PlayerMoveEvent;
 
 import HamsterYDS.UntilTheEnd.Config;
 import HamsterYDS.UntilTheEnd.player.PlayerManager;
-import me.clip.placeholderapi.PlaceholderAPI;
 
 /**
  * @author 南外丶仓鼠
@@ -31,7 +31,7 @@ public class InfluenceEvents implements Listener {
         int moveWronglySanityCal = (int) (moveWronglySanity * PlayerManager.check(player, PlayerManager.CheckType.SANMAX));
         if (san <= moveWronglySanityCal && Math.random() <= moveWronglyPercent) {
             Location loc = event.getTo();
-            float fac = (float) ((moveWronglySanityCal - san) / 3F);
+            float fac = (moveWronglySanityCal - san) / 3F;
             if (fac < 0) return;
             loc.setYaw((float) (loc.getYaw() + Math.random() * fac - Math.random() * fac));
             loc.setPitch((float) (loc.getPitch() + Math.random() * fac - Math.random() * fac));
@@ -43,7 +43,7 @@ public class InfluenceEvents implements Listener {
     public void onChat(AsyncPlayerChatEvent event) {
         Player sender = event.getPlayer();
         if (!DisableManager.root.getBoolean("chatting_placeholder_api", true))
-            event.setMessage(PlaceholderAPI.setPlaceholders(sender, event.getMessage()));
+            event.setMessage(PlayerApi.getPAPI(sender, event.getMessage()));
         if (!Config.enableWorlds.contains(sender.getWorld())) return;
         int san = (int) PlayerManager.check(sender, PlayerManager.CheckType.SANITY);
         int chatablessSanityCal = (int) (chatablessSanity * PlayerManager.check(sender, PlayerManager.CheckType.SANMAX));

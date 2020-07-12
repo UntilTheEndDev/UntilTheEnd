@@ -1,17 +1,28 @@
 package HamsterYDS.UntilTheEnd.api;
 
-import org.bukkit.entity.Player;
-
 import HamsterYDS.UntilTheEnd.cap.HudProvider;
 import HamsterYDS.UntilTheEnd.player.PlayerManager;
 import HamsterYDS.UntilTheEnd.player.PlayerManager.CheckType;
 import HamsterYDS.UntilTheEnd.player.role.Roles;
 import me.clip.placeholderapi.PlaceholderAPI;
+import org.bukkit.entity.Player;
+
+import java.util.function.BiFunction;
 
 public class PlayerApi {
+    private static final BiFunction<Player, String, String> placeholderAPI_fun;
+
+    static {
+        BiFunction<Player, String, String> placeholderAPI_ = (p, v) -> v;
+        try {
+            placeholderAPI_ = PlaceholderAPI::setPlaceholders;
+        } catch (Throwable ignored) {
+        }
+        placeholderAPI_fun = placeholderAPI_;
+    }
+
     public static String getPAPI(Player player, String line) {
-        String newLine = PlaceholderAPI.setPlaceholders(player, line);
-        return newLine;
+        return placeholderAPI_fun.apply(player, line);
     }
 
     public static String getChangingTend(Player player, String type) {
