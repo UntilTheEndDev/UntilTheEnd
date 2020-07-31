@@ -38,7 +38,7 @@ dependencies {
     // For NMS
     // compileOnly("org.bukkit:craftbukkit:1.12.2-R0.1-SNAPSHOT")
 
-    compileOnly("me.clip:placeholderapi:2.10.5")
+    compileOnly("me.clip:placeholderapi:2.10.7")
     compileOnly("org.jetbrains:annotations:17.0.0")
 //    compileOnly("LibsDisguises:LibsDisguises:10.0.5")
 //    compileOnly("Residence:Residence:4.8.7.4")

@@ -4,7 +4,9 @@ import HamsterYDS.UntilTheEnd.internal.MathHelper;
 import HamsterYDS.UntilTheEnd.player.PlayerManager;
 import HamsterYDS.UntilTheEnd.player.PlayerManager.CheckType;
 import me.clip.placeholderapi.expansion.PlaceholderExpansion;
+import org.bukkit.OfflinePlayer;
 import org.bukkit.entity.Player;
+import org.jetbrains.annotations.NotNull;
 
 /**
  * Create at 2020/3/7 23:04
@@ -13,19 +15,22 @@ import org.bukkit.entity.Player;
  */
 public class UTEPapiExpansion extends PlaceholderExpansion {
 
-    public String getAuthor() {
+    public @NotNull String getAuthor() {
         return "[南外丶仓鼠,瑞瑞瑞瑞阿,Karlatemp]";
     }
 
-    public String getIdentifier() {
+    public @NotNull String getIdentifier() {
         return "ute";
     }
 
-    public String getVersion() {
+    public @NotNull String getVersion() {
         return "5.6";
     }
 
-    public String onPlaceholderRequest(Player player, String identifier) {
+    @Override
+    public String onRequest(OfflinePlayer off_player, @NotNull String identifier) {
+        if (off_player == null) return null;
+        Player player = off_player.getPlayer();
         if (player == null) {
             return "";
         }
