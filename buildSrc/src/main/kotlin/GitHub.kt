@@ -111,7 +111,7 @@ object GitHub {
             val resp = withContext(Dispatchers.IO) {
                 Jsoup
                         .connect(
-                                "https://api.github.com/repos/mamoe/$repo/git/ref/heads/$branch?access_token=" + getGithubToken(
+                                "https://api.github.com/repos/UntilTheEndDev/$repo/git/ref/heads/$branch?access_token=" + getGithubToken(
                                         project
                                 )
                         )
