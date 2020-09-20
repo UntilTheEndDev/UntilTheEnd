@@ -25,10 +25,9 @@ import org.bukkit.inventory.PlayerInventory;
 import org.bukkit.inventory.meta.ItemMeta;
 
 import java.util.*;
-import java.util.logging.Level;
 
 /**
- * @author 南外丶仓鼠
+ * @author 鍗楀涓朵粨榧�
  * @version V5.1.1
  */
 public class CraftGuide implements Listener {
@@ -67,12 +66,12 @@ public class CraftGuide implements Listener {
         inv.setItem(35, frame);
         for (int i = 36; i < 45; i++)
             inv.setItem(i, frame);
-        GuideApi.addCategory("§6基础", Material.LEASH, (short) 0);
-        GuideApi.addCategory("§6衣物", Material.GOLD_HELMET, (short) 0);
-        GuideApi.addCategory("§6生存", Material.IRON_PICKAXE, (short) 0);
-        GuideApi.addCategory("§6战斗", Material.GOLD_SWORD, (short) 0);
-        GuideApi.addCategory("§6魔法", Material.SPLASH_POTION, (short) 0);
-        GuideApi.addCategory("§6科学", Material.REDSTONE_COMPARATOR, (short) 0);
+        GuideApi.addCategory("搂6鍩虹", Material.LEASH, (short) 0);
+        GuideApi.addCategory("搂6琛ｇ墿", Material.GOLD_HELMET, (short) 0);
+        GuideApi.addCategory("搂6鐢熷瓨", Material.IRON_PICKAXE, (short) 0);
+        GuideApi.addCategory("搂6鎴樻枟", Material.GOLD_SWORD, (short) 0);
+        GuideApi.addCategory("搂6榄旀硶", Material.SPLASH_POTION, (short) 0);
+        GuideApi.addCategory("搂6绉戝", Material.REDSTONE_COMPARATOR, (short) 0);
     }
 
     public static ArrayList<UUID> openers = new ArrayList<>();
@@ -162,7 +161,7 @@ public class CraftGuide implements Listener {
         // int index=helps.get(key);
         // }
         // if(event.getSlot()==45) {
-        // //下一页
+        // //涓嬩竴椤�
         // }
         if (item.getDurability() == 14 || item.getDurability() == 7) {
             player.sendMessage(UTEi18n.cacheWithPrefix("item.system.no-machine"));
@@ -309,7 +308,7 @@ public class CraftGuide implements Listener {
         helps.put(string, invs);
     }
 
-    // 获取一个物品
+    // 鑾峰彇涓�涓墿鍝�
     public static ItemStack getItem(String name, Material material, int data) {
         ItemStack item = new ItemStack(material);
         item.setDurability((short) data);
@@ -319,7 +318,7 @@ public class CraftGuide implements Listener {
         return item;
     }
 
-    // 获取一个新的类型GUI（多物品）
+    // 鑾峰彇涓�涓柊鐨勭被鍨婫UI锛堝鐗╁搧锛�
     public static Inventory loadNew() {
         ItemStack frame = getItem(UTEi18n.cache("item.guide.border"), Material.STAINED_GLASS_PANE, 15);
         Inventory inv = Bukkit.createInventory(HolderCraftingHelp.INSTANCE, 45,
@@ -347,14 +346,14 @@ public class CraftGuide implements Listener {
         return inv;
     }
 
-    // 获取一整个好多GUI
+    // 鑾峰彇涓�鏁翠釜濂藉GUI
     public static ArrayList<Inventory> getTypeInventory() {
         ArrayList<Inventory> invs = new ArrayList<>();
         invs.add(loadNew());
         return invs;
     }
 
-    // 加载一个新的物品合成展示GUI
+    // 鍔犺浇涓�涓柊鐨勭墿鍝佸悎鎴愬睍绀篏UI
     public static Inventory getCraftInventory() {
         ItemStack frame = getItem(UTEi18n.cache("item.guide.border"), Material.STAINED_GLASS_PANE, 15);
         Inventory craftInv = Bukkit.createInventory(HolderCraftingHelp.INSTANCE, 45,
@@ -369,7 +368,7 @@ public class CraftGuide implements Listener {
         craftInv.setItem(35, frame);
         for (int i = 36; i < 45; i++)
             craftInv.setItem(i, frame);
-        ItemStack craft = getItem("点我合成", Material.STAINED_GLASS_PANE, 9);
+        ItemStack craft = getItem("鐐规垜鍚堟垚", Material.STAINED_GLASS_PANE, 9);
         craftInv.setItem(40, craft);
         return craftInv;
     }
@@ -397,20 +396,20 @@ public class CraftGuide implements Listener {
                     if (meta == null) {
                         // ???????
                         Logging.getLogger().warning(() -> "Your server core version seems too old, it will affect the normal operation of UTE");
-                        Logging.getLogger().warning(() -> "你的服务器核心版本似乎过旧, 将会影响UTE的正常运行");
+                        Logging.getLogger().warning(() -> "浣犵殑鏈嶅姟鍣ㄦ牳蹇冪増鏈技涔庤繃鏃�, 灏嗕細褰卞搷UTE鐨勬甯歌繍琛�");
                         continue;
                     }
                     List<String> lores = meta.hasLore() ? meta.getLore() : new ArrayList<>();
 
-                    lores.removeIf(line -> line.contains("缺少机器"));
+                    lores.removeIf(line -> line.contains("缂哄皯鏈哄櫒"));
 
                     if (playerLevel + 1 == level) {
                         item.setDurability((short) 14);
-                        lores.add("§4缺少机器: §d§l" + ItemManager.items.get(ItemManager.machines.get(level)).displayName);
+                        lores.add("搂4缂哄皯鏈哄櫒: 搂d搂l" + ItemManager.items.get(ItemManager.machines.get(level)).displayName);
                     }
                     if (playerLevel + 1 < level) {
                         item.setDurability((short) 7);
-                        lores.add("§4缺少机器: §c§l未知");
+                        lores.add("搂4缂哄皯鏈哄櫒: 搂c搂l鏈煡");
                     }
                     meta.setLore(lores);
                     item.setItemMeta(meta);
