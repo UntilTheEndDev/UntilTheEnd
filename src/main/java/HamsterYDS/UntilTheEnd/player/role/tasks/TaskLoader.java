@@ -7,5 +7,6 @@ public class TaskLoader {
         new Wilson(plugin);
         new Willow(plugin);
         new Wolfgang(plugin);
+        new WX78(plugin);
     }
 }
