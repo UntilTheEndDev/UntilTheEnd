@@ -16,9 +16,9 @@ import HamsterYDS.UntilTheEnd.api.WorldApi;
 import HamsterYDS.UntilTheEnd.world.WorldProvider.Season;
 
 /**
- * @author 鍗楀涓朵粨榧�
+ * @author 南外丶仓鼠
  * @version V5.1.1
- */ 
+ */
 public class SeasonCroping implements Listener {
     public static UntilTheEnd plugin;
 

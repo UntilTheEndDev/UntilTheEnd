@@ -43,7 +43,8 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 
 /**
- * I'm back!
+ * @author 南外丶仓鼠
+ * @version V5.1.1
  */
 public class UntilTheEnd extends JavaPlugin implements Listener {
     String latestVersion;
