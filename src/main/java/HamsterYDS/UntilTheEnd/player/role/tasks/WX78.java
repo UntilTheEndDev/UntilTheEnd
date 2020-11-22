@@ -32,7 +32,6 @@ public class WX78 {
                         	player.damage(humidity/10.0);
                         }
                     }
-                    
                 }
         }
     }
