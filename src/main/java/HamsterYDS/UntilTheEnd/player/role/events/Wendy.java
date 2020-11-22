@@ -97,7 +97,6 @@ public class Wendy implements Listener {
                     ghost.getWorld().spawnParticle(Particle.SMOKE_LARGE,loc.add(0,0.5,0),10);
                     ghost.getWorld().spawnParticle(Particle.SMOKE_LARGE,loc.add(0,1,0),10);
                 }
-                //TODO 存在时间 config
             }.runTaskTimer(UntilTheEnd.getInstance(),0L,5L);
         }
     }
