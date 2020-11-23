@@ -15,14 +15,16 @@ import org.bukkit.event.entity.PlayerDeathEvent;
 import org.bukkit.potion.PotionEffect;
 import org.bukkit.potion.PotionEffectType;
 import org.bukkit.scheduler.BukkitRunnable;
+import org.bukkit.util.Vector;
 
 import java.util.HashMap;
+import java.util.List;
 import java.util.UUID;
 
 public class Wendy implements Listener {
     public static HashMap<UUID,Long> ghostLastSummonedStamp = new HashMap<UUID,Long>();
     @EventHandler(priority = EventPriority.HIGHEST)
-    public void onDeath(EntityDamageEvent event){
+    public void onDamaged(EntityDamageEvent event){
         if (!Config.enableWorlds.contains(event.getEntity().getWorld())) return;
         if(!(event.getEntity() instanceof Player)) return;
         if(((Player) event.getEntity()).getHealth()<=event.getDamage()) return;
@@ -35,67 +37,64 @@ public class Wendy implements Listener {
                     return;
                 }
             }
-            Location spawnLoc=player.getLocation();
-            Rabbit ghost= (Rabbit) player.getWorld().spawnEntity(spawnLoc, EntityType.RABBIT);
-            ghost.setCustomName("§6§lAbigail");
-            ghost.addPotionEffect(new PotionEffect(PotionEffectType.INVISIBILITY,1000000,0,false,false));
-            ghost.addPotionEffect(new PotionEffect(PotionEffectType.SPEED,1000000,0,false,false));
-            ghost.setAI(false);
+            Location spawnLoc=player.getLocation().clone();
+            ArmorStand ghost= (ArmorStand) player.getWorld().spawnEntity(spawnLoc, EntityType.ARMOR_STAND);
             ghost.setCustomNameVisible(true);
+            ghost.setCustomName("§6§lAbigail");
+            ghost.setVisible(true);
+            ghost.setGravity(false);
             player.sendTitle("§6§l鬼魂已召唤","");
+            ghostLastSummonedStamp.put(player.getUniqueId(),System.currentTimeMillis());
             new BukkitRunnable(){
-                Entity target=player;
-                double distance=100.0;
+                Entity target=ghost;
+                @Override
+                public void run() {
+                    if(ghost.isDead()) {
+                        cancel();
+                    }
+                    ghost.setVelocity(new Vector(Math.random()-Math.random(),Math.random()-Math.random(),Math.random()-Math.random()));
+                }
+            }.runTaskTimer(UntilTheEnd.getInstance(),0L,3L);
+            new BukkitRunnable(){
                 @Override
                 public void run() {
                     if(ghost.isDead()){
                         cancel();
                     }
-                    for(Entity entity:player.getNearbyEntities(10,10,10)){
-                        if(entity instanceof LivingEntity) {
-                            if (player.getLocation().distance(entity.getLocation()) < distance) {
-                                target = entity;
-                                distance = player.getLocation().distance(entity.getLocation());
-                            }
+                    for(Entity entity:ghost.getNearbyEntities(3,4,3)){
+                        if(entity instanceof LivingEntity && entity.getUniqueId()!=player.getUniqueId()
+                                                          && entity.getUniqueId()!=ghost.getUniqueId()) {
+                            //TODO 数据配置：鬼魂伤害5.0
+                            ((LivingEntity) entity).damage(2.5);
                         }
                     }
-                    ghost.setTarget((LivingEntity) target);
                 }
             }.runTaskTimer(UntilTheEnd.getInstance(),0L,10L);
             new BukkitRunnable(){
                 @Override
                 public void run() {
-                    if(ghost.isDead()){
-                        cancel();
-                    }
-                    for(Entity entity:player.getNearbyEntities(1,1,1)){
-                        if(entity instanceof LivingEntity && entity.getUniqueId()!=player.getUniqueId()) {
-                            //TODO 数据配置：鬼魂伤害5.0
-                            ((LivingEntity) entity).damage(5.0);
-                        }
-                    }
-                }
-            }.runTaskTimer(UntilTheEnd.getInstance(),0L,20L);
-            new BukkitRunnable(){
-                @Override
-                public void run() {
-                    ghost.remove();
+                    ghost.damage(1000.0);
                 }
                 //TODO 存在时间 config
             }.runTaskLater(UntilTheEnd.getInstance(),1200L);
             new BukkitRunnable(){
                 @Override
                 public void run() {
-                   Location loc=ghost.getLocation();
-                   if(loc.getWorld().getUID()!=player.getWorld().getUID()){
-                       ghost.teleport(player.getLocation());
-                   }
-                    if(loc.distance(player.getLocation())>=20.0){
-                        ghost.teleport(player.getLocation());
+                    if(ghost.isDead()){
+                        cancel();
                     }
-                    ghost.getWorld().spawnParticle(Particle.SMOKE_LARGE,loc,10);
-                    ghost.getWorld().spawnParticle(Particle.SMOKE_LARGE,loc.add(0,0.5,0),10);
-                    ghost.getWorld().spawnParticle(Particle.SMOKE_LARGE,loc.add(0,1,0),10);
+                    Location loc=ghost.getLocation();
+                    //TODO 粒子效果
+                    ghost.getWorld().spawnParticle(Particle.FLAME,ghost.getLocation().add(0,0.5,0),3);
+                    ghost.getWorld().spawnParticle(Particle.FLAME,ghost.getLocation().add(0,1,0),3);
+                    ghost.getWorld().spawnParticle(Particle.FLAME,ghost.getLocation().add(0.5,0.5,0),3);
+                    ghost.getWorld().spawnParticle(Particle.FLAME,ghost.getLocation().add(-0.5,1,0),3);
+                    ghost.getWorld().spawnParticle(Particle.FLAME,ghost.getLocation().add(0,0.5,0.5),3);
+                    ghost.getWorld().spawnParticle(Particle.FLAME,ghost.getLocation().add(0,1,-0.5),3);
+                    ghost.getWorld().spawnParticle(Particle.FLAME,ghost.getLocation().add(0.5,0.5,0.5),3);
+                    ghost.getWorld().spawnParticle(Particle.FLAME,ghost.getLocation().add(-0.5,1,-0.5),3);
+                    ghost.getWorld().spawnParticle(Particle.FLAME,ghost.getLocation().add(0.5,0.5,-0.5),3);
+                    ghost.getWorld().spawnParticle(Particle.FLAME,ghost.getLocation().add(-0.5,1,0.5),3);
                 }
             }.runTaskTimer(UntilTheEnd.getInstance(),0L,5L);
         }
