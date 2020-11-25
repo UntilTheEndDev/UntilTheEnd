@@ -41,7 +41,7 @@ public class ArrowManager {
         armor.setArms(false);
         armor.setGravity(false);
         armor.setRemoveWhenFarAway(true);
-        final Vector vec = loc.getDirection().normalize().multiply(0.2);
+        final Vector vec = loc.getDirection();
         new BukkitRunnable() {
             int dist = 0;
 
@@ -53,17 +53,63 @@ public class ArrowManager {
                     armor.remove();
                     return;
                 }
-                for (int i = 0; i <= 45; i++) {
+                for (int i = 0; i <= 10; i++) {
                     loc.add(vec);
-                    if (loc.getBlock().getType() != Material.AIR) {
+                    if (loc.getBlock().getType() != Material.AIR
+                            &&loc.getBlock().getType() != Material.SAPLING
+                            &&loc.getBlock().getType() != Material.GRASS
+                            &&loc.getBlock().getType() != Material.DEAD_BUSH
+                            &&loc.getBlock().getType() != Material.YELLOW_FLOWER
+                            &&loc.getBlock().getType() != Material.RED_ROSE
+                            &&loc.getBlock().getType() != Material.BROWN_MUSHROOM
+                            &&loc.getBlock().getType() != Material.RED_MUSHROOM
+                            &&loc.getBlock().getType() != Material.TORCH
+                            &&loc.getBlock().getType() != Material.LADDER
+                            &&loc.getBlock().getType() != Material.SNOW
+                            &&loc.getBlock().getType() != Material.VINE
+                            &&loc.getBlock().getType() != Material.WATER_LILY
+                            &&loc.getBlock().getType() != Material.CARPET
+                            &&loc.getBlock().getType() != Material.DOUBLE_PLANT
+                            &&loc.getBlock().getType() != Material.PAINTING
+                            &&loc.getBlock().getType() != Material.SIGN
+                            &&loc.getBlock().getType() != Material.ITEM_FRAME
+                            &&loc.getBlock().getType() != Material.FLOWER_POT
+                            &&loc.getBlock().getType() != Material.ARMOR_STAND
+                            &&loc.getBlock().getType() != Material.BANNER
+                            &&loc.getBlock().getType() != Material.END_CRYSTAL
+                            &&loc.getBlock().getType() != Material.LEVER
+                            &&loc.getBlock().getType() != Material.GOLD_PLATE
+                            &&loc.getBlock().getType() != Material.STONE_PLATE
+                            &&loc.getBlock().getType() != Material.WOOD_PLATE
+                            &&loc.getBlock().getType() != Material.IRON_PLATE
+                            &&loc.getBlock().getType() != Material.REDSTONE_TORCH_OFF
+                            &&loc.getBlock().getType() != Material.REDSTONE_TORCH_ON
+                            &&loc.getBlock().getType() != Material.STONE_BUTTON
+                            &&loc.getBlock().getType() != Material.TRAP_DOOR
+                            &&loc.getBlock().getType() != Material.TRIPWIRE_HOOK
+                            &&loc.getBlock().getType() != Material.WOOD_BUTTON
+                            &&loc.getBlock().getType() != Material.IRON_TRAPDOOR
+                            && (!loc.getBlock().getType().toString().contains("DOOR"))
+                            &&loc.getBlock().getType() != Material.REDSTONE
+                            &&loc.getBlock().getType() != Material.REDSTONE_COMPARATOR
+                            &&loc.getBlock().getType() != Material.REDSTONE_COMPARATOR_OFF
+                            &&loc.getBlock().getType() != Material.REDSTONE_COMPARATOR_ON
+                            &&loc.getBlock().getType() != Material.DIODE_BLOCK_OFF
+                            &&loc.getBlock().getType() != Material.DIODE_BLOCK_ON
+                            &&loc.getBlock().getType() != Material.DIODE
+                            && (!loc.getBlock().getType().toString().contains("RAIL"))
+                            &&loc.getBlock().getType() != Material.STRING
+                            &&loc.getBlock().getType() != Material.BREWING_STAND
+                    ) {
                         armor.getWorld().spawnParticle(Particle.CRIT, loc.clone().add(0, 1, 0), 1);
+                        loc.add(vec);
                         armor.teleport(loc);
                         if (block != null)
                             block.accept(loc.getBlock());
                         clear();
                         return;
                     }
-                    for (Entity entity : armor.getWorld().getNearbyEntities(loc.add(0, 0.3, 0), range, range, range)) {
+                    for (Entity entity : armor.getWorld().getNearbyEntities(loc.clone().add(0, 0.5, 0), range, range, range)) {
                         if (entity == attacker)
                             continue;
                         if (entity instanceof ArmorStand) continue;
