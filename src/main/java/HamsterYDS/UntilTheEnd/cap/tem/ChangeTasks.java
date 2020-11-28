@@ -8,7 +8,7 @@ import java.util.UUID;
 import HamsterYDS.UntilTheEnd.internal.NPCChecker;
 import HamsterYDS.UntilTheEnd.internal.ResidenceChecker;
 import HamsterYDS.UntilTheEnd.item.ItemManager;
-import HamsterYDS.UntilTheEnd.item.other.ClothesContainer;
+import HamsterYDS.UntilTheEnd.item.science.ClothesContainer;
 import HamsterYDS.UntilTheEnd.item.survival.WarmStone;
 
 import org.bukkit.World;

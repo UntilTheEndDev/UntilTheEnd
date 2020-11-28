@@ -14,7 +14,7 @@ import org.bukkit.potion.PotionEffectType;
 
 import HamsterYDS.UntilTheEnd.cap.san.ChangeTasks;
 import HamsterYDS.UntilTheEnd.item.ItemManager;
-import HamsterYDS.UntilTheEnd.item.other.ClothesContainer;
+import HamsterYDS.UntilTheEnd.item.science.ClothesContainer;
 
 /**
  * @author 南外丶仓鼠

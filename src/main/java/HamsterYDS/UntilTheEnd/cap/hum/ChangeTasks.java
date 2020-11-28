@@ -10,7 +10,7 @@ import java.util.function.BiFunction;
 import HamsterYDS.UntilTheEnd.cap.tem.TemperatureProvider;
 import HamsterYDS.UntilTheEnd.internal.NPCChecker;
 import HamsterYDS.UntilTheEnd.internal.ResidenceChecker;
-import HamsterYDS.UntilTheEnd.item.other.ClothesContainer;
+import HamsterYDS.UntilTheEnd.item.science.ClothesContainer;
 
 import org.bukkit.Location;
 import org.bukkit.Material;

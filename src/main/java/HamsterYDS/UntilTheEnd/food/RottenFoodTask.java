@@ -6,7 +6,7 @@ import java.util.List;
 import HamsterYDS.UntilTheEnd.internal.ItemFactory;
 import HamsterYDS.UntilTheEnd.internal.NPCChecker;
 import HamsterYDS.UntilTheEnd.internal.ResidenceChecker;
-import HamsterYDS.UntilTheEnd.item.other.ClothesContainer;
+import HamsterYDS.UntilTheEnd.item.science.ClothesContainer;
 
 import org.bukkit.GameMode;
 import org.bukkit.Material;

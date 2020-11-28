@@ -1,13 +1,12 @@
 package HamsterYDS.UntilTheEnd.item;
 
-import java.util.HashMap;
-import java.util.List;
-
+import HamsterYDS.UntilTheEnd.api.GuideApi;
+import HamsterYDS.UntilTheEnd.guide.CraftGuide;
 import org.bukkit.inventory.Inventory;
 import org.bukkit.inventory.ItemStack;
 
-import HamsterYDS.UntilTheEnd.api.GuideApi;
-import HamsterYDS.UntilTheEnd.guide.CraftGuide;
+import java.util.HashMap;
+import java.util.List;
 
 public class UTEItemStack {
     private static int[] slots = new int[]{24, 23, 25, 15, 14, 16, 33, 32, 34};
@@ -32,7 +31,7 @@ public class UTEItemStack {
     }
 
     public void registerRecipe(HashMap<ItemStack, Integer> craft, String category) {
-        Inventory guideInv = CraftGuide.getCraftInventory();
+        Inventory guideInv = CraftGuide.get_simple_craft_guide(this.displayName);
         guideInv.setItem(20, this.item);
         int index = 0;
         for (ItemStack material : craft.keySet()) {
@@ -44,7 +43,7 @@ public class UTEItemStack {
             index++;
         }
         this.craft = craft;
-        GuideApi.addCraftToItem(this.item, guideInv);
-        GuideApi.addItemToCategory(category, this.item);
+        GuideApi.add_guide_to_item(this.item, guideInv);
+        GuideApi.add_item_to_category(GuideApi.AvaliableCategories.valueOf(category), this.item);
     }
 }

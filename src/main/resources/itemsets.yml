@@ -5,20 +5,20 @@
 #  type: STEP                #MC中的物品id
 #  name: §6石砖              #物品名字（不可以更改
 #  lores:                    #物品lores
-#  - §8-合成的基础材料
+#  - §8-合成的精炼材料
 #  materials:                #物品合成需要的物品
 #  - STONE                   #石头Material
 #  amounts:                  #对应物品需要的个数
 #  - 9                       #石头需要的个数
-#  category: 基础             #该物品在合成指导中那一个种类
+#  category: 精炼             #该物品在合成指导中那一个种类
 ########################################
 #注意：
 #materials下只能填写原版Material名或者UTE物品英文ID
 #amounts所有数字加起来不应该大于9（可以等于9）
-#category可以填写：  基础 科学 战斗 魔法 衣物 生存
+#category可以填写：  精炼 科学 战斗 魔法 衣物 生存
 ########################################
 
-# 基础####################################
+# 精炼####################################
 Brick:
   enable: true   
   type: STEP        
@@ -29,7 +29,7 @@ Brick:
   - STONE               
   amounts:             
   - 9                  
-  category: 基础        
+  category: 精炼        
 Rope:
   enable: true
   type: LEASH
@@ -40,7 +40,7 @@ Rope:
   - STRING
   amounts:
   - 5
-  category: 基础
+  category: 精炼
 Plank:
   enable: true
   type: WOOD_STEP
@@ -51,7 +51,7 @@ Plank:
   - LOG
   amounts:
   - 3
-  category: 基础
+  category: 精炼
 NightMare:
   enable: true
   type: GHAST_TEAR
@@ -64,7 +64,7 @@ NightMare:
   - GHAST_TEAR
   amounts:
   - 4
-  category: 基础
+  category: 精炼
 Coin:
   enable: true
   type: GOLD_NUGGET
@@ -75,7 +75,7 @@ Coin:
   - GOLD_NUGGET
   amounts:
   - 8
-  category: 基础
+  category: 精炼
 Fern:
   enable: true
   type: LONG_GRASS
@@ -88,7 +88,7 @@ Fern:
   - SEEDS
   amounts:
   - 6
-  category: 基础
+  category: 精炼
 Hail:
   enable: true
   type: ICE
@@ -101,7 +101,7 @@ Hail:
   - PACKED_ICE
   amounts:
   - 1
-  category: 基础
+  category: 精炼
 Reed:
   enable: true
   type: EMPTY_MAP
@@ -113,7 +113,7 @@ Reed:
   - WHEAT
   amounts:
   - 4
-  category: 基础
+  category: 精炼
 PurpleGum:
   enable: true
   type: NETHER_STAR
@@ -126,7 +126,7 @@ PurpleGum:
   amounts:
   - 1
   - 1
-  category: 基础
+  category: 精炼
 # 简单####################################
 CatTail:
   enable: true
@@ -695,7 +695,7 @@ Element:
   type: GOLD_INGOT
   name: §6电器元件
   lores:
-  - §8-基础的科学类材料
+  - §8-精炼的科学类材料
   - §8-幸亏我学过物理！
   materials:
   - Hail

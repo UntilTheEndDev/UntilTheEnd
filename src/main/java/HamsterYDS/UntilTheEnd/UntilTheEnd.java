@@ -9,7 +9,7 @@ import HamsterYDS.UntilTheEnd.cap.tem.Temperature;
 import HamsterYDS.UntilTheEnd.cap.tir.Tiredness;
 import HamsterYDS.UntilTheEnd.crops.Crops;
 import HamsterYDS.UntilTheEnd.food.Food;
-import HamsterYDS.UntilTheEnd.guide.Guide;
+import HamsterYDS.UntilTheEnd.guide.CraftGuide;
 import HamsterYDS.UntilTheEnd.internal.BuildData;
 import HamsterYDS.UntilTheEnd.internal.DataConverter;
 import HamsterYDS.UntilTheEnd.internal.Metrics;
@@ -122,7 +122,7 @@ public class UntilTheEnd extends JavaPlugin implements Listener {
             Sanity.initialize(this);
             Humidity.initialize(this);
             Tiredness.initialize(this);
-            new Guide(this);
+            CraftGuide.init();
             Crops.initialize(this);
             ItemManager.initialize(this);
             HamsterYDS.UntilTheEnd.player.Player.initialize(this);

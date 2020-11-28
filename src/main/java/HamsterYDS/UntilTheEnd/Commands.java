@@ -4,7 +4,6 @@ import HamsterYDS.UntilTheEnd.cap.tem.TemperatureProvider;
 import HamsterYDS.UntilTheEnd.entity.RabbitMan;
 import HamsterYDS.UntilTheEnd.event.player.PlayerRoleChangeByCommandEvent;
 import HamsterYDS.UntilTheEnd.guide.CraftGuide;
-import HamsterYDS.UntilTheEnd.guide.Guide;
 import HamsterYDS.UntilTheEnd.internal.BuildData;
 import HamsterYDS.UntilTheEnd.internal.ItemFactory;
 import HamsterYDS.UntilTheEnd.internal.NPCChecker;
@@ -143,7 +142,7 @@ public class Commands implements CommandExecutor, Listener, TabCompleter {
                 if (pl == null) {
                     notPlayer(cs);
                 } else {
-                    pl.openInventory(Guide.inv);
+                    pl.openInventory(CraftGuide.guide);
                 }
                 break;
             }
@@ -198,14 +197,14 @@ public class Commands implements CommandExecutor, Listener, TabCompleter {
                     if (player == null) {
                         cs.sendMessage(UTEi18n.cacheWithPrefix("cmd.null.player"));
                     } else {
-                        player.openInventory(Guide.inv);
+                        player.openInventory(CraftGuide.guide);
                     }
                     break;
                 }
                 if (pl == null) {
                     notPlayer(cs);
                 } else {
-                    pl.getInventory().addItem(Guide.item);
+                    pl.getInventory().addItem(CraftGuide.open_item);
                 }
                 break;
             }
@@ -213,10 +212,10 @@ public class Commands implements CommandExecutor, Listener, TabCompleter {
                 if (pl == null) {
                     notPlayer(cs);
                 } else {
-                    if (CraftGuide.cheating.contains(pl.getUniqueId()))
-                        CraftGuide.cheating.remove(pl.getUniqueId());
+                    if (CraftGuide.cheaters.contains(pl.getUniqueId()))
+                        CraftGuide.cheaters.remove(pl.getUniqueId());
                     else
-                        CraftGuide.cheating.add(pl.getUniqueId());
+                        CraftGuide.cheaters.add(pl.getUniqueId());
                     changeCheatingMode(pl);
                 }
                 break;

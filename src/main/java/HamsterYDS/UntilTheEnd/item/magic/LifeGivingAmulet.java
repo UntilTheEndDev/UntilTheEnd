@@ -6,7 +6,7 @@ import HamsterYDS.UntilTheEnd.cap.san.ChangeTasks;
 import HamsterYDS.UntilTheEnd.internal.ItemFactory;
 import HamsterYDS.UntilTheEnd.internal.NPCChecker;
 import HamsterYDS.UntilTheEnd.item.ItemManager;
-import HamsterYDS.UntilTheEnd.item.other.ClothesContainer;
+import HamsterYDS.UntilTheEnd.item.science.ClothesContainer;
 import org.bukkit.Material;
 import org.bukkit.Particle;
 import org.bukkit.World;

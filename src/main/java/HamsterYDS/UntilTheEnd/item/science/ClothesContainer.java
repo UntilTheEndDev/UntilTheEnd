@@ -1,4 +1,4 @@
-package HamsterYDS.UntilTheEnd.item.other;
+package HamsterYDS.UntilTheEnd.item.science;
 
 import HamsterYDS.UntilTheEnd.Config;
 import HamsterYDS.UntilTheEnd.Logging;

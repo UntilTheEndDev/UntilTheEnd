@@ -1,12 +1,12 @@
 package HamsterYDS.UntilTheEnd.guide;
 
 /**
- * Create at 2020/3/7 23:27
+ * Create at 2020/3/7 23:29
  * Copyright Karlatemp
  * UntilTheEnd $ HamsterYDS.UntilTheEnd.guide
  */
-public class HolderCraftingHelp implements UTEInvHolder {
-    public static final HolderCraftingHelp INSTANCE = new HolderCraftingHelp();
+public class HolderCraftGuide implements UTEInvHolder {
+    public static final HolderCraftGuide INSTANCE = new HolderCraftGuide();
     private String name;
 
     @Override
