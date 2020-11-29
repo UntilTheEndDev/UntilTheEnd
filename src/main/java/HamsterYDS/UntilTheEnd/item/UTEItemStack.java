@@ -31,7 +31,7 @@ public class UTEItemStack {
     }
 
     public void registerRecipe(HashMap<ItemStack, Integer> craft, String category) {
-        Inventory guideInv = CraftGuide.get_simple_craft_guide(this.displayName);
+        Inventory guideInv = CraftGuide.get_simple_craft_guide(this.displayName.replace("§6", "§8"));
         guideInv.setItem(20, this.item);
         int index = 0;
         for (ItemStack material : craft.keySet()) {

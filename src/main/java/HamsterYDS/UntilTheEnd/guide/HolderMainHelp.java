@@ -5,8 +5,8 @@ package HamsterYDS.UntilTheEnd.guide;
  * Copyright Karlatemp
  * UntilTheEnd $ HamsterYDS.UntilTheEnd.guide
  */
-public class HolderCraftGuide implements UTEInvHolder {
-    public static final HolderCraftGuide INSTANCE = new HolderCraftGuide();
+public class HolderMainHelp implements UTEInvHolder {
+    public static final HolderMainHelp INSTANCE = new HolderMainHelp();
     private String name;
 
     @Override
