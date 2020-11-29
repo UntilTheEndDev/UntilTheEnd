@@ -5,7 +5,7 @@ import ute.UntilTheEnd;
 import ute.cap.san.ChangeTasks;
 import ute.internal.NPCChecker;
 import ute.item.ItemManager;
-import ute.item.science.ClothesContainer;
+import ute.item.clothes.ClothesContainer;
 import ute.player.PlayerManager;
 import ute.player.PlayerManager.CheckType;
 import org.bukkit.Material;

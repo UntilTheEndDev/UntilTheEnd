@@ -340,7 +340,6 @@ ChilledAmulet:
   isConsume: false
   needLevel: 3
   sanityImprove: 1
-  
 Teleportage: 
   canPlace: true
   isConsume: false
@@ -354,6 +353,14 @@ BuildAmulet:
   canPlace: false
   isConsume: false
   needLevel: 3
+FlyCarpet:
+  canPlace: false
+  isConsume: false
+  needLevel: 3
+  platformExistingTime: 30  #平台存在时间(s)
+  platformRadius: 5  #平台半径宽度
+  platformMaterial: WOOL  #组成平台的方块
+  breakRates: 0.05  #每使用一次有多大几率破损
 # 人物类材料####################################################
 Beard:
   canPlace: false

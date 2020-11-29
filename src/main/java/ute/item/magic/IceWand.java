@@ -22,7 +22,7 @@ import ute.internal.DisableManager;
 import ute.internal.EventHelper;
 import ute.internal.ItemFactory;
 import ute.item.ItemManager;
-import ute.item.science.ClothesContainer;
+import ute.item.clothes.ClothesContainer;
 import ute.player.PlayerManager;
 
 import java.util.HashMap;

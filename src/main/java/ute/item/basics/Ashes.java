@@ -7,10 +7,6 @@ import org.bukkit.event.Listener;
 import org.bukkit.event.block.BlockBurnEvent;
 import ute.item.ItemManager;
 
-/**
- * @author 南外丶仓鼠
- * @version V5.1.1
- */
 public class Ashes implements Listener {
     public static double percent = ItemManager.itemAttributes.getDouble("Ashes.percent");
 

@@ -9,12 +9,7 @@ import org.bukkit.event.entity.EntityTargetEvent;
 import org.bukkit.event.entity.EntityTargetEvent.TargetReason;
 import org.bukkit.inventory.ItemStack;
 import ute.item.ItemManager;
-import ute.item.science.ClothesContainer;
 
-/**
- * @author 南外丶仓鼠
- * @version V5.1.1
- */
 public class BushesHat implements Listener {
     public BushesHat() {
         ItemManager.plugin.getServer().getPluginManager().registerEvents(this, ItemManager.plugin);

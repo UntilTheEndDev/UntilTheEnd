@@ -14,10 +14,6 @@ import org.bukkit.event.player.PlayerMoveEvent;
 import ute.Config;
 import ute.player.PlayerManager;
 
-/**
- * @author 南外丶仓鼠
- * @version V5.1.1
- */
 public class InfluenceEvents implements Listener {
     public static double moveWronglySanity = Sanity.yaml.getDouble("moveWronglySanity");
     public static double moveWronglyPercent = Sanity.yaml.getDouble("moveWronglyPercent");

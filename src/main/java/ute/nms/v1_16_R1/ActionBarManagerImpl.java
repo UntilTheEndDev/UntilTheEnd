@@ -1,11 +1,3 @@
-/*
- * Copyright (c) 2018-2020 Karlatemp. All rights reserved.
- * @author Karlatemp <karlatemp@vip.qq.com> <https://github.com/Karlatemp>
- * @create 2020/05/30 11:33:29
- *
- * until-the-end/until-the-end.main/ActionBarManagerImpl.java
- */
-
 package ute.nms.v1_16_R1;
 
 import ute.nms.ActionBarManager;

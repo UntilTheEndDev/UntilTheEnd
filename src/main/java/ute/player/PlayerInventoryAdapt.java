@@ -1,13 +1,5 @@
 package ute.player;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-
-import ute.internal.NPCChecker;
-import ute.internal.ResidenceChecker;
-import ute.internal.UTEi18n;
-import ute.item.science.ClothesContainer;
-
 import org.bukkit.Bukkit;
 import org.bukkit.GameMode;
 import org.bukkit.Material;
@@ -21,16 +13,16 @@ import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.PlayerInventory;
 import org.bukkit.inventory.meta.ItemMeta;
 import org.bukkit.scheduler.BukkitRunnable;
-
 import ute.Config;
 import ute.UntilTheEnd;
+import ute.internal.NPCChecker;
+import ute.internal.ResidenceChecker;
+import ute.internal.UTEi18n;
+import ute.item.clothes.ClothesContainer;
 
-/**
- * @author 南外丶仓鼠
- * @version V5.1.1
- */
+import java.util.ArrayList;
+import java.util.HashMap;
 
-//20l
 public class PlayerInventoryAdapt extends BukkitRunnable implements Listener {
     public static int lockingSlot = 18;
     public static HashMap<String, Integer> containerSizes = new HashMap<String, Integer>();

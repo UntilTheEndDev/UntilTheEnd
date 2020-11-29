@@ -1,7 +1,5 @@
 package ute.crops;
 
-import java.util.HashMap;
-
 import org.bukkit.Material;
 import org.bukkit.World;
 import org.bukkit.block.Block;
@@ -9,16 +7,13 @@ import org.bukkit.event.EventHandler;
 import org.bukkit.event.EventPriority;
 import org.bukkit.event.Listener;
 import org.bukkit.event.block.BlockGrowEvent;
-
 import ute.Config;
 import ute.UntilTheEnd;
 import ute.api.WorldApi;
 import ute.world.WorldProvider;
 
-/**
- * @author 南外丶仓鼠
- * @version V5.1.1
- */
+import java.util.HashMap;
+
 public class SeasonCroping implements Listener {
     public static UntilTheEnd plugin;
 

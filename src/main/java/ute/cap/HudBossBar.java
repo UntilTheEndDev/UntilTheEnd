@@ -25,10 +25,6 @@ import java.util.Map;
 import java.util.UUID;
 import java.util.concurrent.ConcurrentLinkedDeque;
 
-/**
- * @author 南外丶仓鼠
- * @version V5.1.1
- */
 public class HudBossBar extends BukkitRunnable implements Listener {
     private static class NdBossBar {
         BossBar san, tem, hum, tir;

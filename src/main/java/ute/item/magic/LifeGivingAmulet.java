@@ -6,7 +6,7 @@ import ute.cap.san.ChangeTasks;
 import ute.internal.ItemFactory;
 import ute.internal.NPCChecker;
 import ute.item.ItemManager;
-import ute.item.science.ClothesContainer;
+import ute.item.clothes.ClothesContainer;
 import org.bukkit.Material;
 import org.bukkit.Particle;
 import org.bukkit.World;

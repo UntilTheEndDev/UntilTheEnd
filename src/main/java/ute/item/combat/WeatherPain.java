@@ -1,14 +1,5 @@
 package ute.item.combat;
 
-import java.util.HashMap;
-import java.util.UUID;
-
-import ute.Config;
-import ute.Logging;
-import ute.internal.DisableManager;
-import ute.internal.EventHelper;
-import ute.internal.ItemFactory;
-import ute.internal.UTEi18n;
 import org.bukkit.Location;
 import org.bukkit.Material;
 import org.bukkit.Particle;
@@ -17,12 +8,16 @@ import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.EventPriority;
 import org.bukkit.event.Listener;
-import org.bukkit.event.player.PlayerInteractEvent;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.scheduler.BukkitRunnable;
 import org.bukkit.util.Vector;
-
+import ute.event.player.CustomItemInteractEvent;
+import ute.internal.ItemFactory;
+import ute.internal.UTEi18n;
 import ute.item.ItemManager;
+
+import java.util.HashMap;
+import java.util.UUID;
 
 public class WeatherPain implements Listener {
     public static int dist = ItemManager.itemAttributes.getInt("WeatherPain.dist");
@@ -34,16 +29,11 @@ public class WeatherPain implements Listener {
 
     private static final HashMap<UUID, Integer> cd = new HashMap<>();
 
-    @EventHandler(priority = EventPriority.HIGHEST)
-    public void onRight(PlayerInteractEvent event) {
-        Player player = event.getPlayer();
-        if (!Config.enableWorlds.contains(player.getWorld())) return;
-        Logging.getLogger().fine(() -> "[WeatherPain] {action=" + event.getAction() + ", cancelled=" + event.isCancelled() + "}");
-        if (event.isCancelled() && !DisableManager.bypass_right_action_cancelled) return;
-        if (!event.hasItem()) return;
-        if (!EventHelper.isRight(event.getAction())) return;
-        ItemStack item = event.getItem();
-        if (ItemManager.isSimilar(item, getClass())) {
+    @EventHandler(priority = EventPriority.NORMAL)
+    public void onInteract(CustomItemInteractEvent event) {
+        Player player=event.getWho();
+        if (event.getUteItem().id.equalsIgnoreCase("WeatherPain")) {
+            event.setCancelled(true);
             if (cd.containsKey(player.getUniqueId()))
                 if (cd.get(player.getUniqueId()) > 0) {
                     player.sendMessage(UTEi18n.cacheWithPrefix("item.weather-pain.cd"));
@@ -56,7 +46,7 @@ public class WeatherPain implements Listener {
                 itemr.setType(Material.AIR);
             Location loc = player.getLocation().add(0.0, 1.0, 0.0);
             Vector vec = player.getEyeLocation().getDirection().multiply(0.5);
-            player.setCooldown(ItemFactory.getType(item), 90);
+            player.setCooldown(ItemFactory.getType(itemr), 90);
             new BukkitRunnable() {
                 int range = 150;
 

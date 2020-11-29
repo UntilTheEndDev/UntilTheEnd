@@ -7,10 +7,6 @@ import org.bukkit.configuration.file.YamlConfiguration;
 import ute.Config;
 import ute.UntilTheEnd;
 
-/**
- * @author 南外丶仓鼠
- * @version V5.1.1
- */
 public class Crops {
     static YamlConfiguration yaml;
 

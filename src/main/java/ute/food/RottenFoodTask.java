@@ -1,13 +1,5 @@
 package ute.food;
 
-import java.util.ArrayList;
-import java.util.List;
-
-import ute.internal.ItemFactory;
-import ute.internal.NPCChecker;
-import ute.internal.ResidenceChecker;
-import ute.item.science.ClothesContainer;
-
 import org.bukkit.GameMode;
 import org.bukkit.Material;
 import org.bukkit.World;
@@ -16,9 +8,15 @@ import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.PlayerInventory;
 import org.bukkit.inventory.meta.ItemMeta;
 import org.bukkit.scheduler.BukkitRunnable;
-
 import ute.Config;
 import ute.UntilTheEnd;
+import ute.internal.ItemFactory;
+import ute.internal.NPCChecker;
+import ute.internal.ResidenceChecker;
+import ute.item.clothes.ClothesContainer;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public class RottenFoodTask {
     private static ItemStack rottenFood = new ItemStack(Material.ROTTEN_FLESH);

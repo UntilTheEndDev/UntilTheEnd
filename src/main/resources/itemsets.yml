@@ -1022,6 +1022,25 @@ BuildAmulet:
   - 1
   - 9
   category: 魔法
+FlyCarpet:
+  enable: true
+  type: CARPET
+  name: §6魔法飞毯
+  lores:
+  - §8-轻巧而灵便，拎包即刻起飞
+  - '§8-§d右击在脚下生成存在一段时间跟随人物移动的平台'
+  - '§8-§d每次使用有5%几率破损'
+  materials:
+  - CARPET
+  - NightMare
+  - Reed
+  - Rope
+  amounts:
+  - 9
+  - 2
+  - 9
+  - 9
+  category: 魔法
 # 人物####################################
 Beard:
   enable: true

@@ -28,16 +28,10 @@ import java.util.*;
 import java.util.function.*;
 import java.util.logging.Level;
 
-/**
- * @author 南外丶仓鼠
- * @version V5.1.1
- */
 public class PlayerManager implements Listener {
     public static UntilTheEnd plugin = UntilTheEnd.getInstance();
     private static HashMap<UUID, IPlayer> players = new HashMap<UUID, IPlayer>() {
-        /**
-         *
-         */
+
         private static final long serialVersionUID = 1L;
 
         @Override

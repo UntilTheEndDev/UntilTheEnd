@@ -19,10 +19,6 @@ import org.bukkit.potion.PotionEffectType;
 import ute.UntilTheEnd;
 import ute.player.PlayerManager;
 
-/**
- * @author 南外丶仓鼠
- * @version V5.1.1
- */
 public class RottenFoodInfluence implements Listener {
     public static UntilTheEnd plugin;
 

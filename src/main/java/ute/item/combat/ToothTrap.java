@@ -1,10 +1,5 @@
 package ute.item.combat;
 
-import java.io.File;
-import java.io.IOException;
-import java.util.ArrayList;
-
-import ute.Config;
 import org.bukkit.GameMode;
 import org.bukkit.Location;
 import org.bukkit.Material;
@@ -18,15 +13,19 @@ import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.block.Action;
 import org.bukkit.event.entity.EntityInteractEvent;
-import org.bukkit.event.player.PlayerInteractEvent;
 import org.bukkit.event.player.PlayerMoveEvent;
 import org.bukkit.inventory.ItemStack;
-
+import ute.Config;
 import ute.api.BlockApi;
+import ute.event.block.CustomBlockInteractEvent;
 import ute.item.BlockManager;
 import ute.item.ItemManager;
 import ute.player.death.DeathCause;
 import ute.player.death.DeathMessage;
+
+import java.io.File;
+import java.io.IOException;
+import java.util.ArrayList;
 
 public class ToothTrap implements Listener {
     public static double damage = ItemManager.itemAttributes.getDouble("ToothTrap.damage");
@@ -84,12 +83,12 @@ public class ToothTrap implements Listener {
     }
 
     @EventHandler(ignoreCancelled = true)
-    public void onClick(PlayerInteractEvent event) {
-        Player player = event.getPlayer();
+    public void onClick(CustomBlockInteractEvent event) {
+        Player player = event.getWho();
         if (event.getAction() != Action.RIGHT_CLICK_BLOCK) return;
         Block block = event.getClickedBlock();
         Location loc = block.getLocation();
-        if (BlockApi.getSpecialBlocks("ToothTrap").contains(BlockApi.locToStr(loc))) {
+        if (event.getCustomItem().id.equalsIgnoreCase("ToothTrap")) {
             if (!touched.contains(BlockApi.locToStr(loc))) return;
             touched.remove(BlockApi.locToStr(loc));
             loc.getBlock().setType(Material.IRON_PLATE);

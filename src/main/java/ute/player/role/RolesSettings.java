@@ -1,11 +1,3 @@
-/*
- * Copyright (c) 2018-2020 Karlatemp. All rights reserved.
- * @author Karlatemp <karlatemp@vip.qq.com> <https://github.com/Karlatemp>
- * @create 2020/06/01 18:02:18
- *
- * until-the-end/until-the-end.main/RolesSettings.java
- */
-
 package ute.player.role;
 
 import ute.Logging;

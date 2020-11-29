@@ -1,17 +1,5 @@
 package ute.cap.hum;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.Map;
-import java.util.UUID;
-import java.util.concurrent.atomic.AtomicInteger;
-import java.util.function.BiFunction;
-
-import ute.cap.tem.TemperatureProvider;
-import ute.internal.NPCChecker;
-import ute.internal.ResidenceChecker;
-import ute.item.science.ClothesContainer;
-
 import org.bukkit.Location;
 import org.bukkit.Material;
 import org.bukkit.World;
@@ -21,10 +9,20 @@ import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.PlayerInventory;
 import org.bukkit.scheduler.BukkitRunnable;
-
 import ute.Config;
 import ute.UntilTheEnd;
+import ute.cap.tem.TemperatureProvider;
+import ute.internal.NPCChecker;
+import ute.internal.ResidenceChecker;
+import ute.item.clothes.ClothesContainer;
 import ute.player.PlayerManager;
+
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Map;
+import java.util.UUID;
+import java.util.concurrent.atomic.AtomicInteger;
+import java.util.function.BiFunction;
 
 public class ChangeTasks {
     public static UntilTheEnd plugin = UntilTheEnd.getInstance();

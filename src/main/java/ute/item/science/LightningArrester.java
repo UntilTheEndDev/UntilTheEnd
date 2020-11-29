@@ -9,10 +9,6 @@ import org.bukkit.event.weather.LightningStrikeEvent;
 import ute.api.BlockApi;
 import ute.item.ItemManager;
 
-/**
- * @author 南外丶仓鼠
- * @version V5.1.1
- */
 public class LightningArrester implements Listener {
     public LightningArrester() {
         ItemManager.plugin.getServer().getPluginManager().registerEvents(this, ItemManager.plugin);

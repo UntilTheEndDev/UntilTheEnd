@@ -9,10 +9,6 @@ import org.bukkit.event.block.BlockIgniteEvent;
 import ute.api.BlockApi;
 import ute.item.ItemManager;
 
-/**
- * @author 南外丶仓鼠
- * @version V5.1.1
- */
 public class IceFlingomatic implements Listener {
     public static int range = ItemManager.itemAttributes.getInt("IceFlingomatic.range");
 

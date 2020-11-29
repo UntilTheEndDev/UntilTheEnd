@@ -1,11 +1,3 @@
-/*
- * Copyright (c) 2018-2020 Karlatemp. All rights reserved.
- * @author Karlatemp <karlatemp@vip.qq.com> <https://github.com/Karlatemp>
- * @create 2020/04/14 22:11:44
- *
- * UntilTheEnd/UntilTheEnd/Logging.java
- */
-
 package ute;
 
 import org.apache.logging.log4j.LogManager;

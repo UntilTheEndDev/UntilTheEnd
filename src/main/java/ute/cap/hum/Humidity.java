@@ -8,10 +8,6 @@ import org.bukkit.event.Listener;
 import ute.Config;
 import ute.UntilTheEnd;
 
-/**
- * @author 南外丶仓鼠
- * @version V5.1.1
- */
 public class Humidity implements Listener {
     public static YamlConfiguration yaml;
 

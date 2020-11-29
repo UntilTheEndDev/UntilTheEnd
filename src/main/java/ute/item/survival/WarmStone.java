@@ -1,21 +1,16 @@
 package ute.item.survival;
 
-import java.util.List;
-
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.player.PlayerDropItemEvent;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
 import org.bukkit.scheduler.BukkitRunnable;
-
 import ute.cap.tem.TemperatureProvider;
 import ute.item.ItemManager;
 
-/**
- * @author 南外丶仓鼠
- * @version V5.1.1
- */
+import java.util.List;
+
 public class WarmStone implements Listener {
     public WarmStone() {
         ItemManager.plugin.getServer().getPluginManager().registerEvents(this, ItemManager.plugin);

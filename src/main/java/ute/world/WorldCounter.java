@@ -1,23 +1,18 @@
 package ute.world;
 
+import org.bukkit.World;
+import org.bukkit.entity.Player;
+import org.bukkit.scheduler.BukkitRunnable;
+import ute.Config;
+import ute.cap.tem.TemperatureProvider;
+import ute.internal.NPCChecker;
+import ute.internal.UTEi18n;
+
 import java.util.HashMap;
 import java.util.Map;
 import java.util.UUID;
 import java.util.concurrent.atomic.AtomicLong;
 
-import ute.internal.NPCChecker;
-import ute.internal.UTEi18n;
-import org.bukkit.World;
-import org.bukkit.entity.Player;
-import org.bukkit.scheduler.BukkitRunnable;
-
-import ute.Config;
-import ute.cap.tem.TemperatureProvider;
-
-/**
- * @author 南外丶仓鼠
- * @version V5.1.1
- */
 public class WorldCounter extends BukkitRunnable {
     // private HashSet<String> changingWorlds=new HashSet<String>();
     private final Map<UUID, AtomicLong> lateTime = new HashMap<>();

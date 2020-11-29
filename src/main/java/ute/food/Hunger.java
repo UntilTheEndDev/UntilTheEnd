@@ -12,10 +12,6 @@ import org.bukkit.scheduler.BukkitRunnable;
 import ute.Config;
 import ute.UntilTheEnd;
 
-/**
- * @author 南外丶仓鼠
- * @version V5.1.1
- */
 public class Hunger implements Listener {
 
     public Hunger(UntilTheEnd plugin) {

@@ -1,8 +1,5 @@
 package ute.item.science;
 
-import java.util.ArrayList;
-
-import ute.Config;
 import org.bukkit.Location;
 import org.bukkit.block.Block;
 import org.bukkit.entity.ArmorStand;
@@ -11,18 +8,15 @@ import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.EventPriority;
 import org.bukkit.event.Listener;
-import org.bukkit.event.block.Action;
-import org.bukkit.event.player.PlayerInteractEvent;
 import org.bukkit.scheduler.BukkitRunnable;
-
+import ute.Config;
 import ute.api.BlockApi;
 import ute.cap.tem.TemperatureProvider;
+import ute.event.block.CustomBlockInteractEvent;
 import ute.item.ItemManager;
 
-/**
- * @author 南外丶仓鼠
- * @version V5.1.1
- */
+import java.util.ArrayList;
+
 public class Thermometer implements Listener {
     public static int existPeriod = ItemManager.itemAttributes.getInt("Thermometer.existPeriod");
 
@@ -33,14 +27,13 @@ public class Thermometer implements Listener {
     ArrayList<String> clicked = new ArrayList<String>();
 
     @EventHandler(priority = EventPriority.NORMAL, ignoreCancelled = true)
-    public void onClick(PlayerInteractEvent event) {
-        if (event.getAction() != Action.RIGHT_CLICK_BLOCK) return;
-        Player player = event.getPlayer();
+    public void onClick(CustomBlockInteractEvent event) {
+        Player player = event.getWho();
         if (!Config.enableWorlds.contains(player.getWorld())) return;
         Block block = event.getClickedBlock();
         Location loc = block.getLocation();
         String toString = BlockApi.locToStr(loc);
-        if (BlockApi.getSpecialBlocks("Thermometer").contains(toString)) {
+        if (event.getCustomItem().id.equalsIgnoreCase("Thermometer")) {
             if (clicked.contains(toString)) return;
             clicked.add(toString);
             int tem = (int) TemperatureProvider.getBlockTemperature(loc);

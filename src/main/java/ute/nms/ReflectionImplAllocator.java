@@ -1,11 +1,3 @@
-/*
- * Copyright (c) 2018-2020 Karlatemp. All rights reserved.
- * @author Karlatemp <karlatemp@vip.qq.com> <https://github.com/Karlatemp>
- * @create 2020/05/30 12:08:27
- *
- * until-the-end/until-the-end.main/ReflectionImplAllocator.java
- */
-
 package ute.nms;
 
 public class ReflectionImplAllocator {

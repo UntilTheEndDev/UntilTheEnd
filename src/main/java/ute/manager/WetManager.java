@@ -1,22 +1,13 @@
-/*
- * Copyright (c) 2018-2020 Karlatemp. All rights reserved.
- * @author Karlatemp <karlatemp@vip.qq.com> <https://github.com/Karlatemp>
- * @create 2020/03/08 10:06:44
- *
- * UntilTheEnd/UntilTheEnd/WetManager.java
- */
-
 package ute.manager;
+
+import org.bukkit.inventory.ItemStack;
+import org.bukkit.inventory.meta.ItemMeta;
+import ute.cap.hum.HumidityProvider;
+import ute.internal.ItemFactory;
+import ute.internal.UTEi18n;
 
 import java.util.ArrayList;
 import java.util.List;
-
-import ute.internal.ItemFactory;
-import ute.internal.UTEi18n;
-import org.bukkit.inventory.ItemStack;
-import org.bukkit.inventory.meta.ItemMeta;
-
-import ute.cap.hum.HumidityProvider;
 
 public class WetManager {
     private static final String LORE = UTEi18n.cache("item.machine.wet.lore");

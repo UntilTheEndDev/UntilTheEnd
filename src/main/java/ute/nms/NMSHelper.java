@@ -1,11 +1,3 @@
-/*
- * Copyright (c) 2018-2020 Karlatemp. All rights reserved.
- * @author Karlatemp <karlatemp@vip.qq.com> <https://github.com/Karlatemp>
- * @create 2020/05/23 21:08:31
- *
- * until-the-end/until-the-end.main/NMSHelper.java
- */
-
 package ute.nms;
 
 import org.bukkit.entity.Entity;

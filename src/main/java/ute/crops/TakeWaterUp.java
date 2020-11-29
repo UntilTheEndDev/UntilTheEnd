@@ -13,10 +13,6 @@ import org.bukkit.event.block.BlockGrowEvent;
 import ute.Config;
 import ute.UntilTheEnd;
 
-/**
- * @author 南外丶仓鼠
- * @version V5.1.1
- */
 public class TakeWaterUp implements Listener {
     public static UntilTheEnd plugin;
     static double percent = Crops.yaml.getDouble("takeWaterPercent");

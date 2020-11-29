@@ -14,12 +14,7 @@ import org.bukkit.potion.PotionEffectType;
 
 import ute.cap.san.ChangeTasks;
 import ute.item.ItemManager;
-import ute.item.science.ClothesContainer;
 
-/**
- * @author 南外丶仓鼠
- * @version V5.1.1
- */
 public class EyeballUmbrella implements Listener {
     public static int sanityImprove = ItemManager.itemAttributes.getInt("EyeballUmbrella.sanityImprove");
     public static double range = ItemManager.itemAttributes.getDouble("EyeballUmbrella.range");

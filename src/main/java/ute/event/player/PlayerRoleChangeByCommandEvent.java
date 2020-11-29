@@ -1,11 +1,3 @@
-/*
- * Copyright (c) 2018-2020 Karlatemp. All rights reserved.
- * @author Karlatemp <karlatemp@vip.qq.com> <https://github.com/Karlatemp>
- * @create 2020/06/03 12:04:28
- *
- * until-the-end/until-the-end.main/PlayerRoleChangeByCommandEvent.java
- */
-
 package ute.event.player;
 
 import ute.player.role.Roles;

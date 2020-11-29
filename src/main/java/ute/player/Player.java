@@ -7,10 +7,6 @@ import ute.player.death.DeathMessage;
 import ute.player.role.events.EventLoader;
 import ute.player.role.tasks.TaskLoader;
 
-/**
- * @author 南外丶仓鼠
- * @version V5.1.1
- */
 public class Player {
 
     public static void initialize(UntilTheEnd plugin) {

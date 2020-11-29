@@ -1,18 +1,7 @@
 package ute.world;
 
-import java.util.HashMap;
-import java.util.UUID;
-
-import ute.internal.LightingCompensation;
-import ute.internal.NPCChecker;
-import ute.internal.ResidenceChecker;
-import ute.internal.UTEi18n;
-
-import org.bukkit.Bukkit;
-import org.bukkit.GameMode;
-import org.bukkit.Location;
-import org.bukkit.Material;
 import org.bukkit.World;
+import org.bukkit.*;
 import org.bukkit.block.Block;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
@@ -22,18 +11,20 @@ import org.bukkit.event.entity.PlayerDeathEvent;
 import org.bukkit.event.player.PlayerItemConsumeEvent;
 import org.bukkit.potion.PotionEffectType;
 import org.bukkit.scheduler.BukkitRunnable;
-
 import ute.Config;
 import ute.UntilTheEnd;
 import ute.event.hud.SanityChangeEvent;
+import ute.internal.LightingCompensation;
+import ute.internal.NPCChecker;
+import ute.internal.ResidenceChecker;
+import ute.internal.UTEi18n;
 import ute.player.PlayerManager;
 import ute.player.death.DeathCause;
 import ute.player.death.DeathMessage;
 
-/**
- * @author 鍗楀涓朵粨榧�
- * @version V5.1.1
- */
+import java.util.HashMap;
+import java.util.UUID;
+
 public class InfluenceTasks {
     public static UntilTheEnd plugin = UntilTheEnd.getInstance();
     public static int warn = plugin.getConfig().getInt("world.darkness.warnTime");

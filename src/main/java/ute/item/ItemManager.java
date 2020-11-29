@@ -25,10 +25,6 @@ import java.util.List;
 import java.util.Objects;
 import java.util.logging.Level;
 
-/**
- * @author 南外丶仓鼠
- * @version V5.1.1
- */
 public class ItemManager {
     public static UntilTheEnd plugin = UntilTheEnd.getInstance();
     public static HashMap<String, String> ids = new HashMap<String, String>();
@@ -126,6 +122,7 @@ public class ItemManager {
         new ChilledAmulet();
         new Teleportage();
         new DecomposeWand();
+        new FlyCarpet();
 
         new ClothesContainer();
 

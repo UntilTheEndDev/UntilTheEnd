@@ -11,10 +11,6 @@ import org.bukkit.inventory.Inventory;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
 
-/**
- * @author HamsterB君
- *
- */
 public class GuideApi {
     public static void add_item_to_category(AvaliableCategories category, ItemStack item) {
         CraftGuide.button_to_gui.get(category.button).addItem(item);

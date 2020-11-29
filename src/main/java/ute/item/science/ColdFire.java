@@ -5,15 +5,15 @@ import org.bukkit.Location;
 import org.bukkit.Material;
 import org.bukkit.Particle;
 import org.bukkit.block.BlockFace;
+import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
+import org.bukkit.event.EventPriority;
 import org.bukkit.event.Listener;
-import org.bukkit.event.player.PlayerInteractEvent;
-import org.bukkit.inventory.ItemStack;
 import org.bukkit.scheduler.BukkitRunnable;
-
 import ute.UntilTheEnd;
 import ute.cap.tem.TemperatureProvider;
 import ute.event.block.CustomBlockPlaceEvent;
+import ute.event.player.CustomItemInteractEvent;
 import ute.item.ItemManager;
 
 public class ColdFire implements Listener {
@@ -44,20 +44,17 @@ public class ColdFire implements Listener {
 		}
 	}
 
-	@EventHandler
-	public void onRight(PlayerInteractEvent event) {
-		if(event.hasBlock()) {
-			if (event.hasItem()) {
-				ItemStack item = event.getItem();
-				if (ItemManager.getUTEItemId(item).equalsIgnoreCase("ColdFire")) {
-					BlockFace face = event.getBlockFace();
-					Location loc = new Location(event.getClickedBlock().getWorld(), face.getModX(), face.getModY(),
-							face.getModZ());
-					if (loc.getBlock().getType() == Material.AIR) {
-						loc.getBlock().setType(Material.FIRE);
-					}
-				}
-			}
-		}
-	}
+    @EventHandler(priority = EventPriority.NORMAL)
+    public void onInteract(CustomItemInteractEvent event) {
+        Player player=event.getWho();
+        if (event.getUteItem().id.equalsIgnoreCase("ColdFire")) {
+            event.setCancelled(true);
+            BlockFace face = event.getClickedFace();
+            Location loc = new Location(event.getClickedBlock().getWorld(), face.getModX(), face.getModY(),
+                    face.getModZ());
+            if (loc.getBlock().getType() == Material.AIR) {
+                loc.getBlock().setType(Material.FIRE);
+            }
+        }
+    }
 }

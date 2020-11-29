@@ -1,11 +1,5 @@
 package ute.cap.hum;
 
-import java.util.HashMap;
-import java.util.UUID;
-
-import ute.internal.ItemFactory;
-import ute.internal.UTEi18n;
-import ute.manager.WetManager;
 import org.bukkit.entity.Entity;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.EventPriority;
@@ -19,11 +13,13 @@ import org.bukkit.inventory.Inventory;
 import org.bukkit.inventory.ItemStack;
 import ute.Config;
 import ute.UntilTheEnd;
+import ute.internal.ItemFactory;
+import ute.internal.UTEi18n;
+import ute.manager.WetManager;
 
-/**
- * @author 南外丶仓鼠
- * @version V5.1.1
- */
+import java.util.HashMap;
+import java.util.UUID;
+
 public class InfluenceEvents implements Listener {
     public static double wetFoodLevel = Humidity.yaml.getDouble("wetFoodLevel");
 

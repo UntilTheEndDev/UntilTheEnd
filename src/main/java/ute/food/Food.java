@@ -2,10 +2,6 @@ package ute.food;
 
 import ute.UntilTheEnd;
 
-/**
- * @author 南外丶仓鼠
- * @version V5.1.1
- */
 public class Food {
 
     public Food(UntilTheEnd plugin) {

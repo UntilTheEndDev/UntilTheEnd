@@ -1,21 +1,12 @@
 package ute.item.basics;
 
-import ute.Config;
-import ute.internal.DisableManager;
-import ute.internal.EventHelper;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.EventPriority;
 import org.bukkit.event.Listener;
-import org.bukkit.event.player.PlayerInteractEvent;
-import org.bukkit.inventory.ItemStack;
-
+import ute.event.player.CustomItemInteractEvent;
 import ute.item.ItemManager;
 
-/**
- * @author 南外丶仓鼠
- * @version V5.1.1
- */
 public class SpiderGland implements Listener {
     public static double heal = ItemManager.itemAttributes.getDouble("SpiderGland.heal");
 
@@ -23,16 +14,10 @@ public class SpiderGland implements Listener {
         ItemManager.plugin.getServer().getPluginManager().registerEvents(this, ItemManager.plugin);
     }
 
-    @EventHandler(priority = EventPriority.MONITOR)
-    public void onRight(PlayerInteractEvent event) {
-        if (event.isCancelled() && !DisableManager.bypass_right_action_cancelled) return;
-        Player player = event.getPlayer();
-        if (!Config.enableWorlds.contains(player.getWorld())) return;
-        if (!EventHelper.isRight(event.getAction()))
-            return;
-        if (!event.hasItem()) return;
-        ItemStack item = event.getItem();
-        if (ItemManager.isSimilar(item, getClass())) {
+    @EventHandler(priority = EventPriority.NORMAL)
+    public void onInteract(CustomItemInteractEvent event) {
+        Player player=event.getWho();
+        if (event.getUteItem().id.equalsIgnoreCase("SpiderGland")) {
             event.setCancelled(true);
             if (player.getHealth() + heal >= player.getMaxHealth())
                 player.setHealth(player.getMaxHealth());

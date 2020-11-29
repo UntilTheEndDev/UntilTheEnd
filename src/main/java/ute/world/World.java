@@ -8,10 +8,6 @@ import java.io.File;
 import java.util.logging.Level;
 //import HamsterYDS.UntilTheEnd.world.nms.DarkNight;
 
-/**
- * @author 南外丶仓鼠
- * @version V5.1.1
- */
 public class World {
     public static File file;
     public static YamlConfiguration yaml;

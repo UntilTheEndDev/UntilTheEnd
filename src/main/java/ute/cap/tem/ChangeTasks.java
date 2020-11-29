@@ -1,26 +1,24 @@
 package ute.cap.tem;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.UUID;
-
-import ute.internal.NPCChecker;
-import ute.internal.ResidenceChecker;
-import ute.item.ItemManager;
-import ute.item.science.ClothesContainer;
-import ute.item.survival.WarmStone;
-
 import org.bukkit.World;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.PlayerInventory;
 import org.bukkit.inventory.meta.ItemMeta;
 import org.bukkit.scheduler.BukkitRunnable;
-
 import ute.Config;
 import ute.UntilTheEnd;
+import ute.internal.NPCChecker;
+import ute.internal.ResidenceChecker;
+import ute.item.ItemManager;
+import ute.item.clothes.ClothesContainer;
+import ute.item.survival.WarmStone;
 import ute.player.PlayerManager;
+
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.UUID;
 
 public class ChangeTasks {
     public static UntilTheEnd plugin = UntilTheEnd.getInstance();

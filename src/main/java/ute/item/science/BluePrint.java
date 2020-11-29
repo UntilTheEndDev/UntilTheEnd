@@ -11,10 +11,6 @@ import org.bukkit.inventory.ItemStack;
 import ute.item.ItemManager;
 import ute.player.PlayerManager;
 
-/**
- * @author 南外丶仓鼠
- * @version V5.1.1
- */
 public class BluePrint implements Listener {
     public BluePrint() {
         ItemManager.plugin.getServer().getPluginManager().registerEvents(this, ItemManager.plugin);

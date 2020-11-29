@@ -1,6 +1,5 @@
 package ute.item.survival;
 
-import ute.Config;
 import org.bukkit.Bukkit;
 import org.bukkit.block.Block;
 import org.bukkit.entity.Entity;
@@ -9,12 +8,11 @@ import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.block.Action;
-import org.bukkit.event.player.PlayerInteractEvent;
 import org.bukkit.potion.PotionEffect;
 import org.bukkit.potion.PotionEffectType;
 import org.bukkit.scheduler.BukkitRunnable;
-
-import ute.api.BlockApi;
+import ute.Config;
+import ute.event.block.CustomBlockInteractEvent;
 import ute.event.hud.SanityChangeEvent;
 import ute.item.ItemManager;
 import ute.player.PlayerManager;
@@ -25,13 +23,12 @@ public class SiestaLeanto implements Listener {
     }
 
     @EventHandler(ignoreCancelled = true)
-    public void onClick(PlayerInteractEvent event) {
-        Player player = event.getPlayer();
+    public void onClick(CustomBlockInteractEvent event) {
+        Player player = event.getWho();
         if (!Config.enableWorlds.contains(player.getWorld())) return;
         if (event.getAction() != Action.RIGHT_CLICK_BLOCK) return;
         Block block = event.getClickedBlock();
-        String toString = BlockApi.locToStr(block.getLocation());
-        if (BlockApi.getSpecialBlocks("SiestaLeanto").contains(toString)) {
+        if (event.getCustomItem().id.equalsIgnoreCase("SiestaLeanto")) {
             event.setCancelled(true);
             if (player.getWorld().getTime() <= 23000 && player.getWorld().getTime() >= 16000) {
                 player.sendMessage("[§cUntilTheEnd]§r 夜间不可使用此物品！");

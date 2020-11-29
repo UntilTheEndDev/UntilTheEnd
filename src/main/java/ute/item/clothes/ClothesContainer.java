@@ -1,10 +1,5 @@
-package ute.item.science;
+package ute.item.clothes;
 
-import ute.Config;
-import ute.Logging;
-import ute.internal.EventHelper;
-import ute.internal.ItemFactory;
-import ute.item.ItemManager;
 import org.bukkit.Bukkit;
 import org.bukkit.Material;
 import org.bukkit.configuration.file.YamlConfiguration;
@@ -16,11 +11,14 @@ import org.bukkit.event.inventory.InventoryAction;
 import org.bukkit.event.inventory.InventoryClickEvent;
 import org.bukkit.event.inventory.InventoryCloseEvent;
 import org.bukkit.event.inventory.InventoryDragEvent;
-import org.bukkit.event.player.PlayerInteractEvent;
 import org.bukkit.event.player.PlayerJoinEvent;
 import org.bukkit.event.player.PlayerQuitEvent;
 import org.bukkit.inventory.Inventory;
 import org.bukkit.inventory.ItemStack;
+import ute.Logging;
+import ute.event.player.CustomItemInteractEvent;
+import ute.internal.ItemFactory;
+import ute.item.ItemManager;
 
 import java.io.File;
 import java.io.IOException;
@@ -40,19 +38,14 @@ public class ClothesContainer implements Listener {
         ItemManager.plugin.getServer().getPluginManager().registerEvents(this, ItemManager.plugin);
     }
 
-    @EventHandler(priority = EventPriority.NORMAL, ignoreCancelled = true)
-    public void onRight(PlayerInteractEvent event) {
-        Player player = event.getPlayer();
-        if (!Config.enableWorlds.contains(player.getWorld())) return;
-        if (!event.hasItem())
-            return;
-        if (EventHelper.isRight(event.getAction())) {
-            ItemStack item = event.getItem();
-            if (ItemManager.isSimilar(item, getClass())) {
-                Inventory inv = invs.get(player.getUniqueId());
-                player.openInventory(inv);
-                openers.add(player.getUniqueId());
-            }
+    @EventHandler(priority = EventPriority.NORMAL)
+    public void onInteract(CustomItemInteractEvent event) {
+        Player player=event.getWho();
+        if (event.getUteItem().id.equalsIgnoreCase("ClothesContainer")) {
+            event.setCancelled(true);
+            Inventory inv = invs.get(player.getUniqueId());
+            player.openInventory(inv);
+            openers.add(player.getUniqueId());
         }
     }
 
@@ -118,7 +111,7 @@ public class ClothesContainer implements Listener {
                     || type.contains("BOOTS"))
                 if (ItemManager.getUTEItemId(cursor, null) != null)
                     return;
-            player.sendMessage("只有可穿戴的UTE衣物可以放入衣物管理器！");
+            player.sendMessage("§c[UntilTheEnd]§r 只有可穿戴的UTE衣物可以放入衣物管理器！");
             event.setCancelled(true);
         }
     }

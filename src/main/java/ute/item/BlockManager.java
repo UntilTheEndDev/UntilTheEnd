@@ -1,12 +1,5 @@
 package ute.item;
 
-import java.io.File;
-import java.io.IOException;
-import java.util.ArrayList;
-import java.util.HashMap;
-
-import ute.Config;
-import ute.Logging;
 import org.bukkit.Bukkit;
 import org.bukkit.Location;
 import org.bukkit.Particle;
@@ -21,7 +14,8 @@ import org.bukkit.event.block.BlockPlaceEvent;
 import org.bukkit.event.player.PlayerInteractEvent;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.scheduler.BukkitRunnable;
-
+import ute.Config;
+import ute.Logging;
 import ute.UntilTheEnd;
 import ute.api.BlockApi;
 import ute.event.block.CustomBlockBreakEvent;
@@ -29,10 +23,11 @@ import ute.event.block.CustomBlockInteractEvent;
 import ute.event.block.CustomBlockPlaceEvent;
 import ute.item.combat.ToothTrap;
 
-/**
- * @author 南外丶仓鼠
- * @version V5.1.1
- */
+import java.io.File;
+import java.io.IOException;
+import java.util.ArrayList;
+import java.util.HashMap;
+
 public class BlockManager extends BukkitRunnable implements Listener {
     public static UntilTheEnd plugin;
     public static HashMap<String, String> blocks = new HashMap<String, String>();
@@ -126,7 +121,7 @@ public class BlockManager extends BukkitRunnable implements Listener {
         blocks.remove(loc);
     }
 
-    @EventHandler(priority = EventPriority.HIGHEST)
+    @EventHandler(priority = EventPriority.NORMAL)
     public void onPlace(BlockPlaceEvent event) {
         Location loc = event.getBlock().getLocation();
         if (!Config.enableWorlds.contains(loc.getWorld())) return;

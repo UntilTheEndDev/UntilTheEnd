@@ -1,21 +1,16 @@
 package ute.item;
 
+import org.bukkit.Material;
+import org.bukkit.configuration.file.YamlConfiguration;
+import org.bukkit.entity.EntityType;
+import ute.Logging;
+import ute.internal.UTEi18n;
+
 import java.io.File;
 import java.util.HashMap;
 import java.util.List;
 import java.util.logging.Level;
 
-import ute.Logging;
-import ute.internal.UTEi18n;
-
-import org.bukkit.Material;
-import org.bukkit.configuration.file.YamlConfiguration;
-import org.bukkit.entity.EntityType;
-
-/**
- * @author 南外丶仓鼠
- * @version V5.1.1
- */
 public class ItemProvider { 
     public static HashMap<EntityType, HashMap<String, Double>> entityDrops = new HashMap<EntityType, HashMap<String, Double>>();
     public static HashMap<Material, HashMap<String, Double>> blockDrops = new HashMap<Material, HashMap<String, Double>>();

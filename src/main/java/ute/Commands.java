@@ -33,10 +33,6 @@ import org.jetbrains.annotations.Nullable;
 
 import java.util.*;
 
-/**
- * @author 南外丶仓鼠
- * @version V5.1.1
- */
 public class Commands implements CommandExecutor, Listener, TabCompleter {
 
     public static UntilTheEnd plugin = UntilTheEnd.getInstance();

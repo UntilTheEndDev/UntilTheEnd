@@ -1,11 +1,5 @@
 package ute.cap.san;
 
-import java.util.HashMap;
-
-import ute.internal.NPCChecker;
-import ute.internal.ResidenceChecker;
-import ute.item.science.ClothesContainer;
-
 import org.bukkit.Bukkit;
 import org.bukkit.World;
 import org.bukkit.entity.Entity;
@@ -15,11 +9,15 @@ import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.PlayerInventory;
 import org.bukkit.scheduler.BukkitRunnable;
-
 import ute.Config;
 import ute.UntilTheEnd;
 import ute.event.hud.SanityChangeEvent;
+import ute.internal.NPCChecker;
+import ute.internal.ResidenceChecker;
+import ute.item.clothes.ClothesContainer;
 import ute.player.PlayerManager;
+
+import java.util.HashMap;
 
 public class ChangeTasks {
     public static UntilTheEnd plugin = UntilTheEnd.getInstance();
