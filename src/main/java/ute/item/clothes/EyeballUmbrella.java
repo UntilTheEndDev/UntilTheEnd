@@ -27,7 +27,7 @@ public class EyeballUmbrella implements Listener {
 
     public EyeballUmbrella() {
         ChangeTasks.clothesChangeSanity.put(ItemManager.items.get("EyeballUmbrella").displayName, sanityImprove);
-        ChangeTasks.umbrellas.add(ItemManager.items.get("EyeballUmbrella").displayName);
+        ute.cap.hum.ChangeTasks.umbrellas.add(ItemManager.items.get("EyeballUmbrella").displayName);
     }
 
     @EventHandler(priority = EventPriority.NORMAL, ignoreCancelled = true)

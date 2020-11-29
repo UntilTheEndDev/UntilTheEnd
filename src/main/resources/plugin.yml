@@ -1,5 +1,5 @@
 name: UntilTheEnd
-main: HamsterYDS.UntilTheEnd.UntilTheEnd
+main: ute.UntilTheEnd
 version: "Development"
 softdepend:
   - PlaceholderAPI

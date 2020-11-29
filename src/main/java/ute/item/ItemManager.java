@@ -1,5 +1,9 @@
 package ute.item;
 
+import org.bukkit.Material;
+import org.bukkit.configuration.file.YamlConfiguration;
+import org.bukkit.inventory.ItemStack;
+import org.bukkit.inventory.meta.ItemMeta;
 import ute.Config;
 import ute.Logging;
 import ute.UntilTheEnd;
@@ -7,21 +11,12 @@ import ute.internal.ItemFactory;
 import ute.item.basics.Ashes;
 import ute.item.basics.Sclerite;
 import ute.item.basics.SpiderGland;
-import HamsterYDS.UntilTheEnd.item.clothes.*;
-import HamsterYDS.UntilTheEnd.item.combat.*;
-import HamsterYDS.UntilTheEnd.item.magic.*;
-import ute.item.materials.Fern;
-import ute.item.materials.Hail;
-import ute.item.materials.NightMare;
-import HamsterYDS.UntilTheEnd.item.science.*;
-import HamsterYDS.UntilTheEnd.item.survival.*;
-import org.bukkit.Material;
-import org.bukkit.configuration.file.YamlConfiguration;
-import org.bukkit.inventory.ItemStack;
-import org.bukkit.inventory.meta.ItemMeta;
 import ute.item.clothes.*;
 import ute.item.combat.*;
 import ute.item.magic.*;
+import ute.item.materials.Fern;
+import ute.item.materials.Hail;
+import ute.item.materials.NightMare;
 import ute.item.science.*;
 import ute.item.survival.*;
 

@@ -8,12 +8,11 @@
 
 package ute.internal;
 
+import org.bukkit.configuration.ConfigurationSection;
+import org.bukkit.configuration.file.YamlConfiguration;
 import ute.Config;
 import ute.Logging;
 import ute.UntilTheEnd;
-import HamsterYDS.UntilTheEnd.internal.karlatemp.mxlib.formatter.*;
-import org.bukkit.configuration.ConfigurationSection;
-import org.bukkit.configuration.file.YamlConfiguration;
 import ute.internal.karlatemp.mxlib.formatter.*;
 
 import java.io.File;
