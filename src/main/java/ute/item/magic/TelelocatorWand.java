@@ -1,17 +1,5 @@
 package ute.item.magic;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.UUID;
-
-import ute.Config;
-import ute.api.BlockApi;
-import ute.event.hud.SanityChangeEvent;
-import ute.internal.DisableManager;
-import ute.internal.EventHelper;
-import ute.internal.HolderPlaceholder;
-import ute.internal.ItemFactory;
 import org.bukkit.Bukkit;
 import org.bukkit.Location;
 import org.bukkit.Material;
@@ -28,9 +16,20 @@ import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
 import org.bukkit.scheduler.BukkitRunnable;
 import org.bukkit.util.Vector;
-
+import ute.Config;
+import ute.api.BlockApi;
+import ute.event.hud.SanityChangeEvent;
+import ute.internal.DisableManager;
+import ute.internal.EventHelper;
+import ute.internal.HolderPlaceholder;
+import ute.internal.ItemFactory;
 import ute.item.ItemManager;
 import ute.player.PlayerManager;
+
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.UUID;
 
 public class TelelocatorWand implements Listener, HolderPlaceholder {
     public static int maxDist = ItemManager.itemAttributes.getInt("TelelocatorWand.maxDist");
@@ -58,7 +57,7 @@ public class TelelocatorWand implements Listener, HolderPlaceholder {
             }
             if (cd.containsKey(player.getUniqueId()))
                 if (cd.get(player.getUniqueId()) > 0) {
-                    player.sendMessage("[§cUntilTheEnd]§r 您的魔咒未冷却！");
+                    player.sendMessage("§c[UntilTheEnd]§r 您的魔咒未冷却！");
                     return;
                 }
             cd.put(player.getUniqueId(), 5);
@@ -104,7 +103,7 @@ public class TelelocatorWand implements Listener, HolderPlaceholder {
         for (String loc : Teleportage.teleportages.keySet()) {
             Teleportage.TeleportPoint point = Teleportage.teleportages.get(loc);
             if (point.master.equalsIgnoreCase(player.getUniqueId().toString())
-                    || point.permissioners.contains(player.getUniqueId().toString())) {
+                    || point.permissioners.contains(player.getName())) {
                 ItemStack item = new ItemStack(Material.ENDER_PEARL);
                 ItemMeta meta = item.getItemMeta();
                 List<String> lores = new ArrayList<String>();
@@ -124,10 +123,10 @@ public class TelelocatorWand implements Listener, HolderPlaceholder {
         Player player = (Player) event.getWhoClicked();
         Inventory view = event.getInventory();
         Inventory clicked = event.getClickedInventory();
-        if (view.getHolder() instanceof TelelocatorWand) {
+        if (clicked == null) return;
+
+        if (clicked.getHolder() instanceof TelelocatorWand) {
             event.setCancelled(true);
-            if (clicked == null) return;
-            if (!(clicked instanceof TelelocatorWand)) return;
 
             ItemStack item = event.getCurrentItem();
             if (item == null)

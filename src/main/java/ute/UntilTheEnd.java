@@ -17,6 +17,7 @@ import ute.internal.UTEi18n;
 import ute.internal.pdl.PlayerDataLoaderImpl;
 import ute.item.BlockManager;
 import ute.item.ItemManager;
+import ute.item.magic.Teleportage;
 import ute.nms.ActionBarManager;
 import ute.player.PlayerManager;
 import ute.world.World;
@@ -151,6 +152,7 @@ public class UntilTheEnd extends JavaPlugin implements Listener {
         }
         WorldProvider.saveWorlds();
         BlockManager.saveBlocks();
+        Teleportage.saveBlocks();
     }
 
     public void loadConfig() {

@@ -1,12 +1,5 @@
 package ute.item.magic;
 
-import java.util.HashMap;
-
-import ute.Config;
-import ute.event.hud.SanityChangeEvent;
-import ute.internal.DisableManager;
-import ute.internal.EventHelper;
-import ute.internal.ItemFactory;
 import org.bukkit.Bukkit;
 import org.bukkit.Location;
 import org.bukkit.Material;
@@ -19,9 +12,15 @@ import org.bukkit.event.player.PlayerInteractEvent;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.scheduler.BukkitRunnable;
 import org.bukkit.util.Vector;
-
+import ute.Config;
+import ute.event.hud.SanityChangeEvent;
+import ute.internal.DisableManager;
+import ute.internal.EventHelper;
+import ute.internal.ItemFactory;
 import ute.item.ItemManager;
 import ute.player.PlayerManager;
+
+import java.util.HashMap;
 
 public class DecomposeWand implements Listener {
     public static int maxDist = ItemManager.itemAttributes.getInt("DecomposeWand.maxDist");
@@ -44,7 +43,7 @@ public class DecomposeWand implements Listener {
             event.setCancelled(true);
             if (cd.containsKey(player.getName()))
                 if (cd.get(player.getName()) > 0) {
-                    player.sendMessage("[§cUntilTheEnd]§r 您的魔咒未冷却！");
+                    player.sendMessage("§c[UntilTheEnd]§r 您的魔咒未冷却！");
                     return;
                 }
             cd.remove(player.getName());
