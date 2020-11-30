@@ -17,7 +17,7 @@ import org.bukkit.potion.PotionEffectType;
 import org.bukkit.scheduler.BukkitRunnable;
 import org.bukkit.util.Vector;
 import ute.Config;
-import ute.event.hud.SanityChangeEvent;
+import ute.event.cap.SanityChangeEvent;
 import ute.internal.DisableManager;
 import ute.internal.EventHelper;
 import ute.internal.ItemFactory;

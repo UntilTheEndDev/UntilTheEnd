@@ -58,11 +58,11 @@ public class UTEPapiExpansion extends PlaceholderExpansion {
             case "day":
                 return String.valueOf(WorldApi.getDay(player.getWorld()));
             case "sanitycolor":
-                return String.valueOf(PlayerApi.getSanityColor(player));
+                return String.valueOf(PlayerApi.SanityOperations.getSanityColor(player));
             case "temperaturecolor":
                 return String.valueOf(PlayerApi.getTemperatureColor(player));
             case "humiditycolor":
-                return String.valueOf(PlayerApi.getHumidityColor(player));
+                return String.valueOf(PlayerApi.HumidityOperations.getHumidityColor(player));
             case "tirednesscolor":
                 return String.valueOf(PlayerApi.getTirednessColor(player));
             case "seasoncolor":
@@ -76,9 +76,9 @@ public class UTEPapiExpansion extends PlaceholderExpansion {
             case "tirednesstend":
                 return String.valueOf(PlayerApi.getChangingTend(player, "tir"));
             case "sanitybar":
-                return PlayerApi.getSanityBar(player);
+                return PlayerApi.SanityOperations.getSanityBar(player);
             case "humiditybar":
-                return PlayerApi.getHumidityBar(player);
+                return PlayerApi.HumidityOperations.getHumidityBar(player);
             case "temperaturebar":
                 return PlayerApi.getTemperatureBar(player);
             case "tirednessbar":

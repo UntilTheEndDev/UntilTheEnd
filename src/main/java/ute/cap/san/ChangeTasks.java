@@ -11,7 +11,7 @@ import org.bukkit.inventory.PlayerInventory;
 import org.bukkit.scheduler.BukkitRunnable;
 import ute.Config;
 import ute.UntilTheEnd;
-import ute.event.hud.SanityChangeEvent;
+import ute.event.cap.SanityChangeEvent;
 import ute.internal.NPCChecker;
 import ute.internal.ResidenceChecker;
 import ute.item.clothes.ClothesContainer;

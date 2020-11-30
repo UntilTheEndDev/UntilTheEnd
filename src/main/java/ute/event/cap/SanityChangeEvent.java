@@ -1,4 +1,4 @@
-package ute.event.hud;
+package ute.event.cap;
 
 import org.bukkit.entity.Player;
 import org.bukkit.event.Cancellable;

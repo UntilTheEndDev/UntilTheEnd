@@ -13,7 +13,7 @@ import org.bukkit.potion.PotionEffectType;
 import org.bukkit.scheduler.BukkitRunnable;
 import ute.Config;
 import ute.event.block.CustomBlockInteractEvent;
-import ute.event.hud.SanityChangeEvent;
+import ute.event.cap.SanityChangeEvent;
 import ute.item.ItemManager;
 import ute.player.PlayerManager;
 

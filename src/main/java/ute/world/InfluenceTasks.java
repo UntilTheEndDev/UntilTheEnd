@@ -13,7 +13,7 @@ import org.bukkit.potion.PotionEffectType;
 import org.bukkit.scheduler.BukkitRunnable;
 import ute.Config;
 import ute.UntilTheEnd;
-import ute.event.hud.SanityChangeEvent;
+import ute.event.cap.SanityChangeEvent;
 import ute.internal.LightingCompensation;
 import ute.internal.NPCChecker;
 import ute.internal.ResidenceChecker;
