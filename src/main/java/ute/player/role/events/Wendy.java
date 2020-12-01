@@ -25,7 +25,7 @@ public class Wendy implements Listener {
         if(!(event.getEntity() instanceof Player)) return;
         if(((Player) event.getEntity()).getHealth()<=event.getDamage()) return;
         Player player= (Player) event.getEntity();
-        if (PlayerApi.getRole(player) == Roles.WENDY) {
+        if (PlayerApi.RoleOperations.getRole(player) == Roles.WENDY) {
             if(ghostLastSummonedStamp.containsKey(player.getUniqueId())){
                 long stamp=ghostLastSummonedStamp.get(player.getUniqueId());
                 //TODO 常数：鬼魂冷却300冷却 加入Config

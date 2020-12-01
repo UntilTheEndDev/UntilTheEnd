@@ -24,7 +24,7 @@ public class Wilson {
             for (World world : Config.enableWorlds)
                 for (Player player : world.getPlayers()) {
                     if (NPCChecker.isNPC(player)|| ResidenceChecker.isProtected(player.getLocation())) continue;
-                    if (PlayerApi.getRole(player) == Roles.WILSON) {
+                    if (PlayerApi.RoleOperations.getRole(player) == Roles.WILSON) {
                         if (Math.random() <= 0.1) {
                             player.getInventory().addItem(ItemManager.items.get("Beard").item);
                         }

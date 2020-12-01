@@ -39,7 +39,7 @@ public class InfluenceEvents implements Listener {
     public void onChat(AsyncPlayerChatEvent event) {
         Player sender = event.getPlayer();
         if (!DisableManager.root.getBoolean("chatting_placeholder_api", true))
-            event.setMessage(PlayerApi.getPAPI(sender, event.getMessage()));
+            event.setMessage(PlayerApi.PapiOperations.getPAPI(sender, event.getMessage()));
         if (!Config.enableWorlds.contains(sender.getWorld())) return;
         int san = (int) PlayerManager.check(sender, PlayerManager.CheckType.SANITY);
         int chatablessSanityCal = (int) (chatablessSanity * PlayerManager.check(sender, PlayerManager.CheckType.SANMAX));

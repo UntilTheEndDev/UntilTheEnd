@@ -2,10 +2,13 @@ package ute.api;
 
 import me.clip.placeholderapi.PlaceholderAPI;
 import org.bukkit.Bukkit;
+import org.bukkit.OfflinePlayer;
 import org.bukkit.entity.Player;
 import ute.cap.HudProvider;
 import ute.event.cap.HumidityChangeEvent;
 import ute.event.cap.SanityChangeEvent;
+import ute.event.cap.TemperatureChangeEvent;
+import ute.event.cap.TirednessChangeEvent;
 import ute.player.PlayerManager;
 import ute.player.PlayerManager.CheckType;
 import ute.player.role.Roles;
@@ -13,73 +16,31 @@ import ute.player.role.Roles;
 import java.util.function.BiFunction;
 
 public class PlayerApi {
-    private static final BiFunction<Player, String, String> placeholderAPI_fun;
+    public static class PapiOperations{
+        private static final BiFunction<OfflinePlayer, String, String> placeholderAPI_fun;
 
-    static {
-        BiFunction<Player, String, String> placeholderAPI_ = (p, v) -> v;
-        try {
-            placeholderAPI_ = PlaceholderAPI::setPlaceholders;
-        } catch (Throwable ignored) {
+        static {
+            BiFunction<OfflinePlayer, String, String> placeholderAPI_ = (p, v) -> v;
+            try {
+                placeholderAPI_ = PlaceholderAPI::setPlaceholders;
+            } catch (Throwable ignored) {
+            }
+            placeholderAPI_fun = placeholderAPI_;
         }
-        placeholderAPI_fun = placeholderAPI_;
+
+        public static String getPAPI(Player player, String line) {
+            return placeholderAPI_fun.apply(player, line);
+        }
     }
 
-    public static String getPAPI(Player player, String line) {
-        return placeholderAPI_fun.apply(player, line);
-    }
+    public static class RoleOperations{
+        public static Roles getRole(Player player) {
+            return PlayerManager.checkRole(player);
+        }
 
-    public static String getChangingTend(Player player, String type) {
-        if (type.equalsIgnoreCase("san")) return HudProvider.sanity.get(player.getUniqueId());
-        if (type.equalsIgnoreCase("tem")) return HudProvider.temperature.get(player.getUniqueId());
-        if (type.equalsIgnoreCase("hum")) return HudProvider.humidity.get(player.getUniqueId());
-        if (type.equalsIgnoreCase("tir")) return HudProvider.tiredness.get(player.getUniqueId());
-        return "";
-    }
-
-    public static String getTemperatureColor(Player player) {
-        double tem = getValue(player, "tem");
-        if (tem <= 15) return HudProvider.yaml.getString("temperatureColor.15");
-        if (tem <= 50) return HudProvider.yaml.getString("temperatureColor.50");
-        if (tem <= 75) return HudProvider.yaml.getString("temperatureColor.75");
-        return "";
-    }
-
-    public static String getTirednessColor(Player player) {
-        double tir = getValue(player, "tir");
-        if (tir <= 25) return HudProvider.yaml.getString("tirednessColor.25");
-        if (tir <= 50) return HudProvider.yaml.getString("tirednessColor.50");
-        if (tir <= 75) return HudProvider.yaml.getString("tirednessColor.75");
-        if (tir <= 100) return HudProvider.yaml.getString("tirednessColor.100");
-        return "";
-    }
-
-    public static double getValue(Player player, String type) {
-        return PlayerManager.check(player, type);
-    }
-
-    public static void setValue(Player player, String type, int value) {
-
-        PlayerManager.change(player, type, value);
-    }
-
-    public static Roles getRole(Player player) {
-        return PlayerManager.checkRole(player);
-    }
-
-    public static void changeRole(Player player, Roles role) {
-        PlayerManager.changeRole(player, role);
-    }
-
-    public static String getTemperatureBar(Player player) {
-        double tem = PlayerManager.check(player, CheckType.TEMPERATURE) + 5;
-        double temMax = 80;
-        return getMessageBar(player, tem, temMax, HudProvider.yaml.getString("messageBar.temcolor"));
-    }
-
-    public static String getTirednessBar(Player player) {
-        double tir = PlayerManager.check(player, CheckType.TIREDNESS);
-        double tirMax = 100;
-        return getMessageBar(player, tir, tirMax, HudProvider.yaml.getString("messageBar.tircolor"));
+        public static void changeRole(Player player, Roles role) {
+            PlayerManager.changeRole(player, role);
+        }
     }
 
     public static String getMessageBar(Player player, double value, double maxValue, String color1) {
@@ -103,7 +64,64 @@ public class PlayerApi {
         return newBar;
     }
 
-    //TODO
+    public static class TirednessOperations{
+        public static boolean changeTiredness(Player player, TirednessChangeEvent.ChangeCause cause, double change){
+            TirednessChangeEvent event=new TirednessChangeEvent(player,cause,change);
+            Bukkit.getPluginManager().callEvent(event);
+            if(!event.isCancelled()){
+                PlayerManager.change(player,CheckType.TIREDNESS,change);
+            }
+            return event.isCancelled();
+        }
+        public static double getTiredness(Player player){
+            return PlayerManager.check(player,CheckType.TIREDNESS);
+        }
+        public static String getTirednessBar(Player player) {
+            double tir = getTiredness(player);
+            double tirMax = 100;
+            return getMessageBar(player, tir, tirMax, HudProvider.yaml.getString("messageBar.tircolor"));
+        }
+        public static String getTirednessColor(Player player) {
+            double tir = getTiredness(player);
+            if (tir <= 25) return HudProvider.yaml.getString("tirednessColor.25");
+            if (tir <= 50) return HudProvider.yaml.getString("tirednessColor.50");
+            if (tir <= 75) return HudProvider.yaml.getString("tirednessColor.75");
+            if (tir <= 100) return HudProvider.yaml.getString("tirednessColor.100");
+            return "";
+        }
+        public static String getChangingTend(Player player, String type) {
+            return HudProvider.tiredness.get(player.getUniqueId());
+        }
+    }
+
+    public static class TemperatureOperations{
+        public static boolean changeTemperature(Player player, TemperatureChangeEvent.ChangeCause cause, double change){
+            TemperatureChangeEvent event=new TemperatureChangeEvent(player,cause,change);
+            Bukkit.getPluginManager().callEvent(event);
+            if(!event.isCancelled()){
+                PlayerManager.change(player,CheckType.TEMPERATURE,change);
+            }
+            return event.isCancelled();
+        }
+        public static double getTemperature(Player player){
+            return PlayerManager.check(player,CheckType.TEMPERATURE);
+        }
+        public static String getTemperatureBar(Player player) {
+            double tem = getTemperature(player) + 5;
+            double temMax = 80;
+            return getMessageBar(player, tem, temMax, HudProvider.yaml.getString("messageBar.temcolor"));
+        }
+        public static String getTemperatureColor(Player player) {
+            double tem = getTemperature(player);
+            if (tem <= 15) return HudProvider.yaml.getString("temperatureColor.15");
+            if (tem <= 50) return HudProvider.yaml.getString("temperatureColor.50");
+            if (tem <= 75) return HudProvider.yaml.getString("temperatureColor.75");
+            return "";
+        }
+        public static String getChangingTend(Player player, String type) {
+            return HudProvider.temperature.get(player.getUniqueId());
+        }
+    }
 
     public static class HumidityOperations{
         public static boolean changeHumidity(Player player, HumidityChangeEvent.ChangeCause cause, double change){
@@ -134,7 +152,7 @@ public class PlayerApi {
         }
     }
 
-    
+
     public static class SanityOperations{
         public static boolean changeSanity(Player player, SanityChangeEvent.ChangeCause cause, double change){
             SanityChangeEvent event=new SanityChangeEvent(player,cause,change);

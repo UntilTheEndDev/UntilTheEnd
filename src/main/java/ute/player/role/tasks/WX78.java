@@ -24,7 +24,7 @@ public class WX78 {
             for (World world : Config.enableWorlds)
                 for (Player player : world.getPlayers()) {
                     if (NPCChecker.isNPC(player)|| ResidenceChecker.isProtected(player.getLocation())) continue;
-                    if (PlayerApi.getRole(player) == Roles.WX78) {
+                    if (PlayerApi.RoleOperations.getRole(player) == Roles.WX78) {
                         player.setMaxHealth(PlayerManager.check(player,CheckType.LEVEL)*4+20);
                         double humidity=PlayerManager.check(player,CheckType.HUMIDITY);
                         //10.0-扣血比率

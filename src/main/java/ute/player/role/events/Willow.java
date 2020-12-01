@@ -17,7 +17,7 @@ public class Willow implements Listener {
         if (!Config.enableWorlds.contains(event.getEntity().getWorld())) return;
         if (event.getEntity() instanceof Player) {
             Player player = (Player) event.getEntity();
-            if (PlayerApi.getRole(player) == Roles.WILLOW) {
+            if (PlayerApi.RoleOperations.getRole(player) == Roles.WILLOW) {
                 if (event.getCause() == DamageCause.FIRE) event.setCancelled(true);
                 if (event.getCause() == DamageCause.FIRE_TICK) event.setCancelled(true);
                 if (event.getCause() == DamageCause.LAVA) event.setCancelled(true);

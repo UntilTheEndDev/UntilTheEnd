@@ -24,7 +24,7 @@ public class Wolfgang {
             for (World world : Config.enableWorlds)
                 for (Player player : world.getPlayers()) {
                     if (NPCChecker.isNPC(player)|| ResidenceChecker.isProtected(player.getLocation())) continue;
-                    if (PlayerApi.getRole(player) == Roles.WOLFGANG) {
+                    if (PlayerApi.RoleOperations.getRole(player) == Roles.WOLFGANG) {
                         if (world.getTime() >= 14000 &&
                                 world.getTime() <=21000) {
                             PlayerManager.change(player, CheckType.SANITY, -2);

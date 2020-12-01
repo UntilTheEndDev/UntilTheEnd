@@ -36,53 +36,56 @@ public class UTEPapiExpansion extends PlaceholderExpansion {
         }
         switch (identifier) {
             case "san":
-                return String.valueOf(MathHelper.p2(PlayerManager.check(player, CheckType.SANITY)));
+                return String.valueOf(MathHelper.p2(PlayerApi.SanityOperations.getSanity(player)));
             case "tem":
-                return String.valueOf(MathHelper.p2(PlayerManager.check(player, CheckType.TEMPERATURE)));
+                return String.valueOf(MathHelper.p2(PlayerApi.TemperatureOperations.getTemperature(player)));
             case "hum":
-                return String.valueOf(MathHelper.p2(PlayerManager.check(player, CheckType.HUMIDITY)));
+                return String.valueOf(MathHelper.p2(PlayerApi.HumidityOperations.getHumidity(player)));
             case "tir":
-                return String.valueOf(MathHelper.p2(PlayerManager.check(player, CheckType.TIREDNESS)));
-            case "season":
-                return WorldApi.getName(WorldApi.getSeason(player.getWorld()));
+                return String.valueOf(MathHelper.p2(PlayerApi.TirednessOperations.getTiredness(player)));
             case "role":
-                return PlayerApi.getRole(player).name;
+                return PlayerApi.RoleOperations.getRole(player).name;
             case "sanmax":
-                return String.valueOf(PlayerManager.check(player, CheckType.SANMAX));
+                return String.valueOf(PlayerApi.SanityOperations.getMaxSanity(player));
+                //TODO
             case "healthmax":
                 return String.valueOf(PlayerManager.check(player, CheckType.HEALTHMAX));
             case "level":
                 return String.valueOf(PlayerManager.check(player, CheckType.LEVEL));
             case "damagelevel":
                 return String.valueOf(PlayerManager.check(player, CheckType.DAMAGELEVEL));
-            case "day":
-                return String.valueOf(WorldApi.getDay(player.getWorld()));
+                //TODO
             case "sanitycolor":
                 return String.valueOf(PlayerApi.SanityOperations.getSanityColor(player));
             case "temperaturecolor":
-                return String.valueOf(PlayerApi.getTemperatureColor(player));
+                return String.valueOf(PlayerApi.TemperatureOperations.getTemperatureColor(player));
             case "humiditycolor":
                 return String.valueOf(PlayerApi.HumidityOperations.getHumidityColor(player));
             case "tirednesscolor":
-                return String.valueOf(PlayerApi.getTirednessColor(player));
-            case "seasoncolor":
-                return String.valueOf(WorldApi.getSeasonColor(player.getWorld()));
+                return String.valueOf(PlayerApi.TirednessOperations.getTirednessColor(player));
             case "sanitytend":
-                return String.valueOf(PlayerApi.getChangingTend(player, "san"));
+                return String.valueOf(PlayerApi.SanityOperations.getChangingTend(player, "san"));
             case "temperaturetend":
-                return String.valueOf(PlayerApi.getChangingTend(player, "tem"));
+                return String.valueOf(PlayerApi.TemperatureOperations.getChangingTend(player, "tem"));
             case "humiditytend":
-                return String.valueOf(PlayerApi.getChangingTend(player, "hum"));
+                return String.valueOf(PlayerApi.HumidityOperations.getChangingTend(player, "hum"));
             case "tirednesstend":
-                return String.valueOf(PlayerApi.getChangingTend(player, "tir"));
+                return String.valueOf(PlayerApi.TirednessOperations.getChangingTend(player, "tir"));
             case "sanitybar":
                 return PlayerApi.SanityOperations.getSanityBar(player);
             case "humiditybar":
                 return PlayerApi.HumidityOperations.getHumidityBar(player);
             case "temperaturebar":
-                return PlayerApi.getTemperatureBar(player);
+                return PlayerApi.TemperatureOperations.getTemperatureBar(player);
             case "tirednessbar":
-                return PlayerApi.getTirednessBar(player);
+                return PlayerApi.TirednessOperations.getTirednessBar(player);
+
+            case "season":
+                return WorldApi.getName(WorldApi.getSeason(player.getWorld()));
+            case "day":
+                return String.valueOf(WorldApi.getDay(player.getWorld()));
+            case "seasoncolor":
+                return String.valueOf(WorldApi.getSeasonColor(player.getWorld()));
             default:
                 return identifier;
         }

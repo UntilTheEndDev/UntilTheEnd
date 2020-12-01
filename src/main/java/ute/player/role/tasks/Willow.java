@@ -26,7 +26,7 @@ public class Willow {
             for (World world : Config.enableWorlds)
                 for (Player player : world.getPlayers()) {
                     if (NPCChecker.isNPC(player) || ResidenceChecker.isProtected(player.getLocation())) continue;
-                    if (PlayerApi.getRole(player) == Roles.WILLOW) {
+                    if (PlayerApi.RoleOperations.getRole(player) == Roles.WILLOW) {
                         Location loc = player.getLocation();
                         for (int x = -5; x <= 5; x++)
                             for (int y = -5; y <= 5; y++)
