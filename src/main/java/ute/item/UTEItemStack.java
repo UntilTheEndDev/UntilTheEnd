@@ -32,18 +32,18 @@ public class UTEItemStack {
 
     public void registerRecipe(HashMap<ItemStack, Integer> craft, String category) {
         Inventory guideInv = CraftGuide.get_simple_craft_guide(this.displayName.replace("§6", "§8"));
-        guideInv.setItem(20, this.item);
+        guideInv.setItem(19, this.item);
         switch(this.needLevel){
             case 0:
                 break;
             case 1:
-                guideInv.setItem(22, ItemManager.items.get("ScienceMachine").item);
+                guideInv.setItem(21, ItemManager.items.get("ScienceMachine").item);
                 break;
             case 2:
-                guideInv.setItem(22, ItemManager.items.get("AlchemyEngine").item);
+                guideInv.setItem(21, ItemManager.items.get("AlchemyEngine").item);
                 break;
             case 3:
-                guideInv.setItem(22, ItemManager.items.get("Prestihatitator").item);
+                guideInv.setItem(21, ItemManager.items.get("Prestihatitator").item);
                 break;
         }
         int index = 0;

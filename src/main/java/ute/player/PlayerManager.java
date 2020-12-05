@@ -485,10 +485,6 @@ public class PlayerManager implements Listener {
         forgetChange(player, type, changement, action);
     }
 
-    public static void change(Player player, String type, double changement) {
-        change(player, CheckType.search(type), changement);
-    }
-
     private static class SavingTask extends BukkitRunnable {
         @Override
         public void run() {

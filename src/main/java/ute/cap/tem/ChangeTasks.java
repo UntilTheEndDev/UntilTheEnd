@@ -8,6 +8,8 @@ import org.bukkit.inventory.meta.ItemMeta;
 import org.bukkit.scheduler.BukkitRunnable;
 import ute.Config;
 import ute.UntilTheEnd;
+import ute.api.PlayerApi;
+import ute.event.cap.TemperatureChangeEvent;
 import ute.internal.NPCChecker;
 import ute.internal.ResidenceChecker;
 import ute.item.ItemManager;
@@ -40,7 +42,7 @@ public class ChangeTasks {
                 for (Player player : world.getPlayers()) {
                     if (NPCChecker.isNPC(player)|| ResidenceChecker.isProtected(player.getLocation())) continue;
                     double hum = PlayerManager.check(player, PlayerManager.CheckType.HUMIDITY);
-                    PlayerManager.change(player, PlayerManager.CheckType.TEMPERATURE, -hum / 5);
+                    PlayerApi.TemperatureOperations.changeTemperature(player, TemperatureChangeEvent.ChangeCause.HUMIDITY,-hum / 5);
                 }
         }
     }
@@ -63,8 +65,10 @@ public class ChangeTasks {
                         int stoneTem = 0;
                         stoneTem = Integer.parseInt(line);
                         double playerTem = PlayerManager.check(player, "tem");
-                        if (playerTem < stoneTem) PlayerManager.change(player, "tem", 1);
-                        if (playerTem > stoneTem) PlayerManager.change(player, "tem", -1);
+                        if (playerTem < stoneTem)
+                            PlayerApi.TemperatureOperations.changeTemperature(player, TemperatureChangeEvent.ChangeCause.WARMSTONE,1);
+                        if (playerTem > stoneTem)
+                            PlayerApi.TemperatureOperations.changeTemperature(player, TemperatureChangeEvent.ChangeCause.WARMSTONE,-1);
                         if (!getName(item).equalsIgnoreCase(ItemManager.items.get("WarmStone").displayName))
                             return true;
                         if (Math.random() <= stoneChangePercent) {
@@ -103,7 +107,7 @@ public class ChangeTasks {
             if (abs > 10) {
                 check += check * abs / 5;
             }
-            PlayerManager.change(player, PlayerManager.CheckType.TEMPERATURE, check);
+            PlayerApi.TemperatureOperations.changeTemperature(player, TemperatureChangeEvent.ChangeCause.ENVIRONMENT,check);
         }
 
         public static boolean clothesChange(Player player, boolean upOrDown) {

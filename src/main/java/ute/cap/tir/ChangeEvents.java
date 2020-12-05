@@ -1,10 +1,5 @@
 package ute.cap.tir;
 
-import ute.Config;
-import ute.Logging;
-import ute.UntilTheEnd;
-import ute.player.PlayerManager;
-import ute.player.PlayerManager.CheckType;
 import org.bukkit.entity.LivingEntity;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
@@ -19,6 +14,11 @@ import org.bukkit.event.player.PlayerMoveEvent;
 import org.bukkit.event.player.PlayerTeleportEvent;
 import org.bukkit.scheduler.BukkitRunnable;
 import org.bukkit.scheduler.BukkitTask;
+import ute.Config;
+import ute.Logging;
+import ute.UntilTheEnd;
+import ute.api.PlayerApi;
+import ute.event.cap.TirednessChangeEvent;
 
 import java.util.Map;
 import java.util.UUID;
@@ -82,7 +82,7 @@ public class ChangeEvents implements Listener {
         try {
             if (event.getTo().getWorld() != event.getFrom().getWorld()) return;
             if (event.getTo().distance(event.getFrom()) <= 10.0) return;
-            PlayerManager.change(player, CheckType.TIREDNESS, CHANGE_EVENT_TELEPORT);
+            PlayerApi.TirednessOperations.changeTiredness(player, TirednessChangeEvent.ChangeCause.TELEPORT,CHANGE_EVENT_TELEPORT);
         } catch (Exception e) {
             Logging.getLogger().log(Level.SEVERE, "Failed to process teleport event! ", e);
         }
@@ -94,7 +94,7 @@ public class ChangeEvents implements Listener {
         if (player == null)
             return;
         if (!Config.enableWorlds.contains(player.getWorld())) return;
-        PlayerManager.change(player, CheckType.TIREDNESS, CHANGE_EVENT_BREAK);
+        PlayerApi.TirednessOperations.changeTiredness(player, TirednessChangeEvent.ChangeCause.BREAK,CHANGE_EVENT_BREAK);
     }
 
     @EventHandler(priority = EventPriority.MONITOR, ignoreCancelled = true)
@@ -103,7 +103,7 @@ public class ChangeEvents implements Listener {
         if (player == null)
             return;
         if (!Config.enableWorlds.contains(player.getWorld())) return;
-        PlayerManager.change(player, CheckType.TIREDNESS, CHANGE_EVENT_TALK);
+        PlayerApi.TirednessOperations.changeTiredness(player, TirednessChangeEvent.ChangeCause.TALK,CHANGE_EVENT_TALK);
     }
 
     @EventHandler(priority = EventPriority.MONITOR, ignoreCancelled = true)
@@ -112,7 +112,7 @@ public class ChangeEvents implements Listener {
         if (player == null)
             return;
         if (!Config.enableWorlds.contains(player.getWorld())) return;
-        PlayerManager.change(player, CheckType.TIREDNESS, CHANGE_EVENT_TAB);
+        PlayerApi.TirednessOperations.changeTiredness(player, TirednessChangeEvent.ChangeCause.TAB,CHANGE_EVENT_TAB);
     }
 
     @EventHandler(priority = EventPriority.MONITOR, ignoreCancelled = true)
@@ -120,19 +120,19 @@ public class ChangeEvents implements Listener {
         if (!Config.enableWorlds.contains(event.getDamager().getWorld())) return;
         if (event.getDamager() instanceof Player) {
             Player player = (Player) event.getDamager();
-            PlayerManager.change(player, CheckType.TIREDNESS, CHANGE_EVENT_DAMAGE);
+            PlayerApi.TirednessOperations.changeTiredness(player, TirednessChangeEvent.ChangeCause.DAMAGE,CHANGE_EVENT_DAMAGE);
         }
         if (event.getEntity() instanceof Player) {
             if (!(event.getDamager() instanceof LivingEntity)) return;
             Player player = (Player) event.getEntity();
-            PlayerManager.change(player, CheckType.TIREDNESS, CHANGE_EVENT_BE_DAMAGED);
+            PlayerApi.TirednessOperations.changeTiredness(player, TirednessChangeEvent.ChangeCause.BE_DAMAGED,CHANGE_EVENT_BE_DAMAGED);
         }
     }
 
     @EventHandler(priority = EventPriority.MONITOR, ignoreCancelled = true)
-    public void onPick(EnchantItemEvent event) {
+    public void onEnchant(EnchantItemEvent event) {
         Player player = event.getEnchanter();
         if (!Config.enableWorlds.contains(player.getWorld())) return;
-        PlayerManager.change(player, CheckType.TIREDNESS, CHANGE_EVENT_ENCHANT);
+        PlayerApi.TirednessOperations.changeTiredness(player, TirednessChangeEvent.ChangeCause.ENCHANT,CHANGE_EVENT_ENCHANT);
     }
 }

@@ -7,9 +7,11 @@ import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.EventPriority;
 import org.bukkit.event.Listener;
+import ute.api.PlayerApi;
+import ute.event.cap.HumidityChangeEvent;
+import ute.event.cap.TemperatureChangeEvent;
 import ute.event.player.CustomItemInteractEvent;
 import ute.item.ItemManager;
-import ute.player.PlayerManager;
 
 public class WaterBalloon implements Listener {
     public WaterBalloon() {
@@ -21,7 +23,8 @@ public class WaterBalloon implements Listener {
         Player player=event.getWho();
         if (event.getUteItem().id.equalsIgnoreCase("WaterBalloon")) {
             event.setCancelled(true);
-            PlayerManager.change(player, PlayerManager.CheckType.TEMPERATURE, -10);
+            PlayerApi.TemperatureOperations.changeTemperature(player,TemperatureChangeEvent.ChangeCause.ITEMS,-10);
+            PlayerApi.HumidityOperations.changeHumidity(player, HumidityChangeEvent.ChangeCause.ITEMS,5);
             Location loc = player.getLocation();
             for (int x = -3; x <= 3; x++)
                 for (int y = -3; y <= 3; y++)

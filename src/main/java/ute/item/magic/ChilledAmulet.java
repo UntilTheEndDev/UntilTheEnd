@@ -1,19 +1,19 @@
 package ute.item.magic;
 
-import ute.Config;
-import ute.UntilTheEnd;
-import ute.cap.san.ChangeTasks;
-import ute.internal.NPCChecker;
-import ute.item.ItemManager;
-import ute.item.clothes.ClothesContainer;
-import ute.player.PlayerManager;
-import ute.player.PlayerManager.CheckType;
 import org.bukkit.Material;
 import org.bukkit.World;
 import org.bukkit.entity.Player;
 import org.bukkit.event.Listener;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.scheduler.BukkitRunnable;
+import ute.Config;
+import ute.UntilTheEnd;
+import ute.api.PlayerApi;
+import ute.cap.san.ChangeTasks;
+import ute.event.cap.TemperatureChangeEvent;
+import ute.internal.NPCChecker;
+import ute.item.ItemManager;
+import ute.item.clothes.ClothesContainer;
 
 public class ChilledAmulet implements Listener {
     public static int sanityImprove = ItemManager.itemAttributes.getInt("ChilledAmulet.sanityImprove");
@@ -32,7 +32,7 @@ public class ChilledAmulet implements Listener {
                             if (ItemManager.isSimilar(cloth, ItemManager.items.get("ChilledAmulet").item)) {
                                 if (cloth.getDurability() >= cloth.getType().getMaxDurability())
                                     cloth.setType(Material.AIR);
-                                PlayerManager.change(player, CheckType.TEMPERATURE, -1);
+                                PlayerApi.TemperatureOperations.changeTemperature(player, TemperatureChangeEvent.ChangeCause.CLOTHES,-1);
                                 if (Math.random() <= 0.3)
                                     cloth.setDurability((short) (cloth.getDurability() + 1));
                             }

@@ -42,6 +42,6 @@ public class HumidityChangeEvent extends PlayerEvent implements Cancellable {
     }
 
     public enum ChangeCause {
-        //TODO
+        WATER,RAIN,VAPOUR,ITEMS;
     }
 }

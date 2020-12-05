@@ -7,6 +7,7 @@ import org.bukkit.scheduler.BukkitRunnable;
 import ute.Config;
 import ute.UntilTheEnd;
 import ute.api.PlayerApi;
+import ute.event.cap.SanityChangeEvent;
 import ute.internal.NPCChecker;
 import ute.internal.ResidenceChecker;
 import ute.player.PlayerManager;
@@ -25,10 +26,8 @@ public class Wolfgang {
                 for (Player player : world.getPlayers()) {
                     if (NPCChecker.isNPC(player)|| ResidenceChecker.isProtected(player.getLocation())) continue;
                     if (PlayerApi.RoleOperations.getRole(player) == Roles.WOLFGANG) {
-                        if (world.getTime() >= 14000 &&
-                                world.getTime() <=21000) {
-                            PlayerManager.change(player, CheckType.SANITY, -2);
-                        }
+                        if (world.getTime() >= 14000 && world.getTime() <=21000)
+                            PlayerApi.SanityOperations.changeSanity(player, SanityChangeEvent.ChangeCause.NIGHT,-2);
                         double hungerPercent = (double) (player.getFoodLevel()) / 20.0;
                         player.setMaxHealth(hungerPercent * 30);
                         PlayerManager.change(player, CheckType.HEALTHMAX,

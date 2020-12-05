@@ -11,7 +11,9 @@ import org.bukkit.inventory.PlayerInventory;
 import org.bukkit.scheduler.BukkitRunnable;
 import ute.Config;
 import ute.UntilTheEnd;
+import ute.api.PlayerApi;
 import ute.cap.tem.TemperatureProvider;
+import ute.event.cap.HumidityChangeEvent;
 import ute.internal.NPCChecker;
 import ute.internal.ResidenceChecker;
 import ute.item.clothes.ClothesContainer;
@@ -94,7 +96,7 @@ public class ChangeTasks {
                         // 莫得雨
                         if (player.getLocation().getBlock().getTemperature() > 1.0
                                 || player.getLocation().getBlock().getBiome().toString().contains("SAVANNA")) {
-                            PlayerManager.change(player, PlayerManager.CheckType.HUMIDITY, -1);
+                            PlayerApi.HumidityOperations.changeHumidity(player, HumidityChangeEvent.ChangeCause.VAPOUR,-0.5);
                             doTickTem(player);
                             continue;
                         }
@@ -115,13 +117,13 @@ public class ChangeTasks {
                                 continue player_loop;
                             }
                         }
-                        PlayerManager.change(player, PlayerManager.CheckType.HUMIDITY, 0.3);
+                        PlayerApi.HumidityOperations.changeHumidity(player, HumidityChangeEvent.ChangeCause.RAIN,0.3);
                     }
                 } else {
                     for (Player player : world.getPlayers()) {
                         if (NPCChecker.isNPC(player)||ResidenceChecker.isProtected(player.getLocation())) continue;
                         doTickTem(player);
-                        PlayerManager.change(player, PlayerManager.CheckType.HUMIDITY, -0.3);
+                        PlayerApi.HumidityOperations.changeHumidity(player, HumidityChangeEvent.ChangeCause.RAIN,-0.3);
                     }
                 }
             }
@@ -130,7 +132,7 @@ public class ChangeTasks {
         public static void doTickStorm(Player p) {
             if (stepStatus.compute(p.getUniqueId(), step_status_changer).intValue() >= stormSlowLevel) {
                 stepStatus.compute(p.getUniqueId(), step_reset);
-                PlayerManager.change(p, PlayerManager.CheckType.HUMIDITY, -1);
+                PlayerApi.HumidityOperations.changeHumidity(p, HumidityChangeEvent.ChangeCause.VAPOUR,-1);
             }
         }
 
@@ -171,7 +173,7 @@ public class ChangeTasks {
                     if (player.isInsideVehicle()) {
                         Location loc = player.getLocation().add(0, 1, 0); // 沉了
                         if (world.getBlockAt(loc).getType().equals(Material.WATER) || world.getBlockAt(loc).getType().equals(Material.STATIONARY_WATER))
-                            PlayerManager.change(player, PlayerManager.CheckType.HUMIDITY, 1);
+                            PlayerApi.HumidityOperations.changeHumidity(player, HumidityChangeEvent.ChangeCause.VAPOUR,1);
                         continue;
                     }
                     Location loc = player.getLocation();
@@ -188,7 +190,7 @@ public class ChangeTasks {
                                 continue playerLoop;
                             }
                         }
-                        PlayerManager.change(player, PlayerManager.CheckType.HUMIDITY, 1);
+                        PlayerApi.HumidityOperations.changeHumidity(player, HumidityChangeEvent.ChangeCause.WATER,1);
                     }
                 }
             }

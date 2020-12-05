@@ -93,6 +93,10 @@ public class CraftGuide implements Listener {
                     return;
                 }
             }
+            if (event.getSlot() == 8){
+                player.openInventory(guide);
+                return;
+            }
             if (event.getSlot() == 0) {
                 ItemStack item = inv.getItem(event.getSlot());
                 if (item.getItemMeta().hasLore()) {
@@ -115,10 +119,11 @@ public class CraftGuide implements Listener {
 
                     player.openInventory(adapted_inv);
                 }
+                return;
             }
             ItemStack one_item = event.getCurrentItem().clone();
             one_item.setAmount(1);
-            if (button_to_gui.containsKey(one_item) && event.getSlot() != 20) {
+            if (button_to_gui.containsKey(one_item)) {
                 Inventory adapted_inv = GuideApi.copy_inventory(button_to_gui.get(one_item));
 
                 ItemStack item = adapted_inv.getItem(0);
@@ -134,15 +139,16 @@ public class CraftGuide implements Listener {
                 if (inv.getHolder() instanceof HolderCategoryHelp)
                     lores.add(inv.getTitle());
                 if (inv.getHolder() instanceof HolderItemCraftingHelp)
-                    lores.add(ItemManager.getUTEItemId(inv.getItem(20)));
+                    lores.add(ItemManager.getUTEItemId(inv.getItem(19)));
                 meta.setLore(lores);
                 item.setItemMeta(meta);
                 adapted_inv.setItem(0, item);
 
                 player.openInventory(adapted_inv);
+                return;
             }
             if (inv.getHolder() instanceof HolderItemCraftingHelp && event.getSlot() == 40) {
-                ItemStack result = inv.getItem(20);
+                ItemStack result = inv.getItem(19);
                 String result_id = ItemManager.getUTEItemId(result);
                 switch (ItemApi.can_craft(player, result_id)) {
                     case 0: {
@@ -173,6 +179,9 @@ public class CraftGuide implements Listener {
     public static Inventory get_simple_craft_guide(String title) {
         Inventory guide = Bukkit.createInventory(new HolderItemCraftingHelp(), 45, title);
         guide = init_frame(guide, guide_frame);
+        guide.setItem(13, guide_frame);
+        guide.setItem(22, guide_frame);
+        guide.setItem(31, guide_frame);
         guide.setItem(0, back_button);
         guide.setItem(40, craft_button);
         return guide;

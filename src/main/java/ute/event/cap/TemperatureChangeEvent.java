@@ -42,6 +42,6 @@ public class TemperatureChangeEvent extends PlayerEvent implements Cancellable {
     }
 
     public enum ChangeCause {
-        //TODO
+        WARMSTONE,ENVIRONMENT,HUMIDITY,CLOTHES,ITEMS;
     }
 }

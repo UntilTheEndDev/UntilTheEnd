@@ -18,13 +18,13 @@ import org.bukkit.scheduler.BukkitRunnable;
 import org.bukkit.util.Vector;
 import ute.Config;
 import ute.api.BlockApi;
+import ute.api.PlayerApi;
 import ute.event.cap.SanityChangeEvent;
 import ute.internal.DisableManager;
 import ute.internal.EventHelper;
 import ute.internal.HolderPlaceholder;
 import ute.internal.ItemFactory;
 import ute.item.ItemManager;
-import ute.player.PlayerManager;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -66,10 +66,7 @@ public class TelelocatorWand implements Listener, HolderPlaceholder {
                 item.setType(ItemFactory.AIR);
             Location loc = player.getLocation().add(0.0, 1.0, 0.0);
             Vector vec = player.getEyeLocation().getDirection().multiply(0.5);
-            SanityChangeEvent event2 = new SanityChangeEvent(player, SanityChangeEvent.ChangeCause.USEWAND, -5);
-            Bukkit.getPluginManager().callEvent(event2);
-            if (!event2.isCancelled())
-                PlayerManager.change(player, PlayerManager.CheckType.SANITY, -5);
+            PlayerApi.SanityOperations.changeSanity(player,SanityChangeEvent.ChangeCause.USEWAND,-5);
             new BukkitRunnable() {
                 int range = maxDist;
                 Location oldLoc = loc.clone();

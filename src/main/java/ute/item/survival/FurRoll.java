@@ -12,10 +12,10 @@ import org.bukkit.potion.PotionEffect;
 import org.bukkit.potion.PotionEffectType;
 import org.bukkit.scheduler.BukkitRunnable;
 import ute.api.BlockApi;
+import ute.api.PlayerApi;
 import ute.event.cap.SanityChangeEvent;
 import ute.event.player.CustomItemInteractEvent;
 import ute.item.ItemManager;
-import ute.player.PlayerManager;
 import ute.player.death.DeathCause;
 import ute.player.death.DeathMessage;
 
@@ -64,7 +64,7 @@ public class FurRoll implements Listener {
                         SanityChangeEvent event = new SanityChangeEvent(player, SanityChangeEvent.ChangeCause.FURROLL, 1);
                         Bukkit.getPluginManager().callEvent(event);
                         if (!event.isCancelled())
-                            PlayerManager.change(player, PlayerManager.CheckType.SANITY, 1);
+                            PlayerApi.SanityOperations.changeSanity(player,SanityChangeEvent.ChangeCause.FURROLL,1);
                     }
                     if (Math.random() <= 0.07) {
                         if (player.getFoodLevel() >= 1) player.setFoodLevel(player.getFoodLevel() - 1);

@@ -1,9 +1,5 @@
 package ute.food;
 
-import java.util.HashMap;
-
-import ute.internal.ItemFactory;
-import ute.internal.UTEi18n;
 import org.bukkit.Material;
 import org.bukkit.entity.LivingEntity;
 import org.bukkit.entity.Player;
@@ -15,9 +11,14 @@ import org.bukkit.event.player.PlayerItemConsumeEvent;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.potion.PotionEffect;
 import org.bukkit.potion.PotionEffectType;
-
 import ute.UntilTheEnd;
+import ute.api.PlayerApi;
+import ute.event.cap.SanityChangeEvent;
+import ute.internal.ItemFactory;
+import ute.internal.UTEi18n;
 import ute.player.PlayerManager;
+
+import java.util.HashMap;
 
 public class RottenFoodInfluence implements Listener {
     public static UntilTheEnd plugin;
@@ -44,10 +45,11 @@ public class RottenFoodInfluence implements Listener {
     public void onEat(FoodLevelChangeEvent event) {
         LivingEntity entity = event.getEntity();
         if (!(entity instanceof Player)) return;
+        Player player= (Player) entity;
         if (eatenFoodRottens.containsKey(entity.getName())) {
             int level = eatenFoodRottens.get(entity.getName());
             if (level == -100) {
-                PlayerManager.change((Player) entity, PlayerManager.CheckType.SANITY, -30);
+                PlayerApi.SanityOperations.changeSanity(player, SanityChangeEvent.ChangeCause.FOOD,-30);
                 entity.damage(2.0);
                 entity.addPotionEffect(new PotionEffect(PotionEffectType.WITHER, 100, 0));
                 entity.sendMessage(UTEi18n.cacheWithPrefix("mechanism.food.rotten.high"));
@@ -61,7 +63,7 @@ public class RottenFoodInfluence implements Listener {
             int newLevel = (int) (percent * foodLevel + 1.0);
             event.setFoodLevel(currentLevel + newLevel);
             if (level <= 60) {
-                PlayerManager.change((Player) entity, PlayerManager.CheckType.SANITY, (int) (-15.0D * (level / 100)));
+                PlayerApi.SanityOperations.changeSanity(player, SanityChangeEvent.ChangeCause.FOOD, (int) (-15.0D * (level / 100)));
                 entity.sendMessage(UTEi18n.cacheWithPrefix("mechanism.food.rotten.low"));
                 eatenFoodRottens.remove(entity.getName());
             }

@@ -13,12 +13,12 @@ import org.bukkit.potion.PotionEffectType;
 import org.bukkit.scheduler.BukkitRunnable;
 import ute.Config;
 import ute.UntilTheEnd;
+import ute.api.PlayerApi;
 import ute.event.cap.SanityChangeEvent;
 import ute.internal.LightingCompensation;
 import ute.internal.NPCChecker;
 import ute.internal.ResidenceChecker;
 import ute.internal.UTEi18n;
-import ute.player.PlayerManager;
 import ute.player.death.DeathCause;
 import ute.player.death.DeathMessage;
 
@@ -109,7 +109,7 @@ public class InfluenceTasks {
                             SanityChangeEvent event = new SanityChangeEvent(player, SanityChangeEvent.ChangeCause.DARKWARN, san_warn);
                             Bukkit.getPluginManager().callEvent(event);
                             if (!event.isCancelled())
-                                PlayerManager.change(player, PlayerManager.CheckType.SANITY, san_warn);
+                                PlayerApi.SanityOperations.changeSanity(player, SanityChangeEvent.ChangeCause.DARKWARN,san_warn);
                         }
                         if (darkness.get(player.getUniqueId()) >= attack) {
                             player.sendTitle(UTEi18n.cache("mechanism.darkness.hurt-me.main"), UTEi18n.cache("mechanism.darkness.hurt-me.sub"));
@@ -119,7 +119,7 @@ public class InfluenceTasks {
                             SanityChangeEvent event = new SanityChangeEvent(player, SanityChangeEvent.ChangeCause.DARKATTACK, san_attack);
                             Bukkit.getPluginManager().callEvent(event);
                             if (!event.isCancelled())
-                                PlayerManager.change(player, PlayerManager.CheckType.SANITY, san_attack);
+                                PlayerApi.SanityOperations.changeSanity(player, SanityChangeEvent.ChangeCause.DARKATTACK,san_attack);
                         }
                     }
                 }
