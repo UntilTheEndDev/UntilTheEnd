@@ -125,6 +125,7 @@ public class CraftGuide implements Listener {
             ItemStack one_item = event.getCurrentItem().clone();
             one_item.setAmount(1);
 
+            //TODO 点击时找不到了
             boolean isContaining=false;
             for(ItemStack key:button_to_gui.keySet()){
                 isContaining=ItemManager.isSimilar(one_item,key);

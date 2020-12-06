@@ -40,6 +40,7 @@ public class GuideApi {
     }
 
     public enum AvaliableCategories {
+        //这里带了LEGACY
         衣物(GuideApi.item_creater("§6衣物", Material.GOLD_HELMET, (short) 0), 14),
         战斗(GuideApi.item_creater("§6战斗", Material.DIAMOND_SWORD, (short) 0), 13),
         魔法(GuideApi.item_creater("§6魔法", Material.SPLASH_POTION, (short) 0), 15),
