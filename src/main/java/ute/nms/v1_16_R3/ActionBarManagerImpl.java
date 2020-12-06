@@ -1,10 +1,10 @@
 package ute.nms.v1_16_R3;
 
-import net.minecraft.server.v1_16_R2.ChatComponentText;
-import net.minecraft.server.v1_16_R2.ChatMessageType;
-import net.minecraft.server.v1_16_R2.EntityPlayer;
-import net.minecraft.server.v1_16_R2.PacketPlayOutChat;
-import org.bukkit.craftbukkit.v1_16_R2.entity.CraftPlayer;
+import net.minecraft.server.v1_16_R3.ChatComponentText;
+import net.minecraft.server.v1_16_R3.ChatMessageType;
+import net.minecraft.server.v1_16_R3.EntityPlayer;
+import net.minecraft.server.v1_16_R3.PacketPlayOutChat;
+import org.bukkit.craftbukkit.v1_16_R3.entity.CraftPlayer;
 import org.bukkit.entity.Player;
 import ute.nms.ActionBarManager;
 
