@@ -52,11 +52,12 @@ public class CraftGuide implements Listener {
     public void on_open_guide(PlayerInteractEvent event) {
         if (event.hasItem()) {
             ItemStack item = event.getItem();
-            if (item.equals(open_item)) {
-                Player player = event.getPlayer();
-                player.openInventory(guide);
-                event.setCancelled(true);
-            }
+            if(!OperateLimiter.openers.contains(event.getPlayer().getUniqueId()))
+                if (item.equals(open_item)) {
+                    Player player = event.getPlayer();
+                    player.openInventory(guide);
+                    event.setCancelled(true);
+                }
         }
     }
 
@@ -123,8 +124,15 @@ public class CraftGuide implements Listener {
             }
             ItemStack one_item = event.getCurrentItem().clone();
             one_item.setAmount(1);
-            if (button_to_gui.containsKey(one_item)) {
-                Inventory adapted_inv = GuideApi.copy_inventory(button_to_gui.get(one_item));
+
+            boolean isContaining=false;
+            for(ItemStack key:button_to_gui.keySet()){
+                isContaining=ItemManager.isSimilar(one_item,key);
+            }
+
+            if (isContaining) {
+
+                Inventory adapted_inv = GuideApi.copy_inventory(button_to_gui.get(one_item),one_item.getItemMeta().getDisplayName());
 
                 ItemStack item = adapted_inv.getItem(0);
                 ItemMeta meta = item.getItemMeta();
@@ -137,7 +145,7 @@ public class CraftGuide implements Listener {
                 if (inv.getHolder() instanceof HolderMainHelp)
                     lores.add("main");
                 if (inv.getHolder() instanceof HolderCategoryHelp)
-                    lores.add(inv.getTitle());
+                    lores.add(event.getView().getTitle());
                 if (inv.getHolder() instanceof HolderItemCraftingHelp)
                     lores.add(ItemManager.getUTEItemId(inv.getItem(19)));
                 meta.setLore(lores);
@@ -155,6 +163,8 @@ public class CraftGuide implements Listener {
                         if (!PlayerManager.checkUnLockedRecipes(player).contains(result_id))
                             PlayerManager.addUnLockedRecipes(player, result_id);
                         ItemApi.go_craft(player, result_id);
+                        //TODO
+                        event.setCancelled(true);
                         break;
                     }
                     case 1:

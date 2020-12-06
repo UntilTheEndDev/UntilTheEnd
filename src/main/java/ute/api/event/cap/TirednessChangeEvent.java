@@ -50,7 +50,9 @@ public class TirednessChangeEvent extends Event implements Cancellable {
     }
 
     public enum ChangeCause {
-        TELEPORT,TAB,DAMAGE,BE_DAMAGED,ENCHANT,BREAK,TALK,SPRINT,
-        DRIVE,SLEEP,BLOCK,GLIDE,MOVE,NOTMOVE,ITEMWEIGHT;
+        TELEPORT,TAB,DAMAGE,BE_DAMAGED,ENCHANT,
+        BREAK,TALK,SPRINT,
+        DRIVE,SLEEP,BLOCK,GLIDE,
+        MOVE,NOTMOVE,ITEMWEIGHT;
     }
 }

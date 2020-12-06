@@ -238,7 +238,6 @@ public class ItemManager {
             ItemMeta meta2 = uteItem.getItemMeta();
             if (Objects.equals(meta.getDisplayName(), meta2.getDisplayName())) {
                 return Objects.equals(meta.getLore(), meta2.getLore());
-
             }
         }
         return false;

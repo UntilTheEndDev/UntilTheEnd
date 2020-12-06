@@ -53,11 +53,11 @@ public class ItemApi {
      */
     public static int can_craft(Player player, String id) {
         int level = ((UTEItemStack) ItemManager.items.get(id)).needLevel;
-        if (level == 0) {
+        if (level > 0) {
             if (!PlayerManager.checkUnLockedRecipes(player).contains(id)) {
                 int player_level = get_current_science(player);
                 if (player_level < level) {
-                    return 1;
+                    return 2;
                 }
             }
         }
@@ -83,7 +83,7 @@ public class ItemApi {
                     slot = (Integer) var10.next();
                 }
             } while (amount >= needAmount);
-            return 2;
+            return 1;
         }
         return 0;
     }

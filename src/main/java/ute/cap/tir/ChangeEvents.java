@@ -103,7 +103,13 @@ public class ChangeEvents implements Listener {
         if (player == null)
             return;
         if (!Config.enableWorlds.contains(player.getWorld())) return;
-        PlayerApi.TirednessOperations.changeTiredness(player, TirednessChangeEvent.ChangeCause.TALK,CHANGE_EVENT_TALK);
+        new BukkitRunnable() {
+
+            @Override
+            public void run() {
+                PlayerApi.TirednessOperations.changeTiredness(player, TirednessChangeEvent.ChangeCause.TALK,CHANGE_EVENT_TALK);
+            }
+        }.runTaskLater(UntilTheEnd.getInstance(),0L);
     }
 
     @EventHandler(priority = EventPriority.MONITOR, ignoreCancelled = true)

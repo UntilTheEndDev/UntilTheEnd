@@ -224,11 +224,11 @@ public class CapabilityGuide implements Listener {
                             ActionBarManagerImpl.sendActionBar(player,"§6§l你可以使用待在宠物或玩家身边、使用稻草卷、小木鹏来提升理智值");
                     }
                     if (PlayerApi.TemperatureOperations.getTemperature(player)<=20){
-                        if(Math.random()<=0.05)
+                        if(Math.random()<=0.02)
                             ActionBarManagerImpl.sendActionBar(player,"§6§l你可以使用暖石（热）、待在热源旁边为自己升温");
                     }
                     if (PlayerApi.TemperatureOperations.getTemperature(player)>=45){
-                        if(Math.random()<=0.05)
+                        if(Math.random()<=0.02)
                             ActionBarManagerImpl.sendActionBar(player,"§6§l你可以使用暖石（冷）、待在冷源旁边为自己降温");
                     }
                     if (PlayerApi.HumidityOperations.getHumidity(player)>=20){

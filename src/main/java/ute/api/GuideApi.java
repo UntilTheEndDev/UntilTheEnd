@@ -33,19 +33,19 @@ public class GuideApi {
         return item;
     }
 
-    public static Inventory copy_inventory(Inventory inv) {
-        Inventory copy = Bukkit.createInventory(inv.getHolder(), inv.getSize(), inv.getTitle());
+    public static Inventory copy_inventory(Inventory inv,String title) {
+        Inventory copy = Bukkit.createInventory(inv.getHolder(), inv.getSize(), title);
         copy.setContents(inv.getContents());
         return copy;
     }
 
     public enum AvaliableCategories {
-        衣物(GuideApi.item_creater("衣物", Material.GOLD_HELMET, (short) 0), 14),
-        战斗(GuideApi.item_creater("战斗", Material.DIAMOND_SWORD, (short) 0), 13),
-        魔法(GuideApi.item_creater("魔法", Material.SPLASH_POTION, (short) 0), 15),
-        精炼(GuideApi.item_creater("精炼", Material.LEASH, (short) 0), 10),
-        科学(GuideApi.item_creater("科学", Material.REDSTONE_COMPARATOR, (short) 0), 12),
-        生存(GuideApi.item_creater("生存", Material.IRON_PICKAXE, (short) 0), 11);
+        衣物(GuideApi.item_creater("§6衣物", Material.GOLD_HELMET, (short) 0), 14),
+        战斗(GuideApi.item_creater("§6战斗", Material.DIAMOND_SWORD, (short) 0), 13),
+        魔法(GuideApi.item_creater("§6魔法", Material.SPLASH_POTION, (short) 0), 15),
+        精炼(GuideApi.item_creater("§6精炼", Material.LEASH, (short) 0), 10),
+        科学(GuideApi.item_creater("§6科学", Material.REDSTONE_COMPARATOR, (short) 0), 12),
+        生存(GuideApi.item_creater("§6生存", Material.IRON_PICKAXE, (short) 0), 11);
         public ItemStack button;
         public int slot_id;
 
