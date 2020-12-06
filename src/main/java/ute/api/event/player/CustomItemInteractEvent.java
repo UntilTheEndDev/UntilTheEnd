@@ -1,4 +1,4 @@
-package ute.event.player;
+package ute.api.event.player;
 
 import org.bukkit.block.Block;
 import org.bukkit.block.BlockFace;

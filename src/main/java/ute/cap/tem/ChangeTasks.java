@@ -9,7 +9,7 @@ import org.bukkit.scheduler.BukkitRunnable;
 import ute.Config;
 import ute.UntilTheEnd;
 import ute.api.PlayerApi;
-import ute.event.cap.TemperatureChangeEvent;
+import ute.api.event.cap.TemperatureChangeEvent;
 import ute.internal.NPCChecker;
 import ute.internal.ResidenceChecker;
 import ute.item.ItemManager;

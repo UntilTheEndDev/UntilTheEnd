@@ -13,7 +13,7 @@ import ute.Config;
 import ute.UntilTheEnd;
 import ute.api.PlayerApi;
 import ute.cap.tem.TemperatureProvider;
-import ute.event.cap.HumidityChangeEvent;
+import ute.api.event.cap.HumidityChangeEvent;
 import ute.internal.NPCChecker;
 import ute.internal.ResidenceChecker;
 import ute.item.clothes.ClothesContainer;
@@ -123,7 +123,7 @@ public class ChangeTasks {
                     for (Player player : world.getPlayers()) {
                         if (NPCChecker.isNPC(player)||ResidenceChecker.isProtected(player.getLocation())) continue;
                         doTickTem(player);
-                        PlayerApi.HumidityOperations.changeHumidity(player, HumidityChangeEvent.ChangeCause.RAIN,-0.3);
+                        PlayerApi.HumidityOperations.changeHumidity(player, HumidityChangeEvent.ChangeCause.VAPOUR,-0.3);
                     }
                 }
             }
@@ -173,7 +173,7 @@ public class ChangeTasks {
                     if (player.isInsideVehicle()) {
                         Location loc = player.getLocation().add(0, 1, 0); // 沉了
                         if (world.getBlockAt(loc).getType().equals(Material.WATER) || world.getBlockAt(loc).getType().equals(Material.STATIONARY_WATER))
-                            PlayerApi.HumidityOperations.changeHumidity(player, HumidityChangeEvent.ChangeCause.VAPOUR,1);
+                            PlayerApi.HumidityOperations.changeHumidity(player, HumidityChangeEvent.ChangeCause.WATER,1);
                         continue;
                     }
                     Location loc = player.getLocation();

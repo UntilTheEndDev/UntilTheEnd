@@ -1,4 +1,4 @@
-package ute.event.block;
+package ute.api.event.block;
 
 import org.bukkit.block.Block;
 import org.bukkit.block.BlockState;

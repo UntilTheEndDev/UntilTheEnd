@@ -1,4 +1,4 @@
-package ute.guide.event;
+package ute.guide.craft.event;
 
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.EventPriority;

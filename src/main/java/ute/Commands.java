@@ -1,9 +1,17 @@
 package ute;
 
+import org.bukkit.*;
+import org.bukkit.command.*;
+import org.bukkit.entity.Entity;
+import org.bukkit.entity.Player;
+import org.bukkit.event.Listener;
+import org.bukkit.inventory.ItemStack;
+import org.bukkit.inventory.meta.ItemMeta;
+import org.jetbrains.annotations.NotNull;
+import org.jetbrains.annotations.Nullable;
+import ute.api.event.player.PlayerRoleChangeByCommandEvent;
 import ute.cap.tem.TemperatureProvider;
-import ute.entity.RabbitMan;
-import ute.event.player.PlayerRoleChangeByCommandEvent;
-import ute.guide.CraftGuide;
+import ute.guide.craft.CraftGuide;
 import ute.internal.BuildData;
 import ute.internal.ItemFactory;
 import ute.internal.NPCChecker;
@@ -20,16 +28,6 @@ import ute.world.WorldProvider;
 import ute.world.cave.CaveManager;
 import ute.world.cave.CaveManager.CaveStructureGenerator;
 import ute.world.cave.CaveManager.CaveStructureType;
-import org.bukkit.*;
-import org.bukkit.command.*;
-import org.bukkit.entity.Entity;
-import org.bukkit.entity.Player;
-import org.bukkit.event.Listener;
-import org.bukkit.event.entity.CreatureSpawnEvent.SpawnReason;
-import org.bukkit.inventory.ItemStack;
-import org.bukkit.inventory.meta.ItemMeta;
-import org.jetbrains.annotations.NotNull;
-import org.jetbrains.annotations.Nullable;
 
 import java.util.*;
 
@@ -159,15 +157,6 @@ public class Commands implements CommandExecutor, Listener, TabCompleter {
                             break;
                     }
                     pl.teleport(loc.add(0, -1, 0));
-                }
-                break;
-            }
-            // TODO
-            case "test_summon_entity_10501": {
-                if (pl == null) {
-                    notPlayer(cs);
-                } else {
-                    RabbitMan.summonRabbitMan(pl.getLocation(), SpawnReason.CUSTOM);
                 }
                 break;
             }

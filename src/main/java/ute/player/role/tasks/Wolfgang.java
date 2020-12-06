@@ -7,7 +7,7 @@ import org.bukkit.scheduler.BukkitRunnable;
 import ute.Config;
 import ute.UntilTheEnd;
 import ute.api.PlayerApi;
-import ute.event.cap.SanityChangeEvent;
+import ute.api.event.cap.SanityChangeEvent;
 import ute.internal.NPCChecker;
 import ute.internal.ResidenceChecker;
 import ute.player.PlayerManager;

@@ -9,9 +9,9 @@ import org.bukkit.event.player.AsyncPlayerChatEvent;
 import org.bukkit.scheduler.BukkitRunnable;
 import ute.UntilTheEnd;
 import ute.api.BlockApi;
-import ute.event.block.CustomBlockBreakEvent;
-import ute.event.block.CustomBlockInteractEvent;
-import ute.event.block.CustomBlockPlaceEvent;
+import ute.api.event.block.CustomBlockBreakEvent;
+import ute.api.event.block.CustomBlockInteractEvent;
+import ute.api.event.block.CustomBlockPlaceEvent;
 import ute.item.ItemManager;
 
 import java.io.File;

@@ -1,74 +1,78 @@
 PIG:
-  dropitems: 
-  - PigSkin
-  percents: 
-  - 1.5
+  dropitems:
+    - PigSkin
+  percents:
+    - 1.5
 OCELOT:
-  dropitems: 
-  - CatTail
-  percents: 
-  - 0.3
+  dropitems:
+    - CatTail
+  percents:
+    - 0.3
 COW:
-  dropitems: 
-  - Horn
-  - CowHair
-  percents: 
-  - 1.0
-  - 1.5
+  dropitems:
+    - Horn
+    - CowHair
+  percents:
+    - 1.0
+    - 1.5
 WOLF:
-  dropitems: 
-  - DogTooth
-  percents: 
-  - 2.5
+  dropitems:
+    - DogTooth
+  percents:
+    - 2.5
 RABBIT:
-  dropitems: 
-  - RabbitFur
-  percents: 
-  - 0.3
+  dropitems:
+    - RabbitFur
+  percents:
+    - 0.3
 ENDER_DRAGON:
-  dropitems: 
-  - Scale
-  percents: 
-  - 15.0
+  dropitems:
+    - Scale
+  percents:
+    - 15.0
 SKELETON:
-  dropitems: 
-  - Sclerite
-  percents: 
-  - 1.2
+  dropitems:
+    - Sclerite
+  percents:
+    - 1.2
 SPIDER:
-  dropitems: 
-  - SpiderGland
-  percents: 
-  - 0.3
+  dropitems:
+    - SpiderGland
+  percents:
+    - 0.3
 CAVE_SPIDER:
-  dropitems: 
-  - SpiderGland
-  percents: 
-  - 0.3
+  dropitems:
+    - SpiderGland
+  percents:
+    - 0.3
 LLAMA:
-  dropitems: 
-  - Spit
-  percents: 
-  - 0.2
+  dropitems:
+    - Spit
+  percents:
+    - 0.2
 WITHER_SKELETON:
-  dropitems: 
-  - Gear
-  percents: 
-  - 0.2
-WITHER: 
+  dropitems:
+    - Gear
+  percents:
+    - 0.2
+WITHER:
+  dropitems:
+    - AnimateWood
+  percents:
+    - 10
+WOOD:
   dropitems:
   - AnimateWood
   percents:
-  - 5
-  
+  - 0.01
 STONE:
   dropitems:
-  - RedGum
-  - BlueGum
-  - GreenGum
-  - Nitre
-  percents: 
-  - 0.005
-  - 0.005
-  - 0.002
-  - 0.07
+    - RedGum
+    - BlueGum
+    - GreenGum
+    - Nitre
+  percents:
+    - 0.005
+    - 0.005
+    - 0.002
+    - 0.07

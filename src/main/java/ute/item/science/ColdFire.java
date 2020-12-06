@@ -12,8 +12,8 @@ import org.bukkit.event.Listener;
 import org.bukkit.scheduler.BukkitRunnable;
 import ute.UntilTheEnd;
 import ute.cap.tem.TemperatureProvider;
-import ute.event.block.CustomBlockPlaceEvent;
-import ute.event.player.CustomItemInteractEvent;
+import ute.api.event.block.CustomBlockPlaceEvent;
+import ute.api.event.player.CustomItemInteractEvent;
 import ute.item.ItemManager;
 
 public class ColdFire implements Listener {

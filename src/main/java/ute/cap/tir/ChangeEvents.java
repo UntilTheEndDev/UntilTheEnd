@@ -18,7 +18,7 @@ import ute.Config;
 import ute.Logging;
 import ute.UntilTheEnd;
 import ute.api.PlayerApi;
-import ute.event.cap.TirednessChangeEvent;
+import ute.api.event.cap.TirednessChangeEvent;
 
 import java.util.Map;
 import java.util.UUID;

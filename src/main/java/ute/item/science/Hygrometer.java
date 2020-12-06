@@ -11,7 +11,7 @@ import org.bukkit.event.Listener;
 import org.bukkit.scheduler.BukkitRunnable;
 import ute.Config;
 import ute.api.BlockApi;
-import ute.event.block.CustomBlockInteractEvent;
+import ute.api.event.block.CustomBlockInteractEvent;
 import ute.internal.UTEi18n;
 import ute.item.ItemManager;
 

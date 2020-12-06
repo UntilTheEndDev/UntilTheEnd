@@ -16,7 +16,7 @@ import org.bukkit.event.player.PlayerQuitEvent;
 import org.bukkit.inventory.Inventory;
 import org.bukkit.inventory.ItemStack;
 import ute.Logging;
-import ute.event.player.CustomItemInteractEvent;
+import ute.api.event.player.CustomItemInteractEvent;
 import ute.internal.ItemFactory;
 import ute.item.ItemManager;
 

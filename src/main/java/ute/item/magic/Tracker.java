@@ -1,60 +1,65 @@
 package ute.item.magic;
 
 import org.bukkit.Location;
+import org.bukkit.Material;
 import org.bukkit.entity.Arrow;
+import org.bukkit.entity.Entity;
+import org.bukkit.entity.LivingEntity;
 import org.bukkit.entity.Player;
+import org.bukkit.event.EventHandler;
+import org.bukkit.event.Listener;
+import org.bukkit.event.entity.EntityShootBowEvent;
+import org.bukkit.inventory.ItemStack;
 import org.bukkit.scheduler.BukkitRunnable;
 import org.bukkit.util.Vector;
-
 import ute.UntilTheEnd;
+import ute.item.ItemManager;
 
-public class Tracker {
-    public class TrackingArrow {
-        public Arrow arrow;
-        public Player victim;
+public class Tracker implements Listener {
 
-        public TrackingArrow(Arrow arrow, Player victim) {
-            this.arrow = arrow;
-            this.victim = victim;
-            startTracking();
-        }
+    public Tracker() {
+        ItemManager.plugin.getServer().getPluginManager().registerEvents(this, ItemManager.plugin);
+    }
 
-        public void startTracking() {
-            new BukkitRunnable() {
-                Location arrowLoc = arrow.getLocation();
-                Location victimLoc = victim.getLocation();
-                Location targetBlock = victimLoc.clone();
-                Vector currentDirection = arrowLoc.subtract(targetBlock).toVector();
-
-                @Override
-                public void run() {
-                    // 玩家下线或切换世界
-                    if ((!victim.isOnline())|| 
-                        (!victim.getWorld().getName().equalsIgnoreCase(arrowLoc.getWorld().getName()))) {
-                        cancel();
-                        return;
+    @EventHandler
+    public void onShoot(EntityShootBowEvent event){
+        if(event.getEntity() instanceof Player){
+            Player player= (Player) event.getEntity();
+            Arrow arrow= (Arrow) event.getProjectile();
+            ItemStack item=event.getBow();
+            if(ItemManager.isSimilar(item,getClass())){
+                new BukkitRunnable(){
+                    int counter=0;
+                    @Override
+                    public void run() {
+                        counter++;
+                        if (counter >= 1200 || arrow.getLocation().getBlock().getType() != Material.AIR){
+                            cancel();
+                            return;
+                        }
+                        if(counter%5==0) {
+                            Location loc = arrow.getLocation();
+                            Entity target=null;
+                            double minn=1e9;
+                            for (Entity entity : arrow.getNearbyEntities(5, 5, 5)) {
+                                if (entity.getUniqueId().equals(player.getUniqueId())) continue;
+                                if (!(entity instanceof LivingEntity)) continue;
+                                if(entity.getLocation().distance(arrow.getLocation())<=minn){
+                                    minn=entity.getLocation().distance(arrow.getLocation());
+                                    target=entity;
+                                }
+                            }
+                            if(target==null) return;
+                            Location entityLoc = target.getLocation().add(0,0.5,0);
+                            Vector perfectDirection = loc.clone().subtract(entityLoc).toVector();
+                            perfectDirection.normalize();
+                            perfectDirection.multiply(-1);
+                            arrow.setVelocity(perfectDirection.multiply(0.5));
+                            return;
+                        }
                     }
-                    // 弓箭消失了
-                    if (arrow.isDead()) {
-                        cancel();
-                        return;
-                    }
-                    // 弓箭仍然在运动
-                    if (arrow.getLocation() != arrowLoc) {
-                        arrowLoc = arrow.getLocation();
-                    } else {
-                        cancel();
-                        return;
-                    }
-
-                    if (arrow.getLocation().distance(targetBlock) <= 0.1) {
-                        targetBlock = victimLoc.clone();
-                        currentDirection = arrowLoc.subtract(victimLoc).toVector();
-                    }else {
-                        arrow.setVelocity(currentDirection);
-                    }
-                }
-            }.runTaskTimer(UntilTheEnd.getInstance(), 0L, 1L);
+                }.runTaskTimer(UntilTheEnd.getInstance(),0L,1L);
+            }
         }
     }
 }

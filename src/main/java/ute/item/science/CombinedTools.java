@@ -7,7 +7,7 @@ import org.bukkit.event.EventHandler;
 import org.bukkit.event.EventPriority;
 import org.bukkit.event.Listener;
 import org.bukkit.inventory.ItemStack;
-import ute.event.player.CustomItemInteractEvent;
+import ute.api.event.player.CustomItemInteractEvent;
 import ute.item.ItemManager;
 
 public class CombinedTools implements Listener {

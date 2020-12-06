@@ -1,9 +1,9 @@
-package ute.guide;
+package ute.guide.craft;
 
 import ute.UntilTheEnd;
 import ute.api.GuideApi;
 import ute.api.ItemApi;
-import ute.guide.event.OperateLimiter;
+import ute.guide.craft.event.OperateLimiter;
 import ute.internal.UTEi18n;
 import ute.item.ItemManager;
 import ute.player.PlayerManager;

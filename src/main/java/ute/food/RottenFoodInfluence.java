@@ -13,10 +13,9 @@ import org.bukkit.potion.PotionEffect;
 import org.bukkit.potion.PotionEffectType;
 import ute.UntilTheEnd;
 import ute.api.PlayerApi;
-import ute.event.cap.SanityChangeEvent;
+import ute.api.event.cap.SanityChangeEvent;
 import ute.internal.ItemFactory;
 import ute.internal.UTEi18n;
-import ute.player.PlayerManager;
 
 import java.util.HashMap;
 

@@ -3,7 +3,7 @@
 # 禁用的属性检查
 check-type:
   world:
-    list: [tir]
+    list: []
     # 映射
     mirror: [world_the_end, "$default"]
 

@@ -10,7 +10,7 @@ import ute.Config;
 import ute.UntilTheEnd;
 import ute.api.PlayerApi;
 import ute.cap.san.ChangeTasks;
-import ute.event.cap.TemperatureChangeEvent;
+import ute.api.event.cap.TemperatureChangeEvent;
 import ute.internal.NPCChecker;
 import ute.item.ItemManager;
 import ute.item.clothes.ClothesContainer;

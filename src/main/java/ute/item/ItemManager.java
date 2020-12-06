@@ -123,6 +123,7 @@ public class ItemManager {
         new Teleportage();
         new DecomposeWand();
         new FlyCarpet();
+        new Tracker();
 
         new ClothesContainer();
 

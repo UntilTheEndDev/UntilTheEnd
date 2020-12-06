@@ -12,7 +12,7 @@ import org.bukkit.scheduler.BukkitRunnable;
 import ute.Config;
 import ute.api.BlockApi;
 import ute.cap.tem.TemperatureProvider;
-import ute.event.block.CustomBlockInteractEvent;
+import ute.api.event.block.CustomBlockInteractEvent;
 import ute.item.ItemManager;
 
 import java.util.ArrayList;

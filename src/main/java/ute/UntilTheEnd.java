@@ -1,5 +1,14 @@
 package ute;
 
+import org.bukkit.Bukkit;
+import org.bukkit.entity.Player;
+import org.bukkit.event.EventHandler;
+import org.bukkit.event.Listener;
+import org.bukkit.event.player.PlayerJoinEvent;
+import org.bukkit.event.player.PlayerLoginEvent;
+import org.bukkit.plugin.java.JavaPlugin;
+import org.bukkit.scheduler.BukkitRunnable;
+import org.jetbrains.annotations.NotNull;
 import ute.api.UTEPapiExpansion;
 import ute.cap.HudBossBar;
 import ute.cap.HudProvider;
@@ -9,7 +18,8 @@ import ute.cap.tem.Temperature;
 import ute.cap.tir.Tiredness;
 import ute.crops.Crops;
 import ute.food.Food;
-import ute.guide.CraftGuide;
+import ute.guide.cap.CapabilityGuide;
+import ute.guide.craft.CraftGuide;
 import ute.internal.BuildData;
 import ute.internal.DataConverter;
 import ute.internal.Metrics;
@@ -23,15 +33,6 @@ import ute.player.PlayerManager;
 import ute.world.World;
 import ute.world.WorldProvider;
 import ute.world.cave.CaveManager;
-import org.bukkit.Bukkit;
-import org.bukkit.entity.Player;
-import org.bukkit.event.EventHandler;
-import org.bukkit.event.Listener;
-import org.bukkit.event.player.PlayerJoinEvent;
-import org.bukkit.event.player.PlayerLoginEvent;
-import org.bukkit.plugin.java.JavaPlugin;
-import org.bukkit.scheduler.BukkitRunnable;
-import org.jetbrains.annotations.NotNull;
 
 import java.io.BufferedReader;
 import java.io.File;
@@ -120,6 +121,7 @@ public class UntilTheEnd extends JavaPlugin implements Listener {
             Humidity.initialize(this);
             Tiredness.initialize(this);
             CraftGuide.init();
+            new CapabilityGuide();
             Crops.initialize(this);
             ItemManager.initialize(this);
             ute.player.Player.initialize(this);

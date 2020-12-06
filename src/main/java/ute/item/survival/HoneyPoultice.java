@@ -4,7 +4,7 @@ import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.EventPriority;
 import org.bukkit.event.Listener;
-import ute.event.player.CustomItemInteractEvent;
+import ute.api.event.player.CustomItemInteractEvent;
 import ute.item.ItemManager;
 
 public class HoneyPoultice implements Listener {

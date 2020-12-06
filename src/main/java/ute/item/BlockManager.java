@@ -18,9 +18,9 @@ import ute.Config;
 import ute.Logging;
 import ute.UntilTheEnd;
 import ute.api.BlockApi;
-import ute.event.block.CustomBlockBreakEvent;
-import ute.event.block.CustomBlockInteractEvent;
-import ute.event.block.CustomBlockPlaceEvent;
+import ute.api.event.block.CustomBlockBreakEvent;
+import ute.api.event.block.CustomBlockInteractEvent;
+import ute.api.event.block.CustomBlockPlaceEvent;
 import ute.item.combat.ToothTrap;
 
 import java.io.File;

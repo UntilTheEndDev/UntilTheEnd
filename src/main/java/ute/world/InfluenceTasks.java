@@ -14,7 +14,7 @@ import org.bukkit.scheduler.BukkitRunnable;
 import ute.Config;
 import ute.UntilTheEnd;
 import ute.api.PlayerApi;
-import ute.event.cap.SanityChangeEvent;
+import ute.api.event.cap.SanityChangeEvent;
 import ute.internal.LightingCompensation;
 import ute.internal.NPCChecker;
 import ute.internal.ResidenceChecker;
@@ -106,20 +106,14 @@ public class InfluenceTasks {
                     if (darkness.containsKey(player.getUniqueId())) {
                         if (darkness.get(player.getUniqueId()) == warn) {
                             player.sendTitle(UTEi18n.cache("mechanism.darkness.who-is-there.main"), UTEi18n.cache("mechanism.darkness.who-is-there.sub"));
-                            SanityChangeEvent event = new SanityChangeEvent(player, SanityChangeEvent.ChangeCause.DARKWARN, san_warn);
-                            Bukkit.getPluginManager().callEvent(event);
-                            if (!event.isCancelled())
-                                PlayerApi.SanityOperations.changeSanity(player, SanityChangeEvent.ChangeCause.DARKWARN,san_warn);
+                            PlayerApi.SanityOperations.changeSanity(player, SanityChangeEvent.ChangeCause.DARKWARN,san_warn);
                         }
                         if (darkness.get(player.getUniqueId()) >= attack) {
                             player.sendTitle(UTEi18n.cache("mechanism.darkness.hurt-me.main"), UTEi18n.cache("mechanism.darkness.hurt-me.sub"));
                             player.damage(damage);
                             if (player.getHealth() <= san_attack)
                                 DeathMessage.causes.put(player.getName(), DeathCause.DARKNESS);
-                            SanityChangeEvent event = new SanityChangeEvent(player, SanityChangeEvent.ChangeCause.DARKATTACK, san_attack);
-                            Bukkit.getPluginManager().callEvent(event);
-                            if (!event.isCancelled())
-                                PlayerApi.SanityOperations.changeSanity(player, SanityChangeEvent.ChangeCause.DARKATTACK,san_attack);
+                            PlayerApi.SanityOperations.changeSanity(player, SanityChangeEvent.ChangeCause.DARKATTACK,san_attack);
                         }
                     }
                 }

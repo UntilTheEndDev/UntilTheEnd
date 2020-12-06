@@ -1,6 +1,5 @@
 package ute.item.survival;
 
-import org.bukkit.Bukkit;
 import org.bukkit.block.Block;
 import org.bukkit.entity.Entity;
 import org.bukkit.entity.EntityType;
@@ -13,8 +12,8 @@ import org.bukkit.potion.PotionEffectType;
 import org.bukkit.scheduler.BukkitRunnable;
 import ute.Config;
 import ute.api.PlayerApi;
-import ute.event.block.CustomBlockInteractEvent;
-import ute.event.cap.SanityChangeEvent;
+import ute.api.event.block.CustomBlockInteractEvent;
+import ute.api.event.cap.SanityChangeEvent;
 import ute.item.ItemManager;
 
 public class SiestaLeanto implements Listener {
@@ -48,10 +47,7 @@ public class SiestaLeanto implements Listener {
                     if (Math.random() <= 0.13) {
                         if (player.getHealth() + 1 < player.getMaxHealth())
                             player.setHealth(player.getHealth() + 1);
-                        SanityChangeEvent event = new SanityChangeEvent(player, SanityChangeEvent.ChangeCause.SIESTALEANTO, 1);
-                        Bukkit.getPluginManager().callEvent(event);
-                        if (!event.isCancelled())
-                            PlayerApi.SanityOperations.changeSanity(player,SanityChangeEvent.ChangeCause.SIESTALEANTO,1);
+                        PlayerApi.SanityOperations.changeSanity(player,SanityChangeEvent.ChangeCause.SIESTALEANTO,1);
                     }
                     if (Math.random() <= 0.05) {
                         if (player.getFoodLevel() >= 1) player.setFoodLevel(player.getFoodLevel() - 1);

@@ -3,7 +3,7 @@
  */
 package ute.api;
 
-import ute.guide.CraftGuide;
+import ute.guide.craft.CraftGuide;
 import ute.internal.UTEi18n;
 import org.bukkit.Bukkit;
 import org.bukkit.Material;

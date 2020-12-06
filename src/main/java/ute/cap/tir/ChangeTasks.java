@@ -9,14 +9,12 @@ import org.bukkit.scheduler.BukkitRunnable;
 import ute.Config;
 import ute.UntilTheEnd;
 import ute.api.PlayerApi;
-import ute.event.cap.TirednessChangeEvent;
+import ute.api.event.cap.TirednessChangeEvent;
 import ute.internal.ItemFactory;
 import ute.internal.NPCChecker;
 import ute.internal.ResidenceChecker;
 import ute.item.survival.FurRoll;
 import ute.item.survival.StrawRoll;
-import ute.player.PlayerManager;
-import ute.player.PlayerManager.CheckType;
 
 import java.util.HashMap;
 

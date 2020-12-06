@@ -1,10 +1,10 @@
-package ute.event.block;
+package ute.api.event.player;
 
 import org.bukkit.event.Cancellable;
 import org.bukkit.event.Event;
 import org.bukkit.event.HandlerList;
 
-public class UTEBlockEvent extends Event implements Cancellable {
+public class UTEItemEvent extends Event implements Cancellable {
     public static final HandlerList handlers = new HandlerList();
 
     public static HandlerList getHandlerList() {

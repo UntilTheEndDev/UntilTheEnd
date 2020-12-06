@@ -134,54 +134,63 @@ CatTail:
   name: §6猫尾
   lores:
   - §8-好软！
+  - '§8-§d掉落于生物'
 CowHair:
   enable: true
   type: QUARTZ
   name: §6牛毛
   lores:
   - §8-把它拔下来，它们一定很生气吧？
+  - '§8-§d掉落于生物'
 DogTooth:
   enable: true
   type: IRON_NUGGET
   name: §6狗牙
   lores:
   - §8-真够锋利的...
+  - '§8-§d掉落于生物'
 Horn:
   enable: true
   type: HOPPER
   name: §6牛角
   lores:
   - §8-多么优美的形状~
+  - '§8-§d掉落于生物'
 PigSkin:
   enable: true
   type: LEATHER
   name: §6猪皮
   lores:
   - §8-其实不是猪皮啦~只不过跟猪皮一样厚
+  - '§8-§d掉落于生物'
 RabbitFur:
   enable: true
   type: LEATHER
   name: §6兔毛
   lores:
   - §8-很柔软，可惜太脆弱了！
+  - '§8-§d掉落于生物'
 Scale:
   enable: true
   type: PRISMARINE_CRYSTALS
   name: §6鳞片
   lores:
   - §8-就像甲壳一样硬
+  - '§8-§d掉落于生物'
 Sclerite:
   enable: true
   type: BONE
   name: §6骨片
   lores:
   - §8-很硬，很锋利，差点割破了我的手
+  - '§8-§d掉落于生物'
 SpiderGland:
   enable: true
   type: FERMENTED_SPIDER_EYE
   name: §6蜘蛛腺体
   lores:
   - §8-用它治疗虽然原始了点但很有效！
+  - '§8-§d掉落于生物'
   - '§8-效用: §d拿它蹲下右击可回复两颗心'
 Spit:
   enable: true
@@ -189,48 +198,56 @@ Spit:
   name: §6痰
   lores:
   - §8-真恶心！
+  - '§8-§d掉落于生物'
 Gear:
   enable: true
   type: DOUBLE_PLANT
   name: §6齿轮
   lores:
   - §8-机油味使我作呕，不过他们很有用...
+  - '§8-§d掉落于生物'
 Ashes:
   enable: true
   type: CLAY_BALL
   name: §6灰烬
   lores:
   - §8-被燃尽的物品去哪里了呢？
+  - '§8-§d掉落于烧尽的火焰'
 RedGum:
   enable: true
   type: NETHER_STAR
   name: §6红宝石
   lores:
   - §8-藏匿着热量……
+  - '§8-§d掉落于挖掘石头'
 BlueGum:
   enable: true
   type: NETHER_STAR
   name: §6蓝宝石
   lores:
   - §8-冰晶结合体.......
+  - '§8-§d掉落于挖掘石头'
 GreenGum:
   enable: true
   type: NETHER_STAR
   name: §6绿宝石
   lores:
   - §8-活力四射
+  - '§8-§d掉落于挖掘石头'
 AnimateWood:
   enable: true
   type: LOG
   name: §6有生命的木头
   lores:
   - §8-它是动物吗？
+  - '§8-§d掉落于生物和砍伐木头'
 Nitre:
   enable: true
   type: FLINT
   name: §6硝石
   lores:
   - §8-难闻的味道
+  - '§8-§d掉落于挖掘石头'
 # 衣物####################################
 BushesHat:
   enable: true
@@ -1040,6 +1057,26 @@ FlyCarpet:
   - 2
   - 9
   - 9
+  category: 魔法
+Tracker:
+  enable: true
+  type: BOW
+  name: §6追踪弓
+  lores:
+    - §8-魔力-MAGIC!
+    - '§8-§d射出的➹自动跟踪最近的生物'
+    - '§8-§d并非完全跟踪，只是➹的轨道会略微偏移'
+    - '§8-§d这意味着如果你准星太差，这把弓也救不了你'
+  materials:
+    - BOW
+    - NightMare
+    - GreenGum
+    - CatTail
+  amounts:
+    - 9
+    - 2
+    - 2
+    - 1
   category: 魔法
 # 人物####################################
 Beard:

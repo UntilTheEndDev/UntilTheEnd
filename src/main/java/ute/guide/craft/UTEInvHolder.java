@@ -1,4 +1,4 @@
-package ute.guide;
+package ute.guide.craft;
 
 import org.bukkit.inventory.Inventory;
 import org.bukkit.inventory.InventoryHolder;

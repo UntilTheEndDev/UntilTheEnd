@@ -1,6 +1,6 @@
 package ute.player.role.tasks;
 
-import ute.event.cap.SanityChangeEvent;
+import ute.api.event.cap.SanityChangeEvent;
 import ute.internal.NPCChecker;
 import ute.internal.ResidenceChecker;
 

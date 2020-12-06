@@ -1,7 +1,7 @@
 package ute.item;
 
 import ute.api.GuideApi;
-import ute.guide.CraftGuide;
+import ute.guide.craft.CraftGuide;
 import org.bukkit.inventory.Inventory;
 import org.bukkit.inventory.ItemStack;
 

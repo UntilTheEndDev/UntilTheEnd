@@ -17,7 +17,7 @@ import org.bukkit.event.player.PlayerMoveEvent;
 import org.bukkit.inventory.ItemStack;
 import ute.Config;
 import ute.api.BlockApi;
-import ute.event.block.CustomBlockInteractEvent;
+import ute.api.event.block.CustomBlockInteractEvent;
 import ute.item.BlockManager;
 import ute.item.ItemManager;
 import ute.player.death.DeathCause;
