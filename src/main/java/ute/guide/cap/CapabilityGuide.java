@@ -1,6 +1,7 @@
 package ute.guide.cap;
 
 import org.bukkit.Bukkit;
+import org.bukkit.GameMode;
 import org.bukkit.World;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
@@ -27,6 +28,7 @@ public class CapabilityGuide implements Listener {
     @EventHandler
     public void onSanityChange(SanityChangeEvent event){
         Player player=event.getPlayer();
+        if(player.getGameMode()== GameMode.CREATIVE||player.getGameMode()== GameMode.SPECTATOR) return;
         if(event.getChange()==0.0) return;
         switch(event.getCause()){
             case INVENTORYITEM:
@@ -98,6 +100,7 @@ public class CapabilityGuide implements Listener {
     @EventHandler
     public void onTemperatureChange(TemperatureChangeEvent event){
         Player player=event.getPlayer();
+        if(player.getGameMode()== GameMode.CREATIVE||player.getGameMode()== GameMode.SPECTATOR) return;
         if(event.getChange()==0.0) return;
         switch(event.getCause()){
             case WARMSTONE:
@@ -125,6 +128,7 @@ public class CapabilityGuide implements Listener {
     @EventHandler
     public void onHumidityChange(HumidityChangeEvent event){
         Player player=event.getPlayer();
+        if(player.getGameMode()== GameMode.CREATIVE||player.getGameMode()== GameMode.SPECTATOR) return;
         if(event.getChange()==0.0) return;
         switch(event.getCause()){
             case WATER:
@@ -148,6 +152,7 @@ public class CapabilityGuide implements Listener {
     @EventHandler
     public void onTirednessChange(TirednessChangeEvent event){
         Player player=event.getPlayer();
+        if(player.getGameMode()== GameMode.CREATIVE||player.getGameMode()== GameMode.SPECTATOR) return;
         if(event.getChange()==0.0) return;
         switch(event.getCause()){
             case TELEPORT:
@@ -219,6 +224,7 @@ public class CapabilityGuide implements Listener {
             for (World world : Config.enableWorlds) {
                 for (Player player : world.getPlayers()) {
                     if (NPCChecker.isNPC(player) || ResidenceChecker.isProtected(player.getLocation())) continue;
+                    if(player.getGameMode()== GameMode.CREATIVE||player.getGameMode()== GameMode.SPECTATOR) continue;
                     if (PlayerApi.SanityOperations.getSanity(player)<=120){
                         if(Math.random()<=0.05)
                             ActionBarManagerImpl.sendActionBar(player,"§6§l你可以使用待在宠物或玩家身边、使用稻草卷、小木鹏来提升理智值");

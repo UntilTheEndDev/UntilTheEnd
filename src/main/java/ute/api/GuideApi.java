@@ -4,6 +4,7 @@
 package ute.api;
 
 import ute.guide.craft.CraftGuide;
+import ute.internal.ItemFactory;
 import ute.internal.UTEi18n;
 import org.bukkit.Bukkit;
 import org.bukkit.Material;
@@ -41,12 +42,12 @@ public class GuideApi {
 
     public enum AvaliableCategories {
         //这里带了LEGACY
-        衣物(GuideApi.item_creater("§6衣物", Material.GOLD_HELMET, (short) 0), 14),
-        战斗(GuideApi.item_creater("§6战斗", Material.DIAMOND_SWORD, (short) 0), 13),
-        魔法(GuideApi.item_creater("§6魔法", Material.SPLASH_POTION, (short) 0), 15),
-        精炼(GuideApi.item_creater("§6精炼", Material.LEASH, (short) 0), 10),
-        科学(GuideApi.item_creater("§6科学", Material.REDSTONE_COMPARATOR, (short) 0), 12),
-        生存(GuideApi.item_creater("§6生存", Material.IRON_PICKAXE, (short) 0), 11);
+        衣物(GuideApi.item_creater("§6衣物", ItemFactory.fromLegacy(Material.GOLD_HELMET), (short) 0), 14),
+        战斗(GuideApi.item_creater("§6战斗", ItemFactory.fromLegacy(Material.DIAMOND_SWORD), (short) 0), 13),
+        魔法(GuideApi.item_creater("§6魔法", ItemFactory.fromLegacy(Material.SPLASH_POTION), (short) 0), 15),
+        精炼(GuideApi.item_creater("§6精炼", ItemFactory.fromLegacy(Material.LEASH), (short) 0), 10),
+        科学(GuideApi.item_creater("§6科学", ItemFactory.fromLegacy(Material.REDSTONE_COMPARATOR), (short) 0), 12),
+        生存(GuideApi.item_creater("§6生存", ItemFactory.fromLegacy(Material.IRON_PICKAXE), (short) 0), 11);
         public ItemStack button;
         public int slot_id;
 

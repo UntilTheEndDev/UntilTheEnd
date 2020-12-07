@@ -110,7 +110,7 @@ public class CraftGuide implements Listener {
                     } else if (lore.equalsIgnoreCase("main")) {
                         adapted_inv = guide;
                     } else
-                        adapted_inv = button_to_gui.get(GuideApi.AvaliableCategories.valueOf(lore).button);
+                        adapted_inv = button_to_gui.get(GuideApi.AvaliableCategories.valueOf(lore.replace("§6","")).button);
                     ItemStack back_button = adapted_inv.getItem(0);
                     ItemMeta back_meta = back_button.getItemMeta();
                     lores.remove(lores.size() - 1);
@@ -124,14 +124,7 @@ public class CraftGuide implements Listener {
             }
             ItemStack one_item = event.getCurrentItem().clone();
             one_item.setAmount(1);
-
-            //TODO 点击时找不到了
-            boolean isContaining=false;
-            for(ItemStack key:button_to_gui.keySet()){
-                isContaining=ItemManager.isSimilar(one_item,key);
-            }
-
-            if (isContaining) {
+            if (button_to_gui.containsKey(one_item)) {
 
                 Inventory adapted_inv = GuideApi.copy_inventory(button_to_gui.get(one_item),one_item.getItemMeta().getDisplayName());
 

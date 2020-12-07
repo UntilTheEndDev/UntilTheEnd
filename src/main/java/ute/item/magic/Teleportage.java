@@ -48,6 +48,7 @@ public class Teleportage extends BukkitRunnable implements Listener{
 		point.permissioners = new ArrayList<String>();
 		point.master = player.getUniqueId().toString();
 		teleportages.put(loc, point);
+
 		saveBlocks();
 	}
 
@@ -104,7 +105,6 @@ public class Teleportage extends BukkitRunnable implements Listener{
 	public static void removeBlock(CustomBlockBreakEvent event) {
 		if (!event.getCustomItem().id.equalsIgnoreCase("Teleportage"))
 			return;
-		Player player = event.getPlayer();
 		Block block = event.getBlock();
 		String loc = BlockApi.locToStr(block.getLocation());
 		teleportages.remove(loc);

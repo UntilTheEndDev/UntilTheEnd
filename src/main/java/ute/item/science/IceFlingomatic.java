@@ -1,11 +1,12 @@
 package ute.item.science;
 
-import ute.Config;
 import org.bukkit.Location;
 import org.bukkit.Particle;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.block.BlockIgniteEvent;
+import org.bukkit.util.Vector;
+import ute.Config;
 import ute.api.BlockApi;
 import ute.item.ItemManager;
 
@@ -16,20 +17,29 @@ public class IceFlingomatic implements Listener {
         ItemManager.plugin.getServer().getPluginManager().registerEvents(this, ItemManager.plugin);
     }
 
-    @EventHandler(ignoreCancelled = true)
+    @EventHandler
     public void onBurn(BlockIgniteEvent event) {
-        if (event.getIgnitingBlock() == null) return;
-        if (!Config.enableWorlds.contains(event.getIgnitingBlock().getWorld())) return;
+        if (event.getBlock() == null) return;
+        if (!Config.enableWorlds.contains(event.getBlock().getWorld())) return;
+        Location igniteLoc = event.getBlock().getLocation();
         for (String str : BlockApi.getSpecialBlocks("IceFlingomatic")) {
             Location loc = BlockApi.strToLoc(str);
-            Location loc2 = event.getBlock().getLocation();
-            assert loc != null;
-            if (loc.distance(loc2) <= range) {
-                loc2.getWorld().spawnParticle(Particle.SNOWBALL, loc2, 5);
-                loc.getWorld().spawnParticle(Particle.SNOWBALL, loc.add(0.5, 1.0, 0.5), 5);
+            if (loc.distance(igniteLoc) <= range) {
+                buildLine(loc,igniteLoc);
                 event.setCancelled(true);
-                return;
             }
+        }
+    }
+
+    public static void buildLine(Location locA, Location locB) {
+        Vector vectorAB = locB.clone().subtract(locA).toVector();
+        double vectorLength = vectorAB.length();
+        vectorAB.normalize();
+        for (double i = 0; i < vectorLength; i += 0.1) {
+            Vector vector = vectorAB.clone().multiply(i);
+            locA.add(vector);
+            locA.getWorld().spawnParticle(Particle.SNOWBALL, locA.add(0.5, 1.0, 0.5), 2);
+            locA.subtract(vector);
         }
     }
 }

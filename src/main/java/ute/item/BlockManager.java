@@ -22,6 +22,8 @@ import ute.api.event.block.CustomBlockBreakEvent;
 import ute.api.event.block.CustomBlockInteractEvent;
 import ute.api.event.block.CustomBlockPlaceEvent;
 import ute.item.combat.ToothTrap;
+import ute.item.magic.Teleportage;
+import ute.item.science.AutoClicker;
 
 import java.io.File;
 import java.io.IOException;
@@ -74,7 +76,10 @@ public class BlockManager extends BukkitRunnable implements Listener {
         } catch (IOException e) {
             e.printStackTrace();
         }
+
         ToothTrap.saveBlocks();
+        Teleportage.saveBlocks();
+        AutoClicker.saveBlocks();
     }
 
     public static void loadBlocks() {

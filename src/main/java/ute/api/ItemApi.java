@@ -1,13 +1,13 @@
 package ute.api;
 
-import ute.item.ItemManager;
-import ute.item.UTEItemStack;
-import ute.player.PlayerManager;
 import org.bukkit.GameMode;
 import org.bukkit.Location;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.PlayerInventory;
+import ute.item.ItemManager;
+import ute.item.UTEItemStack;
+import ute.player.PlayerManager;
 
 import java.util.Collection;
 import java.util.HashMap;
@@ -52,6 +52,9 @@ public class ItemApi {
      * @return 0 可合成
      */
     public static int can_craft(Player player, String id) {
+        if (player.getGameMode() == GameMode.CREATIVE) {
+            return 0;
+        }
         int level = ((UTEItemStack) ItemManager.items.get(id)).needLevel;
         if (level > 0) {
             if (!PlayerManager.checkUnLockedRecipes(player).contains(id)) {
@@ -61,31 +64,28 @@ public class ItemApi {
                 }
             }
         }
-        if (player.getGameMode() != GameMode.CREATIVE) {
-            UTEItemStack item = (UTEItemStack) ItemManager.items.get(id);
-            PlayerInventory inv = player.getInventory();
-            Iterator var5 = item.craft.keySet().iterator();
+        UTEItemStack item = (UTEItemStack) ItemManager.items.get(id);
+        PlayerInventory inv = player.getInventory();
+        Iterator var5 = item.craft.keySet().iterator();
 
-            int needAmount;
-            int amount;
-            do {
-                if (!var5.hasNext()) {
-                    return 0;
-                }
+        int needAmount;
+        int amount;
+        do {
+            if (!var5.hasNext()) {
+                return 0;
+            }
 
-                ItemStack material = (ItemStack) var5.next();
-                needAmount = (Integer) item.craft.get(material);
-                HashMap<Integer, ItemStack> slots = get_similar_slots(inv, material);
-                amount = 0;
+            ItemStack material = (ItemStack) var5.next();
+            needAmount = (Integer) item.craft.get(material);
+            HashMap<Integer, ItemStack> slots = get_similar_slots(inv, material);
+            amount = 0;
 
-                int slot;
-                for (Iterator var10 = slots.keySet().iterator(); var10.hasNext(); amount += ((ItemStack) slots.get(slot)).getAmount()) {
-                    slot = (Integer) var10.next();
-                }
-            } while (amount >= needAmount);
-            return 1;
-        }
-        return 0;
+            int slot;
+            for (Iterator var10 = slots.keySet().iterator(); var10.hasNext(); amount += ((ItemStack) slots.get(slot)).getAmount()) {
+                slot = (Integer) var10.next();
+            }
+        } while (amount >= needAmount);
+        return 1;
     }
 
     public static HashMap<Integer, ItemStack> get_similar_slots(PlayerInventory inv, ItemStack material) {
