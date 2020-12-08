@@ -149,8 +149,14 @@ public class ChangeTasks {
             if (item == null) return false;
             if (item.hasItemMeta())
                 if (item.getItemMeta().hasDisplayName())
-                    if (waterProofSuits.contains(item.getItemMeta().getDisplayName()))
+                    if (waterProofSuits.contains(item.getItemMeta().getDisplayName())) {
+                        if (item.getDurability() >= item.getType().getMaxDurability())
+                            item.setType(Material.AIR);
+                        if (Math.random() <= 0.01)
+                            item.setDurability((short) (item.getDurability() + 1));
+
                         return true;
+                    }
             return false;
         }
 

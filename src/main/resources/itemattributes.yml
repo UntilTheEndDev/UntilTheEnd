@@ -305,6 +305,10 @@ BluePrint:
   canPlace: false
   isConsume: true
   needLevel: 10
+AutoClicker:
+  canPlace: true
+  isConsume: false
+  needLevel: 2
 # 魔法类材料####################################################
 FireWand:
   canPlace: false

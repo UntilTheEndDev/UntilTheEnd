@@ -886,6 +886,23 @@ BluePrint:
   lores:
   - §8-速成小课仅需888￥
   - '§8-§d直接免科学机器解锁某个合成'
+AutoClicker:
+  enable: true
+  type: OBSERVER
+  name: §6自动交互器
+  lores:
+    - §8-早安，工具人！
+    - '§8-§d收到红石信号时左击或右击面向的方块'
+    - '§8-§d右击它以切换左右和方向'
+  materials:
+    - Nitre
+    - FLINT
+    - IRON_INGOT
+  amounts:
+    - 12
+    - 1
+    - 1
+  category: 科学
 # 魔法####################################
 FireWand:
   enable: true

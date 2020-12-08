@@ -32,6 +32,8 @@ public class LifeGivingAmulet implements Listener {
                         ItemStack[] clothes = ClothesContainer.getInventory(player).getStorageContents();
                         for (ItemStack cloth : clothes) {
                             if (ItemManager.isSimilar(cloth, ItemManager.items.get("LifeGivingAmulet").item)) {
+                                if (cloth.getDurability() >= cloth.getType().getMaxDurability())
+                                    cloth.setType(Material.AIR);
                                 if (player.getHealth() + 1 > player.getMaxHealth()) continue;
                                 player.setFoodLevel(player.getFoodLevel() - 1);
                                 player.setHealth(player.getHealth() + 1);

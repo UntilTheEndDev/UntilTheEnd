@@ -1,5 +1,6 @@
 package ute.cap.tem;
 
+import org.bukkit.Material;
 import org.bukkit.World;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
@@ -116,6 +117,12 @@ public class ChangeTasks {
             PlayerInventory inv = player.getInventory();
             for (ItemStack item : inv.getArmorContents())
                 if (clothesChangeTemperature.containsKey(getName(item))) {
+
+                    if (item.getDurability() >= item.getType().getMaxDurability())
+                        item.setType(Material.AIR);
+                    if (Math.random() <= 0.01)
+                        item.setDurability((short) (item.getDurability() + 1));
+
                     if (clothesChangeTemperature.get(getName(item)) > 0) {
                         upFactor += clothesChangeTemperature.get(getName(item));
                     } else downFactor += clothesChangeTemperature.get(getName(item));
@@ -123,6 +130,12 @@ public class ChangeTasks {
             ItemStack[] clothes = ClothesContainer.getInventory(player).getStorageContents();
             for (ItemStack cloth : clothes) {
                 if (clothesChangeTemperature.containsKey(getName(cloth))) {
+
+                    if (cloth.getDurability() >= cloth.getType().getMaxDurability())
+                        cloth.setType(Material.AIR);
+                    if (Math.random() <= 0.01)
+                        cloth.setDurability((short) (cloth.getDurability() + 1));
+
                     if (clothesChangeTemperature.get(getName(cloth)) > 0) {
                         upFactor += clothesChangeTemperature.get(getName(cloth));
                     } else downFactor += clothesChangeTemperature.get(getName(cloth));

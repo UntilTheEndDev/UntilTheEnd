@@ -38,7 +38,7 @@ public class IceFlingomatic implements Listener {
         for (double i = 0; i < vectorLength; i += 0.1) {
             Vector vector = vectorAB.clone().multiply(i);
             locA.add(vector);
-            locA.getWorld().spawnParticle(Particle.SNOWBALL, locA.add(0.5, 1.0, 0.5), 2);
+            locA.getWorld().spawnParticle(Particle.SNOWBALL, locA.clone().add(0.5, 1.0, 0.5), 1);
             locA.subtract(vector);
         }
     }

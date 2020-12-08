@@ -1,10 +1,12 @@
 package ute.item;
 
 import org.bukkit.Bukkit;
+import org.bukkit.GameMode;
 import org.bukkit.Location;
 import org.bukkit.Particle;
 import org.bukkit.block.Block;
 import org.bukkit.configuration.file.YamlConfiguration;
+import org.bukkit.enchantments.Enchantment;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.EventPriority;
 import org.bukkit.event.Listener;
@@ -108,6 +110,19 @@ public class BlockManager extends BukkitRunnable implements Listener {
 
         event.setDropItems(false);
         Logging.getLogger().fine(() -> "[BlockManager] Breaking with " + toString + " is " + blocks.get(toString));
+        if(event.getPlayer().getGameMode()== GameMode.CREATIVE){
+            loc.getWorld().dropItemNaturally(loc, ItemManager.items.get(blocks.get(toString)).item.clone());
+            return;
+        }
+        ItemStack itemInHand=event.getPlayer().getInventory().getItemInMainHand();
+        if(itemInHand!=null){
+            if(itemInHand.getEnchantments()!=null){
+                if(itemInHand.getEnchantments().containsKey(Enchantment.SILK_TOUCH)) {
+                    loc.getWorld().dropItemNaturally(loc, ItemManager.items.get(blocks.get(toString)).item.clone());
+                    return;
+                }
+            }
+        }
         loc.getWorld().spawnParticle(Particle.CRIT, loc.add(0.5, 0.5, 0.5), 3);
         HashMap<ItemStack, Integer> craft = ItemManager.items.get(blocks.get(toString)).craft;
         if (craft != null)

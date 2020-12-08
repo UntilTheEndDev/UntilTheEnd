@@ -1,5 +1,6 @@
 package ute.cap.san;
 
+import org.bukkit.Material;
 import org.bukkit.World;
 import org.bukkit.entity.Entity;
 import org.bukkit.entity.EntityType;
@@ -50,26 +51,28 @@ public class ChangeTasks {
                 for (Player player : world.getPlayers()) {
                     if (NPCChecker.isNPC(player)|| ResidenceChecker.isProtected(player.getLocation())) continue;
                     PlayerInventory inv = player.getInventory();
-                    String helmet = getName(inv.getHelmet());
-                    String chestplate = getName(inv.getChestplate());
-                    String leggings = getName(inv.getLeggings());
-                    String boots = getName(inv.getBoots());
                     double change = 0.0;
-                    if (clothesChangeSanity.containsKey(helmet)) {
-                        change += clothesChangeSanity.get(helmet);
+                    
+                    for(ItemStack armor:inv.getArmorContents()){
+                        if(clothesChangeSanity.containsKey(getName(armor))){
+                            if (armor.getDurability() >= armor.getType().getMaxDurability())
+                                armor.setType(Material.AIR);
+                            if (Math.random() <= 0.01)
+                                armor.setDurability((short) (armor.getDurability() + 1));
+
+                            change += clothesChangeSanity.get(getName(armor));
+                        }
                     }
-                    if (clothesChangeSanity.containsKey(chestplate)) {
-                        change += clothesChangeSanity.get(chestplate);
-                    }
-                    if (clothesChangeSanity.containsKey(leggings)) {
-                        change += clothesChangeSanity.get(leggings);
-                    }
-                    if (clothesChangeSanity.containsKey(boots)) {
-                        change += clothesChangeSanity.get(boots);
-                    }
+                    
                     ItemStack[] clothes = ClothesContainer.getInventory(player).getStorageContents();
                     for (ItemStack cloth : clothes) {
                         if (clothesChangeSanity.containsKey(getName(cloth))) {
+
+                            if (cloth.getDurability() >= cloth.getType().getMaxDurability())
+                                cloth.setType(Material.AIR);
+                            if (Math.random() <= 0.01)
+                                cloth.setDurability((short) (cloth.getDurability() + 1));
+                            
                             change += clothesChangeSanity.get(getName(cloth));
                         }
                     }

@@ -1,5 +1,6 @@
 package ute.item.clothes;
 
+import org.bukkit.Material;
 import ute.Config;
 import org.bukkit.Location;
 import org.bukkit.entity.Entity;
@@ -18,14 +19,15 @@ import ute.item.ItemManager;
 public class EyeballUmbrella implements Listener {
     public static int sanityImprove = ItemManager.itemAttributes.getInt("EyeballUmbrella.sanityImprove");
     public static double range = ItemManager.itemAttributes.getDouble("EyeballUmbrella.range");
-    public static int damageIncreasePeriod = ItemManager.itemAttributes.getInt("EyeballUmbrella.sdamageIncreasePeriod");
+    public static int damageIncreasePeriod = ItemManager.itemAttributes.getInt("EyeballUmbrella.damageIncreasePeriod");
 
     public EyeballUmbrella() {
+        ItemManager.plugin.getServer().getPluginManager().registerEvents(this, ItemManager.plugin);
         ChangeTasks.clothesChangeSanity.put(ItemManager.items.get("EyeballUmbrella").displayName, sanityImprove);
         ute.cap.hum.ChangeTasks.umbrellas.add(ItemManager.items.get("EyeballUmbrella").displayName);
     }
 
-    @EventHandler(priority = EventPriority.NORMAL, ignoreCancelled = true)
+    @EventHandler(priority = EventPriority.NORMAL)
     public void onLight(LightningStrikeEvent event) {
         if (!Config.enableWorlds.contains(event.getLightning().getWorld())) return;
         Location loc = event.getLightning().getLocation();
@@ -35,17 +37,27 @@ public class EyeballUmbrella implements Listener {
             Player player = (Player) entity;
             ItemStack helmet = player.getInventory().getHelmet();
             if (ItemManager.isSimilar(helmet, getClass())) {
+                if (helmet.getDurability() >= helmet.getType().getMaxDurability())
+                    helmet.setType(Material.AIR);
+                if (Math.random() <= 0.5)
+                    helmet.setDurability((short) (helmet.getDurability() + 1));
+                
                 event.setCancelled(true);
-                player.sendMessage("[§cUntilTheEnd]§r 您的眼球伞成功吸引雷电一束！");
-                player.removePotionEffect(PotionEffectType.INCREASE_DAMAGE);
+                player.sendMessage("§c[UntilTheEnd]§r 您的眼球伞成功吸引雷电一束！");
                 player.addPotionEffect(new PotionEffect(PotionEffectType.INCREASE_DAMAGE, damageIncreasePeriod * 20, 2));
+                return;
             }
             ItemStack[] clothes = ClothesContainer.getInventory(player).getStorageContents();
             for (ItemStack cloth : clothes)
                 if (ItemManager.isSimilar(cloth, getClass())) {
+
+                    if (cloth.getDurability() >= cloth.getType().getMaxDurability())
+                        cloth.setType(Material.AIR);
+                    if (Math.random() <= 0.5)
+                        cloth.setDurability((short) (cloth.getDurability() + 1));
+                    
                     event.setCancelled(true);
-                    player.sendMessage("[§cUntilTheEnd]§r 您的眼球伞成功吸引雷电一束！");
-                    player.removePotionEffect(PotionEffectType.INCREASE_DAMAGE);
+                    player.sendMessage("§c[UntilTheEnd]§r 您的眼球伞成功吸引雷电一束！");
                     player.addPotionEffect(new PotionEffect(PotionEffectType.INCREASE_DAMAGE, damageIncreasePeriod * 20, 2));
                 }
             break;

@@ -114,6 +114,7 @@ public class ItemManager {
         new CombinedTools();
         new BluePrint();
         new ColdFire();
+        new AutoClicker();
 
         new FireWand();
         new IceWand();
