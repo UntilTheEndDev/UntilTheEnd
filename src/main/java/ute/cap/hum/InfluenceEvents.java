@@ -21,6 +21,7 @@ import java.util.HashMap;
 import java.util.UUID;
 
 public class InfluenceEvents implements Listener {
+
     public static double wetFoodLevel = Humidity.yaml.getDouble("wetFoodLevel");
 
     public InfluenceEvents(UntilTheEnd plugin) {

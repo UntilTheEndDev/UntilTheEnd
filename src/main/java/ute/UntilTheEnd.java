@@ -122,7 +122,7 @@ public class UntilTheEnd extends JavaPlugin implements Listener {
             Tiredness.initialize(this);
             CraftGuide.init();
             new CapabilityGuide();
-            Crops.initialize(this);
+            Crops.initialize();
             ItemManager.initialize(this);
             ute.player.Player.initialize(this);
             HudProvider.initialize(this);

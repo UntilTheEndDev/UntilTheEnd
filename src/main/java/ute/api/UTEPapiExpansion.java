@@ -47,14 +47,12 @@ public class UTEPapiExpansion extends PlaceholderExpansion {
                 return PlayerApi.RoleOperations.getRole(player).name;
             case "sanmax":
                 return String.valueOf(PlayerApi.SanityOperations.getMaxSanity(player));
-                //TODO
             case "healthmax":
                 return String.valueOf(PlayerManager.check(player, CheckType.HEALTHMAX));
             case "level":
                 return String.valueOf(PlayerManager.check(player, CheckType.LEVEL));
             case "damagelevel":
                 return String.valueOf(PlayerManager.check(player, CheckType.DAMAGELEVEL));
-                //TODO
             case "sanitycolor":
                 return String.valueOf(PlayerApi.SanityOperations.getSanityColor(player));
             case "temperaturecolor":

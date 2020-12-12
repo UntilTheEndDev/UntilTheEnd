@@ -28,7 +28,7 @@ Brick:
   materials:           
   - STONE               
   amounts:             
-  - 9                  
+  - 5
   category: 精炼        
 Rope:
   enable: true
@@ -39,7 +39,7 @@ Rope:
   materials:
   - STRING
   amounts:
-  - 5
+  - 3
   category: 精炼
 Plank:
   enable: true
@@ -50,7 +50,7 @@ Plank:
   materials:
   - LOG
   amounts:
-  - 3
+  - 2
   category: 精炼
 NightMare:
   enable: true
@@ -62,8 +62,10 @@ NightMare:
   - '§8-影响: §d每分钟玩家理智值减去背包里噩梦燃料的个数'
   materials:
   - GHAST_TEAR
+  - BLAZE_POWDER
   amounts:
-  - 4
+  - 1
+  - 2
   category: 精炼
 Coin:
   enable: true
@@ -87,7 +89,7 @@ Fern:
   materials:
   - SEEDS
   amounts:
-  - 6
+  - 3
   category: 精炼
 Hail:
   enable: true
@@ -105,10 +107,10 @@ Hail:
 Reed:
   enable: true
   type: EMPTY_MAP
-  name: §6芦苇
+  name: §6莎草纸
   lores:
   - §8-合成的基础材料
-  - §8-结实不易断
+  - §8-结实不易烂
   materials:
   - WHEAT
   amounts:
@@ -259,9 +261,11 @@ BushesHat:
   materials:
   - Rope
   - DEAD_BUSH
+  - LEAVES
   amounts:
   - 2
-  - 6
+  - 4
+  - 2
   category: 衣物
 Earmuff:
   enable: true
@@ -274,7 +278,7 @@ Earmuff:
   - RabbitFur
   - Rope
   amounts:
-  - 4
+  - 6
   - 2
   category: 衣物
 Garland:
@@ -286,10 +290,8 @@ Garland:
   - '§8-§d+12理智/分钟'
   materials:
   - YELLOW_FLOWER
-  - CHORUS_FLOWER
   amounts:
-  - 1
-  - 1
+  - 9
   category: 衣物
 StrawHat:
   enable: true
@@ -315,12 +317,12 @@ EyeballUmbrella:
   - '§8-§d既可以拿在手上也可以戴在头上~'
   materials:
   - Rope
-  - Garland
-  - Spit
+  - Umbrella
+  - Element
   amounts:
   - 4
   - 1
-  - 4
+  - 1
   category: 衣物
 ConstantTemperatureClothes:
   enable: true
@@ -416,12 +418,12 @@ WarmStone:
   - '§8-§d把暖石放入背包,玩家的体表温度将会向着暖石的温度而非环境温度靠近'
   - '§8-§d发暖石丢到地上一段时间,暖石将会带着该方块的余温'
   materials:
-  - Rope
+  - COBBLESTONE
   - Brick
   - FURNACE
   amounts:
-  - 4
-  - 4
+  - 2
+  - 1
   - 1
   category: 生存
 Umbrella:
@@ -472,7 +474,7 @@ HealingSalve:
   - BOWL
   - SpiderGland
   amounts:
-  - 7
+  - 2
   - 1
   - 1
   category: 生存
@@ -484,12 +486,10 @@ HoneyPoultice:
   - §8-我想知道它的原理...
   - '§8-§d拿它蹲下右击可回复六颗心'
   materials:
-  - Ashes
-  - Spit
+  - SUGAR
   - Reed
   amounts:
-  - 7
-  - 1
+  - 4
   - 1
   category: 生存
 ACDDrug:
@@ -500,13 +500,13 @@ ACDDrug:
   - §8-“该药品为处方药，请在医师指导下使用...”
   - '§8-§d拿它蹲下右击可增加3颗血量上限(最多20颗)'
   materials:
-  - BOWL
+  - SLIME_BALL
   - HealingSalve
-  - HoneyPoultice
+  - ROTTEN_FLESH
   amounts:
   - 1
-  - 4
-  - 4
+  - 2
+  - 2
   category: 生存
 LuxuryFan:
   enable: true
@@ -521,7 +521,7 @@ LuxuryFan:
   - Reed
   amounts:
   - 2
-  - 5
+  - 4
   - 2
   category: 生存
 StrawRoll:
@@ -537,7 +537,7 @@ StrawRoll:
   - Reed
   amounts:
   - 1
-  - 6
+  - 4
   category: 生存
 FurRoll:
   enable: true
@@ -549,11 +549,9 @@ FurRoll:
   - '§8-§d移动或饱食度为0时结束小憩，该物品有几率在使用时不消耗'
   materials:
   - RabbitFur
-  - Rope
   - StrawRoll
   amounts:
   - 3
-  - 1
   - 1
   category: 生存
 WaterBalloon:
@@ -567,11 +565,11 @@ WaterBalloon:
   materials:
   - WATER_BUCKET
   - Rope
-  - SpiderGland
+  - Hail
   amounts:
   - 1
   - 1
-  - 2
+  - 1
   category: 生存
 SiestaLeanto:
   enable: true
@@ -586,13 +584,11 @@ SiestaLeanto:
   materials:
   - Rope
   - Plank
-  - BANNER
-  - FurRoll
+  - CARPET
   amounts:
   - 3
   - 4
-  - 1
-  - 1
+  - 2
   category: 生存
 # 战斗####################################
 BlowArrow1:
@@ -603,15 +599,15 @@ BlowArrow1:
   - §8-看起来好危险哟，里面的?已经蓄势待发了！
   - '§8-§d拿它蹲下右击可射出一发超高伤害的剑'
   materials:
-  - Scale
   - Sclerite
   - Reed
   - DogTooth
+  - FEATHER
   amounts:
-  - 1
-  - 2
+  - 10
   - 3
   - 2
+  - 1
   category: 战斗
 BlowArrow2:
   enable: true
@@ -625,11 +621,13 @@ BlowArrow2:
   - Sclerite
   - Reed
   - DogTooth
-  - WarmStone
+  - SULPHUR
+  - FEATHER
   amounts:
-  - 2
+  - 5
   - 3
   - 2
+  - 1
   - 1
   category: 战斗
 BlowArrow3:
@@ -645,11 +643,13 @@ BlowArrow3:
   - CatTail
   - Reed
   - DogTooth
+  - FEATHER
   amounts:
-  - 2
+  - 5
   - 1
   - 3
   - 2
+  - 1
   category: 战斗
 BeeMine:
   enable: true
@@ -661,11 +661,13 @@ BeeMine:
   - '§8-§d踩中地雷的生物获得爆炸伤害和中毒效果'
   materials:
   - GOLD_PLATE
-  - FLINT
+  - SULPHUR
+  - Nitre
   - SUGAR
   - Plank
   amounts:
   - 1
+  - 2
   - 2
   - 3
   - 2
@@ -680,15 +682,15 @@ ToothTrap:
   - '§8-§d踩中陷阱的生物获得8点伤害'
   - '§8-§d陷阱被踩中后会失效，可以右击使其重新布置'
   materials:
-  - GOLD_PLATE
-  - LOG
+  - IRON_PLATE
   - Rope
   - DogTooth
+  - LEVER
   amounts:
-  - 1
   - 1
   - 2
   - 5
+  - 1
   category: 战斗
 WeatherPain:
   enable: true
@@ -715,13 +717,13 @@ Element:
   - §8-精炼的科学类材料
   - §8-幸亏我学过物理！
   materials:
-  - Hail
+  - REDSTONE
   - GOLD_INGOT
   - Brick
   amounts:
-  - 1
   - 2
-  - 6
+  - 2
+  - 2
   category: 科学
 Thermometer:
   enable: true
@@ -781,7 +783,7 @@ IceFlingomatic:
   - §8-闷烧？没听说过！
   - '§8-§d自动熄灭周围20格的闷烧'
   materials:
-  - ICE
+  - Hail
   - Element
   - Gear
   amounts:
@@ -801,10 +803,12 @@ Refridgerator:
   - Element
   - Brick
   - Gear
+  - Hail
   amounts:
   - 3
   - 4
   - 2
+  - 10
   category: 科学
 ScienceMachine:
   enable: true
@@ -817,7 +821,7 @@ ScienceMachine:
   materials:
   - LOG
   - GOLD_INGOT
-  - OBSIDIAN
+  - COBBLESTONE
   amounts:
   - 4
   - 1
@@ -837,10 +841,9 @@ AlchemyEngine:
   - Element
   amounts:
   - 4
-  - 2
+  - 4
   - 2
   category: 科学
-  
 CombinedTools: 
   enable: true
   type: DIAMOND_SWORD
@@ -850,14 +853,12 @@ CombinedTools:
   - '§8-§d剑|镐|铲|斧'
   materials:
   - Plank
-  - Brick
   - DIAMOND_SWORD
   - DIAMOND_PICKAXE
   - DIAMOND_AXE
   - DIAMOND_SPADE
   amounts:
-  - 4
-  - 4
+  - 1
   - 1
   - 1
   - 1
@@ -875,7 +876,7 @@ ColdFire:
   - FLINT
   - IRON_INGOT
   amounts:
-  - 12
+  - 6
   - 1
   - 1
   category: 科学
@@ -891,17 +892,17 @@ AutoClicker:
   type: OBSERVER
   name: §6自动交互器
   lores:
-    - §8-早安，工具人！
-    - '§8-§d收到红石信号时左击或右击面向的方块'
-    - '§8-§d右击它以切换左右和方向'
+  - §8-早安，工具人！
+  - '§8-§d收到红石信号时左击或右击面向的方块'
+  - '§8-§d右击它以切换左右和方向'
   materials:
-    - Nitre
-    - FLINT
-    - IRON_INGOT
+  - Element
+  - Brick
+  - OBSERVER
   amounts:
-    - 12
-    - 1
-    - 1
+  - 4
+  - 4
+  - 1
   category: 科学
 # 魔法####################################
 FireWand:
@@ -1080,20 +1081,20 @@ Tracker:
   type: BOW
   name: §6追踪弓
   lores:
-    - §8-魔力-MAGIC!
-    - '§8-§d射出的➹自动跟踪最近的生物'
-    - '§8-§d并非完全跟踪，只是➹的轨道会略微偏移'
-    - '§8-§d这意味着如果你准星太差，这把弓也救不了你'
+  - §8-魔力-MAGIC!
+  - '§8-§d射出的➹自动跟踪最近的生物'
+  - '§8-§d并非完全跟踪，只是➹的轨道会略微偏移'
+  - '§8-§d这意味着如果你准星太差，这把弓也救不了你'
   materials:
-    - BOW
-    - NightMare
-    - GreenGum
-    - CatTail
+  - BOW
+  - NightMare
+  - GreenGum
+  - CatTail
   amounts:
-    - 9
-    - 2
-    - 2
-    - 1
+  - 9
+  - 2
+  - 2
+  - 1
   category: 魔法
 # 人物####################################
 Beard:
@@ -1111,10 +1112,10 @@ ClothesContainer:
   - §8-衣服套衣服
   materials:
   - Plank
-  - ENDER_CHEST
-  - EMERALD
+  - ARMOR_STAND
+  - CHEST
   amounts:
   - 3
   - 1
-  - 5
+  - 1
   category: 衣物

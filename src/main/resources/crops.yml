@@ -1,5 +1,8 @@
-#农作物生长时吸水的几率
-takeWaterPercent: 0.1
+crops:
+  season: true #是否开启季节性农作物
+  takewaterup:
+    enable: true #是否开启农作物吸水
+    takeWaterPercent: 0.1 #农作物生长时吸水的几率
 #季节性作物
 seasonCrops:
   CROPS: #作物Material名字

@@ -16,7 +16,7 @@ public class Hunger implements Listener {
 
     public Hunger(UntilTheEnd plugin) {
         plugin.getServer().getPluginManager().registerEvents(this, plugin);
-        new AutoHunger().runTaskTimer(plugin, 0L, 20 * plugin.getConfig().getLong("food.hunger.speed"));
+        new AutoHunger().runTaskTimer(plugin, 0L, 20 * Food.yaml.getLong("food.hunger.speed"));
     }
 
     @EventHandler()

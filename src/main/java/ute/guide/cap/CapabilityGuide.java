@@ -192,7 +192,7 @@ public class CapabilityGuide implements Listener {
                     ActionBarManagerImpl.sendActionBar(player,"§6§l你坐在椅子上，感觉不错");
                 break;
             case SLEEP:
-                if(Math.random()<=0.3)
+                if(Math.random()<=0.2)
                     ActionBarManagerImpl.sendActionBar(player,"§6§l你小憩着，舒服极了");
                 break;
             case BLOCK:
@@ -212,7 +212,7 @@ public class CapabilityGuide implements Listener {
                     ActionBarManagerImpl.sendActionBar(player,"§6§l你站定休息，给了你感到重新行动的动力");
                 break;
             case ITEMWEIGHT:
-                if(Math.random()<=0.02)
+                if(Math.random()<=0.05)
                     ActionBarManagerImpl.sendActionBar(player,"§6§l背包里厚重的物品压得你不堪重负");
                 break;
         }

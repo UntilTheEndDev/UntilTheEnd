@@ -30,10 +30,13 @@ public class ChangeTasks {
     public static UntilTheEnd plugin = UntilTheEnd.getInstance();
     public static ArrayList<String> umbrellas = new ArrayList<String>();
     public static ArrayList<String> waterProofSuits = new ArrayList<String>();
+
     public static long weahterChangePeriod = Humidity.yaml.getLong("weahterChangePeriod");
     public static long stateChangePeriod = Humidity.yaml.getLong("stateChangePeriod");
     public static int stormSlowLevel = Humidity.yaml.getInt("stormSlowLevel", 5);
+
     public static Map<UUID, Number> stepStatus = new HashMap<>();
+
     private static final int highest;
 
     static {

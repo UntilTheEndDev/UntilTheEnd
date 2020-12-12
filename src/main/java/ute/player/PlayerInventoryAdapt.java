@@ -74,7 +74,6 @@ public class PlayerInventoryAdapt extends BukkitRunnable implements Listener {
                             inv.setItem(slots[i], item1);
                     }
                     for (int i = 35 - lockingSlot + extraSize; i > -1; i--) {
-                        // TODO: 未知原因, 等写这块的 南外丶仓鼠 查看
                         if (i >= slots.length) continue;
                         ItemStack item = inv.getItem(slots[i]);
                         if (getName(item).equalsIgnoreCase(UTEi18n.cache("item.locked")))

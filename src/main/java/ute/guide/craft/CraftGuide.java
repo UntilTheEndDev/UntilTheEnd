@@ -157,7 +157,6 @@ public class CraftGuide implements Listener {
                         if (!PlayerManager.checkUnLockedRecipes(player).contains(result_id))
                             PlayerManager.addUnLockedRecipes(player, result_id);
                         ItemApi.go_craft(player, result_id);
-                        //TODO
                         event.setCancelled(true);
                         break;
                     }

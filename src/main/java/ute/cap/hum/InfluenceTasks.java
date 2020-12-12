@@ -19,6 +19,7 @@ import ute.UntilTheEnd;
 import ute.player.PlayerManager;
 
 public class InfluenceTasks {
+
     public static long dampPeriod = Humidity.yaml.getLong("dampPeriod");
     public static double dampPercent = Humidity.yaml.getDouble("dampPercent");
     public static long seasonPeriod = Humidity.yaml.getLong("seasonPeriod");

@@ -27,7 +27,7 @@ public class RottenFoodTask {
         ItemMeta meta = rottenFood.getItemMeta();
         meta.setDisplayName("§6腐烂食物");
         rottenFood.setItemMeta(meta);
-        new RottenFood().runTaskTimer(plugin, 0L, plugin.getConfig().getInt("food.rotten.invspeed") * 20);
+        new RottenFood().runTaskTimer(plugin, 0L, Food.yaml.getInt("food.rotten.invspeed") * 20);
     }
 
     public class RottenFood extends BukkitRunnable {

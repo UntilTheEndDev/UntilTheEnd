@@ -9,8 +9,6 @@ import org.bukkit.event.Listener;
 import org.bukkit.event.entity.FoodLevelChangeEvent;
 import org.bukkit.event.player.PlayerItemConsumeEvent;
 import org.bukkit.inventory.ItemStack;
-import org.bukkit.potion.PotionEffect;
-import org.bukkit.potion.PotionEffectType;
 import ute.UntilTheEnd;
 import ute.api.PlayerApi;
 import ute.api.event.cap.SanityChangeEvent;
@@ -27,6 +25,8 @@ public class RottenFoodInfluence implements Listener {
         plugin.getServer().getPluginManager().registerEvents(this, plugin);
     }
 
+    private static int foodBeBadUnder=Food.yaml.getInt("food.rotten.foodBeBadUnder");
+    private static int rottenFoodSanityPunishment=Food.yaml.getInt("food.rotten.rottenFoodSanityPunishment");
     private HashMap<String, Integer> eatenFoodRottens = new HashMap<String, Integer>();
     private HashMap<String, Integer> eatenFoodLevels = new HashMap<String, Integer>();
 
@@ -39,7 +39,6 @@ public class RottenFoodInfluence implements Listener {
         if (item.getType() == Material.ROTTEN_FLESH) eatenFoodRottens.put(event.getPlayer().getName(), -100);
         else eatenFoodRottens.put(event.getPlayer().getName(), RottenFoodTask.getRottenLevel(item));
     }
-
     @EventHandler(priority = EventPriority.MONITOR, ignoreCancelled = true)
     public void onEat(FoodLevelChangeEvent event) {
         LivingEntity entity = event.getEntity();
@@ -48,11 +47,9 @@ public class RottenFoodInfluence implements Listener {
         if (eatenFoodRottens.containsKey(entity.getName())) {
             int level = eatenFoodRottens.get(entity.getName());
             if (level == -100) {
-                PlayerApi.SanityOperations.changeSanity(player, SanityChangeEvent.ChangeCause.FOOD,-30);
-                entity.damage(2.0);
-                entity.addPotionEffect(new PotionEffect(PotionEffectType.WITHER, 100, 0));
+                PlayerApi.SanityOperations.changeSanity(player, SanityChangeEvent.ChangeCause.FOOD,rottenFoodSanityPunishment);
                 entity.sendMessage(UTEi18n.cacheWithPrefix("mechanism.food.rotten.high"));
-                event.setFoodLevel(eatenFoodLevels.get(entity.getName()) - 1);
+                event.setFoodLevel(eatenFoodLevels.get(entity.getName()) + 1);
                 eatenFoodRottens.remove(entity.getName());
                 return;
             }
@@ -61,7 +58,7 @@ public class RottenFoodInfluence implements Listener {
             double percent = level / 100.0;
             int newLevel = (int) (percent * foodLevel + 1.0);
             event.setFoodLevel(currentLevel + newLevel);
-            if (level <= 60) {
+            if (level <= foodBeBadUnder) {
                 PlayerApi.SanityOperations.changeSanity(player, SanityChangeEvent.ChangeCause.FOOD, (int) (-15.0D * (level / 100)));
                 entity.sendMessage(UTEi18n.cacheWithPrefix("mechanism.food.rotten.low"));
                 eatenFoodRottens.remove(entity.getName());

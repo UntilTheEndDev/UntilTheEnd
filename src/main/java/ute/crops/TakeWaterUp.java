@@ -1,5 +1,6 @@
 package ute.crops;
 
+import org.bukkit.Bukkit;
 import org.bukkit.Location;
 import org.bukkit.Material;
 import org.bukkit.World;
@@ -9,17 +10,14 @@ import org.bukkit.event.EventPriority;
 import org.bukkit.event.Listener;
 import org.bukkit.event.block.BlockFromToEvent;
 import org.bukkit.event.block.BlockGrowEvent;
-
 import ute.Config;
 import ute.UntilTheEnd;
 
 public class TakeWaterUp implements Listener {
-    public static UntilTheEnd plugin;
-    static double percent = Crops.yaml.getDouble("takeWaterPercent");
+    static double percent = Crops.yaml.getDouble("crops.takewaterup.takeWaterPercent");
 
-    public TakeWaterUp(UntilTheEnd plugin) {
-        this.plugin = plugin;
-        plugin.getServer().getPluginManager().registerEvents(this, plugin);
+    public TakeWaterUp() {
+        Bukkit.getServer().getPluginManager().registerEvents(this, UntilTheEnd.getInstance());
     }
 
     @EventHandler

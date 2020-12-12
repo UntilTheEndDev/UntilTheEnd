@@ -41,6 +41,10 @@ Reed:
   canPlace: false
   isConsume: false
   needLevel: 1
+PurpleGum:
+  canPlace: false
+  isConsume: false
+  needLevel: 1
 # 简单类材料####################################################
 CatTail:
   canPlace: false
@@ -103,10 +107,6 @@ BlueGum:
   canPlace: false
   isConsume: false
   needLevel: 0
-PurpleGum:
-  canPlace: false
-  isConsume: false
-  needLevel: 2
 GreenGum:
   canPlace: false
   isConsume: false
@@ -123,7 +123,7 @@ Nitre:
 BushesHat:
   canPlace: false
   isConsume: false
-  needLevel: 1
+  needLevel: 2
 Earmuff:
   canPlace: false
   isConsume: false
@@ -137,7 +137,7 @@ Garland:
 StrawHat:
   canPlace: false
   isConsume: false
-  needLevel: 1
+  needLevel: 0
   percent: 0.3  #延缓温度上升速率的百分之多少
 EyeballUmbrella:
   canPlace: false
@@ -149,11 +149,11 @@ EyeballUmbrella:
 ConstantTemperatureClothes:
   canPlace: false
   isConsume: false
-  needLevel: 3
+  needLevel: 2
 SwimmingSuit:
   canPlace: false
   isConsume: false
-  needLevel: 3
+  needLevel: 2
 # 生存类材料####################################################
 MovablePack:
   canPlace: false
@@ -178,7 +178,7 @@ Umbrella:
 FlowerUmbrella:
   canPlace: false
   isConsume: false
-  needLevel: 2
+  needLevel: 1
 HealingSalve:
   canPlace: false
   isConsume: true
@@ -186,11 +186,11 @@ HealingSalve:
 HoneyPoultice:
   canPlace: false
   isConsume: true
-  needLevel: 1
+  needLevel: 2
 ACDDrug:
   canPlace: false
   isConsume: true
-  needLevel: 3
+  needLevel: 2
 LuxuryFan:
   canPlace: false
   isConsume: true
@@ -202,7 +202,7 @@ StrawRoll:
 FurRoll:
   canPlace: false
   isConsume: false
-  needLevel: 1
+  needLevel: 2
 WaterBalloon:
   canPlace: false
   isConsume: true
@@ -215,14 +215,14 @@ SiestaLeanto:
 BlowArrow1:
   canPlace: false
   isConsume: true
-  needLevel: 2
+  needLevel: 1
   damage: 40.0  #吹箭击中生物伤害
   range: 0.5  #吹箭击中生物的判定范围
   maxDist: 300  #吹箭最远距离
 BlowArrow2:
   canPlace: false
   isConsume: true
-  needLevel: 2
+  needLevel: 1
   damage: 20.0  
   range: 0.5
   maxDist: 300
@@ -230,7 +230,7 @@ BlowArrow2:
 BlowArrow3:
   canPlace: false
   isConsume: true
-  needLevel: 2
+  needLevel: 1
   damage: 20.0
   range: 0.5
   maxDist: 300
@@ -238,7 +238,7 @@ BlowArrow3:
 BeeMine:
   canPlace: true
   isConsume: false
-  needLevel: 2
+  needLevel: 1
   explosionAmount: 3  #爆炸规模（不破坏方块）
   poison: 10  #踩中者中毒效果持续多久
 ToothTrap:
@@ -250,7 +250,7 @@ ToothTrap:
 WeatherPain:
   canPlace: false
   isConsume: false
-  needLevel: 1
+  needLevel: 2
   dist: 50.0   #旋风最远飞距离
   range: 5.0  #旋风殃及范围
 # 科学类材料####################################################
@@ -292,9 +292,8 @@ AlchemyEngine:
   isConsume: false
   needLevel: 1
   provideLevel: 2   #提供2级科学
-  
 CombinedTools: 
-  canPlace: true
+  canPlace: false
   isConsume: false
   needLevel: 2
 ColdFire:

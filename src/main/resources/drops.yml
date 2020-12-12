@@ -64,7 +64,7 @@ WOOD:
   dropitems:
   - AnimateWood
   percents:
-  - 0.01
+  - 0.02
 STONE:
   dropitems:
     - RedGum
@@ -75,4 +75,4 @@ STONE:
     - 0.005
     - 0.005
     - 0.002
-    - 0.07
+    - 0.01

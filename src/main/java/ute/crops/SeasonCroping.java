@@ -1,5 +1,6 @@
 package ute.crops;
 
+import org.bukkit.Bukkit;
 import org.bukkit.Material;
 import org.bukkit.World;
 import org.bukkit.block.Block;
@@ -15,11 +16,8 @@ import ute.world.WorldProvider;
 import java.util.HashMap;
 
 public class SeasonCroping implements Listener {
-    public static UntilTheEnd plugin;
-
-    public SeasonCroping(UntilTheEnd plugin) {
-        SeasonCroping.plugin = plugin;
-        plugin.getServer().getPluginManager().registerEvents(this, plugin);
+    public SeasonCroping() {
+        Bukkit.getServer().getPluginManager().registerEvents(this, UntilTheEnd.getInstance());
     }
 
     @EventHandler(priority = EventPriority.LOW, ignoreCancelled = true)

@@ -86,8 +86,8 @@ public class InfluenceTasks {
                         if (currentEffect >= 0) continue;
                     }
                     if (player.hasPotionEffect(PotionEffectType.NIGHT_VISION)) continue;
-                    int needToCheck = 0; // TODO: Config setting.
-                    final Location location = player.getLocation().add(0, 1, 0); // 鍗＄伒榄傛矙
+                    int needToCheck = 0;
+                    final Location location = player.getLocation().add(0, 1, 0);
                     if (location.getY() < 1) return;
                     final Block block = location.getBlock();
                     if (location.getY() >= location.getWorld().getHighestBlockYAt(location.getBlockX(), location.getBlockZ())) {
