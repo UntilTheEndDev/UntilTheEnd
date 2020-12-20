@@ -207,7 +207,17 @@ public class Commands implements CommandExecutor, Listener, TabCompleter {
                 if (pl == null) {
                     notPlayer(cs);
                 } else {
-                    pl.sendMessage(String.valueOf(ItemFactory.getType(pl.getLocation().add(0, -1, 0).getBlock())));
+                    pl.sendMessage(String.valueOf(ItemFactory.getType(pl.getLocation().add(0, -1, 0).getBlock()))
+                            +" "+pl.getLocation().add(0, -1, 0).getBlock().getTypeId());
+                }
+                break;
+            }
+            case "durability": {
+                if (pl == null) {
+                    notPlayer(cs);
+                } else {
+                    pl.sendMessage(String.valueOf(pl.getInventory().getItemInMainHand().getDurability())+" "
+                    +String.valueOf(pl.getInventory().getItemInMainHand().getType().getMaxDurability()));
                 }
                 break;
             }

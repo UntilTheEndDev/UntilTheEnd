@@ -155,6 +155,7 @@ public class BlockManager extends BukkitRunnable implements Listener {
             onPlace$reset(toString);
             return;
         }
+        if(!item.getType().isBlock()) return;
         CustomBlockPlaceEvent evt = new CustomBlockPlaceEvent(event.getBlock(), event.getBlockReplacedState(),
                 event.getBlockAgainst(), event.getItemInHand(), event.getPlayer(), event.canBuild(), event.getHand(), ItemManager.items.get(ItemManager.getUTEItemId(item)));
         Bukkit.getPluginManager().callEvent(evt);

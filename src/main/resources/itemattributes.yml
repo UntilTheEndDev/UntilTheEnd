@@ -23,11 +23,11 @@ NightMare:
   isConsume: false
   needLevel: 2
   sanityReduce: -1  #每个噩梦燃料带来的理智变化值
-Coin:
+Coin: #TODO
   canPlace: false
   isConsume: false
   needLevel: 1
-Fern:
+Fern: #TODO
   canPlace: false
   isConsume: true
   needLevel: 0
@@ -58,7 +58,7 @@ DogTooth:
   canPlace: false
   isConsume: false
   needLevel: 0
-Horn:
+Horn: #TODO
   canPlace: false
   isConsume: false
   needLevel: 0
@@ -70,7 +70,7 @@ RabbitFur:
   canPlace: false
   isConsume: false
   needLevel: 0
-Scale:
+Scale: #TODO
   canPlace: false
   isConsume: false
   needLevel: 0
@@ -86,7 +86,7 @@ SpiderGland:
   isConsume: true
   needLevel: 0
   heal: 4.0  #每使用一个蜘蛛腺体
-Spit:
+Spit: #TODO
   canPlace: false
   isConsume: false
   needLevel: 0
@@ -154,6 +154,10 @@ SwimmingSuit:
   canPlace: false
   isConsume: false
   needLevel: 2
+ClothesContainer:
+  canPlace: false
+  isConsume: false
+  needLevel: 2
 # 生存类材料####################################################
 MovablePack:
   canPlace: false
@@ -211,19 +215,19 @@ SiestaLeanto:
   canPlace: true
   isConsume: false
   needLevel: 2
-# 战斗类材料####################################################
+# 战斗与工具类材料####################################################
 BlowArrow1:
   canPlace: false
   isConsume: true
   needLevel: 1
-  damage: 40.0  #吹箭击中生物伤害
+  damage: 20.0  #吹箭击中生物伤害
   range: 0.5  #吹箭击中生物的判定范围
   maxDist: 300  #吹箭最远距离
 BlowArrow2:
   canPlace: false
   isConsume: true
   needLevel: 1
-  damage: 20.0  
+  damage: 15.0
   range: 0.5
   maxDist: 300
   firePeriod: 20  #火吹箭击中生物着火秒数
@@ -231,7 +235,7 @@ BlowArrow3:
   canPlace: false
   isConsume: true
   needLevel: 1
-  damage: 20.0
+  damage: 12.0
   range: 0.5
   maxDist: 300
   blindPeriod: 60  #麻醉吹箭击中生物黑屏秒数
@@ -253,6 +257,22 @@ WeatherPain:
   needLevel: 2
   dist: 50.0   #旋风最远飞距离
   range: 5.0  #旋风殃及范围
+ChainingPickaxe:
+  canPlace: false
+  isConsume: false
+  needLevel: 2
+ChainingAxe:
+  canPlace: false
+  isConsume: false
+  needLevel: 2
+ChainingHoe:
+  canPlace: false
+  isConsume: false
+  needLevel: 2
+ChainingSpade:
+  canPlace: false
+  isConsume: false
+  needLevel: 2
 # 科学类材料####################################################
 Element:
   canPlace: false
@@ -369,12 +389,7 @@ Tracker:
   isConsume: false
   needLevel: 3
 # 人物类材料####################################################
-Beard:
+Beard: #TODO
   canPlace: false
   isConsume: false
   needLevel: 0
-# 其它材料####################################################
-ClothesContainer:
-  canPlace: false
-  isConsume: false
-  needLevel: 2

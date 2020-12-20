@@ -105,6 +105,10 @@ public class ItemManager {
         new BeeMine();
         new ToothTrap();
         new WeatherPain();
+        new ChainingPickaxe();
+        new ChainingAxe();
+        new ChainingHoe();
+        new ChainingSpade();
 
         new Thermometer();
         new Hygrometer();

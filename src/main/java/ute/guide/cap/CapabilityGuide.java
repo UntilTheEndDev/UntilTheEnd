@@ -245,7 +245,7 @@ public class CapabilityGuide implements Listener {
                         if(Math.random()<=0.05)
                             ActionBarManagerImpl.sendActionBar(player,"§6§l你可以慢慢走、停下、坐下、睡一会来提升疲劳值");
                     }
-                    if(Math.random()<=0.05)
+                    if(Math.random()<=0.01)
                         ActionBarManagerImpl.sendActionBar(player,"§6§l你可以使用/ute guide获取合成指南~");
                 }
             }

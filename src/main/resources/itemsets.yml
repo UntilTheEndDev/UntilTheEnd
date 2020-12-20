@@ -15,7 +15,7 @@
 #注意：
 #materials下只能填写原版Material名或者UTE物品英文ID
 #amounts所有数字加起来不应该大于9（可以等于9）
-#category可以填写：  精炼 科学 战斗 魔法 衣物 生存
+#category可以填写：  精炼 科学 战斗与工具 魔法 衣物 生存
 ########################################
 
 # 精炼####################################
@@ -85,7 +85,7 @@ Fern:
   lores:
   - §8-合成的基础材料
   - §8-原生态的食物(＾－＾)V
-  - '§8-效用: §d拿它蹲下右击可食用并提升0.5血量'
+  - '§8-§d右击可食用，提升0.5血量'
   materials:
   - SEEDS
   amounts:
@@ -98,7 +98,7 @@ Hail:
   lores:
   - §8-合成的基础材料
   - §8-好凉快！
-  - '§8-效用: §d拿它蹲下右击可降低温度'
+  - '§8-§d右击可使用，降低温度'
   materials:
   - PACKED_ICE
   amounts:
@@ -193,7 +193,7 @@ SpiderGland:
   lores:
   - §8-用它治疗虽然原始了点但很有效！
   - '§8-§d掉落于生物'
-  - '§8-效用: §d拿它蹲下右击可回复两颗心'
+  - '§8-§d右击可包扎，回复血量'
 Spit:
   enable: true
   type: SUGAR
@@ -415,8 +415,8 @@ WarmStone:
   name: §6暖石
   lores:
   - §8-便携式空调！
-  - '§8-§d把暖石放入背包,玩家的体表温度将会向着暖石的温度而非环境温度靠近'
   - '§8-§d发暖石丢到地上一段时间,暖石将会带着该方块的余温'
+  - '§8-§d把暖石放入背包,玩家的体表温度将会向着暖石的温度而非环境温度靠近'
   materials:
   - COBBLESTONE
   - Brick
@@ -468,7 +468,7 @@ HealingSalve:
   name: §6治疗药膏
   lores:
   - §8-相比于蜘蛛腺体，用它体面了许多！
-  - '§8-§d拿它蹲下右击可回复五颗心'
+  - '§8-§d右击可包扎，回复大量血量'
   materials:
   - Ashes
   - BOWL
@@ -484,7 +484,7 @@ HoneyPoultice:
   name: §6止血剂
   lores:
   - §8-我想知道它的原理...
-  - '§8-§d拿它蹲下右击可回复六颗心'
+  - '§8-§d右击可包扎，回复极大量血量'
   materials:
   - SUGAR
   - Reed
@@ -498,7 +498,7 @@ ACDDrug:
   name: §6ACD试验药
   lores:
   - §8-“该药品为处方药，请在医师指导下使用...”
-  - '§8-§d拿它蹲下右击可增加3颗血量上限(最多20颗)'
+  - '§8-§d右击可注射，增加血量上限(最多20颗心)'
   materials:
   - SLIME_BALL
   - HealingSalve
@@ -514,7 +514,7 @@ LuxuryFan:
   name: §6豪华风扇
   lores:
   - §8-凉快~
-  - '§8-§d拿它蹲下右击可使得周围5*5*5区域的温度降低30度'
+  - '§8-§d右击可煽动，使得周围5*5*5区域的温度降低30度'
   materials:
   - Rope
   - CowHair
@@ -530,7 +530,7 @@ StrawRoll:
   name: §6稻草卷
   lores:
   - §8-睡个安稳觉
-  - '§8-§d拿它蹲下右击可进入小憩模式，增加理智、生命'
+  - '§8-§d右击可进入小憩模式，增加理智、生命'
   - '§8-§d移动或饱食度为0时结束小憩'
   materials:
   - Rope
@@ -545,7 +545,7 @@ FurRoll:
   name: §6毛皮卷
   lores:
   - §8-多睡几个安稳觉
-  - '§8-§d拿它蹲下右击可进入小憩模式，更快增加理智、生命'
+  - '§8-§d右击可进入小憩模式，更快增加理智、生命'
   - '§8-§d移动或饱食度为0时结束小憩，该物品有几率在使用时不消耗'
   materials:
   - RabbitFur
@@ -560,7 +560,7 @@ WaterBalloon:
   name: §6水球
   lores:
   - §8-妈妈再也不怕我掉岩浆了！
-  - '§8-§d拿它蹲下右击可引爆水球'
+  - '§8-§d右击可引爆水球'
   - '§8-§d大幅度降低温度并熄灭周围的热源，还能吸水~'
   materials:
   - WATER_BUCKET
@@ -590,14 +590,14 @@ SiestaLeanto:
   - 4
   - 2
   category: 生存
-# 战斗####################################
+# 战斗与工具####################################
 BlowArrow1:
   enable: true
   type: MAP
   name: §6吹箭
   lores:
   - §8-看起来好危险哟，里面的?已经蓄势待发了！
-  - '§8-§d拿它蹲下右击可射出一发超高伤害的剑'
+  - '§8-§d右击可射出一发超高伤害的剑'
   materials:
   - Sclerite
   - Reed
@@ -608,15 +608,15 @@ BlowArrow1:
   - 3
   - 2
   - 1
-  category: 战斗
+  category: 战斗与工具
 BlowArrow2:
   enable: true
   type: MAP
   name: §6火吹箭
   lores:
   - §8-浓浓的火药味.
-  - '§8-§d拿它蹲下右击可射出一发较高伤害的剑'
-  - '§8-§d被射中的生物着火很长时间'
+  - '§8-§d右击可射出一发较高伤害的剑'
+  - '§8-§d被射中的生物受到大量真实伤害，并着火很长时间'
   materials:
   - Sclerite
   - Reed
@@ -629,15 +629,15 @@ BlowArrow2:
   - 2
   - 1
   - 1
-  category: 战斗
+  category: 战斗与工具
 BlowArrow3:
   enable: true
   type: MAP
   name: §6麻醉吹箭
   lores:
   - §8-这味道让我昏昏欲睡.
-  - '§8-§d拿它蹲下右击可射出一发中等伤害的剑'
-  - '§8-§d被射中的玩家无法看见任何东西很长时间'
+  - '§8-§d右击可射出一发高伤害的剑'
+  - '§8-§d被射中的玩家受到大量真实伤害，无法看见任何东西很长时间'
   materials:
   - Sclerite
   - CatTail
@@ -650,7 +650,7 @@ BlowArrow3:
   - 3
   - 2
   - 1
-  category: 战斗
+  category: 战斗与工具
 BeeMine:
   enable: true
   type: GOLD_PLATE
@@ -671,7 +671,7 @@ BeeMine:
   - 2
   - 3
   - 2
-  category: 战斗
+  category: 战斗与工具
 ToothTrap:
   enable: true
   type: IRON_PLATE
@@ -691,7 +691,7 @@ ToothTrap:
   - 2
   - 5
   - 1
-  category: 战斗
+  category: 战斗与工具
 WeatherPain:
   enable: true
   type: IRON_HOE
@@ -707,7 +707,75 @@ WeatherPain:
   - 4
   - 3
   - 2
-  category: 战斗
+  category: 战斗与工具
+ChainingPickaxe:
+  enable: true
+  type: DIAMOND_PICKAXE
+  name: §6连锁镐
+  lores:
+  - §8-套娃.
+  - '§8-§d挖掘矿物时可连锁挖掉相邻的同种矿物'
+  - '§8-§d连锁挖掘时会额外消耗饱食度'
+  materials:
+  - DIAMOND_PICKAXE
+  - Gear
+  - Element
+  amounts:
+  - 1
+  - 3
+  - 2
+  category: 战斗与工具
+ChainingAxe:
+  enable: true
+  type: DIAMOND_AXE
+  name: §6连锁斧
+  lores:
+  - §8-套娃.
+  - '§8-§d砍伐木头时可连锁挖掉整棵树'
+  - '§8-§d连锁伐木时会额外消耗饱食度'
+  materials:
+  - DIAMOND_AXE
+  - Gear
+  - Element
+  amounts:
+  - 1
+  - 3
+  - 2
+  category: 战斗与工具
+ChainingHoe:
+  enable: true
+  type: DIAMOND_HOE
+  name: §6连锁锄
+  lores:
+  - §8-套娃.
+  - '§8-§d锄地时可连锁锄一大片地'
+  - '§8-§d连锁锄地时会额外消耗饱食度'
+  materials:
+  - DIAMOND_HOE
+  - Gear
+  - Element
+  amounts:
+  - 1
+  - 3
+  - 2
+  category: 战斗与工具
+ChainingSpade:
+  enable: true
+  type: DIAMOND_SPADE
+  name: §6连锁铲
+  lores:
+  - §8-套娃.
+  - '§8-§d铲地时可连锁铲一大片地，挖掘时可连锁挖一大片地'
+  - '§8-§d连锁铲地|挖掘时会额外消耗饱食度'
+  materials:
+  - DIAMOND_SPADE
+  - Gear
+  - Element
+  amounts:
+  - 1
+  - 3
+  - 2
+  category: 战斗与工具
 # 科学####################################
 Element:
   enable: true
