@@ -20,10 +20,12 @@ import java.util.*;
 public class DisableManager {
     public static final YamlConfiguration root = Config.autoUpdateConfigs("disable.yml");
     public static boolean bypass_right_action_cancelled;
+    public static boolean disable_actionbar;
 
     static {
         Logging.getLogger().fine("[DisableManager] Loading disable manager's data....");
         bypass_right_action_cancelled = root.getBoolean("bypass_right_action_cancelled", false);
+        disable_actionbar = root.getBoolean("disable_actionbar", false);
     }
 
     public static class CheckTypeChecking {

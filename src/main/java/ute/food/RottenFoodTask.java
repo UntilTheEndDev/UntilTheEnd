@@ -68,13 +68,13 @@ public class RottenFoodTask {
     }
 
     public static int getRottenLevel(ItemStack item) {
-        if (item == null) return 100;
+        if (item == null) return 101;
         if (item.hasItemMeta())
             if (item.getItemMeta().hasLore())
                 for (String str : item.getItemMeta().getLore())
                     if (str.contains("§8- §8§l新鲜度 "))
                         return Integer.valueOf(str.replace("§8- §8§l新鲜度 ", ""));
-        return 100;
+        return 101;
     }
 
     public static ItemStack setRottenLevel(ItemStack item, int currentLevel) {

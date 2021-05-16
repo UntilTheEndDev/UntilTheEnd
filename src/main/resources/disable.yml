@@ -19,3 +19,6 @@ bypass_right_action_cancelled: true
 
 # 是否关闭 Cave 世界
 disable_cave_world: true
+
+#是否关闭actionbar的温馨提示(true表示关闭)
+disable_actionbar: false

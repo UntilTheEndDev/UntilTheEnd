@@ -14,6 +14,7 @@ import ute.api.event.cap.HumidityChangeEvent;
 import ute.api.event.cap.SanityChangeEvent;
 import ute.api.event.cap.TemperatureChangeEvent;
 import ute.api.event.cap.TirednessChangeEvent;
+import ute.internal.DisableManager;
 import ute.internal.NPCChecker;
 import ute.internal.ResidenceChecker;
 import ute.nms.reflect.ActionBarManagerImpl;
@@ -21,6 +22,9 @@ import ute.nms.reflect.ActionBarManagerImpl;
 public class CapabilityGuide implements Listener {
 
     public CapabilityGuide(){
+        if(DisableManager.disable_actionbar){
+            return;
+        }
         new StateGuider().runTaskTimer(UntilTheEnd.getInstance(),0L,10L);
         Bukkit.getPluginManager().registerEvents(this, UntilTheEnd.getInstance());
     }

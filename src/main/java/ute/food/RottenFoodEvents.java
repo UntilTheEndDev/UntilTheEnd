@@ -1,7 +1,5 @@
 package ute.food;
 
-import ute.Config;
-import ute.internal.ItemFactory;
 import org.bukkit.*;
 import org.bukkit.block.Block;
 import org.bukkit.block.BlockState;
@@ -10,6 +8,7 @@ import org.bukkit.event.EventHandler;
 import org.bukkit.event.EventPriority;
 import org.bukkit.event.Listener;
 import org.bukkit.event.block.BlockBreakEvent;
+import org.bukkit.event.inventory.InventoryClickEvent;
 import org.bukkit.event.inventory.InventoryOpenEvent;
 import org.bukkit.event.world.ChunkLoadEvent;
 import org.bukkit.event.world.ChunkUnloadEvent;
@@ -18,6 +17,8 @@ import org.bukkit.inventory.Inventory;
 import org.bukkit.inventory.InventoryHolder;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
+import ute.Config;
+import ute.internal.ItemFactory;
 
 import java.util.*;
 import java.util.concurrent.ConcurrentHashMap;
@@ -139,6 +140,34 @@ public class RottenFoodEvents implements Listener, Runnable {
     @EventHandler()
     public void onChunkLoading(ChunkLoadEvent event) {
         load(event.getChunk());
+    }
+
+    @EventHandler(priority = EventPriority.MONITOR)
+    public void onCombine(InventoryClickEvent event){
+        Inventory inv=event.getInventory();
+        if(inv==null){
+            return;
+        }
+        if(event.isCancelled()){
+            return;
+        }
+        if(event.getCurrentItem()!=null && event.getCursor()!=null ){
+            ItemStack item1=event.getCurrentItem();
+            ItemStack item2=event.getCursor();
+            if(item1.getType()==item2.getType()){
+                if(item1.getDurability()==item2.getDurability()){
+                    if(RottenFoodTask.getRottenLevel(item1)!=101 &&RottenFoodTask.getRottenLevel(item2)!=101){
+                        event.setCancelled(true);
+                        int result=item1.getAmount()*RottenFoodTask.getRottenLevel(item1)+item2.getAmount()*RottenFoodTask.getRottenLevel(item2);
+                        event.setCursor(new ItemStack(Material.AIR));
+                        ItemStack tmp=item2.clone();
+                        tmp.setAmount(item1.getAmount()+item2.getAmount());
+                        RottenFoodTask.setRottenLevel(tmp,result/tmp.getAmount());
+                        event.setCurrentItem(tmp);
+                    }
+                }
+            }
+        }
     }
 
     @EventHandler()
