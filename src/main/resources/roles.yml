@@ -3,7 +3,7 @@ enabled: true
 reset-on-death: true
 
 # 金币选择
-# 需要 Vault 支持
+# 需要Vault支持
 economy:
   enable: false
   use-js: false

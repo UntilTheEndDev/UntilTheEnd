@@ -21,7 +21,7 @@ dampHumidity: 10
 wetBlocks:
   #格式：
   #方块Material名字: 变样的方块Material名字
-  COBBLESTONE: MOSSY_COBBLESTONE #圆石变苔石
+  COBBLESTONE: MOSSY_COBBLESTONE #圆石→苔石
   STONE: COBBLESTONE
   SAND: GRAVEL
   CONCRETE: STAINED_CLAY
