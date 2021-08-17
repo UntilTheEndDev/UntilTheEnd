@@ -20,6 +20,8 @@ public class LightningArrester implements Listener {
         if (!Config.enableWorlds.contains(loc.getWorld())) return;
         for (String str : BlockApi.getSpecialBlocks("LightningArrester")) {
             Location loc2 = BlockApi.strToLoc(str);
+            if(!loc2.getWorld().getName().equalsIgnoreCase(loc.getWorld().getName()))
+                continue;
             if (loc.distance(loc2) <= 20) {
                 event.setCancelled(true);
                 loc.getWorld().strikeLightning(loc2.add(0.5, 0.5, 0.5));

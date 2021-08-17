@@ -22,6 +22,8 @@
 #                          ...                                              ....                             
 #语言-可用的官方语言：i18n.zh_cn.yml、i18n.zh_tw
 language: 'i18n.zh_cn.yml'
+#是否开启位于Actionbar的温馨提示
+actionbartips: true
 #物品设置##########################################################
 item:
   sawer: 

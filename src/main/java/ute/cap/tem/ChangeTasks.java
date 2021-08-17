@@ -118,10 +118,15 @@ public class ChangeTasks {
             for (ItemStack item : inv.getArmorContents())
                 if (clothesChangeTemperature.containsKey(getName(item))) {
 
-                    if (item.getDurability() >= item.getType().getMaxDurability())
+                    if (item.getDurability() >= item.getType().getMaxDurability()) {
                         item.setType(Material.AIR);
+                        continue;
+                    }
                     if (Math.random() <= 0.01)
                         item.setDurability((short) (item.getDurability() + 1));
+
+                    if(getName(item).equalsIgnoreCase(ItemManager.items.get("ConstantTemperatureClothes").displayName))
+                        return false;
 
                     if (clothesChangeTemperature.get(getName(item)) > 0) {
                         upFactor += clothesChangeTemperature.get(getName(item));
@@ -131,17 +136,21 @@ public class ChangeTasks {
             for (ItemStack cloth : clothes) {
                 if (clothesChangeTemperature.containsKey(getName(cloth))) {
 
-                    if (cloth.getDurability() >= cloth.getType().getMaxDurability())
+                    if (cloth.getDurability() >= cloth.getType().getMaxDurability()) {
                         cloth.setType(Material.AIR);
+                        continue;
+                    }
                     if (Math.random() <= 0.01)
                         cloth.setDurability((short) (cloth.getDurability() + 1));
+
+                    if(getName(cloth).equalsIgnoreCase(ItemManager.items.get("ConstantTemperatureClothes").displayName))
+                        return false;
 
                     if (clothesChangeTemperature.get(getName(cloth)) > 0) {
                         upFactor += clothesChangeTemperature.get(getName(cloth));
                     } else downFactor += clothesChangeTemperature.get(getName(cloth));
                 }
             }
-            if (upFactor == 2) return false;
             if (upOrDown) {
                 return !(Math.random() < upFactor);
             } else {

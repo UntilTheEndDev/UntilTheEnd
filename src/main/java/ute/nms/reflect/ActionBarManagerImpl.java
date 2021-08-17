@@ -1,5 +1,6 @@
 package ute.nms.reflect;
 
+import ute.UntilTheEnd;
 import ute.nms.ActionBarManager;
 import ute.nms.NMSHelper;
 import ute.nms.ReflectionUtil;
@@ -43,6 +44,9 @@ public class ActionBarManagerImpl extends ActionBarManager {
 
     @Override
     protected void sendActionBar0(Player player, String line) {
+        if(!UntilTheEnd.getInstance().getConfig().getBoolean("actionbartips")){
+            return;
+        }
         NMSHelper.sendPacket(
                 NMSHelper.getPlayerConnection(
                         NMSHelper.getHandle(player)

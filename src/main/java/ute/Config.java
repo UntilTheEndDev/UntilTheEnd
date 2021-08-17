@@ -1,12 +1,5 @@
 package ute;
 
-import java.io.*;
-import java.nio.charset.StandardCharsets;
-import java.util.*;
-import java.util.logging.Level;
-import java.util.stream.Collectors;
-
-import ute.internal.YamlUpdater;
 import org.bukkit.Bukkit;
 import org.bukkit.World;
 import org.bukkit.configuration.file.YamlConfiguration;
@@ -15,6 +8,13 @@ import org.bukkit.event.Listener;
 import org.bukkit.event.world.WorldLoadEvent;
 import org.bukkit.event.world.WorldUnloadEvent;
 import org.jetbrains.annotations.NotNull;
+import ute.internal.YamlUpdater;
+
+import java.io.*;
+import java.nio.charset.StandardCharsets;
+import java.util.*;
+import java.util.logging.Level;
+import java.util.stream.Collectors;
 
 public class Config {
     public static UntilTheEnd plugin = UntilTheEnd.getInstance();
@@ -30,6 +30,7 @@ public class Config {
 
     public static void initialize() {
         disables.addAll(plugin.getConfig().getStringList("disableWorlds"));
+        autoUpdateConfigs("config.yml");
         Bukkit.getWorlds().forEach(Config::registerWorld);
         Bukkit.getPluginManager().registerEvents(new Listener() {
             @EventHandler()

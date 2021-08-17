@@ -17,8 +17,7 @@ public class ACDDrug implements Listener {
         Player player=event.getWho();
         if (event.getUteItem().id.equalsIgnoreCase("ACDDrug")) {
             event.setCancelled(true);
-            if (player.getMaxHealth() + 6.0 >= 40.0) player.setMaxHealth(40.0);
-            else player.setMaxHealth(player.getMaxHealth() + 6.0);
+            player.setMaxHealth(player.getMaxHealth() + 6.0);
         }
     }
 }
