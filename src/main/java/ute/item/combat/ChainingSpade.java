@@ -62,6 +62,10 @@ public class ChainingSpade implements Listener {
             }
             for(int index=0;index<mines.size()&&player.getFoodLevel()>0;index++){
                 Location loc=mines.get(index);
+                BlockBreakEvent evt=new BlockBreakEvent(loc.getBlock(), player);
+                Bukkit.getPluginManager().callEvent(evt);
+                if(evt.isCancelled())
+                    continue;
                 loc.getBlock().setType(Material.GRASS_PATH);
                 if(item.containsEnchantment(Enchantment.DURABILITY)){
                     if(Math.random()<=1-0.3*item.getEnchantmentLevel(Enchantment.DURABILITY))
@@ -114,6 +118,10 @@ public class ChainingSpade implements Listener {
             }
             for(int index=0;index<mines.size()&&player.getFoodLevel()>0;index++){
                 Location loc=mines.get(index);
+                BlockBreakEvent evt=new BlockBreakEvent(loc.getBlock(), player);
+                Bukkit.getPluginManager().callEvent(evt);
+                if(evt.isCancelled())
+                    continue;
                 loc.getBlock().breakNaturally();
                 if(item.containsEnchantment(Enchantment.DURABILITY)){
                     if(Math.random()<=1-0.3*item.getEnchantmentLevel(Enchantment.DURABILITY))

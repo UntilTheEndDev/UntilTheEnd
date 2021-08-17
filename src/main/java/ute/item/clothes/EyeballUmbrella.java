@@ -1,6 +1,9 @@
 package ute.item.clothes;
 
+import org.bukkit.Bukkit;
 import org.bukkit.Material;
+import org.bukkit.configuration.file.YamlConfiguration;
+import org.bukkit.inventory.Inventory;
 import ute.Config;
 import org.bukkit.Location;
 import org.bukkit.entity.Entity;
@@ -15,6 +18,8 @@ import org.bukkit.potion.PotionEffectType;
 
 import ute.cap.san.ChangeTasks;
 import ute.item.ItemManager;
+
+import java.io.File;
 
 public class EyeballUmbrella implements Listener {
     public static int sanityImprove = ItemManager.itemAttributes.getInt("EyeballUmbrella.sanityImprove");
@@ -46,6 +51,16 @@ public class EyeballUmbrella implements Listener {
                 player.sendMessage("§c[UntilTheEnd]§r 您的眼球伞成功吸引雷电一束！");
                 player.addPotionEffect(new PotionEffect(PotionEffectType.INCREASE_DAMAGE, damageIncreasePeriod * 20, 2));
                 return;
+            }
+            if(ClothesContainer.getInventory(player)==null) {
+                File file = new File(ItemManager.plugin.getDataFolder() + "/clothes", player.getUniqueId().toString() + ".yml");
+                YamlConfiguration yaml = YamlConfiguration.loadConfiguration(file);
+                Inventory inv = Bukkit.createInventory(player, 9, ItemManager.items.get("ClothesContainer").displayName);
+                for (String path : yaml.getKeys(false)) {
+                    ItemStack item = yaml.getItemStack(path);
+                    inv.setItem(Integer.parseInt(path), item);
+                }
+                ClothesContainer.invs.put(player.getUniqueId(), inv);
             }
             ItemStack[] clothes = ClothesContainer.getInventory(player).getStorageContents();
             for (ItemStack cloth : clothes)

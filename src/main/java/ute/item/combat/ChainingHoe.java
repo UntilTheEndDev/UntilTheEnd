@@ -9,6 +9,7 @@ import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.block.Action;
+import org.bukkit.event.block.BlockBreakEvent;
 import org.bukkit.event.player.PlayerInteractEvent;
 import org.bukkit.inventory.ItemStack;
 import ute.UntilTheEnd;
@@ -61,6 +62,10 @@ public class ChainingHoe implements Listener {
             }
             for(int index=0;index<mines.size()&&player.getFoodLevel()>0;index++){
                 Location loc=mines.get(index);
+                BlockBreakEvent evt=new BlockBreakEvent(loc.getBlock(), player);
+                Bukkit.getPluginManager().callEvent(evt);
+                if(evt.isCancelled())
+                    continue;
                 loc.getBlock().setType(Material.SOIL);
                 if(item.containsEnchantment(Enchantment.DURABILITY)){
                     if(Math.random()<=1-0.3*item.getEnchantmentLevel(Enchantment.DURABILITY))

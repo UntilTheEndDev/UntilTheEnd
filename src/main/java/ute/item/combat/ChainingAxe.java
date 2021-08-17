@@ -62,6 +62,10 @@ public class ChainingAxe implements Listener {
             }
             player.setFoodLevel(player.getFoodLevel()-(mines.size()/7));
             for(Location loc:mines){
+                BlockBreakEvent evt=new BlockBreakEvent(loc.getBlock(), player);
+                Bukkit.getPluginManager().callEvent(evt);
+                if(evt.isCancelled())
+                    continue;
                 loc.getBlock().breakNaturally();
                 if(item.containsEnchantment(Enchantment.DURABILITY)){
                     if(Math.random()<=1-0.3*item.getEnchantmentLevel(Enchantment.DURABILITY))
