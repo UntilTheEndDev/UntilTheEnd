@@ -19,6 +19,7 @@ import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
 import ute.Config;
 import ute.internal.ItemFactory;
+import ute.nms.NMSManager;
 
 import java.util.*;
 import java.util.concurrent.ConcurrentHashMap;
@@ -154,6 +155,14 @@ public class RottenFoodEvents implements Listener, Runnable {
         if(event.getCurrentItem()!=null && event.getCursor()!=null ){
             ItemStack item1=event.getCurrentItem();
             ItemStack item2=event.getCursor();
+            if(!(NMSManager.version.contains("13")
+            ||NMSManager.version.contains("14")
+                    ||NMSManager.version.contains("15")
+                    ||NMSManager.version.contains("16")
+                    ||NMSManager.version.contains("17"))){
+                if(item1.getTypeId()!=item2.getTypeId())
+                    return;
+            }
             if(item1.getType()==item2.getType()){
                 if(item1.getDurability()==item2.getDurability()){
                     if(RottenFoodTask.getRottenLevel(item1)!=101 &&RottenFoodTask.getRottenLevel(item2)!=101){
